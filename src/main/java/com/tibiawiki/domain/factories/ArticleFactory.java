@@ -1,5 +1,6 @@
 package com.tibiawiki.domain.factories;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Strings;
 import com.tibiawiki.domain.objects.Creature;
@@ -171,6 +172,9 @@ public class ArticleFactory {
 
     private <T> T mapJsonToObject(String wikiObjectJson, Class<T> clazz) {
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
+//        objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         try {
             return objectMapper.readValue(wikiObjectJson, clazz);
         } catch (IOException e) {
@@ -193,7 +197,7 @@ public class ArticleFactory {
     private JSONArray makeLootTableArray(String lootValue) {
         List<JSONObject> lootItemJsonObjects = new ArrayList<>();
 
-        if (lootValue.matches("\\{\\{Loot Table(\\||\\s|)}}")) {
+        if (lootValue.matches("\\{\\{Loot Table(\\||\\s|[\\n\\s]+|)}}")) {
             return new JSONArray();
         }
 

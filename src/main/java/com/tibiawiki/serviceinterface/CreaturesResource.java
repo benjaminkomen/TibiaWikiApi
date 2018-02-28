@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.Optional;
 
+@Path("/")
 public class CreaturesResource {
 
     private RetrieveCreatures retrieveCreatures;
@@ -37,9 +38,7 @@ public class CreaturesResource {
     @Path("/creatures/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCreatureByName(@PathParam("name") String name) {
-        Optional<Creature> creature = retrieveCreatures.getCreatures().stream()
-                .filter(c -> c.getName().equals(name))
-                .findFirst();
+        Optional<Creature> creature = retrieveCreatures.getCreature(name);
 
         if (!creature.isPresent()) {
             return Response.status(Response.Status.NOT_FOUND)
