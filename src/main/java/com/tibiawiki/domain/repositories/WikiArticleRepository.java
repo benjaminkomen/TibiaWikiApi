@@ -52,7 +52,7 @@ public class WikiArticleRepository {
 
     public List<WikiObject> getWikiObjects(String[] pageNames) {
         return getArticles(pageNames).stream()
-                .map(a -> new ArticleFactory().createWikiObject(a))
+                .map(new ArticleFactory()::createWikiObject)
                 .collect(Collectors.toList());
     }
 }

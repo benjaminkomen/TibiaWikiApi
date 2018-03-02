@@ -1,6 +1,5 @@
 package com.tibiawiki.domain.factories;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Strings;
 import com.tibiawiki.domain.objects.Creature;
@@ -92,8 +91,6 @@ public class ArticleFactory {
         int maxKeyLength = wikiObject.maxFieldSize() + 2;
 
         for (String key : wikiObject.getFieldNames()) {
-            int keyLength = key.length();
-//            int padding = maxKeyLength - keyLength + 2; // ammount of spaces to pad
             Object value = wikiObject.getValue(key);
             String paddedKey = Strings.padEnd(key, maxKeyLength, ' ');
             sb.append("| ")
@@ -122,7 +119,7 @@ public class ArticleFactory {
     }
 
     private String getTemplateType(String infoboxTemplatePartOfArticle) {
-        int startOfTemplateName = infoboxTemplatePartOfArticle.indexOf("{{Infobox") + 9;
+        int startOfTemplateName = infoboxTemplatePartOfArticle.indexOf(INFOBOX_HEADER) + 9;
         int endOfTemplateName = infoboxTemplatePartOfArticle.indexOf('|');
         if (startOfTemplateName >= 0 && endOfTemplateName >= 0) {
             return infoboxTemplatePartOfArticle.substring(startOfTemplateName, endOfTemplateName).trim();
@@ -172,8 +169,6 @@ public class ArticleFactory {
 
     private <T> T mapJsonToObject(String wikiObjectJson, Class<T> clazz) {
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
 //        objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         try {
             return objectMapper.readValue(wikiObjectJson, clazz);
@@ -197,7 +192,7 @@ public class ArticleFactory {
     private JSONArray makeLootTableArray(String lootValue) {
         List<JSONObject> lootItemJsonObjects = new ArrayList<>();
 
-        if (lootValue.matches("\\{\\{Loot Table(\\||\\s|[\\n\\s]+|)}}")) {
+        if (lootValue.matches("(\\{\\{Loot Table(\\||\\s|[\\n\\s]+|)}}|)")) {
             return new JSONArray();
         }
 
