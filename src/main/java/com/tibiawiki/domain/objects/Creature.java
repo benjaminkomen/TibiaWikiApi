@@ -3,19 +3,16 @@ package com.tibiawiki.domain.objects;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.tibiawiki.domain.enums.BestiaryClass;
 import com.tibiawiki.domain.enums.BestiaryLevel;
 import com.tibiawiki.domain.enums.Spawntype;
 import com.tibiawiki.domain.enums.YesNo;
-import com.tibiawiki.domain.jackson.CustomDeserializer;
-import lombok.*;
+import lombok.Getter;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 @JsonIgnoreProperties({"objectType"})
-@JsonDeserialize(using = CustomDeserializer.class)
 @Getter
 public class Creature extends WikiObject {
 
@@ -88,6 +85,12 @@ public class Creature extends WikiObject {
 
     @Override
     public List<String> fieldOrder() {
-        return Collections.emptyList();
+        return Arrays.asList("name", "article", "actualname", "plural", "hp", "exp", "armor", "summon", "convince",
+                "illusionable", "creatureclass", "primarytype", "secondarytype", "bestiaryclass", "bestiarylevel",
+                "spawntype", "isboss", "isarenaboss", "isevent", "abilities", "usedelements", "maxdmg", "pushable",
+                "pushobjects", "walksaround", "walksthrough", "paraimmune", "senseinvis", "physicalDmgMod", "holyDmgMod",
+                "deathDmgMod", "fireDmgMod", "energyDmgMod", "iceDmgMod", "earthDmgMod", "drownDmgMod", "hpDrainDmgMod",
+                "healmod", "bestiaryname", "bestiarytext", "sounds", "implemented", "notes", "behaviour", "runsat",
+                "speed", "strategy", "location", "loot", "history", "status");
     }
 }

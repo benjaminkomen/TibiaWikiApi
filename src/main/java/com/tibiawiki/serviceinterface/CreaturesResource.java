@@ -45,7 +45,7 @@ public class CreaturesResource {
                     .build();
         } else {
             return Response.ok()
-                    .entity(creature)
+                    .entity(creature.get())
                     .header("Access-Control-Allow-Origin", "*")
                     .build();
         }

@@ -1,5 +1,6 @@
 package com.tibiawiki.domain.objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tibiawiki.domain.enums.Article;
 import com.tibiawiki.domain.enums.Status;
 import com.tibiawiki.domain.interfaces.Description;
@@ -29,6 +30,7 @@ public abstract class WikiObject {
 
     public abstract List<String> fieldOrder();
 
+    @JsonIgnore
     public List<String> getFieldNames() {
         List<String> existingFieldNames = getFields().stream()
                 .map(Field::getName)
@@ -39,6 +41,7 @@ public abstract class WikiObject {
                 .collect(Collectors.toList());
     }
 
+    @JsonIgnore
     public List<Field> getFields() {
         List<Field> allFields = new ArrayList<>();
 
@@ -59,6 +62,7 @@ public abstract class WikiObject {
                 .orElse(0);
     }
 
+    @JsonIgnore
     public Object getValue(String fieldName) {
         return getFields().stream()
                 .filter(this::fieldHasValue)
@@ -89,8 +93,14 @@ public abstract class WikiObject {
         }
     }
 
+    @JsonIgnore
     public String getClassName() {
         return this.getClass().getSimpleName();
+    }
+
+    @Override
+    public String toString() {
+        return "Class: " + getClassName() + ", name: " + getName();
     }
 
     public static class WikiObjectImpl extends WikiObject {
