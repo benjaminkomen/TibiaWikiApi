@@ -21,7 +21,7 @@ public class RetrieveCreatures {
 
     public RetrieveCreatures() {
         TibiaWikiBot tibiaWikiBot = new TibiaWikiBot();
-        tibiaWikiBot.login();
+//        tibiaWikiBot.login();
         wikiArticleRepository = new WikiArticleRepository(tibiaWikiBot);
     }
 

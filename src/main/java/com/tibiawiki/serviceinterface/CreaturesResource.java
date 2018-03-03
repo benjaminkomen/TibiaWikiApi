@@ -22,11 +22,19 @@ public class CreaturesResource {
     }
 
     @GET
+    @Path("/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getHome() {
+        return Response.ok()
+                .entity("{ \"message\": \"Welcome to this API!\"}")
+                .build();
+    }
+
+    @GET
     @Path("/creatures")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCreatures() {
-
-        List<Creature> creatures = retrieveCreatures.getCreatures();
+        final List<Creature> creatures = retrieveCreatures.getCreatures();
 
         return Response.ok()
                 .entity(creatures)
@@ -38,7 +46,7 @@ public class CreaturesResource {
     @Path("/creatures/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCreatureByName(@PathParam("name") String name) {
-        Optional<Creature> creature = retrieveCreatures.getCreature(name);
+        final Optional<Creature> creature = retrieveCreatures.getCreature(name);
 
         if (!creature.isPresent()) {
             return Response.status(Response.Status.NOT_FOUND)

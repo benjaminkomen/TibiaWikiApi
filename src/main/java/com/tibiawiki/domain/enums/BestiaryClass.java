@@ -11,7 +11,7 @@ public enum BestiaryClass implements Description {
     DEMON("Demon"),
     DRAGON("Dragon"),
     ELEMENTAL("Elemental"),
-    EXTRA_DIMENSION("Extra Dimension"),
+    EXTRA_DIMENSIONAL("Extra Dimensional"),
     FEY("Fey"),
     GIANT("Giant"),
     HUMAN("Human"),

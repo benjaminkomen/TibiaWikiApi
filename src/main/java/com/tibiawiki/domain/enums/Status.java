@@ -10,7 +10,8 @@ public enum Status implements Description {
     UNOBTAINABLE("unobtainable"),
     TS_ONLY_LOWERCASE("ts-only"),
     TS_ONLY_UPPERCASE("TS-only"),
-    EVENT("event");
+    EVENT("event"),
+    EMPTY("");
 
     private String description;
 
