@@ -18,6 +18,13 @@ http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/books
 A book by book name, e.g. "Dungeon_Survival_Guide_(Book)":
 http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/books/Dungeon_Survival_Guide_%28Book%29
 
+## Buildings
+
+A list of all buildings (223 kB):
+http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/buildings
+
+A building by building name, e.g. "Theater_Avenue_8b":
+http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/buildings/Theater_Avenue_8b
 
 ## Creatures
 

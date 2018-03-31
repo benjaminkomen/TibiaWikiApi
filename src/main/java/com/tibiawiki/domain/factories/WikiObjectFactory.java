@@ -3,10 +3,7 @@ package com.tibiawiki.domain.factories;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Strings;
-import com.tibiawiki.domain.objects.Achievement;
-import com.tibiawiki.domain.objects.Book;
-import com.tibiawiki.domain.objects.Creature;
-import com.tibiawiki.domain.objects.WikiObject;
+import com.tibiawiki.domain.objects.*;
 import net.sourceforge.jwbf.core.bots.WikiBot;
 import net.sourceforge.jwbf.core.contentRep.Article;
 import net.sourceforge.jwbf.core.contentRep.SimpleArticle;
@@ -30,6 +27,7 @@ public class WikiObjectFactory {
     private static final String OBJECT_TYPE = "type";
     private static final String OBJECT_TYPE_ACHIEVEMENT = "Achievement";
     private static final String OBJECT_TYPE_BOOK = "Book";
+    private static final String OBJECT_TYPE_BUILDING = "Building";
     private static final String OBJECT_TYPE_CREATURE = "Creature";
 
     private ObjectMapper objectMapper;
@@ -62,6 +60,9 @@ public class WikiObjectFactory {
                 break;
             case OBJECT_TYPE_BOOK:
                 wikiObject = mapJsonToObject(wikiObjectJson, Book.class);
+                break;
+            case OBJECT_TYPE_BUILDING:
+                wikiObject = mapJsonToObject(wikiObjectJson, Building.class);
                 break;
             case OBJECT_TYPE_CREATURE:
                 wikiObject = mapJsonToObject(wikiObjectJson, Creature.class);
