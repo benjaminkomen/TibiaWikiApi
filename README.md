@@ -26,6 +26,14 @@ http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/buildings
 A building by building name, e.g. "Theater_Avenue_8b":
 http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/buildings/Theater_Avenue_8b
 
+## Corpses
+
+A list of all corpses (16 kB):
+http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/corpses
+
+A corpse by corpse name, e.g. "Dead_Rat":
+http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/corpses/Dead_Rat
+
 ## Creatures
 
 A list of all creatures (2.55 MB):

@@ -28,6 +28,7 @@ public class WikiObjectFactory {
     private static final String OBJECT_TYPE_ACHIEVEMENT = "Achievement";
     private static final String OBJECT_TYPE_BOOK = "Book";
     private static final String OBJECT_TYPE_BUILDING = "Building";
+    private static final String OBJECT_TYPE_CORPSE = "Corpse";
     private static final String OBJECT_TYPE_CREATURE = "Creature";
 
     private ObjectMapper objectMapper;
@@ -63,6 +64,9 @@ public class WikiObjectFactory {
                 break;
             case OBJECT_TYPE_BUILDING:
                 wikiObject = mapJsonToObject(wikiObjectJson, Building.class);
+                break;
+            case OBJECT_TYPE_CORPSE :
+                wikiObject = mapJsonToObject(wikiObjectJson, Corpse.class);
                 break;
             case OBJECT_TYPE_CREATURE:
                 wikiObject = mapJsonToObject(wikiObjectJson, Creature.class);
