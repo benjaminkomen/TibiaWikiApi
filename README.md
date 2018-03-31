@@ -10,6 +10,14 @@ http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/achievements
 An achievement by achievement name, e.g. "Goo Goo Dancer":
 http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/achievements/Goo_Goo_Dancer
 
+## Books
+
+A list of all books (1.1 MB):
+http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/books
+
+A book by book name, e.g. "Dungeon_Survival_Guide_(Book)":
+http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/books/Dungeon_Survival_Guide_%28Book%29
+
 
 ## Creatures
 

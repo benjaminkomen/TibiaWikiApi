@@ -17,6 +17,7 @@ public class JsonFactory {
     private static final Logger log = LoggerFactory.getLogger(JsonFactory.class);
     private static final String INFOBOX_HEADER = "{{Infobox";
     private static final String OBJECT_TYPE = "type";
+    private static final String OBJECT_TYPE_BOOK = "Book";
     private static final String SOUNDS = "sounds";
     private static final String SPAWN_TYPE = "spawntype";
     private static final String LOOT = "loot";
@@ -47,7 +48,9 @@ public class JsonFactory {
         if (jsonObject.has(OBJECT_TYPE)) {
 
             assert (jsonObject.has("name")) : "parameter name not found in jsonObject:" + jsonObject.toString(2);
-            final String articleName = jsonObject.getString("name");
+            final String articleName = jsonObject.getString(OBJECT_TYPE).equals(OBJECT_TYPE_BOOK)
+                    ? jsonObject.getString("pagename")
+                    : jsonObject.getString("name");
 
             if (jsonObject.has(SOUNDS)) {
                 String soundsValue = jsonObject.getString(SOUNDS);
