@@ -1,7 +1,6 @@
 package com.tibiawiki.serviceinterface.config;
 
 import com.tibiawiki.serviceinterface.CreaturesResource;
-import com.tibiawiki.serviceinterface.TestResource;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +12,6 @@ public class JerseyConfig extends ResourceConfig {
     }
 
     private void registerEndpoints() {
-        register(TestResource.class);
         register(CreaturesResource.class);
     }
 }

@@ -1,6 +1,5 @@
 package com.tibiawiki.serviceinterface;
 
-import com.tibiawiki.domain.objects.Creature;
 import com.tibiawiki.process.RetrieveCreatures;
 
 import javax.ws.rs.GET;
@@ -9,8 +8,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
-import java.util.Optional;
 
 @Path("/")
 public class CreaturesResource {
@@ -34,10 +31,8 @@ public class CreaturesResource {
     @Path("/creatures")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCreatures() {
-        final List<Creature> creatures = retrieveCreatures.getCreatures();
-
         return Response.ok()
-                .entity(creatures)
+                .entity(retrieveCreatures.getCreatures())
                 .header("Access-Control-Allow-Origin", "*")
                 .build();
     }
@@ -46,16 +41,12 @@ public class CreaturesResource {
     @Path("/creatures/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCreatureByName(@PathParam("name") String name) {
-        final Optional<Creature> creature = retrieveCreatures.getCreature(name);
-
-        if (!creature.isPresent()) {
-            return Response.status(Response.Status.NOT_FOUND)
-                    .build();
-        } else {
-            return Response.ok()
-                    .entity(creature.get())
-                    .header("Access-Control-Allow-Origin", "*")
-                    .build();
-        }
+        return retrieveCreatures.getCreature(name)
+                .map(c -> Response.ok()
+                        .entity(c)
+                        .header("Access-Control-Allow-Origin", "*")
+                        .build())
+                .orElseGet(() -> Response.status(Response.Status.NOT_FOUND)
+                        .build());
     }
 }

@@ -3,7 +3,6 @@ package com.tibiawiki.process;
 import com.tibiawiki.domain.objects.Creature;
 import com.tibiawiki.domain.objects.TibiaWikiBot;
 import com.tibiawiki.domain.repositories.WikiArticleRepository;
-import net.sourceforge.jwbf.mediawiki.actions.queries.CategoryMembersSimple;
 import one.util.streamex.StreamEx;
 
 import java.util.ArrayList;
@@ -20,31 +19,31 @@ public class RetrieveCreatures {
     private WikiArticleRepository wikiArticleRepository;
 
     public RetrieveCreatures() {
-        TibiaWikiBot tibiaWikiBot = new TibiaWikiBot();
-//        tibiaWikiBot.login();
-        wikiArticleRepository = new WikiArticleRepository(tibiaWikiBot);
+        wikiArticleRepository = new WikiArticleRepository(new TibiaWikiBot());
     }
 
     public List<Creature> getCreatures() {
-        CategoryMembersSimple pagesInCreaturesCategory = wikiArticleRepository.getMembersFromCategory(CATEGORY_CREATURES);
-        CategoryMembersSimple pagesInListsCategory = wikiArticleRepository.getMembersFromCategory(CATEGORY_LISTS);
+        return getCreatures(false);
+    }
 
-        List<String> creaturesCategory = new ArrayList<>();
-        for (String pageName : pagesInCreaturesCategory) {
+    public List<Creature> getCreatures(boolean oneByOne) {
+        final List<String> creaturesCategory = new ArrayList<>();
+        for (String pageName : wikiArticleRepository.getMembersFromCategory(CATEGORY_CREATURES)) {
             creaturesCategory.add(pageName);
         }
 
-        List<String> listsCategory = new ArrayList<>();
-        for (String pageName : pagesInListsCategory) {
+        final List<String> listsCategory = new ArrayList<>();
+        for (String pageName : wikiArticleRepository.getMembersFromCategory(CATEGORY_LISTS)) {
             listsCategory.add(pageName);
         }
 
-        List<String> pagesInCreaturesCategoryButNotLists = creaturesCategory.stream()
+        final List<String> pagesInCreaturesCategoryButNotLists = creaturesCategory.stream()
                 .filter(page -> !listsCategory.contains(page))
                 .collect(Collectors.toList());
 
-        return obtainCreaturesInBulk(pagesInCreaturesCategoryButNotLists);
-//        return obtainCreaturesOneByOne(pagesInCreaturesCategoryButNotLists);
+        return oneByOne
+                ? obtainCreaturesOneByOne(pagesInCreaturesCategoryButNotLists)
+                : obtainCreaturesInBulk(pagesInCreaturesCategoryButNotLists);
     }
 
     public Optional<Creature> getCreature(String pageName) {
