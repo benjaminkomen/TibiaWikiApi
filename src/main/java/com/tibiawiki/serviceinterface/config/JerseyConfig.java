@@ -1,6 +1,8 @@
 package com.tibiawiki.serviceinterface.config;
 
+import com.tibiawiki.serviceinterface.AchievementsResource;
 import com.tibiawiki.serviceinterface.CreaturesResource;
+import com.tibiawiki.serviceinterface.DefaultResource;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +14,8 @@ public class JerseyConfig extends ResourceConfig {
     }
 
     private void registerEndpoints() {
+        register(DefaultResource.class);
+        register(AchievementsResource.class);
         register(CreaturesResource.class);
     }
 }

@@ -13,16 +13,17 @@ public class TemplateUtils {
     private static final Logger log = LoggerFactory.getLogger(TemplateUtils.class);
     public static final String REGEX_PARAMETER_NEW = "\\|\\s+?([A-Za-z0-9_]+)\\s*?=";
 
-    private TemplateUtils() {}
+    private TemplateUtils() {
+    }
 
     public static String getBetweenOuterBalancedBrackets(String text, String start) {
         int startingCurlyBrackets = text.indexOf(start);
-        assert (startingCurlyBrackets >=0) : "text: " + text + " start: " + start;
+        assert (startingCurlyBrackets >= 0) : "text: " + text + " start: " + start;
         int endingCurlyBrackets = 0;
         int openBracketsCounter = 0;
         char currentChar;
 
-        for (int i=startingCurlyBrackets; i < text.length(); i++) {
+        for (int i = startingCurlyBrackets; i < text.length(); i++) {
             currentChar = text.charAt(i);
             if ('{' == currentChar) {
                 openBracketsCounter++;
@@ -33,7 +34,7 @@ public class TemplateUtils {
             }
 
             if (openBracketsCounter == 0) {
-                endingCurlyBrackets = i+1;
+                endingCurlyBrackets = i + 1;
                 break;
             }
         }
@@ -41,7 +42,7 @@ public class TemplateUtils {
     }
 
     public static String removeFirstAndLastLine(String text) {
-        String firstLineRemoved = text.substring(text.indexOf('\n')+1);
+        String firstLineRemoved = text.substring(text.indexOf('\n') + 1);
         return firstLineRemoved.substring(0, firstLineRemoved.lastIndexOf("}}"));
     }
 
@@ -82,7 +83,7 @@ public class TemplateUtils {
 
 
         // put keys and values into map
-        for (int i=0; i < keys.size(); i++) {
+        for (int i = 0; i < keys.size(); i++) {
             String key = keys.get(i);
             String value = sanitizedValue.get(i);
             keyValuePair.put(key, value);

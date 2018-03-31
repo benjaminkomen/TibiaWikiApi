@@ -7,13 +7,16 @@ import com.tibiawiki.domain.enums.BestiaryClass;
 import com.tibiawiki.domain.enums.BestiaryLevel;
 import com.tibiawiki.domain.enums.Spawntype;
 import com.tibiawiki.domain.enums.YesNo;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.Arrays;
 import java.util.List;
 
 @JsonIgnoreProperties({"objectType"})
 @Getter
+@NoArgsConstructor(access = AccessLevel.PUBLIC) // TODO make this private and add builder
 public class Creature extends WikiObject {
 
     private String hitPoints; // FIXME should be Integer
@@ -58,10 +61,6 @@ public class Creature extends WikiObject {
     private String strategy;
     private String location;
     private List<LootItem> loot;
-
-    public Creature() {
-        super();
-    }
 
     @JsonGetter("hp")
     public String getHitPoints() {

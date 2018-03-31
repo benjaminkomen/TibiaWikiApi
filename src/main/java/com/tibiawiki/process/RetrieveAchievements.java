@@ -13,29 +13,29 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class RetrieveCreatures {
+public class RetrieveAchievements {
 
     private static final String CATEGORY_LISTS = "Lists";
-    private static final String CATEGORY_CREATURES = "Creatures";
+    private static final String CATEGORY_ACHIEVEMENTS = "Achievements";
 
     private ArticleRepository articleRepository;
     private ArticleFactory articleFactory;
     private JsonFactory jsonFactory;
 
-    public RetrieveCreatures() {
+    public RetrieveAchievements() {
         articleRepository = new ArticleRepository(new TibiaWikiBot());
         articleFactory = new ArticleFactory();
         jsonFactory = new JsonFactory();
     }
 
-    public Stream<JSONObject> getCreaturesJSON() {
-        return getCreaturesJSON(false);
+    public Stream<JSONObject> getAchievementsJSON() {
+        return getAchievementsJSON(false);
     }
 
-    public Stream<JSONObject> getCreaturesJSON(boolean oneByOne) {
-        final List<String> creaturesCategory = new ArrayList<>();
-        for (String pageName : articleRepository.getMembersFromCategory(CATEGORY_CREATURES)) {
-            creaturesCategory.add(pageName);
+    public Stream<JSONObject> getAchievementsJSON(boolean oneByOne) {
+        final List<String> achievementsCategory = new ArrayList<>();
+        for (String pageName : articleRepository.getMembersFromCategory(CATEGORY_ACHIEVEMENTS)) {
+            achievementsCategory.add(pageName);
         }
 
         final List<String> listsCategory = new ArrayList<>();
@@ -43,30 +43,30 @@ public class RetrieveCreatures {
             listsCategory.add(pageName);
         }
 
-        final List<String> pagesInCreaturesCategoryButNotLists = creaturesCategory.stream()
+        final List<String> pagesInAchievementsCategoryButNotLists = achievementsCategory.stream()
                 .filter(page -> !listsCategory.contains(page))
                 .collect(Collectors.toList());
 
         return oneByOne
-                ? obtainCreaturesOneByOne(pagesInCreaturesCategoryButNotLists)
-                : obtainCreaturesInBulk(pagesInCreaturesCategoryButNotLists);
+                ? obtainAchievementsOneByOne(pagesInAchievementsCategoryButNotLists)
+                : obtainAchievementsInBulk(pagesInAchievementsCategoryButNotLists);
     }
 
-    public Optional<JSONObject> getCreatureJson(String pageName) {
+    public Optional<JSONObject> getAchievementJSON(String pageName) {
         return Stream.of(articleRepository.getArticle(pageName))
                 .map(articleFactory::extractInfoboxPartOfArticle)
                 .map(jsonFactory::convertInfoboxPartOfArticleToJson)
                 .findAny();
     }
 
-    private Stream<JSONObject> obtainCreaturesInBulk(List<String> pageNames) {
+    private Stream<JSONObject> obtainAchievementsInBulk(List<String> pageNames) {
         return StreamEx.ofSubLists(pageNames, 50)
                 .flatMap(names -> articleRepository.getArticles(names).stream())
                 .map(articleFactory::extractInfoboxPartOfArticle)
                 .map(jsonFactory::convertInfoboxPartOfArticleToJson);
     }
 
-    private Stream<JSONObject> obtainCreaturesOneByOne(List<String> pageNames) {
+    private Stream<JSONObject> obtainAchievementsOneByOne(List<String> pageNames) {
         return pageNames.stream()
                 .map(pageName -> articleRepository.getArticle(pageName))
                 .map(articleFactory::extractInfoboxPartOfArticle)
