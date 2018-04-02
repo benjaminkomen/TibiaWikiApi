@@ -15,7 +15,7 @@ http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/achievements/Goo_Goo_Dance
 A list of all books (1.1 MB):
 http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/books
 
-A book by book name, e.g. "Dungeon_Survival_Guide_(Book)":
+A book by book name, e.g. "Dungeon Survival Guide (Book)":
 http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/books/Dungeon_Survival_Guide_%28Book%29
 
 ## Buildings
@@ -23,7 +23,7 @@ http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/books/Dungeon_Survival_Gui
 A list of all buildings (223 kB):
 http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/buildings
 
-A building by building name, e.g. "Theater_Avenue_8b":
+A building by building name, e.g. "Theater Avenue 8b":
 http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/buildings/Theater_Avenue_8b
 
 ## Corpses
@@ -31,7 +31,7 @@ http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/buildings/Theater_Avenue_8
 A list of all corpses (16 kB):
 http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/corpses
 
-A corpse by corpse name, e.g. "Dead_Rat":
+A corpse by corpse name, e.g. "Dead Rat":
 http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/corpses/Dead_Rat
 
 ## Creatures
@@ -41,3 +41,11 @@ http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/creatures
 
 A creature by creature name, e.g. "Dragon":
 http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/creatures/Dragon
+
+## Effects
+
+A list of all effects (31 kB):
+http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/effects
+
+An effect by effect name, e.g. "Throwing Cake Effect":
+http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/effects/Throwing_Cake_Effect
