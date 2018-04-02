@@ -21,11 +21,13 @@ public class JsonFactory {
     private static final String OBJECT_TYPE = "type";
     private static final String OBJECT_TYPE_BOOK = "Book";
     private static final String OBJECT_TYPE_LOCATION = "Geography";
+    private static final String OBJECT_TYPE_HUNTING_PLACE = "Hunt";
     private static final String SOUNDS = "sounds";
     private static final String SPAWN_TYPE = "spawntype";
     private static final String LOOT = "loot";
     private static final String DROPPED_BY = "droppedby";
     private static final String ITEM_ID = "itemid";
+    private static final String LOWER_LEVELS = "lowerlevels";
     private static final List ITEMS_WITH_NO_DROPPEDBY_LIST = Arrays.asList("Gold Coin", "Platinum Coin");
 
     /**
@@ -87,7 +89,7 @@ public class JsonFactory {
                 jsonObject.put(SPAWN_TYPE, spawntypeArray);
             }
 
-            if (jsonObject.has(LOOT)) {
+            if (jsonObject.has(LOOT) && !OBJECT_TYPE_HUNTING_PLACE.equals(objectType)) {
                 String lootValue = jsonObject.getString(LOOT);
                 JSONArray lootTableArray = makeLootTableArray(lootValue);
                 jsonObject.put(LOOT, lootTableArray);
@@ -103,6 +105,12 @@ public class JsonFactory {
                 String itemIdValue = jsonObject.getString(ITEM_ID);
                 JSONArray itemIdArray = new JSONArray(TemplateUtils.splitByCommaAndTrim(itemIdValue));
                 jsonObject.put(ITEM_ID, itemIdArray);
+            }
+
+            if (jsonObject.has(LOWER_LEVELS)) {
+                String lowerLevelsValue = jsonObject.getString(LOWER_LEVELS);
+                JSONArray lowerLevelsArray = makeLowerLevelsArray(lowerLevelsValue, articleName);
+                jsonObject.put(LOWER_LEVELS, lowerLevelsArray);
             }
         }
         return jsonObject;
@@ -178,6 +186,11 @@ public class JsonFactory {
         String creatures = TemplateUtils.removeStartAndEndOfTemplate(droppedbyValue);
         List<String> splitLines = Arrays.asList(Pattern.compile("\\|").split(creatures));
         return new JSONArray(splitLines);
+    }
+
+    // @todo implement this method
+    private JSONArray makeLowerLevelsArray(String lowerLevelsValue, String articleName) {
+        return new JSONArray();
     }
 
     private boolean legallyHasNoDroppedByTemplate(String name) {

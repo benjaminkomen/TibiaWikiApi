@@ -57,3 +57,11 @@ http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/locations
 
 A location by location name, e.g. "Thais":
 http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/locations/Thais
+
+## Hunting Places
+
+A list of all hunting places (12 kB):
+http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/huntingplaces
+
+A location by location name, e.g. "Hero Cave":
+http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/huntingplaces/Hero_Cave
