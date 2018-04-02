@@ -1,5 +1,7 @@
 package com.tibiawiki.domain.factories;
 
+import com.tibiawiki.domain.objects.Achievement;
+import com.tibiawiki.domain.objects.WikiObject;
 import com.tibiawiki.domain.utils.TemplateUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,6 +20,7 @@ public class JsonFactory {
     private static final String INFOBOX_HEADER = "{{Infobox";
     private static final String OBJECT_TYPE = "type";
     private static final String OBJECT_TYPE_BOOK = "Book";
+    private static final String OBJECT_TYPE_LOCATION = "Geography";
     private static final String SOUNDS = "sounds";
     private static final String SPAWN_TYPE = "spawntype";
     private static final String LOOT = "loot";
@@ -25,7 +28,16 @@ public class JsonFactory {
     private static final String ITEM_ID = "itemid";
     private static final List ITEMS_WITH_NO_DROPPEDBY_LIST = Arrays.asList("Gold Coin", "Platinum Coin");
 
+    /**
+     * Convert a String which consists of key-value pairs of infobox template parameters to a JSON object, or an empty
+     * JSON object if the input was empty.
+     */
     public JSONObject convertInfoboxPartOfArticleToJson(final String infoboxPartOfArticle) {
+
+        if (infoboxPartOfArticle == null || "".equals(infoboxPartOfArticle)) {
+            return new JSONObject();
+        }
+
         final String objectType = getTemplateType(infoboxPartOfArticle);
         final String infoboxTemplatePartOfArticleSanitized = TemplateUtils.removeFirstAndLastLine(infoboxPartOfArticle);
         final Map<String, String> parametersAndValues = TemplateUtils.splitByParameter(infoboxTemplatePartOfArticleSanitized);
@@ -48,9 +60,20 @@ public class JsonFactory {
         if (jsonObject.has(OBJECT_TYPE)) {
 
             assert (jsonObject.has("name")) : "parameter name not found in jsonObject:" + jsonObject.toString(2);
-            final String articleName = jsonObject.getString(OBJECT_TYPE).equals(OBJECT_TYPE_BOOK)
-                    ? jsonObject.getString("pagename")
-                    : jsonObject.getString("name");
+
+            final String articleName;
+            final String objectType = jsonObject.getString(OBJECT_TYPE);
+
+            switch (objectType) {
+                case OBJECT_TYPE_BOOK:
+                    articleName = jsonObject.getString("pagename");
+                    break;
+                case OBJECT_TYPE_LOCATION:
+                    articleName = "Unknown";
+                    break;
+                default:
+                    articleName = jsonObject.getString("name");
+            }
 
             if (jsonObject.has(SOUNDS)) {
                 String soundsValue = jsonObject.getString(SOUNDS);

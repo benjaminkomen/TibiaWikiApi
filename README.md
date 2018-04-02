@@ -49,3 +49,11 @@ http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/effects
 
 An effect by effect name, e.g. "Throwing Cake Effect":
 http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/effects/Throwing_Cake_Effect
+
+## Locations (Geography)
+
+A list of all locations (12 kB):
+http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/locations
+
+A location by location name, e.g. "Thais":
+http://tibiawiki-api-1.us-east-2.elasticbeanstalk.com/locations/Thais

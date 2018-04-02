@@ -14,15 +14,16 @@ public class ArticleFactory {
     private static final String INFOBOX_HEADER = "{{Infobox";
 
     /**
-     * Given a certain Article, extract the part from it which is the infobox.
+     * Given a certain Article, extract the part from it which is the infobox, or an empty String if it does not contain
+     * an infobox template (which is perfectly valid in some cases).
      */
     public String extractInfoboxPartOfArticle(Article article) {
         final String articleContent = article.getText();
 
         if (!articleContent.contains(INFOBOX_HEADER)) {
-            log.error("Cannot extract infobox template from article with title '{}'," +
+            log.warn("Cannot extract infobox template from article with title '{}'," +
                     " since it contains no Infobox template.", article.getTitle());
-            return null;
+            return "";
         }
 
         return TemplateUtils.getBetweenOuterBalancedBrackets(articleContent, INFOBOX_HEADER);

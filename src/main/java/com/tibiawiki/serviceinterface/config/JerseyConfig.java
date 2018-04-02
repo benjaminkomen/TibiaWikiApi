@@ -19,5 +19,6 @@ public class JerseyConfig extends ResourceConfig {
         register(CorpsesResource.class);
         register(CreaturesResource.class);
         register(EffectsResource.class);
+        register(LocationsResource.class);
     }
 }
