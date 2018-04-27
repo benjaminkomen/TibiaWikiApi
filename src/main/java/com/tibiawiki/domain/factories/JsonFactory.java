@@ -1,7 +1,5 @@
 package com.tibiawiki.domain.factories;
 
-import com.tibiawiki.domain.objects.Achievement;
-import com.tibiawiki.domain.objects.WikiObject;
 import com.tibiawiki.domain.utils.TemplateUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -9,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -29,20 +28,32 @@ public class JsonFactory {
     private static final String ITEM_ID = "itemid";
     private static final String LOWER_LEVELS = "lowerlevels";
     private static final List ITEMS_WITH_NO_DROPPEDBY_LIST = Arrays.asList("Gold Coin", "Platinum Coin");
+    private static final String INFOBOX_HEADER_PATTERN = "\\{\\{Infobox[\\s|_](.*?)[\\||\\n]";
 
     /**
      * Convert a String which consists of key-value pairs of infobox template parameters to a JSON object, or an empty
      * JSON object if the input was empty.
      */
     public JSONObject convertInfoboxPartOfArticleToJson(final String infoboxPartOfArticle) {
+        Map<String, String> parametersAndValues = new HashMap<>();
 
         if (infoboxPartOfArticle == null || "".equals(infoboxPartOfArticle)) {
             return new JSONObject();
         }
 
-        final String objectType = getTemplateType(infoboxPartOfArticle);
-        final String infoboxTemplatePartOfArticleSanitized = TemplateUtils.removeFirstAndLastLine(infoboxPartOfArticle);
-        final Map<String, String> parametersAndValues = TemplateUtils.splitByParameter(infoboxTemplatePartOfArticleSanitized);
+        final String objectType = getTemplateType2(infoboxPartOfArticle);
+        String infoboxTemplatePartOfArticleSanitized = TemplateUtils.removeFirstAndLastLine(infoboxPartOfArticle);
+
+        if (OBJECT_TYPE_HUNTING_PLACE.equals(objectType)) {
+            Optional<Map<String, String>> lowerLevelsOptional = TemplateUtils.extractLowerLevels(infoboxTemplatePartOfArticleSanitized);
+
+            if (lowerLevelsOptional.isPresent()) {
+                parametersAndValues.putAll(lowerLevelsOptional.get());
+                infoboxTemplatePartOfArticleSanitized = TemplateUtils.removeLowerLevels(infoboxTemplatePartOfArticleSanitized);
+            }
+        }
+
+        parametersAndValues.putAll(TemplateUtils.splitByParameter(infoboxTemplatePartOfArticleSanitized));
         parametersAndValues.put(OBJECT_TYPE, objectType);
         return enhanceJsonObject(new JSONObject(parametersAndValues));
     }
@@ -52,6 +63,28 @@ public class JsonFactory {
         int endOfTemplateName = infoboxTemplatePartOfArticle.indexOf('|');
         if (startOfTemplateName >= 0 && endOfTemplateName >= 0) {
             return infoboxTemplatePartOfArticle.substring(startOfTemplateName, endOfTemplateName).trim();
+        } else {
+            log.warn("Template type could not be determined from string {}", infoboxTemplatePartOfArticle);
+            return "Unknown";
+        }
+    }
+
+    /**
+     * An alternative implementation which uses a regex. This relaxes the strict requirement of {{Infobox Hunt|}} and
+     * allows cases of e.g. {{Infobox_Hunt|}}, in other words, with an underscore.
+     */
+    private String getTemplateType2(final String infoboxTemplatePartOfArticle) {
+        String templateType = null;
+        Pattern pattern = Pattern.compile(INFOBOX_HEADER_PATTERN);
+        Matcher matcher = pattern.matcher(infoboxTemplatePartOfArticle);
+        while (matcher.find()) {
+            if (matcher.groupCount() > 0 && matcher.group(1) != null) {
+                templateType = matcher.group(1);
+                break;
+            }
+        }
+        if (templateType != null && !"".equals(templateType)) {
+            return templateType;
         } else {
             log.warn("Template type could not be determined from string {}", infoboxTemplatePartOfArticle);
             return "Unknown";
@@ -188,8 +221,22 @@ public class JsonFactory {
         return new JSONArray(splitLines);
     }
 
-    // @todo implement this method
+    // @todo finish this method
     private JSONArray makeLowerLevelsArray(String lowerLevelsValue, String articleName) {
+        List<String> infoboxHuntSkillsList = new ArrayList<>();
+
+        String lowerLevelsValueTrimmed = lowerLevelsValue.trim();
+
+        Pattern pattern = Pattern.compile("(?:(?:\\{\\{Infobox Hunt Skills(.*?)}})+)", Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(lowerLevelsValueTrimmed);
+        while (matcher.find()) {
+            if (matcher.groupCount() > 0 && matcher.group(1) != null) {
+                String infoboxHuntSkills = matcher.group(1);
+                infoboxHuntSkillsList.add(infoboxHuntSkills);
+            }
+        }
+
+
         return new JSONArray();
     }
 

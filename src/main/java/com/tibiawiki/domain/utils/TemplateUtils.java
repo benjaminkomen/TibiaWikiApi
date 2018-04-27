@@ -11,7 +11,10 @@ import java.util.stream.Collectors;
 public class TemplateUtils {
 
     private static final Logger log = LoggerFactory.getLogger(TemplateUtils.class);
-    public static final String REGEX_PARAMETER_NEW = "\\|\\s+?([A-Za-z0-9_]+)\\s*?=";
+    private static final String REGEX_PARAMETER_NEW = "\\|\\s+?([A-Za-z0-9_]+)\\s*?=";
+    private static final String REGEX_PARAMETER_LOWER_LEVELS = "\\|\\s+?lowerlevels\\s*?=((?:.*?\\{\\{.*?}})+)";
+    private static final String REGEX_PARAMETER_LOWER_LEVELS_REMOVE = "\\|\\s+?lowerlevels\\s*?=((.*?\\{\\{.*?}})+)";
+    private static final String LOWER_LEVELS = "lowerlevels";
 
     private TemplateUtils() {
     }
@@ -101,5 +104,28 @@ public class TemplateUtils {
         }
 
         return result;
+    }
+
+    public static Optional<Map<String, String>> extractLowerLevels(String infoboxTemplatePartOfArticleSanitized) {
+        Map<String, String> keyValuePair = new HashMap<>();
+
+        Pattern pattern = Pattern.compile(REGEX_PARAMETER_LOWER_LEVELS, Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(infoboxTemplatePartOfArticleSanitized);
+        while (matcher.find()) {
+            if (matcher.groupCount() > 0 && matcher.group(1) != null) {
+                String value = matcher.group(1);
+                keyValuePair.put(LOWER_LEVELS, value);
+            }
+        }
+
+        return keyValuePair.isEmpty()
+                ? Optional.empty()
+                : Optional.of(keyValuePair);
+    }
+
+    public static String removeLowerLevels(String infoboxTemplatePartOfArticleSanitized) {
+        final Pattern pattern = Pattern.compile(REGEX_PARAMETER_LOWER_LEVELS_REMOVE, Pattern.DOTALL);
+        final Matcher matcher = pattern.matcher(infoboxTemplatePartOfArticleSanitized);
+        return matcher.replaceAll("");
     }
 }
