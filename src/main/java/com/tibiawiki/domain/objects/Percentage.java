@@ -26,7 +26,7 @@ public class Percentage {
             return null;
         }
 
-        return new Integer(sanitizedValue);
+        return  Integer.valueOf(sanitizedValue);
     }
 
 }
