@@ -1,4 +1,5 @@
 [![Build Status](https://www.travis-ci.org/benjaminkomen/TibiaWikiApi.svg?branch=master)](https://www.travis-ci.org/benjaminkomen/TibiaWikiApi)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=com.tibiawiki%3ATibiaWikiApi&metric=alert_status)](https://sonarcloud.io/api/project_badges/measure?project=com.tibiawiki%3ATibiaWikiApi)
 
 # TibiaWikiApi
 
