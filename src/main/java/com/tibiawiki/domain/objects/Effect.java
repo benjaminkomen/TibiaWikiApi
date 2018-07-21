@@ -18,6 +18,7 @@ public class Effect extends WikiObject {
     private Integer lightradius;
     private Integer lightcolor;
     private String causes;
+    @SuppressWarnings("squid:S1700") // class and field name are the same, but that's understandable
     private String effect;
 
     @Override

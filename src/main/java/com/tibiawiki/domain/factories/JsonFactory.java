@@ -16,7 +16,6 @@ import java.util.regex.Pattern;
 public class JsonFactory {
 
     private static final Logger log = LoggerFactory.getLogger(JsonFactory.class);
-    private static final String INFOBOX_HEADER = "{{Infobox";
     private static final String OBJECT_TYPE = "type";
     private static final String OBJECT_TYPE_BOOK = "Book";
     private static final String OBJECT_TYPE_LOCATION = "Geography";
@@ -29,6 +28,7 @@ public class JsonFactory {
     private static final String LOWER_LEVELS = "lowerlevels";
     private static final List ITEMS_WITH_NO_DROPPEDBY_LIST = Arrays.asList("Gold Coin", "Platinum Coin");
     private static final String INFOBOX_HEADER_PATTERN = "\\{\\{Infobox[\\s|_](.*?)[\\||\\n]";
+    private static final String UNKNOWN = "Unknown";
 
     /**
      * Convert a String which consists of key-value pairs of infobox template parameters to a JSON object, or an empty
@@ -41,7 +41,7 @@ public class JsonFactory {
             return new JSONObject();
         }
 
-        final String objectType = getTemplateType2(infoboxPartOfArticle);
+        final String objectType = getTemplateType(infoboxPartOfArticle);
         String infoboxTemplatePartOfArticleSanitized = TemplateUtils.removeFirstAndLastLine(infoboxPartOfArticle);
 
         if (OBJECT_TYPE_HUNTING_PLACE.equals(objectType)) {
@@ -58,22 +58,11 @@ public class JsonFactory {
         return enhanceJsonObject(new JSONObject(parametersAndValues));
     }
 
-    private String getTemplateType(final String infoboxTemplatePartOfArticle) {
-        int startOfTemplateName = infoboxTemplatePartOfArticle.indexOf(INFOBOX_HEADER) + 9;
-        int endOfTemplateName = infoboxTemplatePartOfArticle.indexOf('|');
-        if (startOfTemplateName >= 0 && endOfTemplateName >= 0) {
-            return infoboxTemplatePartOfArticle.substring(startOfTemplateName, endOfTemplateName).trim();
-        } else {
-            log.warn("Template type could not be determined from string {}", infoboxTemplatePartOfArticle);
-            return "Unknown";
-        }
-    }
-
     /**
      * An alternative implementation which uses a regex. This relaxes the strict requirement of {{Infobox Hunt|}} and
      * allows cases of e.g. {{Infobox_Hunt|}}, in other words, with an underscore.
      */
-    private String getTemplateType2(final String infoboxTemplatePartOfArticle) {
+    private String getTemplateType(final String infoboxTemplatePartOfArticle) {
         String templateType = null;
         Pattern pattern = Pattern.compile(INFOBOX_HEADER_PATTERN);
         Matcher matcher = pattern.matcher(infoboxTemplatePartOfArticle);
@@ -87,7 +76,7 @@ public class JsonFactory {
             return templateType;
         } else {
             log.warn("Template type could not be determined from string {}", infoboxTemplatePartOfArticle);
-            return "Unknown";
+            return UNKNOWN;
         }
     }
 
@@ -104,7 +93,7 @@ public class JsonFactory {
                     articleName = jsonObject.getString("pagename");
                     break;
                 case OBJECT_TYPE_LOCATION:
-                    articleName = "Unknown";
+                    articleName = UNKNOWN;
                     break;
                 default:
                     articleName = jsonObject.getString("name");

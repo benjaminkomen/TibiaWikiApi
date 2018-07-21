@@ -21,7 +21,11 @@ public class TemplateUtils {
 
     public static String getBetweenOuterBalancedBrackets(String text, String start) {
         int startingCurlyBrackets = text.indexOf(start);
-        assert (startingCurlyBrackets >= 0) : "text: " + text + " start: " + start;
+
+        if (startingCurlyBrackets < 0) {
+            throw new IllegalArgumentException("Provided arguments text and start are not valid.");
+        }
+
         int endingCurlyBrackets = 0;
         int openBracketsCounter = 0;
         char currentChar;

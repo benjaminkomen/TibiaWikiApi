@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tibiawiki.domain.enums.Article;
 import com.tibiawiki.domain.enums.Status;
 import com.tibiawiki.domain.interfaces.Description;
-import lombok.*;
+import lombok.Getter;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -77,7 +77,7 @@ public abstract class WikiObject {
                             return fieldValue;
                         }
                     } catch (IllegalAccessException e) {
-                        throw new RuntimeException(e);
+                        throw new FieldAccessDeniedException(e);
                     }
                 })
                 .findAny()
@@ -89,7 +89,7 @@ public abstract class WikiObject {
             f.setAccessible(true);
             return f.get(this) != null;
         } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
+            throw new FieldAccessDeniedException(e);
         }
     }
 
@@ -112,6 +112,13 @@ public abstract class WikiObject {
         @Override
         public List<String> fieldOrder() {
             return Arrays.asList("name", "article", "actualname", "plural", "implemented", "notes", "history", "status");
+        }
+    }
+
+    public static class FieldAccessDeniedException extends RuntimeException {
+
+        public FieldAccessDeniedException(Exception e) {
+            super(e);
         }
     }
 }
