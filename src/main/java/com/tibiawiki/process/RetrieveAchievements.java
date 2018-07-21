@@ -15,8 +15,8 @@ import java.util.stream.Stream;
 
 public class RetrieveAchievements {
 
-    private static final String CATEGORY_LISTS = "Lists";
-    private static final String CATEGORY_ACHIEVEMENTS = "Achievements";
+    static final String CATEGORY_LISTS = "Lists";
+    static final String CATEGORY_ACHIEVEMENTS = "Achievements";
 
     private ArticleRepository articleRepository;
     private ArticleFactory articleFactory;
