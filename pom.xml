@@ -20,6 +20,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>9</java.version>
+        <jwbf.version>4.0.0-SNAPSHOT</jwbf.version>
         <jwbf.benjamin.version>4.0.1</jwbf.benjamin.version>
         <slf4j.version>1.7.25</slf4j.version>
         <json.version>20180130</json.version>
@@ -34,6 +35,17 @@
         <junit.platform.surefire.provider.version>1.2.0</junit.platform.surefire.provider.version>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>sonatype-nexus-snapshots</id>
+            <name>Sonatype Nexus Snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
 
     <dependencies>
         <!-- Spring boot -->
@@ -47,16 +59,16 @@
         </dependency>
 
         <!-- MediaWiki -->
-        <!--<dependency>-->
-        <!--<groupId>net.sourceforge</groupId>-->
-        <!--<artifactId>jwbf</artifactId>-->
-        <!--<version>3.1.1</version>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>net.sourceforge</groupId>
-            <artifactId>jwbf-benjamin</artifactId>
-            <version>${jwbf.benjamin.version}</version>
+            <artifactId>jwbf</artifactId>
+            <version>${jwbf.version}</version>
         </dependency>
+        <!--<dependency>-->
+        <!--<groupId>net.sourceforge</groupId>-->
+        <!--<artifactId>jwbf-benjamin</artifactId>-->
+        <!--<version>${jwbf.benjamin.version}</version>-->
+        <!--</dependency>-->
 
         <!-- Logging -->
         <dependency>

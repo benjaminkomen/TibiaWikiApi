@@ -29,7 +29,7 @@ public class RetrieveAchievements {
     }
 
     public Stream<JSONObject> getAchievementsJSON() {
-        return getAchievementsJSON(false);
+        return getAchievementsJSON(true);
     }
 
     public Stream<JSONObject> getAchievementsJSON(boolean oneByOne) {

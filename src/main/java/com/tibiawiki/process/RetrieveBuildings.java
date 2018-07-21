@@ -29,7 +29,7 @@ public class RetrieveBuildings {
     }
 
     public Stream<JSONObject> getBuildingsJSON() {
-        return getBuildingsJSON(false);
+        return getBuildingsJSON(true);
     }
 
     public Stream<JSONObject> getBuildingsJSON(boolean oneByOne) {

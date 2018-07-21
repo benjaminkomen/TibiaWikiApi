@@ -29,7 +29,7 @@ public class RetrieveEffects {
     }
 
     public Stream<JSONObject> getEffectsJSON() {
-        return getEffectsJSON(false);
+        return getEffectsJSON(true);
     }
 
     public Stream<JSONObject> getEffectsJSON(boolean oneByOne) {

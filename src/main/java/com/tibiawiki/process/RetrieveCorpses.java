@@ -29,7 +29,7 @@ public class RetrieveCorpses {
     }
 
     public Stream<JSONObject> getCorpsesJSON() {
-        return getCorpsesJSON(false);
+        return getCorpsesJSON(true);
     }
 
     public Stream<JSONObject> getCorpsesJSON(boolean oneByOne) {

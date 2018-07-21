@@ -29,7 +29,7 @@ public class RetrieveHuntingPlaces {
     }
 
     public Stream<JSONObject> getHuntingPlacesJSON() {
-        return getHuntingPlacesJSON(false);
+        return getHuntingPlacesJSON(true);
     }
 
     public Stream<JSONObject> getHuntingPlacesJSON(boolean oneByOne) {

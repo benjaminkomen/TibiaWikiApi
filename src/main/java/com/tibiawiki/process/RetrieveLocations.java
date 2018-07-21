@@ -29,7 +29,7 @@ public class RetrieveLocations {
     }
 
     public Stream<JSONObject> getLocationsJSON() {
-        return getLocationsJSON(false);
+        return getLocationsJSON(true);
     }
 
     public Stream<JSONObject> getLocationsJSON(boolean oneByOne) {

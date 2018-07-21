@@ -29,7 +29,7 @@ public class RetrieveBooks {
     }
 
     public Stream<JSONObject> getBooksJSON() {
-        return getBooksJSON(false);
+        return getBooksJSON(true);
     }
 
     public Stream<JSONObject> getBooksJSON(boolean oneByOne) {
