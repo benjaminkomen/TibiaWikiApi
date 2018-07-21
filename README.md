@@ -1,3 +1,5 @@
+[![Build Status](https://www.travis-ci.org/benjaminkomen/TibiaWikiApi.svg?branch=master)](https://www.travis-ci.org/benjaminkomen/TibiaWikiApi)
+
 # TibiaWikiApi
 
 Gets data from http://tibia.wikia.com and exposes this data using a RESTful JSON API.
