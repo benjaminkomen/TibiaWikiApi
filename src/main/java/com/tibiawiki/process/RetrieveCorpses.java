@@ -2,9 +2,7 @@ package com.tibiawiki.process;
 
 import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.factories.JsonFactory;
-import com.tibiawiki.domain.objects.TibiaWikiBot;
 import com.tibiawiki.domain.repositories.ArticleRepository;
-import one.util.streamex.StreamEx;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -13,23 +11,20 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class RetrieveCorpses {
+public class RetrieveCorpses extends RetrieveAny {
 
-    private static final String CATEGORY_LISTS = "Lists";
     private static final String CATEGORY_CORPSES = "Corpses";
 
-    private ArticleRepository articleRepository;
-    private ArticleFactory articleFactory;
-    private JsonFactory jsonFactory;
-
     public RetrieveCorpses() {
-        articleRepository = new ArticleRepository(new TibiaWikiBot());
-        articleFactory = new ArticleFactory();
-        jsonFactory = new JsonFactory();
+        super();
+    }
+
+    public RetrieveCorpses(ArticleRepository articleRepository, ArticleFactory articleFactory, JsonFactory jsonFactory) {
+        super(articleRepository, articleFactory, jsonFactory);
     }
 
     public Stream<JSONObject> getCorpsesJSON() {
-        return getCorpsesJSON(true);
+        return getCorpsesJSON(ONE_BY_ONE);
     }
 
     public Stream<JSONObject> getCorpsesJSON(boolean oneByOne) {
@@ -48,27 +43,11 @@ public class RetrieveCorpses {
                 .collect(Collectors.toList());
 
         return oneByOne
-                ? obtainCorpsesOneByOne(pagesInCorpsesCategoryButNotLists)
-                : obtainCorpsesInBulk(pagesInCorpsesCategoryButNotLists);
+                ? obtainArticlesOneByOne(pagesInCorpsesCategoryButNotLists)
+                : obtainArticlesInBulk(pagesInCorpsesCategoryButNotLists);
     }
 
     public Optional<JSONObject> getCorpseJSON(String pageName) {
-        return Optional.ofNullable(articleRepository.getArticle(pageName))
-                .map(articleFactory::extractInfoboxPartOfArticle)
-                .map(jsonFactory::convertInfoboxPartOfArticleToJson);
-    }
-
-    private Stream<JSONObject> obtainCorpsesInBulk(List<String> pageNames) {
-        return StreamEx.ofSubLists(pageNames, 50)
-                .flatMap(names -> articleRepository.getArticles(names).stream())
-                .map(articleFactory::extractInfoboxPartOfArticle)
-                .map(jsonFactory::convertInfoboxPartOfArticleToJson);
-    }
-
-    private Stream<JSONObject> obtainCorpsesOneByOne(List<String> pageNames) {
-        return pageNames.stream()
-                .map(pageName -> articleRepository.getArticle(pageName))
-                .map(articleFactory::extractInfoboxPartOfArticle)
-                .map(jsonFactory::convertInfoboxPartOfArticleToJson);
+        return super.getArticleJSON(pageName);
     }
 }

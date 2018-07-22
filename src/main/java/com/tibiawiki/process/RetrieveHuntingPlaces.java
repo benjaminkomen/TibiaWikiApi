@@ -2,9 +2,7 @@ package com.tibiawiki.process;
 
 import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.factories.JsonFactory;
-import com.tibiawiki.domain.objects.TibiaWikiBot;
 import com.tibiawiki.domain.repositories.ArticleRepository;
-import one.util.streamex.StreamEx;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -13,23 +11,20 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class RetrieveHuntingPlaces {
+public class RetrieveHuntingPlaces extends RetrieveAny {
 
-    private static final String CATEGORY_LISTS = "Lists";
     private static final String CATEGORY_HUNTING_PLACES = "Hunting Places";
 
-    private ArticleRepository articleRepository;
-    private ArticleFactory articleFactory;
-    private JsonFactory jsonFactory;
-
     public RetrieveHuntingPlaces() {
-        articleRepository = new ArticleRepository(new TibiaWikiBot());
-        articleFactory = new ArticleFactory();
-        jsonFactory = new JsonFactory();
+        super();
+    }
+
+    public RetrieveHuntingPlaces(ArticleRepository articleRepository, ArticleFactory articleFactory, JsonFactory jsonFactory) {
+        super(articleRepository, articleFactory, jsonFactory);
     }
 
     public Stream<JSONObject> getHuntingPlacesJSON() {
-        return getHuntingPlacesJSON(true);
+        return getHuntingPlacesJSON(ONE_BY_ONE);
     }
 
     public Stream<JSONObject> getHuntingPlacesJSON(boolean oneByOne) {
@@ -48,27 +43,12 @@ public class RetrieveHuntingPlaces {
                 .collect(Collectors.toList());
 
         return oneByOne
-                ? obtainHuntingPlacesOneByOne(pagesInHuntingPlacesCategoryButNotLists)
-                : obtainHuntingPlacesInBulk(pagesInHuntingPlacesCategoryButNotLists);
+                ? obtainArticlesOneByOne(pagesInHuntingPlacesCategoryButNotLists)
+                : obtainArticlesInBulk(pagesInHuntingPlacesCategoryButNotLists);
     }
 
     public Optional<JSONObject> getHuntingPlaceJSON(String pageName) {
-        return Optional.ofNullable(articleRepository.getArticle(pageName))
-                .map(articleFactory::extractInfoboxPartOfArticle)
-                .map(jsonFactory::convertInfoboxPartOfArticleToJson);
+        return super.getArticleJSON(pageName);
     }
 
-    private Stream<JSONObject> obtainHuntingPlacesInBulk(List<String> pageNames) {
-        return StreamEx.ofSubLists(pageNames, 50)
-                .flatMap(names -> articleRepository.getArticles(names).stream())
-                .map(articleFactory::extractInfoboxPartOfArticle)
-                .map(jsonFactory::convertInfoboxPartOfArticleToJson);
-    }
-
-    private Stream<JSONObject> obtainHuntingPlacesOneByOne(List<String> pageNames) {
-        return pageNames.stream()
-                .map(pageName -> articleRepository.getArticle(pageName))
-                .map(articleFactory::extractInfoboxPartOfArticle)
-                .map(jsonFactory::convertInfoboxPartOfArticleToJson);
-    }
 }

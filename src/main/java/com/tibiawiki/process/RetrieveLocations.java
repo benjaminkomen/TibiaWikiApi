@@ -2,9 +2,7 @@ package com.tibiawiki.process;
 
 import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.factories.JsonFactory;
-import com.tibiawiki.domain.objects.TibiaWikiBot;
 import com.tibiawiki.domain.repositories.ArticleRepository;
-import one.util.streamex.StreamEx;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -13,23 +11,20 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class RetrieveLocations {
+public class RetrieveLocations extends RetrieveAny {
 
-    private static final String CATEGORY_LISTS = "Lists";
     private static final String CATEGORY_LOCATIONS = "Locations";
 
-    private ArticleRepository articleRepository;
-    private ArticleFactory articleFactory;
-    private JsonFactory jsonFactory;
-
     public RetrieveLocations() {
-        articleRepository = new ArticleRepository(new TibiaWikiBot());
-        articleFactory = new ArticleFactory();
-        jsonFactory = new JsonFactory();
+        super();
+    }
+
+    public RetrieveLocations(ArticleRepository articleRepository, ArticleFactory articleFactory, JsonFactory jsonFactory) {
+        super(articleRepository, articleFactory, jsonFactory);
     }
 
     public Stream<JSONObject> getLocationsJSON() {
-        return getLocationsJSON(true);
+        return getLocationsJSON(ONE_BY_ONE);
     }
 
     public Stream<JSONObject> getLocationsJSON(boolean oneByOne) {
@@ -48,27 +43,11 @@ public class RetrieveLocations {
                 .collect(Collectors.toList());
 
         return oneByOne
-                ? obtainLocationsOneByOne(pagesInLocationsCategoryButNotLists)
-                : obtainLocationsInBulk(pagesInLocationsCategoryButNotLists);
+                ? obtainArticlesOneByOne(pagesInLocationsCategoryButNotLists)
+                : obtainArticlesInBulk(pagesInLocationsCategoryButNotLists);
     }
 
     public Optional<JSONObject> getLocationJSON(String pageName) {
-        return Optional.ofNullable(articleRepository.getArticle(pageName))
-                .map(articleFactory::extractInfoboxPartOfArticle)
-                .map(jsonFactory::convertInfoboxPartOfArticleToJson);
-    }
-
-    private Stream<JSONObject> obtainLocationsInBulk(List<String> pageNames) {
-        return StreamEx.ofSubLists(pageNames, 50)
-                .flatMap(names -> articleRepository.getArticles(names).stream())
-                .map(articleFactory::extractInfoboxPartOfArticle)
-                .map(jsonFactory::convertInfoboxPartOfArticleToJson);
-    }
-
-    private Stream<JSONObject> obtainLocationsOneByOne(List<String> pageNames) {
-        return pageNames.stream()
-                .map(pageName -> articleRepository.getArticle(pageName))
-                .map(articleFactory::extractInfoboxPartOfArticle)
-                .map(jsonFactory::convertInfoboxPartOfArticleToJson);
+        return super.getArticleJSON(pageName);
     }
 }

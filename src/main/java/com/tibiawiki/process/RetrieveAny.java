@@ -26,6 +26,12 @@ public abstract class RetrieveAny {
         jsonFactory = new JsonFactory();
     }
 
+    public RetrieveAny(ArticleRepository articleRepository, ArticleFactory articleFactory, JsonFactory jsonFactory) {
+        this.articleRepository = articleRepository;
+        this.articleFactory = articleFactory;
+        this.jsonFactory = jsonFactory;
+    }
+
     public Optional<JSONObject> getArticleJSON(String pageName) {
         return Optional.ofNullable(articleRepository.getArticle(pageName))
                 .map(articleFactory::extractInfoboxPartOfArticle)

@@ -2,9 +2,7 @@ package com.tibiawiki.process;
 
 import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.factories.JsonFactory;
-import com.tibiawiki.domain.objects.TibiaWikiBot;
 import com.tibiawiki.domain.repositories.ArticleRepository;
-import one.util.streamex.StreamEx;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -13,23 +11,20 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class RetrieveCreatures {
+public class RetrieveCreatures extends RetrieveAny {
 
-    private static final String CATEGORY_LISTS = "Lists";
     private static final String CATEGORY_CREATURES = "Creatures";
 
-    private ArticleRepository articleRepository;
-    private ArticleFactory articleFactory;
-    private JsonFactory jsonFactory;
-
     public RetrieveCreatures() {
-        articleRepository = new ArticleRepository(new TibiaWikiBot());
-        articleFactory = new ArticleFactory();
-        jsonFactory = new JsonFactory();
+        super();
+    }
+
+    public RetrieveCreatures(ArticleRepository articleRepository, ArticleFactory articleFactory, JsonFactory jsonFactory) {
+        super(articleRepository, articleFactory, jsonFactory);
     }
 
     public Stream<JSONObject> getCreaturesJSON() {
-        return getCreaturesJSON(true);
+        return getCreaturesJSON(ONE_BY_ONE);
     }
 
     public Stream<JSONObject> getCreaturesJSON(boolean oneByOne) {
@@ -48,27 +43,11 @@ public class RetrieveCreatures {
                 .collect(Collectors.toList());
 
         return oneByOne
-                ? obtainCreaturesOneByOne(pagesInCreaturesCategoryButNotLists)
-                : obtainCreaturesInBulk(pagesInCreaturesCategoryButNotLists);
+                ? obtainArticlesOneByOne(pagesInCreaturesCategoryButNotLists)
+                : obtainArticlesInBulk(pagesInCreaturesCategoryButNotLists);
     }
 
     public Optional<JSONObject> getCreatureJson(String pageName) {
-        return Optional.ofNullable(articleRepository.getArticle(pageName))
-                .map(articleFactory::extractInfoboxPartOfArticle)
-                .map(jsonFactory::convertInfoboxPartOfArticleToJson);
-    }
-
-    private Stream<JSONObject> obtainCreaturesInBulk(List<String> pageNames) {
-        return StreamEx.ofSubLists(pageNames, 50)
-                .flatMap(names -> articleRepository.getArticles(names).stream())
-                .map(articleFactory::extractInfoboxPartOfArticle)
-                .map(jsonFactory::convertInfoboxPartOfArticleToJson);
-    }
-
-    private Stream<JSONObject> obtainCreaturesOneByOne(List<String> pageNames) {
-        return pageNames.stream()
-                .map(pageName -> articleRepository.getArticle(pageName))
-                .map(articleFactory::extractInfoboxPartOfArticle)
-                .map(jsonFactory::convertInfoboxPartOfArticleToJson);
+        return super.getArticleJSON(pageName);
     }
 }

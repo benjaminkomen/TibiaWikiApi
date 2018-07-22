@@ -2,9 +2,7 @@ package com.tibiawiki.process;
 
 import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.factories.JsonFactory;
-import com.tibiawiki.domain.objects.TibiaWikiBot;
 import com.tibiawiki.domain.repositories.ArticleRepository;
-import one.util.streamex.StreamEx;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -13,23 +11,20 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class RetrieveBooks {
+public class RetrieveBooks extends RetrieveAny {
 
-    private static final String CATEGORY_LISTS = "Lists";
     private static final String CATEGORY_BOOKS = "Book Texts";
 
-    private ArticleRepository articleRepository;
-    private ArticleFactory articleFactory;
-    private JsonFactory jsonFactory;
-
     public RetrieveBooks() {
-        articleRepository = new ArticleRepository(new TibiaWikiBot());
-        articleFactory = new ArticleFactory();
-        jsonFactory = new JsonFactory();
+        super();
+    }
+
+    public RetrieveBooks(ArticleRepository articleRepository, ArticleFactory articleFactory, JsonFactory jsonFactory) {
+        super(articleRepository, articleFactory, jsonFactory);
     }
 
     public Stream<JSONObject> getBooksJSON() {
-        return getBooksJSON(true);
+        return getBooksJSON(ONE_BY_ONE);
     }
 
     public Stream<JSONObject> getBooksJSON(boolean oneByOne) {
@@ -48,27 +43,11 @@ public class RetrieveBooks {
                 .collect(Collectors.toList());
 
         return oneByOne
-                ? obtainBooksOneByOne(pagesInBooksCategoryButNotLists)
-                : obtainBooksInBulk(pagesInBooksCategoryButNotLists);
+                ? obtainArticlesOneByOne(pagesInBooksCategoryButNotLists)
+                : obtainArticlesInBulk(pagesInBooksCategoryButNotLists);
     }
 
     public Optional<JSONObject> getBookJSON(String pageName) {
-        return Optional.ofNullable(articleRepository.getArticle(pageName))
-                .map(articleFactory::extractInfoboxPartOfArticle)
-                .map(jsonFactory::convertInfoboxPartOfArticleToJson);
-    }
-
-    private Stream<JSONObject> obtainBooksInBulk(List<String> pageNames) {
-        return StreamEx.ofSubLists(pageNames, 50)
-                .flatMap(names -> articleRepository.getArticles(names).stream())
-                .map(articleFactory::extractInfoboxPartOfArticle)
-                .map(jsonFactory::convertInfoboxPartOfArticleToJson);
-    }
-
-    private Stream<JSONObject> obtainBooksOneByOne(List<String> pageNames) {
-        return pageNames.stream()
-                .map(pageName -> articleRepository.getArticle(pageName))
-                .map(articleFactory::extractInfoboxPartOfArticle)
-                .map(jsonFactory::convertInfoboxPartOfArticleToJson);
+        return super.getArticleJSON(pageName);
     }
 }
