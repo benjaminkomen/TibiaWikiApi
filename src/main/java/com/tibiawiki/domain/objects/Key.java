@@ -4,14 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tibiawiki.domain.enums.KeyType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.Arrays;
 import java.util.List;
 
 @JsonIgnoreProperties({"objectType"})
 @Getter
-@Setter
 @NoArgsConstructor
 public class Key extends WikiObject {
 

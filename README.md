@@ -87,3 +87,10 @@ http://localhost:8080/keys
 A key by key name (not only the number but the full wiki pagename), e.g. "Key 4055":
 http://localhost:8080/keys/Key_4055
 
+## Mounts
+
+A list of all mounts (43 kB):
+http://localhost:8080/mounts
+
+A mount by mount name, e.g. "Donkey":
+http://localhost:8080/mounts/Donkey
