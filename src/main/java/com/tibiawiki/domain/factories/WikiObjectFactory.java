@@ -33,6 +33,7 @@ public class WikiObjectFactory {
     private static final String OBJECT_TYPE_EFFECT = "Effect";
     private static final String OBJECT_TYPE_LOCATION = "Geography";
     private static final String OBJECT_TYPE_HUNTING_PLACE = "Hunt";
+    private static final String OBJECT_TYPE_KEY = "Key";
 
     private ObjectMapper objectMapper;
 
@@ -82,6 +83,9 @@ public class WikiObjectFactory {
                 break;
             case OBJECT_TYPE_HUNTING_PLACE:
                 wikiObject = mapJsonToObject(wikiObjectJson, HuntingPlace.class);
+                break;
+            case OBJECT_TYPE_KEY:
+                wikiObject = mapJsonToObject(wikiObjectJson, Key.class);
                 break;
             default:
                 log.warn("object type '{}' not supported, terminating..", objectType);

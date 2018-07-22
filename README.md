@@ -71,10 +71,19 @@ http://localhost:8080/locations
 A location by location name, e.g. "Thais":
 http://localhost:8080/locations/Thais
 
-## Hunting Places
+## Hunting Places (in progress)
 
 A list of all hunting places (12 kB):
 http://localhost:8080/huntingplaces
 
 A location by location name, e.g. "Hero Cave":
 http://localhost:8080/huntingplaces/Hero_Cave
+
+## Keys
+
+A list of all keys (62 kB):
+http://localhost:8080/keys
+
+A key by key name (not only the number but the full wiki pagename), e.g. "Key 4055":
+http://localhost:8080/keys/Key_4055
+

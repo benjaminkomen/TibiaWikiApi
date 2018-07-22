@@ -20,6 +20,7 @@ public class JsonFactory {
     private static final String OBJECT_TYPE_BOOK = "Book";
     private static final String OBJECT_TYPE_LOCATION = "Geography";
     private static final String OBJECT_TYPE_HUNTING_PLACE = "Hunt";
+    private static final String OBJECT_TYPE_KEY = "Key";
     private static final String SOUNDS = "sounds";
     private static final String SPAWN_TYPE = "spawntype";
     private static final String LOOT = "loot";
@@ -94,6 +95,9 @@ public class JsonFactory {
                     break;
                 case OBJECT_TYPE_LOCATION:
                     articleName = UNKNOWN;
+                    break;
+                case OBJECT_TYPE_KEY:
+                    articleName = "Key " + jsonObject.getString("number");
                     break;
                 default:
                     articleName = jsonObject.getString("name");
