@@ -94,3 +94,11 @@ http://localhost:8080/mounts
 
 A mount by mount name, e.g. "Donkey":
 http://localhost:8080/mounts/Donkey
+
+## NPCs
+
+A list of all NPCs (706 kB):
+http://localhost:8080/npcs
+
+An NPC by NPC name, e.g. "Sam":
+http://localhost:8080/npcs/Sam
