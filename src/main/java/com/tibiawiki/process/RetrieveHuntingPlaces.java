@@ -53,10 +53,9 @@ public class RetrieveHuntingPlaces {
     }
 
     public Optional<JSONObject> getHuntingPlaceJSON(String pageName) {
-        return Stream.of(articleRepository.getArticle(pageName))
+        return Optional.ofNullable(articleRepository.getArticle(pageName))
                 .map(articleFactory::extractInfoboxPartOfArticle)
-                .map(jsonFactory::convertInfoboxPartOfArticleToJson)
-                .findAny();
+                .map(jsonFactory::convertInfoboxPartOfArticleToJson);
     }
 
     private Stream<JSONObject> obtainHuntingPlacesInBulk(List<String> pageNames) {
