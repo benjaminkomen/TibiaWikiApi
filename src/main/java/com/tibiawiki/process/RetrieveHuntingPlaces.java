@@ -23,11 +23,7 @@ public class RetrieveHuntingPlaces extends RetrieveAny {
         super(articleRepository, articleFactory, jsonFactory);
     }
 
-    public Stream<JSONObject> getHuntingPlacesJSON() {
-        return getHuntingPlacesJSON(ONE_BY_ONE);
-    }
-
-    public Stream<JSONObject> getHuntingPlacesJSON(boolean oneByOne) {
+    public List<String> getHuntingPlacesList() {
         final List<String> huntingPlacesCategory = new ArrayList<>();
         for (String pageName : articleRepository.getMembersFromCategory(CATEGORY_HUNTING_PLACES)) {
             huntingPlacesCategory.add(pageName);
@@ -38,17 +34,24 @@ public class RetrieveHuntingPlaces extends RetrieveAny {
             listsCategory.add(pageName);
         }
 
-        final List<String> pagesInHuntingPlacesCategoryButNotLists = huntingPlacesCategory.stream()
+        return huntingPlacesCategory.stream()
                 .filter(page -> !listsCategory.contains(page))
                 .collect(Collectors.toList());
+    }
+
+    public Stream<JSONObject> getHuntingPlacesJSON() {
+        return getHuntingPlacesJSON(ONE_BY_ONE);
+    }
+
+    public Stream<JSONObject> getHuntingPlacesJSON(boolean oneByOne) {
+        final List<String> huntingPlacesList = getHuntingPlacesList();
 
         return oneByOne
-                ? obtainArticlesOneByOne(pagesInHuntingPlacesCategoryButNotLists)
-                : obtainArticlesInBulk(pagesInHuntingPlacesCategoryButNotLists);
+                ? obtainArticlesOneByOne(huntingPlacesList)
+                : obtainArticlesInBulk(huntingPlacesList);
     }
 
     public Optional<JSONObject> getHuntingPlaceJSON(String pageName) {
         return super.getArticleJSON(pageName);
     }
-
 }

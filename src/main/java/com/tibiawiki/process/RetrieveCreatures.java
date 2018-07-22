@@ -23,11 +23,7 @@ public class RetrieveCreatures extends RetrieveAny {
         super(articleRepository, articleFactory, jsonFactory);
     }
 
-    public Stream<JSONObject> getCreaturesJSON() {
-        return getCreaturesJSON(ONE_BY_ONE);
-    }
-
-    public Stream<JSONObject> getCreaturesJSON(boolean oneByOne) {
+    public List<String> getCreaturesList() {
         final List<String> creaturesCategory = new ArrayList<>();
         for (String pageName : articleRepository.getMembersFromCategory(CATEGORY_CREATURES)) {
             creaturesCategory.add(pageName);
@@ -38,13 +34,21 @@ public class RetrieveCreatures extends RetrieveAny {
             listsCategory.add(pageName);
         }
 
-        final List<String> pagesInCreaturesCategoryButNotLists = creaturesCategory.stream()
+        return creaturesCategory.stream()
                 .filter(page -> !listsCategory.contains(page))
                 .collect(Collectors.toList());
+    }
+
+    public Stream<JSONObject> getCreaturesJSON() {
+        return getCreaturesJSON(ONE_BY_ONE);
+    }
+
+    public Stream<JSONObject> getCreaturesJSON(boolean oneByOne) {
+        final List<String> creaturesList = getCreaturesList();
 
         return oneByOne
-                ? obtainArticlesOneByOne(pagesInCreaturesCategoryButNotLists)
-                : obtainArticlesInBulk(pagesInCreaturesCategoryButNotLists);
+                ? obtainArticlesOneByOne(creaturesList)
+                : obtainArticlesInBulk(creaturesList);
     }
 
     public Optional<JSONObject> getCreatureJson(String pageName) {

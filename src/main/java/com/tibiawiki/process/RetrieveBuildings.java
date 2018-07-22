@@ -23,11 +23,7 @@ public class RetrieveBuildings extends RetrieveAny {
         super(articleRepository, articleFactory, jsonFactory);
     }
 
-    public Stream<JSONObject> getBuildingsJSON() {
-        return getBuildingsJSON(ONE_BY_ONE);
-    }
-
-    public Stream<JSONObject> getBuildingsJSON(boolean oneByOne) {
+    public List<String> getBuildingsList() {
         final List<String> buildingsCategory = new ArrayList<>();
         for (String pageName : articleRepository.getMembersFromCategory(CATEGORY_BUILDINGS)) {
             buildingsCategory.add(pageName);
@@ -38,13 +34,21 @@ public class RetrieveBuildings extends RetrieveAny {
             listsCategory.add(pageName);
         }
 
-        final List<String> pagesInBuildingsCategoryButNotLists = buildingsCategory.stream()
+        return buildingsCategory.stream()
                 .filter(page -> !listsCategory.contains(page))
                 .collect(Collectors.toList());
+    }
+
+    public Stream<JSONObject> getBuildingsJSON() {
+        return getBuildingsJSON(ONE_BY_ONE);
+    }
+
+    public Stream<JSONObject> getBuildingsJSON(boolean oneByOne) {
+        final List<String> buildingsList = getBuildingsList();
 
         return oneByOne
-                ? obtainArticlesOneByOne(pagesInBuildingsCategoryButNotLists)
-                : obtainArticlesInBulk(pagesInBuildingsCategoryButNotLists);
+                ? obtainArticlesOneByOne(buildingsList)
+                : obtainArticlesInBulk(buildingsList);
     }
 
     public Optional<JSONObject> getBuildingJSON(String pageName) {

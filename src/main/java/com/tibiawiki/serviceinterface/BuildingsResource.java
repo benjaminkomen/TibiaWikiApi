@@ -3,10 +3,7 @@ package com.tibiawiki.serviceinterface;
 import com.tibiawiki.process.RetrieveBuildings;
 import org.json.JSONObject;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -22,10 +19,11 @@ public class BuildingsResource {
     @GET
     @Path("/buildings")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getBuildings() {
+    public Response getBuildings(@QueryParam("expand") Boolean expand) {
         return Response.ok()
-                .entity(retrieveBuildings.getBuildingsJSON()
-                        .map(JSONObject::toMap)
+                .entity(expand != null && expand
+                        ? retrieveBuildings.getBuildingsJSON().map(JSONObject::toMap)
+                        : retrieveBuildings.getBuildingsList()
                 )
                 .header("Access-Control-Allow-Origin", "*")
                 .build();

@@ -3,10 +3,7 @@ package com.tibiawiki.serviceinterface;
 import com.tibiawiki.process.RetrieveCorpses;
 import org.json.JSONObject;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -22,10 +19,11 @@ public class CorpsesResource {
     @GET
     @Path("/corpses")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getCorpses() {
+    public Response getCorpses(@QueryParam("expand") Boolean expand) {
         return Response.ok()
-                .entity(retrieveCorpses.getCorpsesJSON()
-                        .map(JSONObject::toMap)
+                .entity(expand != null && expand
+                        ? retrieveCorpses.getCorpsesJSON().map(JSONObject::toMap)
+                        : retrieveCorpses.getCorpsesList()
                 )
                 .header("Access-Control-Allow-Origin", "*")
                 .build();

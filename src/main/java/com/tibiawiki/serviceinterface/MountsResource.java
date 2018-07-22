@@ -3,10 +3,7 @@ package com.tibiawiki.serviceinterface;
 import com.tibiawiki.process.RetrieveMounts;
 import org.json.JSONObject;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -22,10 +19,11 @@ public class MountsResource {
     @GET
     @Path("/mounts")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getMounts() {
+    public Response getMounts(@QueryParam("expand") Boolean expand) {
         return Response.ok()
-                .entity(retrieveMounts.getMountsJSON()
-                        .map(JSONObject::toMap)
+                .entity(expand != null && expand
+                        ? retrieveMounts.getMountsJSON().map(JSONObject::toMap)
+                        : retrieveMounts.getMountsList()
                 )
                 .header("Access-Control-Allow-Origin", "*")
                 .build();

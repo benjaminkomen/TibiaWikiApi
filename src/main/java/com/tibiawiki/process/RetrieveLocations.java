@@ -23,11 +23,7 @@ public class RetrieveLocations extends RetrieveAny {
         super(articleRepository, articleFactory, jsonFactory);
     }
 
-    public Stream<JSONObject> getLocationsJSON() {
-        return getLocationsJSON(ONE_BY_ONE);
-    }
-
-    public Stream<JSONObject> getLocationsJSON(boolean oneByOne) {
+    public List<String> getLocationsList() {
         final List<String> locationsCategory = new ArrayList<>();
         for (String pageName : articleRepository.getMembersFromCategory(CATEGORY_LOCATIONS)) {
             locationsCategory.add(pageName);
@@ -38,13 +34,21 @@ public class RetrieveLocations extends RetrieveAny {
             listsCategory.add(pageName);
         }
 
-        final List<String> pagesInLocationsCategoryButNotLists = locationsCategory.stream()
+        return locationsCategory.stream()
                 .filter(page -> !listsCategory.contains(page))
                 .collect(Collectors.toList());
+    }
+
+    public Stream<JSONObject> getLocationsJSON() {
+        return getLocationsJSON(ONE_BY_ONE);
+    }
+
+    public Stream<JSONObject> getLocationsJSON(boolean oneByOne) {
+        final List<String> locationsList = getLocationsList();
 
         return oneByOne
-                ? obtainArticlesOneByOne(pagesInLocationsCategoryButNotLists)
-                : obtainArticlesInBulk(pagesInLocationsCategoryButNotLists);
+                ? obtainArticlesOneByOne(locationsList)
+                : obtainArticlesInBulk(locationsList);
     }
 
     public Optional<JSONObject> getLocationJSON(String pageName) {

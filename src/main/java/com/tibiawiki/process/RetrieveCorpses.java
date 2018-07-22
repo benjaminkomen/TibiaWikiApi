@@ -23,11 +23,7 @@ public class RetrieveCorpses extends RetrieveAny {
         super(articleRepository, articleFactory, jsonFactory);
     }
 
-    public Stream<JSONObject> getCorpsesJSON() {
-        return getCorpsesJSON(ONE_BY_ONE);
-    }
-
-    public Stream<JSONObject> getCorpsesJSON(boolean oneByOne) {
+    public List<String> getCorpsesList() {
         final List<String> corpsesCategory = new ArrayList<>();
         for (String pageName : articleRepository.getMembersFromCategory(CATEGORY_CORPSES)) {
             corpsesCategory.add(pageName);
@@ -38,13 +34,21 @@ public class RetrieveCorpses extends RetrieveAny {
             listsCategory.add(pageName);
         }
 
-        final List<String> pagesInCorpsesCategoryButNotLists = corpsesCategory.stream()
+        return corpsesCategory.stream()
                 .filter(page -> !listsCategory.contains(page))
                 .collect(Collectors.toList());
+    }
+
+    public Stream<JSONObject> getCorpsesJSON() {
+        return getCorpsesJSON(ONE_BY_ONE);
+    }
+
+    public Stream<JSONObject> getCorpsesJSON(boolean oneByOne) {
+        final List<String> corpsesList = getCorpsesList();
 
         return oneByOne
-                ? obtainArticlesOneByOne(pagesInCorpsesCategoryButNotLists)
-                : obtainArticlesInBulk(pagesInCorpsesCategoryButNotLists);
+                ? obtainArticlesOneByOne(corpsesList)
+                : obtainArticlesInBulk(corpsesList);
     }
 
     public Optional<JSONObject> getCorpseJSON(String pageName) {

@@ -23,11 +23,7 @@ public class RetrieveBooks extends RetrieveAny {
         super(articleRepository, articleFactory, jsonFactory);
     }
 
-    public Stream<JSONObject> getBooksJSON() {
-        return getBooksJSON(ONE_BY_ONE);
-    }
-
-    public Stream<JSONObject> getBooksJSON(boolean oneByOne) {
+    public List<String> getBooksList() {
         final List<String> booksCategory = new ArrayList<>();
         for (String pageName : articleRepository.getMembersFromCategory(CATEGORY_BOOKS)) {
             booksCategory.add(pageName);
@@ -38,13 +34,21 @@ public class RetrieveBooks extends RetrieveAny {
             listsCategory.add(pageName);
         }
 
-        final List<String> pagesInBooksCategoryButNotLists = booksCategory.stream()
+        return booksCategory.stream()
                 .filter(page -> !listsCategory.contains(page))
                 .collect(Collectors.toList());
+    }
+
+    public Stream<JSONObject> getBooksJSON() {
+        return getBooksJSON(ONE_BY_ONE);
+    }
+
+    public Stream<JSONObject> getBooksJSON(boolean oneByOne) {
+        final List<String> booksList = getBooksList();
 
         return oneByOne
-                ? obtainArticlesOneByOne(pagesInBooksCategoryButNotLists)
-                : obtainArticlesInBulk(pagesInBooksCategoryButNotLists);
+                ? obtainArticlesOneByOne(booksList)
+                : obtainArticlesInBulk(booksList);
     }
 
     public Optional<JSONObject> getBookJSON(String pageName) {

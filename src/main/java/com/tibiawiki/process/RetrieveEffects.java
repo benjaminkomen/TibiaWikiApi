@@ -23,11 +23,7 @@ public class RetrieveEffects extends RetrieveAny {
         super(articleRepository, articleFactory, jsonFactory);
     }
 
-    public Stream<JSONObject> getEffectsJSON() {
-        return getEffectsJSON(ONE_BY_ONE);
-    }
-
-    public Stream<JSONObject> getEffectsJSON(boolean oneByOne) {
+    public List<String> getEffectsList() {
         final List<String> effectsCategory = new ArrayList<>();
         for (String pageName : articleRepository.getMembersFromCategory(CATEGORY_EFFECTS)) {
             effectsCategory.add(pageName);
@@ -38,13 +34,21 @@ public class RetrieveEffects extends RetrieveAny {
             listsCategory.add(pageName);
         }
 
-        final List<String> pagesInEffectsCategoryButNotLists = effectsCategory.stream()
+        return effectsCategory.stream()
                 .filter(page -> !listsCategory.contains(page))
                 .collect(Collectors.toList());
+    }
+
+    public Stream<JSONObject> getEffectsJSON() {
+        return getEffectsJSON(ONE_BY_ONE);
+    }
+
+    public Stream<JSONObject> getEffectsJSON(boolean oneByOne) {
+        final List<String> effectsList = getEffectsList();
 
         return oneByOne
-                ? obtainArticlesOneByOne(pagesInEffectsCategoryButNotLists)
-                : obtainArticlesInBulk(pagesInEffectsCategoryButNotLists);
+                ? obtainArticlesOneByOne(effectsList)
+                : obtainArticlesInBulk(effectsList);
     }
 
     public Optional<JSONObject> getEffectJSON(String pageName) {
