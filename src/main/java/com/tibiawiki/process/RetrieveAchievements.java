@@ -28,6 +28,12 @@ public class RetrieveAchievements {
         jsonFactory = new JsonFactory();
     }
 
+    public RetrieveAchievements(ArticleRepository articleRepository, ArticleFactory articleFactory, JsonFactory jsonFactory) {
+        this.articleRepository = articleRepository;
+        this.articleFactory = articleFactory;
+        this.jsonFactory = jsonFactory;
+    }
+
     public Stream<JSONObject> getAchievementsJSON() {
         return getAchievementsJSON(true);
     }
