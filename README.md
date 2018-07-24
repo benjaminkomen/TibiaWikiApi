@@ -111,7 +111,7 @@ http://localhost:8080/npcs/Sam
 A list of all Outfits:
 http://localhost:8080/outfits
 
-An Outfit by Outfit name, e.g. "Pirate Outfits":
+An outfit by outfit name, e.g. "Pirate Outfits":
 http://localhost:8080/outfits/Pirate_Outfits
 
 ## Quests
@@ -119,5 +119,13 @@ http://localhost:8080/outfits/Pirate_Outfits
 A list of all Quests:
 http://localhost:8080/quests
 
-A Quest by Quest name, e.g. "The Paradox Tower Quest":
+A quest by quest name, e.g. "The Paradox Tower Quest":
 http://localhost:8080/quests/The_Paradox_Tower_Quest
+
+## Spells
+
+A list of all Spells:
+http://localhost:8080/spells
+
+A spell by spell name, e.g. "Light Healing":
+http://localhost:8080/spells/Light_Healing
