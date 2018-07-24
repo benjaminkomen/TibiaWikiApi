@@ -106,6 +106,14 @@ http://localhost:8080/npcs
 An NPC by NPC name, e.g. "Sam":
 http://localhost:8080/npcs/Sam
 
+## Objects
+
+A list of all objects:
+http://localhost:8080/objects
+
+An object by object name, e.g. "Blueberry Bush":
+http://localhost:8080/objects/Blueberry_Bush
+
 ## Outfits
 
 A list of all outfits:

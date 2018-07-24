@@ -36,6 +36,7 @@ public class WikiObjectFactory {
     private static final String OBJECT_TYPE_MOUNT = "Mount";
     private static final String OBJECT_TYPE_KEY = "Key";
     private static final String OBJECT_TYPE_NPC = "NPC";
+    private static final String OBJECT_TYPE_OBJECT = "Object";
     private static final String OBJECT_TYPE_OUTFIT = "Outfit";
     private static final String OBJECT_TYPE_QUEST = "Quest";
     private static final String OBJECT_TYPE_SPELL = "Spell";
@@ -98,6 +99,9 @@ public class WikiObjectFactory {
                 break;
             case OBJECT_TYPE_NPC:
                 wikiObject = mapJsonToObject(wikiObjectJson, NPC.class);
+                break;
+            case OBJECT_TYPE_OBJECT:
+                wikiObject = mapJsonToObject(wikiObjectJson, TibiaObject.class);
                 break;
             case OBJECT_TYPE_OUTFIT:
                 wikiObject = mapJsonToObject(wikiObjectJson, Outfit.class);
