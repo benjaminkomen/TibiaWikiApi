@@ -82,6 +82,14 @@ http://localhost:8080/huntingplaces
 A location by location name, e.g. "Hero Cave":
 http://localhost:8080/huntingplaces/Hero_Cave
 
+## Items
+
+A list of all items:
+http://localhost:8080/items
+
+An item by item name, e.g. "Carlin Sword":
+http://localhost:8080/items/Carlin_Sword
+
 ## Keys
 
 A list of all keys:

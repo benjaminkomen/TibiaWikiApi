@@ -34,6 +34,7 @@ public class WikiObjectFactory {
     private static final String OBJECT_TYPE_LOCATION = "Geography";
     private static final String OBJECT_TYPE_HUNTING_PLACE = "Hunt";
     private static final String OBJECT_TYPE_MOUNT = "Mount";
+    private static final String OBJECT_TYPE_ITEM = "Item";
     private static final String OBJECT_TYPE_KEY = "Key";
     private static final String OBJECT_TYPE_NPC = "NPC";
     private static final String OBJECT_TYPE_OBJECT = "Object";
@@ -90,6 +91,9 @@ public class WikiObjectFactory {
                 break;
             case OBJECT_TYPE_HUNTING_PLACE:
                 wikiObject = mapJsonToObject(wikiObjectJson, HuntingPlace.class);
+                break;
+            case OBJECT_TYPE_ITEM:
+                wikiObject = mapJsonToObject(wikiObjectJson, Item.class);
                 break;
             case OBJECT_TYPE_KEY:
                 wikiObject = mapJsonToObject(wikiObjectJson, Key.class);
