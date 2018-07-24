@@ -27,5 +27,6 @@ public class JerseyConfig extends ResourceConfig {
         register(OutfitsResource.class);
         register(QuestsResource.class);
         register(SpellsResource.class);
+        register(StreetsResource.class);
     }
 }
