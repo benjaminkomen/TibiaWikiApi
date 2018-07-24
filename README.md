@@ -113,3 +113,11 @@ http://localhost:8080/outfits
 
 An Outfit by Outfit name, e.g. "Pirate Outfits":
 http://localhost:8080/outfits/Pirate_Outfits
+
+## Quests
+
+A list of all Quests:
+http://localhost:8080/quests
+
+A Quest by Quest name, e.g. "The Paradox Tower Quest":
+http://localhost:8080/quests/The_Paradox_Tower_Quest

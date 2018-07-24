@@ -37,6 +37,7 @@ public class WikiObjectFactory {
     private static final String OBJECT_TYPE_KEY = "Key";
     private static final String OBJECT_TYPE_NPC = "NPC";
     private static final String OBJECT_TYPE_OUTFIT = "Outfit";
+    private static final String OBJECT_TYPE_QUEST = "Quest";
 
     private ObjectMapper objectMapper;
 
@@ -98,6 +99,9 @@ public class WikiObjectFactory {
                 break;
             case OBJECT_TYPE_OUTFIT:
                 wikiObject = mapJsonToObject(wikiObjectJson, Outfit.class);
+                break;
+            case OBJECT_TYPE_QUEST:
+                wikiObject = mapJsonToObject(wikiObjectJson, Quest.class);
                 break;
             default:
                 log.warn("object type '{}' not supported, terminating..", objectType);
