@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * Conversion from infoboxPartOfArticle to JSON.
@@ -135,7 +136,7 @@ public class JsonFactory {
 
             if (jsonObject.has(LOWER_LEVELS)) {
                 String lowerLevelsValue = jsonObject.getString(LOWER_LEVELS);
-                JSONArray lowerLevelsArray = makeLowerLevelsArray(lowerLevelsValue, articleName);
+                JSONArray lowerLevelsArray = makeLowerLevelsArray(lowerLevelsValue);
                 jsonObject.put(LOWER_LEVELS, lowerLevelsArray);
             }
         }
@@ -214,8 +215,7 @@ public class JsonFactory {
         return new JSONArray(splitLines);
     }
 
-    // @todo finish this method
-    private JSONArray makeLowerLevelsArray(String lowerLevelsValue, String articleName) {
+    private JSONArray makeLowerLevelsArray(String lowerLevelsValue) {
         List<String> infoboxHuntSkillsList = new ArrayList<>();
 
         String lowerLevelsValueTrimmed = lowerLevelsValue.trim();
@@ -229,8 +229,11 @@ public class JsonFactory {
             }
         }
 
+        final List<JSONObject> infoboxHuntSkillJsonObjects = infoboxHuntSkillsList.stream()
+                .map(s -> new JSONObject(new HashMap<>(TemplateUtils.splitByParameter(s))))
+                .collect(Collectors.toList());
 
-        return new JSONArray();
+        return new JSONArray(infoboxHuntSkillJsonObjects);
     }
 
     private boolean legallyHasNoDroppedByTemplate(String name) {
