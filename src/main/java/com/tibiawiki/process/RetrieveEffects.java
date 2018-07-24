@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 
 public class RetrieveEffects extends RetrieveAny {
 
-    private static final String CATEGORY_EFFECTS = "Effects";
+    private static final String CATEGORY = "Effects";
 
     public RetrieveEffects() {
         super();
@@ -25,7 +25,7 @@ public class RetrieveEffects extends RetrieveAny {
 
     public List<String> getEffectsList() {
         final List<String> effectsCategory = new ArrayList<>();
-        for (String pageName : articleRepository.getMembersFromCategory(CATEGORY_EFFECTS)) {
+        for (String pageName : articleRepository.getMembersFromCategory(CATEGORY)) {
             effectsCategory.add(pageName);
         }
 

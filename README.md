@@ -105,3 +105,11 @@ http://localhost:8080/npcs
 
 An NPC by NPC name, e.g. "Sam":
 http://localhost:8080/npcs/Sam
+
+## Outfits
+
+A list of all Outfits:
+http://localhost:8080/outfits
+
+An Outfit by Outfit name, e.g. "Pirate Outfits":
+http://localhost:8080/outfits/Pirate_Outfits

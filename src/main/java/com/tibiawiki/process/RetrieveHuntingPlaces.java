@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 
 public class RetrieveHuntingPlaces extends RetrieveAny {
 
-    private static final String CATEGORY_HUNTING_PLACES = "Hunting Places";
+    private static final String CATEGORY = "Hunting Places";
 
     public RetrieveHuntingPlaces() {
         super();
@@ -25,7 +25,7 @@ public class RetrieveHuntingPlaces extends RetrieveAny {
 
     public List<String> getHuntingPlacesList() {
         final List<String> huntingPlacesCategory = new ArrayList<>();
-        for (String pageName : articleRepository.getMembersFromCategory(CATEGORY_HUNTING_PLACES)) {
+        for (String pageName : articleRepository.getMembersFromCategory(CATEGORY)) {
             huntingPlacesCategory.add(pageName);
         }
 

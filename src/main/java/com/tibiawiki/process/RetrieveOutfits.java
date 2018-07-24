@@ -11,22 +11,22 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class RetrieveKeys extends RetrieveAny {
+public class RetrieveOutfits extends RetrieveAny {
 
-    private static final String CATEGORY = "Keys";
+    private static final String CATEGORY = "Outfits";
 
-    public RetrieveKeys() {
+    public RetrieveOutfits() {
         super();
     }
 
-    public RetrieveKeys(ArticleRepository articleRepository, ArticleFactory articleFactory, JsonFactory jsonFactory) {
+    public RetrieveOutfits(ArticleRepository articleRepository, ArticleFactory articleFactory, JsonFactory jsonFactory) {
         super(articleRepository, articleFactory, jsonFactory);
     }
 
-    public List<String> getKeysList() {
-        final List<String> keysCategory = new ArrayList<>();
+    public List<String> getOutfitsList() {
+        final List<String> npcsCategory = new ArrayList<>();
         for (String pageName : articleRepository.getMembersFromCategory(CATEGORY)) {
-            keysCategory.add(pageName);
+            npcsCategory.add(pageName);
         }
 
         final List<String> listsCategory = new ArrayList<>();
@@ -34,24 +34,24 @@ public class RetrieveKeys extends RetrieveAny {
             listsCategory.add(pageName);
         }
 
-        return keysCategory.stream()
+        return npcsCategory.stream()
                 .filter(page -> !listsCategory.contains(page))
                 .collect(Collectors.toList());
     }
 
-    public Stream<JSONObject> getKeysJSON() {
-        return getKeysJSON(ONE_BY_ONE);
+    public Stream<JSONObject> getOutfitsJSON() {
+        return getOutfitsJSON(ONE_BY_ONE);
     }
 
-    public Stream<JSONObject> getKeysJSON(boolean oneByOne) {
-        final List<String> keysList = getKeysList();
+    public Stream<JSONObject> getOutfitsJSON(boolean oneByOne) {
+        final List<String> npcsList = getOutfitsList();
 
         return oneByOne
-                ? obtainArticlesOneByOne(keysList)
-                : obtainArticlesInBulk(keysList);
+                ? obtainArticlesOneByOne(npcsList)
+                : obtainArticlesInBulk(npcsList);
     }
 
-    public Optional<JSONObject> getKeyJSON(String pageName) {
+    public Optional<JSONObject> getOutfitJSON(String pageName) {
         return super.getArticleJSON(pageName);
     }
 }

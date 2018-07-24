@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 
 public class RetrieveNPCs extends RetrieveAny {
 
-    private static final String CATEGORY_MOUNTS = "NPCs";
+    private static final String CATEGORY = "NPCs";
 
     public RetrieveNPCs() {
         super();
@@ -25,7 +25,7 @@ public class RetrieveNPCs extends RetrieveAny {
 
     public List<String> getNPCsList() {
         final List<String> npcsCategory = new ArrayList<>();
-        for (String pageName : articleRepository.getMembersFromCategory(CATEGORY_MOUNTS)) {
+        for (String pageName : articleRepository.getMembersFromCategory(CATEGORY)) {
             npcsCategory.add(pageName);
         }
 

@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 
 public class RetrieveMounts extends RetrieveAny {
 
-    private static final String CATEGORY_MOUNTS = "Mounts";
+    private static final String CATEGORY = "Mounts";
 
     public RetrieveMounts() {
         super();
@@ -25,7 +25,7 @@ public class RetrieveMounts extends RetrieveAny {
 
     public List<String> getMountsList() {
         final List<String> mountsCategory = new ArrayList<>();
-        for (String pageName : articleRepository.getMembersFromCategory(CATEGORY_MOUNTS)) {
+        for (String pageName : articleRepository.getMembersFromCategory(CATEGORY)) {
             mountsCategory.add(pageName);
         }
 
