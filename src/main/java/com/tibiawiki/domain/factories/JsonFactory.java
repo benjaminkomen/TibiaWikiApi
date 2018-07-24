@@ -225,7 +225,7 @@ public class JsonFactory {
         while (matcher.find()) {
             if (matcher.groupCount() > 0 && matcher.group(1) != null) {
                 String infoboxHuntSkills = matcher.group(1);
-                infoboxHuntSkillsList.add(infoboxHuntSkills);
+                infoboxHuntSkillsList.add(infoboxHuntSkills.trim());
             }
         }
 
