@@ -19,7 +19,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>10</java.version>
         <jwbf.version>4.0.0-SNAPSHOT</jwbf.version>
         <jwbf.benjamin.version>4.0.1</jwbf.benjamin.version>
         <slf4j.version>1.7.25</slf4j.version>

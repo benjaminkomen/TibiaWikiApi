@@ -1,10 +1,17 @@
 language: java
 
-jdk:
-  - oraclejdk8
-  - oraclejdk9
-  - oraclejdk10
-  - oraclejdk11
+matrix:
+  include:
+  - name: "Java 9"
+      jdk: oraclejdk9
+      env: JAVA_VERSION=9
+  - name: "Java 10"
+      jdk: oraclejdk10
+      env: JAVA_VERSION=10
+  - name: "Java 11"
+      jdk: oraclejdk11
+      env: JAVA_VERSION=11
+  script: mvn clean verify -djava.version=$JAVA_VERSION
   
 addons:
   sonarcloud:
