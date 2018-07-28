@@ -1,7 +1,6 @@
 package com.tibiawiki.domain.factories;
 
 import com.tibiawiki.domain.utils.TemplateUtils;
-import net.sourceforge.jwbf.core.contentRep.Article;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,12 +16,13 @@ public class ArticleFactory {
      * Given a certain Article, extract the part from it which is the infobox, or an empty String if it does not contain
      * an infobox template (which is perfectly valid in some cases).
      */
-    public String extractInfoboxPartOfArticle(Article article) {
-        final String articleContent = article.getText();
+    public String extractInfoboxPartOfArticle(String articleContent) {
 
         if (!articleContent.contains(INFOBOX_HEADER)) {
-            log.warn("Cannot extract infobox template from article with title '{}'," +
-                    " since it contains no Infobox template.", article.getTitle());
+            if (log.isWarnEnabled()) {
+                log.warn("Cannot extract infobox template from article which starts with '{}'," +
+                        " since it contains no Infobox template.", articleContent.substring(0, 30));
+            }
             return "";
         }
 

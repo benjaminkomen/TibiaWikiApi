@@ -5,7 +5,6 @@ import com.tibiawiki.domain.factories.JsonFactory;
 import com.tibiawiki.domain.repositories.ArticleRepository;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,17 +23,10 @@ public class RetrieveItems extends RetrieveAny {
     }
 
     public List<String> getItemsList() {
-        final List<String> keysCategory = new ArrayList<>();
-        for (String pageName : articleRepository.getMembersFromCategory(CATEGORY)) {
-            keysCategory.add(pageName);
-        }
+        final List<String> itemsCategory = articleRepository.getMembersFromCategory(CATEGORY);
+        final List<String> listsCategory = articleRepository.getMembersFromCategory(CATEGORY_LISTS);
 
-        final List<String> listsCategory = new ArrayList<>();
-        for (String pageName : articleRepository.getMembersFromCategory(CATEGORY_LISTS)) {
-            listsCategory.add(pageName);
-        }
-
-        return keysCategory.stream()
+        return itemsCategory.stream()
                 .filter(page -> !listsCategory.contains(page))
                 .collect(Collectors.toList());
     }

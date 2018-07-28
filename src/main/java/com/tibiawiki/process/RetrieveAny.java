@@ -2,7 +2,6 @@ package com.tibiawiki.process;
 
 import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.factories.JsonFactory;
-import com.tibiawiki.domain.objects.TibiaWikiBot;
 import com.tibiawiki.domain.repositories.ArticleRepository;
 import one.util.streamex.StreamEx;
 import org.json.JSONObject;
@@ -21,7 +20,7 @@ public abstract class RetrieveAny {
     protected JsonFactory jsonFactory;
 
     public RetrieveAny() {
-        articleRepository = new ArticleRepository(new TibiaWikiBot());
+        articleRepository = new ArticleRepository();
         articleFactory = new ArticleFactory();
         jsonFactory = new JsonFactory();
     }

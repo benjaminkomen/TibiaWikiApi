@@ -118,7 +118,8 @@ public class TemplateUtils {
 
     @NotNull
     public static List<String> splitByCommaAndTrim(@Nullable String input) {
-        return Stream.ofNullable(input)
+        return Stream.of(input)
+                .filter(Objects::nonNull)
                 .filter(i -> i.trim().length() > 0)
                 .map(i -> i.split(","))
                 .flatMap(lst -> Arrays.stream(lst).map(String::trim))
