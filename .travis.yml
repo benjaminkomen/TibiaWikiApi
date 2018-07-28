@@ -1,14 +1,11 @@
 language: java
 
 jdk:
-  - oraclejdk9
   - oraclejdk10
-  - oraclejdk11
 
 env:
   - JAVA_VERSION=9
   - JAVA_VERSION=10
-  - JAVA_VERSION=11
 
 addons:
   sonarcloud:
@@ -20,4 +17,4 @@ cache:
   - '$HOME/.sonar/cache'
 
 script:
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Djava.version=$JAVA_VERSION
+  - ./mvnw clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Djava.version=$JAVA_VERSION
