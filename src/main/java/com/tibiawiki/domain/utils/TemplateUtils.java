@@ -1,5 +1,7 @@
 package com.tibiawiki.domain.utils;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -7,6 +9,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class TemplateUtils {
 
@@ -48,9 +51,17 @@ public class TemplateUtils {
         return text.substring(startingCurlyBrackets, endingCurlyBrackets);
     }
 
-    public static String removeFirstAndLastLine(String text) {
-        String firstLineRemoved = text.substring(text.indexOf('\n') + 1);
-        return firstLineRemoved.substring(0, firstLineRemoved.lastIndexOf("}}"));
+    /**
+     * Remove the first line of the input string, that is, between the start of the string and the first occurrence
+     * of a \n character.
+     * Remove the last line of the input string, that is, everything after the last occurrence of a \n character.
+     */
+    @NotNull
+    public static String removeFirstAndLastLine(@Nullable String text) {
+        return Optional.ofNullable(text)
+                .map(t -> t.substring(t.indexOf('\n') + 1)) // remove first line
+                .map(t -> t.substring(0, t.lastIndexOf('\n') > -1 ? t.lastIndexOf('\n') : 0)) // remove last line
+                .orElse("");
     }
 
     public static String removeStartAndEndOfTemplate(String text) {
@@ -66,8 +77,13 @@ public class TemplateUtils {
         return null;
     }
 
-    public static Map<String, String> splitByParameter(String infoboxTemplatePartOfArticle) {
-        Map<String, String> keyValuePair = new HashMap<>();
+    @NotNull
+    public static Map<String, String> splitByParameter(@Nullable String infoboxTemplatePartOfArticle) {
+        if (infoboxTemplatePartOfArticle == null || "".equals(infoboxTemplatePartOfArticle)) {
+            return new HashMap<>();
+        }
+
+        final Map<String, String> keyValuePair = new HashMap<>();
 
         // first get keys
         List<String> keys = new LinkedList<>();
@@ -79,7 +95,8 @@ public class TemplateUtils {
                 keys.add(key);
             }
         }
-        List<String> values = Arrays.asList((pattern).split(infoboxTemplatePartOfArticle));
+
+        final List<String> values = Arrays.asList((pattern).split(infoboxTemplatePartOfArticle));
 
         // sanitize values to get rid of empty Strings
         List<String> sanitizedValue = values.stream()
@@ -99,19 +116,22 @@ public class TemplateUtils {
         return keyValuePair;
     }
 
-    public static List<String> splitByCommaAndTrim(String input) {
-        List<String> result = new ArrayList<>();
-        String[] arrayFromSplitInput = input.split(",");
-
-        for (String arrayElement : arrayFromSplitInput) {
-            result.add(arrayElement.trim());
-        }
-
-        return result;
+    @NotNull
+    public static List<String> splitByCommaAndTrim(@Nullable String input) {
+        return Stream.ofNullable(input)
+                .filter(i -> i.trim().length() > 0)
+                .map(i -> i.split(","))
+                .flatMap(lst -> Arrays.stream(lst).map(String::trim))
+                .collect(Collectors.toList());
     }
 
-    public static Optional<Map<String, String>> extractLowerLevels(String infoboxTemplatePartOfArticleSanitized) {
-        Map<String, String> keyValuePair = new HashMap<>();
+    @NotNull
+    public static Optional<Map<String, String>> extractLowerLevels(@Nullable String infoboxTemplatePartOfArticleSanitized) {
+        if (infoboxTemplatePartOfArticleSanitized == null || "".equals(infoboxTemplatePartOfArticleSanitized)) {
+            return Optional.empty();
+        }
+
+        final Map<String, String> keyValuePair = new HashMap<>();
 
         Pattern pattern = Pattern.compile(REGEX_PARAMETER_LOWER_LEVELS, Pattern.DOTALL);
         Matcher matcher = pattern.matcher(infoboxTemplatePartOfArticleSanitized);
@@ -127,9 +147,11 @@ public class TemplateUtils {
                 : Optional.of(keyValuePair);
     }
 
-    public static String removeLowerLevels(String infoboxTemplatePartOfArticleSanitized) {
-        final Pattern pattern = Pattern.compile(REGEX_PARAMETER_LOWER_LEVELS_REMOVE, Pattern.DOTALL);
-        final Matcher matcher = pattern.matcher(infoboxTemplatePartOfArticleSanitized);
-        return matcher.replaceAll("");
+    @NotNull
+    public static String removeLowerLevels(@Nullable String infoboxTemplatePartOfArticleSanitized) {
+        return Optional.ofNullable(infoboxTemplatePartOfArticleSanitized)
+                .map(s -> Pattern.compile(REGEX_PARAMETER_LOWER_LEVELS_REMOVE, Pattern.DOTALL).matcher(s))
+                .map(m -> m.replaceAll(""))
+                .orElse("");
     }
 }

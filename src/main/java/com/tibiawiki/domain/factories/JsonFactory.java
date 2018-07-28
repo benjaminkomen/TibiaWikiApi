@@ -1,6 +1,8 @@
 package com.tibiawiki.domain.factories;
 
 import com.tibiawiki.domain.utils.TemplateUtils;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -18,10 +20,11 @@ public class JsonFactory {
 
     private static final Logger log = LoggerFactory.getLogger(JsonFactory.class);
     private static final String OBJECT_TYPE = "type";
-    private static final String OBJECT_TYPE_BOOK = "Book";
-    private static final String OBJECT_TYPE_LOCATION = "Geography";
+    protected static final String OBJECT_TYPE_ACHIEVEMENT = "Achievement";
+    protected static final String OBJECT_TYPE_BOOK = "Book";
+    protected static final String OBJECT_TYPE_LOCATION = "Geography";
     private static final String OBJECT_TYPE_HUNTING_PLACE = "Hunt";
-    private static final String OBJECT_TYPE_KEY = "Key";
+    protected static final String OBJECT_TYPE_KEY = "Key";
     private static final String SOUNDS = "sounds";
     private static final String SPAWN_TYPE = "spawntype";
     private static final String LOOT = "loot";
@@ -36,7 +39,8 @@ public class JsonFactory {
      * Convert a String which consists of key-value pairs of infobox template parameters to a JSON object, or an empty
      * JSON object if the input was empty.
      */
-    public JSONObject convertInfoboxPartOfArticleToJson(final String infoboxPartOfArticle) {
+    @NotNull
+    public JSONObject convertInfoboxPartOfArticleToJson(@Nullable final String infoboxPartOfArticle) {
         Map<String, String> parametersAndValues = new HashMap<>();
 
         if (infoboxPartOfArticle == null || "".equals(infoboxPartOfArticle)) {
@@ -46,6 +50,7 @@ public class JsonFactory {
         final String objectType = getTemplateType(infoboxPartOfArticle);
         String infoboxTemplatePartOfArticleSanitized = TemplateUtils.removeFirstAndLastLine(infoboxPartOfArticle);
 
+        // Do something special for Infobox Hunt input, to process the lowerlevels parameter
         if (OBJECT_TYPE_HUNTING_PLACE.equals(objectType)) {
             Optional<Map<String, String>> lowerLevelsOptional = TemplateUtils.extractLowerLevels(infoboxTemplatePartOfArticleSanitized);
 
@@ -61,97 +66,116 @@ public class JsonFactory {
     }
 
     /**
-     * An alternative implementation which uses a regex. This relaxes the strict requirement of {{Infobox Hunt|}} and
-     * allows cases of e.g. {{Infobox_Hunt|}}, in other words, with an underscore.
+     * Extracts template type from input. Allows cases of e.g. {{Infobox_Hunt|}} (with an underscore) or without an underscore.
      */
-    private String getTemplateType(final String infoboxTemplatePartOfArticle) {
-        String templateType = null;
-        Pattern pattern = Pattern.compile(INFOBOX_HEADER_PATTERN);
-        Matcher matcher = pattern.matcher(infoboxTemplatePartOfArticle);
-        while (matcher.find()) {
-            if (matcher.groupCount() > 0 && matcher.group(1) != null) {
-                templateType = matcher.group(1);
-                break;
-            }
-        }
-        if (templateType != null && !"".equals(templateType)) {
-            return templateType;
-        } else {
-            log.warn("Template type could not be determined from string {}", infoboxTemplatePartOfArticle);
-            return UNKNOWN;
-        }
+    @NotNull
+    protected String getTemplateType(@Nullable final String infoboxTemplatePartOfArticle) {
+        return Optional.ofNullable(infoboxTemplatePartOfArticle)
+                .map(s -> Pattern.compile(INFOBOX_HEADER_PATTERN).matcher(s))
+                .filter(Matcher::find)
+                .filter(m -> m.groupCount() > 0)
+                .map(m -> m.group(1))
+                .filter(s -> !"".equals(s))
+                .orElseGet(() -> {
+                    log.warn("Template type could not be determined from string {}", infoboxTemplatePartOfArticle);
+                    return UNKNOWN;
+                });
     }
 
-    private JSONObject enhanceJsonObject(JSONObject jsonObject) {
-        if (jsonObject.has(OBJECT_TYPE)) {
+    @NotNull
+    protected JSONObject enhanceJsonObject(@NotNull JSONObject jsonObject) {
 
-            assert (jsonObject.has("name")) : "parameter name not found in jsonObject:" + jsonObject.toString(2);
-
-            final String articleName;
-            final String objectType = jsonObject.getString(OBJECT_TYPE);
-
-            switch (objectType) {
-                case OBJECT_TYPE_BOOK:
-                    articleName = jsonObject.getString("pagename");
-                    break;
-                case OBJECT_TYPE_LOCATION:
-                    articleName = UNKNOWN;
-                    break;
-                case OBJECT_TYPE_KEY:
-                    articleName = "Key " + jsonObject.getString("number");
-                    break;
-                default:
-                    articleName = jsonObject.getString("name");
+        if (!jsonObject.has("name")) {
+            if (log.isErrorEnabled()) {
+                log.error("parameter 'name' not found in jsonObject: {}", jsonObject.toString(2));
             }
-
-            if (jsonObject.has(SOUNDS)) {
-                String soundsValue = jsonObject.getString(SOUNDS);
-                JSONArray soundsArray = makeSoundsArray(soundsValue, articleName);
-                jsonObject.put(SOUNDS, soundsArray);
-            }
-
-            if (jsonObject.has(SPAWN_TYPE)) {
-                String spawntypeValue = jsonObject.getString(SPAWN_TYPE);
-                JSONArray spawntypeArray = new JSONArray(TemplateUtils.splitByCommaAndTrim(spawntypeValue));
-                jsonObject.put(SPAWN_TYPE, spawntypeArray);
-            }
-
-            if (jsonObject.has(LOOT) && !OBJECT_TYPE_HUNTING_PLACE.equals(objectType)) {
-                String lootValue = jsonObject.getString(LOOT);
-                JSONArray lootTableArray = makeLootTableArray(lootValue);
-                jsonObject.put(LOOT, lootTableArray);
-            }
-
-            if (jsonObject.has(DROPPED_BY)) {
-                String droppedbyValue = jsonObject.getString(DROPPED_BY);
-                JSONArray droppedbyArray = makeDroppedByArray(droppedbyValue, articleName);
-                jsonObject.put(DROPPED_BY, droppedbyArray);
-            }
-
-            if (jsonObject.has(ITEM_ID)) {
-                String itemIdValue = jsonObject.getString(ITEM_ID);
-                JSONArray itemIdArray = new JSONArray(TemplateUtils.splitByCommaAndTrim(itemIdValue));
-                jsonObject.put(ITEM_ID, itemIdArray);
-            }
-
-            if (jsonObject.has(LOWER_LEVELS)) {
-                String lowerLevelsValue = jsonObject.getString(LOWER_LEVELS);
-                JSONArray lowerLevelsArray = makeLowerLevelsArray(lowerLevelsValue);
-                jsonObject.put(LOWER_LEVELS, lowerLevelsArray);
-            }
+            return jsonObject;
         }
+
+        final String objectType = Optional.of(jsonObject)
+                .filter(j -> j.has(OBJECT_TYPE))
+                .map(j -> j.getString(OBJECT_TYPE))
+                .orElse(UNKNOWN);
+
+        final String articleName = determineArticleName(jsonObject, objectType);
+
+        if (jsonObject.has(SOUNDS)) {
+            String soundsValue = jsonObject.getString(SOUNDS);
+            JSONArray soundsArray = makeSoundsArray(soundsValue, articleName);
+            jsonObject.put(SOUNDS, soundsArray);
+        }
+
+        if (jsonObject.has(SPAWN_TYPE)) {
+            String spawntypeValue = jsonObject.getString(SPAWN_TYPE);
+            JSONArray spawntypeArray = new JSONArray(TemplateUtils.splitByCommaAndTrim(spawntypeValue));
+            jsonObject.put(SPAWN_TYPE, spawntypeArray);
+        }
+
+        if (jsonObject.has(LOOT) && !OBJECT_TYPE_HUNTING_PLACE.equals(objectType)) {
+            String lootValue = jsonObject.getString(LOOT);
+            JSONArray lootTableArray = makeLootTableArray(lootValue);
+            jsonObject.put(LOOT, lootTableArray);
+        }
+
+        if (jsonObject.has(DROPPED_BY)) {
+            String droppedbyValue = jsonObject.getString(DROPPED_BY);
+            JSONArray droppedbyArray = makeDroppedByArray(droppedbyValue, articleName);
+            jsonObject.put(DROPPED_BY, droppedbyArray);
+        }
+
+        if (jsonObject.has(ITEM_ID)) {
+            String itemIdValue = jsonObject.getString(ITEM_ID);
+            JSONArray itemIdArray = new JSONArray(TemplateUtils.splitByCommaAndTrim(itemIdValue));
+            jsonObject.put(ITEM_ID, itemIdArray);
+        }
+
+        if (jsonObject.has(LOWER_LEVELS)) {
+            String lowerLevelsValue = jsonObject.getString(LOWER_LEVELS);
+            JSONArray lowerLevelsArray = makeLowerLevelsArray(lowerLevelsValue);
+            jsonObject.put(LOWER_LEVELS, lowerLevelsArray);
+        }
+
         return jsonObject;
     }
 
-    private JSONArray makeSoundsArray(String soundsValue, String articleName) {
-        if (soundsValue.length() < 2) {
+    /**
+     * Usually the articleName is the value from the key 'name', but for books, locations or keys it is different.
+     */
+    @NotNull
+    protected String determineArticleName(@Nullable JSONObject jsonObject, @Nullable String objectType) {
+        if (jsonObject == null || objectType == null || "".equals(objectType)) {
+            return UNKNOWN;
+        }
+
+        String articleName;
+        switch (objectType) {
+            case OBJECT_TYPE_BOOK:
+                articleName = jsonObject.getString("pagename");
+                break;
+            case OBJECT_TYPE_LOCATION:
+                articleName = UNKNOWN;
+                break;
+            case OBJECT_TYPE_KEY:
+                articleName = "Key " + jsonObject.getString("number");
+                break;
+            default:
+                articleName = jsonObject.getString("name");
+        }
+        return articleName;
+    }
+
+    @NotNull
+    private JSONArray makeSoundsArray(@Nullable String soundsValue, @NotNull String articleName) {
+        if (soundsValue == null || soundsValue.length() < 2 || !soundsValue.contains("{{Sound List")) {
+            log.error("soundsValue '{}' from article '{}' does not contain Template:Sound List", soundsValue, articleName);
             return new JSONArray();
         }
-        assert (soundsValue.contains("{{Sound List")) : "soundsValue '" + soundsValue + "' from article '" + articleName +
-                "' does not contain Template:Sound List";
-        String sounds = TemplateUtils.removeStartAndEndOfTemplate(soundsValue);
-        List<String> splitLines = Arrays.asList(Pattern.compile("\\|").split(sounds));
-        return new JSONArray(splitLines);
+
+        return Optional.of(soundsValue)
+                .map(TemplateUtils::removeStartAndEndOfTemplate)
+                .map(s -> Arrays.asList(Pattern.compile("\\|").split(s)))
+                .map(JSONArray::new)
+                .orElseGet(JSONArray::new);
     }
 
     private JSONArray makeLootTableArray(String lootValue) {
@@ -225,7 +249,7 @@ public class JsonFactory {
         while (matcher.find()) {
             if (matcher.groupCount() > 0 && matcher.group(1) != null) {
                 String infoboxHuntSkills = matcher.group(1);
-                infoboxHuntSkillsList.add(infoboxHuntSkills.replaceAll("^\\s+",""));
+                infoboxHuntSkillsList.add(infoboxHuntSkills.replaceAll("^\\s+", ""));
             }
         }
 
