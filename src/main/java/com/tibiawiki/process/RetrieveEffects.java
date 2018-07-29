@@ -1,11 +1,11 @@
 package com.tibiawiki.process;
 
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.factories.JsonFactory;
 import com.tibiawiki.domain.repositories.ArticleRepository;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,15 +24,8 @@ public class RetrieveEffects extends RetrieveAny {
     }
 
     public List<String> getEffectsList() {
-        final List<String> effectsCategory = new ArrayList<>();
-        for (String pageName : articleRepository.getMembersFromCategory(CATEGORY)) {
-            effectsCategory.add(pageName);
-        }
-
-        final List<String> listsCategory = new ArrayList<>();
-        for (String pageName : articleRepository.getMembersFromCategory(CATEGORY_LISTS)) {
-            listsCategory.add(pageName);
-        }
+        final List<String> effectsCategory = articleRepository.getPageNamesFromCategory(CATEGORY);
+        final List<String> listsCategory = articleRepository.getPageNamesFromCategory(CATEGORY_LISTS);
 
         return effectsCategory.stream()
                 .filter(page -> !listsCategory.contains(page))
@@ -40,18 +33,10 @@ public class RetrieveEffects extends RetrieveAny {
     }
 
     public Stream<JSONObject> getEffectsJSON() {
-        return getEffectsJSON(ONE_BY_ONE);
-    }
-
-    public Stream<JSONObject> getEffectsJSON(boolean oneByOne) {
-        final List<String> effectsList = getEffectsList();
-
-        return oneByOne
-                ? obtainArticlesOneByOne(effectsList)
-                : obtainArticlesInBulk(effectsList);
+        return getArticlesFromInfoboxTemplateAsJSON(InfoboxTemplate.EFFECTS.getCategoryName());
     }
 
     public Optional<JSONObject> getEffectJSON(String pageName) {
-        return super.getArticleJSON(pageName);
+        return super.getArticleAsJSON(pageName);
     }
 }

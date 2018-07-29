@@ -1,11 +1,11 @@
 package com.tibiawiki.process;
 
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.factories.JsonFactory;
 import com.tibiawiki.domain.repositories.ArticleRepository;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,15 +24,8 @@ public class RetrieveKeys extends RetrieveAny {
     }
 
     public List<String> getKeysList() {
-        final List<String> keysCategory = new ArrayList<>();
-        for (String pageName : articleRepository.getMembersFromCategory(CATEGORY)) {
-            keysCategory.add(pageName);
-        }
-
-        final List<String> listsCategory = new ArrayList<>();
-        for (String pageName : articleRepository.getMembersFromCategory(CATEGORY_LISTS)) {
-            listsCategory.add(pageName);
-        }
+        final List<String> keysCategory = articleRepository.getPageNamesFromCategory(CATEGORY);
+        final List<String> listsCategory = articleRepository.getPageNamesFromCategory(CATEGORY_LISTS);
 
         return keysCategory.stream()
                 .filter(page -> !listsCategory.contains(page))
@@ -40,18 +33,10 @@ public class RetrieveKeys extends RetrieveAny {
     }
 
     public Stream<JSONObject> getKeysJSON() {
-        return getKeysJSON(ONE_BY_ONE);
-    }
-
-    public Stream<JSONObject> getKeysJSON(boolean oneByOne) {
-        final List<String> keysList = getKeysList();
-
-        return oneByOne
-                ? obtainArticlesOneByOne(keysList)
-                : obtainArticlesInBulk(keysList);
+        return getArticlesFromInfoboxTemplateAsJSON(InfoboxTemplate.KEY.getCategoryName());
     }
 
     public Optional<JSONObject> getKeyJSON(String pageName) {
-        return super.getArticleJSON(pageName);
+        return super.getArticleAsJSON(pageName);
     }
 }

@@ -25,7 +25,7 @@ public class ArticleRepositoryTest {
 //
 //    @Test
 //    public void testGetMembersFromCategory() {
-//        List<String> result = target.getMembersFromCategory(SOME_CATEGORY_NAME);
+//        List<String> result = target.getPageNamesFromCategory(SOME_CATEGORY_NAME);
 //
 //        assertThat(result, notNullValue());
 //    }

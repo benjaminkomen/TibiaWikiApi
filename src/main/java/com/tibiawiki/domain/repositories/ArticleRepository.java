@@ -1,10 +1,13 @@
 package com.tibiawiki.domain.repositories;
 
+import fastily.jwiki.core.MQuery;
 import fastily.jwiki.core.NS;
 import fastily.jwiki.core.Wiki;
 import okhttp3.HttpUrl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This repository is responsible for obtaining data from the external wiki source. Given a pageName or categoryName
@@ -19,21 +22,21 @@ public class ArticleRepository {
         wiki = new Wiki(null, null, HttpUrl.parse(DEFAULT_WIKI_URI), null, null);
     }
 
-    public List<String> getMembersFromCategory(String categoryName) {
+    public List<String> getPageNamesFromCategory(String categoryName) {
         return wiki.getCategoryMembers(categoryName, NS.MAIN);
+    }
+
+
+    public List<String> getArticlesFromCategory(String categoryName) {
+        Map<String, String> pagenamesAndArticleContents = MQuery.getPageText(wiki, wiki.getCategoryMembers(categoryName));
+        return new ArrayList<>(pagenamesAndArticleContents.values());
+    }
+
+    public List<String> getArticlesUsingTemplate(String templateName) {
+        return wiki.whatTranscludesHere(templateName, NS.MAIN);
     }
 
     public String getArticle(String pageName) {
         return wiki.getPageText(pageName);
-    }
-
-    /**
-     * Given a list of pageNames, return a list of Articles in one go, which is supposedly faster and more efficient
-     * than {@link #getArticle}. This is limited to 500? articles?
-     *
-     * @todo I don't think this works like I want to
-     */
-    public List<String> getArticles(List<String> pageNames) {
-        return wiki.allPages("", false, false, -1, NS.MAIN);
     }
 }

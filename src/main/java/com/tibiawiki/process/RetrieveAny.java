@@ -3,17 +3,14 @@ package com.tibiawiki.process;
 import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.factories.JsonFactory;
 import com.tibiawiki.domain.repositories.ArticleRepository;
-import one.util.streamex.StreamEx;
 import org.json.JSONObject;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 public abstract class RetrieveAny {
 
     protected static final String CATEGORY_LISTS = "Lists";
-    protected static final Boolean ONE_BY_ONE = true;
 
     protected ArticleRepository articleRepository;
     protected ArticleFactory articleFactory;
@@ -31,22 +28,15 @@ public abstract class RetrieveAny {
         this.jsonFactory = jsonFactory;
     }
 
-    public Optional<JSONObject> getArticleJSON(String pageName) {
+    public Optional<JSONObject> getArticleAsJSON(String pageName) {
         return Optional.ofNullable(articleRepository.getArticle(pageName))
                 .map(articleFactory::extractInfoboxPartOfArticle)
                 .map(jsonFactory::convertInfoboxPartOfArticleToJson);
     }
 
-    protected Stream<JSONObject> obtainArticlesInBulk(List<String> pageNames) {
-        return StreamEx.ofSubLists(pageNames, 50)
-                .flatMap(names -> articleRepository.getArticles(names).stream())
-                .map(articleFactory::extractInfoboxPartOfArticle)
-                .map(jsonFactory::convertInfoboxPartOfArticleToJson);
-    }
-
-    protected Stream<JSONObject> obtainArticlesOneByOne(List<String> pageNames) {
-        return pageNames.stream()
-                .map(pageName -> articleRepository.getArticle(pageName))
+    public Stream<JSONObject> getArticlesFromInfoboxTemplateAsJSON(String categoryName) {
+        return Stream.of(categoryName)
+                .flatMap(cat -> articleRepository.getArticlesFromCategory(cat).stream())
                 .map(articleFactory::extractInfoboxPartOfArticle)
                 .map(jsonFactory::convertInfoboxPartOfArticleToJson);
     }

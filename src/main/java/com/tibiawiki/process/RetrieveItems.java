@@ -1,5 +1,6 @@
 package com.tibiawiki.process;
 
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.factories.JsonFactory;
 import com.tibiawiki.domain.repositories.ArticleRepository;
@@ -23,8 +24,8 @@ public class RetrieveItems extends RetrieveAny {
     }
 
     public List<String> getItemsList() {
-        final List<String> itemsCategory = articleRepository.getMembersFromCategory(CATEGORY);
-        final List<String> listsCategory = articleRepository.getMembersFromCategory(CATEGORY_LISTS);
+        final List<String> itemsCategory = articleRepository.getPageNamesFromCategory(CATEGORY);
+        final List<String> listsCategory = articleRepository.getPageNamesFromCategory(CATEGORY_LISTS);
 
         return itemsCategory.stream()
                 .filter(page -> !listsCategory.contains(page))
@@ -32,18 +33,10 @@ public class RetrieveItems extends RetrieveAny {
     }
 
     public Stream<JSONObject> getItemsJSON() {
-        return getItemsJSON(ONE_BY_ONE);
-    }
-
-    public Stream<JSONObject> getItemsJSON(boolean oneByOne) {
-        final List<String> keysList = getItemsList();
-
-        return oneByOne
-                ? obtainArticlesOneByOne(keysList)
-                : obtainArticlesInBulk(keysList);
+        return getArticlesFromInfoboxTemplateAsJSON(InfoboxTemplate.ITEM.getCategoryName());
     }
 
     public Optional<JSONObject> getItemJSON(String pageName) {
-        return super.getArticleJSON(pageName);
+        return super.getArticleAsJSON(pageName);
     }
 }

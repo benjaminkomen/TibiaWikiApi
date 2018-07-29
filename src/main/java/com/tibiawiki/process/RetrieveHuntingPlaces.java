@@ -1,11 +1,11 @@
 package com.tibiawiki.process;
 
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.factories.JsonFactory;
 import com.tibiawiki.domain.repositories.ArticleRepository;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,15 +24,8 @@ public class RetrieveHuntingPlaces extends RetrieveAny {
     }
 
     public List<String> getHuntingPlacesList() {
-        final List<String> huntingPlacesCategory = new ArrayList<>();
-        for (String pageName : articleRepository.getMembersFromCategory(CATEGORY)) {
-            huntingPlacesCategory.add(pageName);
-        }
-
-        final List<String> listsCategory = new ArrayList<>();
-        for (String pageName : articleRepository.getMembersFromCategory(CATEGORY_LISTS)) {
-            listsCategory.add(pageName);
-        }
+        final List<String> huntingPlacesCategory = articleRepository.getPageNamesFromCategory(CATEGORY);
+        final List<String> listsCategory = articleRepository.getPageNamesFromCategory(CATEGORY_LISTS);
 
         return huntingPlacesCategory.stream()
                 .filter(page -> !listsCategory.contains(page))
@@ -40,18 +33,10 @@ public class RetrieveHuntingPlaces extends RetrieveAny {
     }
 
     public Stream<JSONObject> getHuntingPlacesJSON() {
-        return getHuntingPlacesJSON(ONE_BY_ONE);
-    }
-
-    public Stream<JSONObject> getHuntingPlacesJSON(boolean oneByOne) {
-        final List<String> huntingPlacesList = getHuntingPlacesList();
-
-        return oneByOne
-                ? obtainArticlesOneByOne(huntingPlacesList)
-                : obtainArticlesInBulk(huntingPlacesList);
+        return getArticlesFromInfoboxTemplateAsJSON(InfoboxTemplate.HUNT.getCategoryName());
     }
 
     public Optional<JSONObject> getHuntingPlaceJSON(String pageName) {
-        return super.getArticleJSON(pageName);
+        return super.getArticleAsJSON(pageName);
     }
 }

@@ -1,11 +1,11 @@
 package com.tibiawiki.process;
 
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.factories.JsonFactory;
 import com.tibiawiki.domain.repositories.ArticleRepository;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,15 +24,8 @@ public class RetrieveNPCs extends RetrieveAny {
     }
 
     public List<String> getNPCsList() {
-        final List<String> npcsCategory = new ArrayList<>();
-        for (String pageName : articleRepository.getMembersFromCategory(CATEGORY)) {
-            npcsCategory.add(pageName);
-        }
-
-        final List<String> listsCategory = new ArrayList<>();
-        for (String pageName : articleRepository.getMembersFromCategory(CATEGORY_LISTS)) {
-            listsCategory.add(pageName);
-        }
+        final List<String> npcsCategory = articleRepository.getPageNamesFromCategory(CATEGORY);
+        final List<String> listsCategory = articleRepository.getPageNamesFromCategory(CATEGORY_LISTS);
 
         return npcsCategory.stream()
                 .filter(page -> !listsCategory.contains(page))
@@ -40,18 +33,10 @@ public class RetrieveNPCs extends RetrieveAny {
     }
 
     public Stream<JSONObject> getNPCsJSON() {
-        return getNPCsJSON(ONE_BY_ONE);
-    }
-
-    public Stream<JSONObject> getNPCsJSON(boolean oneByOne) {
-        final List<String> npcsList = getNPCsList();
-
-        return oneByOne
-                ? obtainArticlesOneByOne(npcsList)
-                : obtainArticlesInBulk(npcsList);
+        return getArticlesFromInfoboxTemplateAsJSON(InfoboxTemplate.NPC.getCategoryName());
     }
 
     public Optional<JSONObject> getNPCJSON(String pageName) {
-        return super.getArticleJSON(pageName);
+        return super.getArticleAsJSON(pageName);
     }
 }

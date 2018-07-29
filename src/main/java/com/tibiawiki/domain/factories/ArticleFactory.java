@@ -20,8 +20,10 @@ public class ArticleFactory {
 
         if (!articleContent.contains(INFOBOX_HEADER)) {
             if (log.isWarnEnabled()) {
+                int endLength = articleContent.length() >= 200 ? 200 : articleContent.length();
                 log.warn("Cannot extract infobox template from article which starts with '{}'," +
-                        " since it contains no Infobox template.", articleContent.substring(0, 30));
+                        " since it contains no Infobox template.", articleContent.substring(0, endLength)
+                        .replaceAll("\\n", ""));
             }
             return "";
         }

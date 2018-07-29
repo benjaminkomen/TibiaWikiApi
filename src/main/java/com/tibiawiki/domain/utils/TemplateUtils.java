@@ -99,17 +99,25 @@ public class TemplateUtils {
         final List<String> values = Arrays.asList((pattern).split(infoboxTemplatePartOfArticle));
 
         // sanitize values to get rid of empty Strings
-        List<String> sanitizedValue = values.stream()
+        List<String> sanitizedValues = values.stream()
                 .filter(s -> !s.isEmpty())
                 .map(String::trim)
                 .map(s -> s.replaceAll("\n$", ""))
                 .collect(Collectors.toList());
 
+        if (keys.size() != sanitizedValues.size()) {
+            if (log.isErrorEnabled()) {
+                int endLength = infoboxTemplatePartOfArticle.length() >= 200 ? 200 : infoboxTemplatePartOfArticle.length();
+                log.error("Amount of keys and values don't match for article starting with: {}",
+                        infoboxTemplatePartOfArticle.substring(0, endLength).replaceAll("\\n", ""));
+                return new HashMap<>();
+            }
+        }
 
         // put keys and values into map
         for (int i = 0; i < keys.size(); i++) {
             String key = keys.get(i);
-            String value = sanitizedValue.get(i);
+            String value = sanitizedValues.get(i);
             keyValuePair.put(key, value);
         }
 
