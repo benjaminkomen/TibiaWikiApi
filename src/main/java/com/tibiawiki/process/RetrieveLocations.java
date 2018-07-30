@@ -33,7 +33,7 @@ public class RetrieveLocations extends RetrieveAny {
     }
 
     public Stream<JSONObject> getLocationsJSON() {
-        return getArticlesFromInfoboxTemplateAsJSON(InfoboxTemplate.GEOGRAPHY.getCategoryName());
+        return getArticlesFromInfoboxTemplateAsJSON(getLocationsList());
     }
 
     public Optional<JSONObject> getLocationJSON(String pageName) {

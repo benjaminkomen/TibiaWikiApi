@@ -33,7 +33,7 @@ public class RetrieveQuests extends RetrieveAny {
     }
 
     public Stream<JSONObject> getQuestsJSON() {
-        return getArticlesFromInfoboxTemplateAsJSON(InfoboxTemplate.QUEST.getCategoryName());
+        return getArticlesFromInfoboxTemplateAsJSON(getQuestsList());
     }
 
     public Optional<JSONObject> getQuestJSON(String pageName) {

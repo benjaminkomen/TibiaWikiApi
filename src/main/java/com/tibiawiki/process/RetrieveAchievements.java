@@ -1,13 +1,11 @@
 package com.tibiawiki.process;
 
-import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.factories.JsonFactory;
 import com.tibiawiki.domain.repositories.ArticleRepository;
 import org.json.JSONObject;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -33,11 +31,7 @@ public class RetrieveAchievements extends RetrieveAny {
                 .collect(Collectors.toList());
     }
 
-    public Map<String, JSONObject> getAchievementsJSON() {
-        return getArticlesFromInfoboxTemplateAsJSON(InfoboxTemplate.ACHIEVEMENT.getCategoryName());
-    }
-
-    public Stream<JSONObject> getAchievementsJSON2() {
+    public Stream<JSONObject> getAchievementsJSON() {
         return getArticlesFromInfoboxTemplateAsJSON(getAchievementsList());
     }
 

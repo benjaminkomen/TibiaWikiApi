@@ -6,9 +6,7 @@ import com.tibiawiki.domain.repositories.ArticleRepository;
 import org.json.JSONObject;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public abstract class RetrieveAny {
@@ -37,17 +35,10 @@ public abstract class RetrieveAny {
                 .map(jsonFactory::convertInfoboxPartOfArticleToJson);
     }
 
-    public Map<String, JSONObject> getArticlesFromInfoboxTemplateAsJSON(String categoryName) {
-        return articleRepository.getArticlesFromCategory(categoryName).entrySet().stream()
-                .map(e -> articleFactory.extractInfoboxPartOfArticle(e.getKey(), e.getValue()))
-                .map(e -> Map.entry(e.getKey(), jsonFactory.convertInfoboxPartOfArticleToJson(e.getValue())))
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-    }
-
     public Stream<JSONObject> getArticlesFromInfoboxTemplateAsJSON(List<String> categoryName) {
         return Stream.of(categoryName)
-                .flatMap(cat -> articleRepository.getArticlesFromCategory(cat).stream())
-                .map(articleFactory::extractInfoboxPartOfArticle)
+                .flatMap(cat -> articleRepository.getArticlesFromCategory(cat).entrySet().stream())
+                .map(e -> articleFactory.extractInfoboxPartOfArticle(e))
                 .map(jsonFactory::convertInfoboxPartOfArticleToJson);
     }
 }

@@ -5,7 +5,6 @@ import fastily.jwiki.core.NS;
 import fastily.jwiki.core.Wiki;
 import okhttp3.HttpUrl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -26,9 +25,8 @@ public class ArticleRepository {
         return wiki.getCategoryMembers(categoryName, NS.MAIN);
     }
 
-    public List<String> getArticlesFromCategory(List<String> pageNames) {
-        Map<String, String> pagenamesAndArticleContents = MQuery.getPageText(wiki, pageNames);
-        return new ArrayList<>(pagenamesAndArticleContents.values());
+    public Map<String, String> getArticlesFromCategory(List<String> pageNames) {
+        return MQuery.getPageText(wiki, pageNames);
     }
 
 

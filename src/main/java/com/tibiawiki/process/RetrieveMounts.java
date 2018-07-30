@@ -33,7 +33,7 @@ public class RetrieveMounts extends RetrieveAny {
     }
 
     public Stream<JSONObject> getMountsJSON() {
-        return getArticlesFromInfoboxTemplateAsJSON(InfoboxTemplate.MOUNT.getCategoryName());
+        return getArticlesFromInfoboxTemplateAsJSON(getMountsList());
     }
 
     public Optional<JSONObject> getMountJSON(String pageName) {

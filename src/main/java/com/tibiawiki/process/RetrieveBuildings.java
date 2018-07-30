@@ -33,7 +33,7 @@ public class RetrieveBuildings extends RetrieveAny {
     }
 
     public Stream<JSONObject> getBuildingsJSON() {
-        return getArticlesFromInfoboxTemplateAsJSON(InfoboxTemplate.BUILDING.getCategoryName());
+        return getArticlesFromInfoboxTemplateAsJSON(getBuildingsList());
     }
 
     public Optional<JSONObject> getBuildingJSON(String pageName) {

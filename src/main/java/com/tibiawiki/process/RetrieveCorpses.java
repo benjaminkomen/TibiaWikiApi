@@ -33,7 +33,7 @@ public class RetrieveCorpses extends RetrieveAny {
     }
 
     public Stream<JSONObject> getCorpsesJSON() {
-        return getArticlesFromInfoboxTemplateAsJSON(InfoboxTemplate.CORPSE.getCategoryName());
+        return getArticlesFromInfoboxTemplateAsJSON(getCorpsesList());
     }
 
     public Optional<JSONObject> getCorpseJSON(String pageName) {

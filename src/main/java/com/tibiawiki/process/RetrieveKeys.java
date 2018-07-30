@@ -33,7 +33,7 @@ public class RetrieveKeys extends RetrieveAny {
     }
 
     public Stream<JSONObject> getKeysJSON() {
-        return getArticlesFromInfoboxTemplateAsJSON(InfoboxTemplate.KEY.getCategoryName());
+        return getArticlesFromInfoboxTemplateAsJSON(getKeysList());
     }
 
     public Optional<JSONObject> getKeyJSON(String pageName) {

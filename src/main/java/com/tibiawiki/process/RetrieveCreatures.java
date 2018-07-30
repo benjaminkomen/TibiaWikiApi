@@ -33,7 +33,7 @@ public class RetrieveCreatures extends RetrieveAny {
     }
 
     public Stream<JSONObject> getCreaturesJSON() {
-        return getArticlesFromInfoboxTemplateAsJSON(InfoboxTemplate.CREATURE.getCategoryName());
+        return getArticlesFromInfoboxTemplateAsJSON(getCreaturesList());
     }
 
     public Optional<JSONObject> getCreatureJson(String pageName) {

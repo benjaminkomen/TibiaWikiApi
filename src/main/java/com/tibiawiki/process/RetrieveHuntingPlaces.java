@@ -33,7 +33,7 @@ public class RetrieveHuntingPlaces extends RetrieveAny {
     }
 
     public Stream<JSONObject> getHuntingPlacesJSON() {
-        return getArticlesFromInfoboxTemplateAsJSON(InfoboxTemplate.HUNT.getCategoryName());
+        return getArticlesFromInfoboxTemplateAsJSON(getHuntingPlacesList());
     }
 
     public Optional<JSONObject> getHuntingPlaceJSON(String pageName) {

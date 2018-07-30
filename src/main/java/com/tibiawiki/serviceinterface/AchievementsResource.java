@@ -22,7 +22,7 @@ public class AchievementsResource {
     public Response getAchievements(@QueryParam("expand") Boolean expand) {
         return Response.ok()
                 .entity(expand != null && expand
-                        ? retrieveAchievements.getAchievementsJSON()
+                        ? retrieveAchievements.getAchievementsJSON().map(JSONObject::toMap)
                         : retrieveAchievements.getAchievementsList()
                 )
                 .header("Access-Control-Allow-Origin", "*")

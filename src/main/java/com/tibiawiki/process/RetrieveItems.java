@@ -33,7 +33,7 @@ public class RetrieveItems extends RetrieveAny {
     }
 
     public Stream<JSONObject> getItemsJSON() {
-        return getArticlesFromInfoboxTemplateAsJSON(InfoboxTemplate.ITEM.getCategoryName());
+        return getArticlesFromInfoboxTemplateAsJSON(getItemsList());
     }
 
     public Optional<JSONObject> getItemJSON(String pageName) {

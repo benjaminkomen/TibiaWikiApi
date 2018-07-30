@@ -166,12 +166,12 @@ public class JsonFactory {
 
     @NotNull
     private JSONArray makeSoundsArray(@Nullable String soundsValue, @NotNull String articleName) {
-        if (soundsValue == null || soundsValue.length() < 2 || !soundsValue.contains("{{Sound List")) {
+        if (soundsValue != null && soundsValue.length() > 2 && !soundsValue.contains("{{Sound List")) {
             log.error("soundsValue '{}' from article '{}' does not contain Template:Sound List", soundsValue, articleName);
             return new JSONArray();
         }
 
-        return Optional.of(soundsValue)
+        return Optional.ofNullable(soundsValue)
                 .map(TemplateUtils::removeStartAndEndOfTemplate)
                 .map(s -> Arrays.asList(Pattern.compile("\\|").split(s)))
                 .map(JSONArray::new)

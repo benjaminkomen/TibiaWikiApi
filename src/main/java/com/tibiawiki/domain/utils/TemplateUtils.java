@@ -54,13 +54,15 @@ public class TemplateUtils {
     /**
      * Remove the first line of the input string, that is, between the start of the string and the first occurrence
      * of a \n character.
-     * Remove the last line of the input string, that is, everything after the last occurrence of a \n character.
+     * Remove the last line of the input string, that is, everything after the last occurrence of two }} characters. The
+     * reason we are not looking for the last \n character is that some templates may end with | notes =\n}} and then
+     * removing the last \n character also removes the value of the key "notes".
      */
     @NotNull
     public static String removeFirstAndLastLine(@Nullable String text) {
         return Optional.ofNullable(text)
                 .map(t -> t.substring(t.indexOf('\n') + 1)) // remove first line
-                .map(t -> t.substring(0, t.lastIndexOf('\n') > -1 ? t.lastIndexOf('\n') : 0)) // remove last line
+                .map(t -> t.substring(0, t.lastIndexOf('\n') > -1 ? t.lastIndexOf("}}") : 0)) // remove last line
                 .orElse("");
     }
 

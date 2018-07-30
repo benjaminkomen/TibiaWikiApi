@@ -33,7 +33,7 @@ public class RetrieveSpells extends RetrieveAny {
     }
 
     public Stream<JSONObject> getSpellsJSON() {
-        return getArticlesFromInfoboxTemplateAsJSON(InfoboxTemplate.SPELL.getCategoryName());
+        return getArticlesFromInfoboxTemplateAsJSON(getSpellsList());
     }
 
     public Optional<JSONObject> getSpellJSON(String pageName) {

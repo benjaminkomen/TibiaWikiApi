@@ -31,7 +31,7 @@ public class RetrieveBooks extends RetrieveAny {
     }
 
     public Stream<JSONObject> getBooksJSON() {
-        return getArticlesFromInfoboxTemplateAsJSON(InfoboxTemplate.BOOK.getCategoryName());
+        return getArticlesFromInfoboxTemplateAsJSON(getBooksList());
     }
 
     public Optional<JSONObject> getBookJSON(String pageName) {

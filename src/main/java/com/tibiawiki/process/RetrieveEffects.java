@@ -33,7 +33,7 @@ public class RetrieveEffects extends RetrieveAny {
     }
 
     public Stream<JSONObject> getEffectsJSON() {
-        return getArticlesFromInfoboxTemplateAsJSON(InfoboxTemplate.EFFECTS.getCategoryName());
+        return getArticlesFromInfoboxTemplateAsJSON(getEffectsList());
     }
 
     public Optional<JSONObject> getEffectJSON(String pageName) {

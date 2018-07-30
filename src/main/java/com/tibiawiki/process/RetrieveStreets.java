@@ -33,7 +33,7 @@ public class RetrieveStreets extends RetrieveAny {
     }
 
     public Stream<JSONObject> getStreetsJSON() {
-        return getArticlesFromInfoboxTemplateAsJSON(InfoboxTemplate.STREET.getCategoryName());
+        return getArticlesFromInfoboxTemplateAsJSON(getStreetsList());
     }
 
     public Optional<JSONObject> getStreetJSON(String pageName) {

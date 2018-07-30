@@ -33,7 +33,7 @@ public class RetrieveNPCs extends RetrieveAny {
     }
 
     public Stream<JSONObject> getNPCsJSON() {
-        return getArticlesFromInfoboxTemplateAsJSON(InfoboxTemplate.NPC.getCategoryName());
+        return getArticlesFromInfoboxTemplateAsJSON(getNPCsList());
     }
 
     public Optional<JSONObject> getNPCJSON(String pageName) {
