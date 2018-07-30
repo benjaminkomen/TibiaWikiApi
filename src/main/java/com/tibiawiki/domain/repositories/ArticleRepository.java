@@ -26,13 +26,17 @@ public class ArticleRepository {
         return wiki.getCategoryMembers(categoryName, NS.MAIN);
     }
 
-
-    public List<String> getArticlesFromCategory(String categoryName) {
-        Map<String, String> pagenamesAndArticleContents = MQuery.getPageText(wiki, wiki.getCategoryMembers(categoryName));
+    public List<String> getArticlesFromCategory(List<String> pageNames) {
+        Map<String, String> pagenamesAndArticleContents = MQuery.getPageText(wiki, pageNames);
         return new ArrayList<>(pagenamesAndArticleContents.values());
     }
 
-    public List<String> getArticlesUsingTemplate(String templateName) {
+
+    public Map<String, String> getArticlesFromCategory(String categoryName) {
+        return MQuery.getPageText(wiki, wiki.getCategoryMembers(categoryName));
+    }
+
+    public List<String> getPageNamesUsingTemplate(String templateName) {
         return wiki.whatTranscludesHere(templateName, NS.MAIN);
     }
 

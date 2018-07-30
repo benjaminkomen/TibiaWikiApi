@@ -4,6 +4,8 @@ import com.tibiawiki.domain.utils.TemplateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Map;
+
 /**
  * Conversion from Article to infoboxPartOfArticle.
  */
@@ -29,5 +31,9 @@ public class ArticleFactory {
         }
 
         return TemplateUtils.getBetweenOuterBalancedBrackets(articleContent, INFOBOX_HEADER);
+    }
+
+    public Map.Entry<String, String> extractInfoboxPartOfArticle(String pageName, String articleContent) {
+        return Map.entry(pageName, extractInfoboxPartOfArticle(articleContent));
     }
 }

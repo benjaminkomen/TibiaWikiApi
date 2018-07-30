@@ -7,6 +7,7 @@ import com.tibiawiki.domain.repositories.ArticleRepository;
 import org.json.JSONObject;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -32,8 +33,12 @@ public class RetrieveAchievements extends RetrieveAny {
                 .collect(Collectors.toList());
     }
 
-    public Stream<JSONObject> getAchievementsJSON() {
+    public Map<String, JSONObject> getAchievementsJSON() {
         return getArticlesFromInfoboxTemplateAsJSON(InfoboxTemplate.ACHIEVEMENT.getCategoryName());
+    }
+
+    public Stream<JSONObject> getAchievementsJSON2() {
+        return getArticlesFromInfoboxTemplateAsJSON(getAchievementsList());
     }
 
     public Optional<JSONObject> getAchievementJSON(String pageName) {
