@@ -85,13 +85,6 @@ public class JsonFactory {
     @NotNull
     protected JSONObject enhanceJsonObject(@NotNull JSONObject jsonObject) {
 
-//        if (!jsonObject.has("name")) {
-//            if (log.isErrorEnabled()) {
-//                log.error("parameter 'name' not found in jsonObject: {}", jsonObject.toString(2));
-//            }
-//            return jsonObject;
-//        }
-
         final String objectType = Optional.of(jsonObject)
                 .filter(j -> j.has(OBJECT_TYPE))
                 .map(j -> j.getString(OBJECT_TYPE))

@@ -21,6 +21,10 @@ public class ArticleRepository {
         wiki = new Wiki(null, null, HttpUrl.parse(DEFAULT_WIKI_URI), null, null);
     }
 
+    public ArticleRepository(Wiki wiki) {
+        this.wiki = wiki;
+    }
+
     public List<String> getPageNamesFromCategory(String categoryName) {
         return wiki.getCategoryMembers(categoryName, NS.MAIN);
     }
