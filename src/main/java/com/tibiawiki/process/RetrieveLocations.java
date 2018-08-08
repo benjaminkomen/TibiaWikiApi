@@ -1,11 +1,11 @@
 package com.tibiawiki.process;
 
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.factories.JsonFactory;
 import com.tibiawiki.domain.repositories.ArticleRepository;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,15 +24,8 @@ public class RetrieveLocations extends RetrieveAny {
     }
 
     public List<String> getLocationsList() {
-        final List<String> locationsCategory = new ArrayList<>();
-        for (String pageName : articleRepository.getMembersFromCategory(CATEGORY)) {
-            locationsCategory.add(pageName);
-        }
-
-        final List<String> listsCategory = new ArrayList<>();
-        for (String pageName : articleRepository.getMembersFromCategory(CATEGORY_LISTS)) {
-            listsCategory.add(pageName);
-        }
+        final List<String> locationsCategory = articleRepository.getPageNamesFromCategory(CATEGORY);
+        final List<String> listsCategory = articleRepository.getPageNamesFromCategory(CATEGORY_LISTS);
 
         return locationsCategory.stream()
                 .filter(page -> !listsCategory.contains(page))
@@ -40,18 +33,10 @@ public class RetrieveLocations extends RetrieveAny {
     }
 
     public Stream<JSONObject> getLocationsJSON() {
-        return getLocationsJSON(ONE_BY_ONE);
-    }
-
-    public Stream<JSONObject> getLocationsJSON(boolean oneByOne) {
-        final List<String> locationsList = getLocationsList();
-
-        return oneByOne
-                ? obtainArticlesOneByOne(locationsList)
-                : obtainArticlesInBulk(locationsList);
+        return getArticlesFromInfoboxTemplateAsJSON(getLocationsList());
     }
 
     public Optional<JSONObject> getLocationJSON(String pageName) {
-        return super.getArticleJSON(pageName);
+        return super.getArticleAsJSON(pageName);
     }
 }

@@ -54,13 +54,15 @@ public class TemplateUtils {
     /**
      * Remove the first line of the input string, that is, between the start of the string and the first occurrence
      * of a \n character.
-     * Remove the last line of the input string, that is, everything after the last occurrence of a \n character.
+     * Remove the last line of the input string, that is, everything after the last occurrence of two }} characters. The
+     * reason we are not looking for the last \n character is that some templates may end with | notes =\n}} and then
+     * removing the last \n character also removes the value of the key "notes".
      */
     @NotNull
     public static String removeFirstAndLastLine(@Nullable String text) {
         return Optional.ofNullable(text)
                 .map(t -> t.substring(t.indexOf('\n') + 1)) // remove first line
-                .map(t -> t.substring(0, t.lastIndexOf('\n') > -1 ? t.lastIndexOf('\n') : 0)) // remove last line
+                .map(t -> t.substring(0, t.lastIndexOf('\n') > -1 ? t.lastIndexOf("}}") : 0)) // remove last line
                 .orElse("");
     }
 
@@ -99,17 +101,25 @@ public class TemplateUtils {
         final List<String> values = Arrays.asList((pattern).split(infoboxTemplatePartOfArticle));
 
         // sanitize values to get rid of empty Strings
-        List<String> sanitizedValue = values.stream()
+        List<String> sanitizedValues = values.stream()
                 .filter(s -> !s.isEmpty())
                 .map(String::trim)
                 .map(s -> s.replaceAll("\n$", ""))
                 .collect(Collectors.toList());
 
+        if (keys.size() != sanitizedValues.size()) {
+            if (log.isErrorEnabled()) {
+                int endLength = infoboxTemplatePartOfArticle.length() >= 200 ? 200 : infoboxTemplatePartOfArticle.length();
+                log.error("Amount of keys and values don't match for article starting with: {}",
+                        infoboxTemplatePartOfArticle.substring(0, endLength).replaceAll("\\n", ""));
+                return new HashMap<>();
+            }
+        }
 
         // put keys and values into map
         for (int i = 0; i < keys.size(); i++) {
             String key = keys.get(i);
-            String value = sanitizedValue.get(i);
+            String value = sanitizedValues.get(i);
             keyValuePair.put(key, value);
         }
 
@@ -118,7 +128,8 @@ public class TemplateUtils {
 
     @NotNull
     public static List<String> splitByCommaAndTrim(@Nullable String input) {
-        return Stream.ofNullable(input)
+        return Stream.of(input)
+                .filter(Objects::nonNull)
                 .filter(i -> i.trim().length() > 0)
                 .map(i -> i.split(","))
                 .flatMap(lst -> Arrays.stream(lst).map(String::trim))

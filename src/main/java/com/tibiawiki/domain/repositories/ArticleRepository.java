@@ -1,11 +1,12 @@
 package com.tibiawiki.domain.repositories;
 
-import net.sourceforge.jwbf.core.contentRep.Article;
-import net.sourceforge.jwbf.mediawiki.actions.queries.CategoryMembersSimple;
-import net.sourceforge.jwbf.mediawiki.bots.MediaWikiBot;
+import fastily.jwiki.core.MQuery;
+import fastily.jwiki.core.NS;
+import fastily.jwiki.core.Wiki;
+import okhttp3.HttpUrl;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 /**
  * This repository is responsible for obtaining data from the external wiki source. Given a pageName or categoryName
@@ -13,31 +14,35 @@ import java.util.stream.Collectors;
  */
 public class ArticleRepository {
 
-    private MediaWikiBot mediaWikiBot;
+    private static final String DEFAULT_WIKI_URI = "https://tibia.wikia.com/api.php";
+    private Wiki wiki;
 
-    public ArticleRepository(MediaWikiBot mediaWikiBot) {
-        this.mediaWikiBot = mediaWikiBot;
+    public ArticleRepository() {
+        wiki = new Wiki(null, null, HttpUrl.parse(DEFAULT_WIKI_URI), null, null);
     }
 
-    public CategoryMembersSimple getMembersFromCategory(String categoryName) {
-        return new CategoryMembersSimple(mediaWikiBot, categoryName);
+    public ArticleRepository(Wiki wiki) {
+        this.wiki = wiki;
     }
 
-    public Article getArticle(String pageName) {
-        return mediaWikiBot.getArticle(pageName);
+    public List<String> getPageNamesFromCategory(String categoryName) {
+        return wiki.getCategoryMembers(categoryName, NS.MAIN);
     }
 
-    public List<Article> getArticles(List<String> pageNames) {
-        return getArticles(pageNames.toArray(new String[0]));
+    public Map<String, String> getArticlesFromCategory(List<String> pageNames) {
+        return MQuery.getPageText(wiki, pageNames);
     }
 
-    /**
-     * Given a list of pageNames, return a list of Articles in one go, which is supposedly faster and more efficient
-     * than {@link #getArticle}. This is limited to 500? articles?
-     */
-    public List<Article> getArticles(String[] pageNames) {
-        return mediaWikiBot.readData(pageNames).stream()
-                .map(sa -> Article.withoutReload(sa, mediaWikiBot))
-                .collect(Collectors.toList());
+
+    public Map<String, String> getArticlesFromCategory(String categoryName) {
+        return MQuery.getPageText(wiki, wiki.getCategoryMembers(categoryName));
+    }
+
+    public List<String> getPageNamesUsingTemplate(String templateName) {
+        return wiki.whatTranscludesHere(templateName, NS.MAIN);
+    }
+
+    public String getArticle(String pageName) {
+        return wiki.getPageText(pageName);
     }
 }

@@ -16,7 +16,7 @@ public class TemplateUtilsTest {
     public void testRemoveFirstAndLastLine() {
         assertThat(TemplateUtils.removeFirstAndLastLine(null), is(""));
         assertThat(TemplateUtils.removeFirstAndLastLine(""), is(""));
-        assertThat(TemplateUtils.removeFirstAndLastLine("foo\nbar\nbaz\nfoo"), is("bar\nbaz"));
+        assertThat(TemplateUtils.removeFirstAndLastLine("foo\nbar\nbaz\n}}foo"), is("bar\nbaz\n"));
         assertThat(TemplateUtils.removeFirstAndLastLine(INFOBOX__ACHIEVEMENT_TEXT), is("| grade        = 1\n" +
                 "| name         = Goo Goo Dancer\n" +
                 "| description  = Seeing a mucus plug makes your heart dance and you can't resist to see what it hides. Goo goo away!\n" +
@@ -26,7 +26,7 @@ public class TemplateUtilsTest {
                 "| secret       = yes\n" +
                 "| implemented  = 9.6\n" +
                 "| achievementid = 319\n" +
-                "| relatedpages = [[Muck Remover]], [[Mucus Plug]]"));
+                "| relatedpages = [[Muck Remover]], [[Mucus Plug]]\n"));
     }
 
     @Test

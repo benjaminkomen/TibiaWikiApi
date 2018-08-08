@@ -1,11 +1,11 @@
 package com.tibiawiki.process;
 
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.factories.JsonFactory;
 import com.tibiawiki.domain.repositories.ArticleRepository;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 
 public class RetrieveBuildings extends RetrieveAny {
 
-    private static final String CATEGORY_BUILDINGS = "Buildings";
+    private static final String CATEGORY = "Buildings";
 
     public RetrieveBuildings() {
         super();
@@ -24,15 +24,8 @@ public class RetrieveBuildings extends RetrieveAny {
     }
 
     public List<String> getBuildingsList() {
-        final List<String> buildingsCategory = new ArrayList<>();
-        for (String pageName : articleRepository.getMembersFromCategory(CATEGORY_BUILDINGS)) {
-            buildingsCategory.add(pageName);
-        }
-
-        final List<String> listsCategory = new ArrayList<>();
-        for (String pageName : articleRepository.getMembersFromCategory(CATEGORY_LISTS)) {
-            listsCategory.add(pageName);
-        }
+        final List<String> buildingsCategory = articleRepository.getPageNamesFromCategory(CATEGORY);
+        final List<String> listsCategory = articleRepository.getPageNamesFromCategory(CATEGORY_LISTS);
 
         return buildingsCategory.stream()
                 .filter(page -> !listsCategory.contains(page))
@@ -40,18 +33,10 @@ public class RetrieveBuildings extends RetrieveAny {
     }
 
     public Stream<JSONObject> getBuildingsJSON() {
-        return getBuildingsJSON(ONE_BY_ONE);
-    }
-
-    public Stream<JSONObject> getBuildingsJSON(boolean oneByOne) {
-        final List<String> buildingsList = getBuildingsList();
-
-        return oneByOne
-                ? obtainArticlesOneByOne(buildingsList)
-                : obtainArticlesInBulk(buildingsList);
+        return getArticlesFromInfoboxTemplateAsJSON(getBuildingsList());
     }
 
     public Optional<JSONObject> getBuildingJSON(String pageName) {
-        return super.getArticleJSON(pageName);
+        return super.getArticleAsJSON(pageName);
     }
 }

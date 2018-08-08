@@ -85,13 +85,6 @@ public class JsonFactory {
     @NotNull
     protected JSONObject enhanceJsonObject(@NotNull JSONObject jsonObject) {
 
-        if (!jsonObject.has("name")) {
-            if (log.isErrorEnabled()) {
-                log.error("parameter 'name' not found in jsonObject: {}", jsonObject.toString(2));
-            }
-            return jsonObject;
-        }
-
         final String objectType = Optional.of(jsonObject)
                 .filter(j -> j.has(OBJECT_TYPE))
                 .map(j -> j.getString(OBJECT_TYPE))
@@ -150,28 +143,28 @@ public class JsonFactory {
         String articleName;
         switch (objectType) {
             case OBJECT_TYPE_BOOK:
-                articleName = jsonObject.getString("pagename");
+                articleName = jsonObject.has("pagename") ? jsonObject.getString("pagename") : UNKNOWN;
                 break;
             case OBJECT_TYPE_LOCATION:
                 articleName = UNKNOWN;
                 break;
             case OBJECT_TYPE_KEY:
-                articleName = "Key " + jsonObject.getString("number");
+                articleName = jsonObject.has("number") ? "Key " + jsonObject.getString("number") : UNKNOWN;
                 break;
             default:
-                articleName = jsonObject.getString("name");
+                articleName = jsonObject.has("name") ? jsonObject.getString("name") : UNKNOWN;
         }
         return articleName;
     }
 
     @NotNull
     private JSONArray makeSoundsArray(@Nullable String soundsValue, @NotNull String articleName) {
-        if (soundsValue == null || soundsValue.length() < 2 || !soundsValue.contains("{{Sound List")) {
+        if (soundsValue != null && soundsValue.length() > 2 && !soundsValue.contains("{{Sound List")) {
             log.error("soundsValue '{}' from article '{}' does not contain Template:Sound List", soundsValue, articleName);
             return new JSONArray();
         }
 
-        return Optional.of(soundsValue)
+        return Optional.ofNullable(soundsValue)
                 .map(TemplateUtils::removeStartAndEndOfTemplate)
                 .map(s -> Arrays.asList(Pattern.compile("\\|").split(s)))
                 .map(JSONArray::new)

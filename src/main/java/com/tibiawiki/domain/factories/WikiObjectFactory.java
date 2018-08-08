@@ -4,17 +4,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Strings;
 import com.tibiawiki.domain.objects.*;
-import net.sourceforge.jwbf.core.bots.WikiBot;
-import net.sourceforge.jwbf.core.contentRep.Article;
-import net.sourceforge.jwbf.core.contentRep.SimpleArticle;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.time.ZonedDateTime;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -127,22 +122,22 @@ public class WikiObjectFactory {
         return wikiObject;
     }
 
-    /**
-     * Creates an Article from a WikiObject, for saving to the wiki.
-     * The reverse is achieved by {@link #createWikiObject(JSONObject)} when reading from the wiki.
-     */
-    public static Article createJSONObject(WikiBot wikiBot, WikiObject wikiObject) {
-        return new Article(wikiBot, createSimpleArticle(wikiBot, wikiObject));
-    }
-
-    private static SimpleArticle createSimpleArticle(WikiBot wikiBot, WikiObject wikiObject) {
-        SimpleArticle simpleArticle = new SimpleArticle();
-        simpleArticle.setEditor(wikiBot.getUserinfo().getUsername());
-        simpleArticle.setEditTimestamp(new Date(ZonedDateTime.now().toEpochSecond()));
-        simpleArticle.setTitle(wikiObject.getName());
-        simpleArticle.setText(createArticleText(wikiObject));
-        return simpleArticle;
-    }
+//    /**
+//     * Creates an Article from a WikiObject, for saving to the wiki.
+//     * The reverse is achieved by {@link #createWikiObject(JSONObject)} when reading from the wiki.
+//     */
+//    public static Article createJSONObject(WikiBot wikiBot, WikiObject wikiObject) {
+//        return new Article(wikiBot, createSimpleArticle(wikiBot, wikiObject));
+//    }
+//
+//    private static SimpleArticle createSimpleArticle(WikiBot wikiBot, WikiObject wikiObject) {
+//        SimpleArticle simpleArticle = new SimpleArticle();
+//        simpleArticle.setEditor(wikiBot.getUserinfo().getUsername());
+//        simpleArticle.setEditTimestamp(new Date(ZonedDateTime.now().toEpochSecond()));
+//        simpleArticle.setTitle(wikiObject.getName());
+//        simpleArticle.setText(createArticleText(wikiObject));
+//        return simpleArticle;
+//    }
 
     protected static String createArticleText(WikiObject wikiObject) {
         StringBuilder sb = new StringBuilder();
