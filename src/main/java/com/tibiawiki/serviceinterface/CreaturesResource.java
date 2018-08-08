@@ -33,7 +33,7 @@ public class CreaturesResource {
     @Path("/creatures/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCreatureByName(@PathParam("name") String name) {
-        return retrieveCreatures.getCreatureJson(name)
+        return retrieveCreatures.getCreatureJSON(name)
                 .map(a -> Response.ok()
                         .entity(a.toString(2))
                         .header("Access-Control-Allow-Origin", "*")

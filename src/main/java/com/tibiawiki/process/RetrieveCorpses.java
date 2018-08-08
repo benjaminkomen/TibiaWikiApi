@@ -13,8 +13,6 @@ import java.util.stream.Stream;
 
 public class RetrieveCorpses extends RetrieveAny {
 
-    private static final String CATEGORY = "Corpses";
-
     public RetrieveCorpses() {
         super();
     }
@@ -24,7 +22,7 @@ public class RetrieveCorpses extends RetrieveAny {
     }
 
     public List<String> getCorpsesList() {
-        final List<String> corpsesCategory = articleRepository.getPageNamesFromCategory(CATEGORY);
+        final List<String> corpsesCategory = articleRepository.getPageNamesFromCategory(InfoboxTemplate.CORPSE.getCategoryName());
         final List<String> listsCategory = articleRepository.getPageNamesFromCategory(CATEGORY_LISTS);
 
         return corpsesCategory.stream()

@@ -1,5 +1,6 @@
 package com.tibiawiki.process;
 
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.factories.JsonFactory;
 import com.tibiawiki.domain.repositories.ArticleRepository;
@@ -12,8 +13,6 @@ import java.util.stream.Stream;
 
 public class RetrieveAchievements extends RetrieveAny {
 
-    static final String CATEGORY = "Achievements";
-
     public RetrieveAchievements() {
         super();
     }
@@ -23,7 +22,7 @@ public class RetrieveAchievements extends RetrieveAny {
     }
 
     public List<String> getAchievementsList() {
-        final List<String> achievementsCategory = articleRepository.getPageNamesFromCategory(CATEGORY);
+        final List<String> achievementsCategory = articleRepository.getPageNamesFromCategory(InfoboxTemplate.ACHIEVEMENT.getCategoryName());
         final List<String> listsCategory = articleRepository.getPageNamesFromCategory(CATEGORY_LISTS);
 
         return achievementsCategory.stream()

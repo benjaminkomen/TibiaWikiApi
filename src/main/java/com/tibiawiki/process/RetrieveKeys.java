@@ -13,8 +13,6 @@ import java.util.stream.Stream;
 
 public class RetrieveKeys extends RetrieveAny {
 
-    private static final String CATEGORY = "Keys";
-
     public RetrieveKeys() {
         super();
     }
@@ -24,7 +22,7 @@ public class RetrieveKeys extends RetrieveAny {
     }
 
     public List<String> getKeysList() {
-        final List<String> keysCategory = articleRepository.getPageNamesFromCategory(CATEGORY);
+        final List<String> keysCategory = articleRepository.getPageNamesFromCategory(InfoboxTemplate.KEY.getCategoryName());
         final List<String> listsCategory = articleRepository.getPageNamesFromCategory(CATEGORY_LISTS);
 
         return keysCategory.stream()

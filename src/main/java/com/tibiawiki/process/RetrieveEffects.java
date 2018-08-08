@@ -13,8 +13,6 @@ import java.util.stream.Stream;
 
 public class RetrieveEffects extends RetrieveAny {
 
-    private static final String CATEGORY = "Effects";
-
     public RetrieveEffects() {
         super();
     }
@@ -24,7 +22,7 @@ public class RetrieveEffects extends RetrieveAny {
     }
 
     public List<String> getEffectsList() {
-        final List<String> effectsCategory = articleRepository.getPageNamesFromCategory(CATEGORY);
+        final List<String> effectsCategory = articleRepository.getPageNamesFromCategory(InfoboxTemplate.EFFECT.getCategoryName());
         final List<String> listsCategory = articleRepository.getPageNamesFromCategory(CATEGORY_LISTS);
 
         return effectsCategory.stream()

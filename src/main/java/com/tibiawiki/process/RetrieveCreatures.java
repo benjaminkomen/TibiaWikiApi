@@ -13,8 +13,6 @@ import java.util.stream.Stream;
 
 public class RetrieveCreatures extends RetrieveAny {
 
-    private static final String CATEGORY = "Creatures";
-
     public RetrieveCreatures() {
         super();
     }
@@ -24,7 +22,7 @@ public class RetrieveCreatures extends RetrieveAny {
     }
 
     public List<String> getCreaturesList() {
-        final List<String> creaturesCategory = articleRepository.getPageNamesFromCategory(CATEGORY);
+        final List<String> creaturesCategory = articleRepository.getPageNamesFromCategory(InfoboxTemplate.CREATURE.getCategoryName());
         final List<String> listsCategory = articleRepository.getPageNamesFromCategory(CATEGORY_LISTS);
 
         return creaturesCategory.stream()
@@ -36,7 +34,7 @@ public class RetrieveCreatures extends RetrieveAny {
         return getArticlesFromInfoboxTemplateAsJSON(getCreaturesList());
     }
 
-    public Optional<JSONObject> getCreatureJson(String pageName) {
+    public Optional<JSONObject> getCreatureJSON(String pageName) {
         return super.getArticleAsJSON(pageName);
     }
 }

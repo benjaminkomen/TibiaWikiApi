@@ -13,8 +13,6 @@ import java.util.stream.Stream;
 
 public class RetrieveQuests extends RetrieveAny {
 
-    private static final String CATEGORY = "Quest Overview Pages";
-
     public RetrieveQuests() {
         super();
     }
@@ -24,7 +22,7 @@ public class RetrieveQuests extends RetrieveAny {
     }
 
     public List<String> getQuestsList() {
-        final List<String> questsCategory = articleRepository.getPageNamesFromCategory(CATEGORY);
+        final List<String> questsCategory = articleRepository.getPageNamesFromCategory(InfoboxTemplate.QUEST.getCategoryName());
         final List<String> listsCategory = articleRepository.getPageNamesFromCategory(CATEGORY_LISTS);
 
         return questsCategory.stream()

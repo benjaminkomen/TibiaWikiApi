@@ -13,8 +13,6 @@ import java.util.stream.Stream;
 
 public class RetrieveObjects extends RetrieveAny {
 
-    private static final String CATEGORY = "Objects";
-
     public RetrieveObjects() {
         super();
     }
@@ -24,7 +22,7 @@ public class RetrieveObjects extends RetrieveAny {
     }
 
     public List<String> getObjectsList() {
-        final List<String> objectsCategory = articleRepository.getPageNamesFromCategory(CATEGORY);
+        final List<String> objectsCategory = articleRepository.getPageNamesFromCategory(InfoboxTemplate.OBJECT.getCategoryName());
         final List<String> listsCategory = articleRepository.getPageNamesFromCategory(CATEGORY_LISTS);
 
         return objectsCategory.stream()
