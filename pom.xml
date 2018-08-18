@@ -34,6 +34,7 @@
         <jwiki.version>1.6.0</jwiki.version>
         <guava.version>26.0-jre</guava.version>
         <ow2.asm.version>6.2.1</ow2.asm.version>
+        <swagger.jersey2.jaxrs.version>1.5.21</swagger.jersey2.jaxrs.version>
     </properties>
 
     <repositories>
@@ -132,6 +133,13 @@
             <version>${guava.version}</version>
         </dependency>
 
+        <!-- Swagger Core -->
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-jersey2-jaxrs</artifactId>
+            <version>${swagger.jersey2.jaxrs.version}</version>
+        </dependency>
+
         <!-- Test -->
 
         <!-- To write unit tests -->
@@ -191,6 +199,13 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
