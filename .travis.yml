@@ -4,7 +4,6 @@ jdk:
   - oraclejdk10
 
 env:
-  - JAVA_VERSION=9
   - JAVA_VERSION=10
 
 addons:
