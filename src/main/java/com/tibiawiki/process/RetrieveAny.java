@@ -35,9 +35,9 @@ public abstract class RetrieveAny {
                 .map(jsonFactory::convertInfoboxPartOfArticleToJson);
     }
 
-    public Stream<JSONObject> getArticlesFromInfoboxTemplateAsJSON(List<String> categoryName) {
-        return Stream.of(categoryName)
-                .flatMap(cat -> articleRepository.getArticlesFromCategory(cat).entrySet().stream())
+    public Stream<JSONObject> getArticlesFromInfoboxTemplateAsJSON(List<String> pageNames) {
+        return Stream.of(pageNames)
+                .flatMap(lst -> articleRepository.getArticlesFromCategory(lst).entrySet().stream())
                 .map(e -> articleFactory.extractInfoboxPartOfArticle(e))
                 .map(jsonFactory::convertInfoboxPartOfArticleToJson);
     }

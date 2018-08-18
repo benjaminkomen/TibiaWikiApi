@@ -13,8 +13,6 @@ import java.util.stream.Stream;
 
 public class RetrieveLocations extends RetrieveAny {
 
-    private static final String CATEGORY = "Locations";
-
     public RetrieveLocations() {
         super();
     }
@@ -24,7 +22,7 @@ public class RetrieveLocations extends RetrieveAny {
     }
 
     public List<String> getLocationsList() {
-        final List<String> locationsCategory = articleRepository.getPageNamesFromCategory(CATEGORY);
+        final List<String> locationsCategory = articleRepository.getPageNamesFromCategory(InfoboxTemplate.GEOGRAPHY.getCategoryName());
         final List<String> listsCategory = articleRepository.getPageNamesFromCategory(CATEGORY_LISTS);
 
         return locationsCategory.stream()

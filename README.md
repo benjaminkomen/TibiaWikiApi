@@ -15,6 +15,9 @@ environment such as Git Bash. Now you can start the application by typing the fo
  You can now access the REST resources using your browser or any REST client such as Postman or curl from your command line.
  E.g. navigating to http://localhost:8080/corpses should give you a list of corpses.
  
+## API documentation
+Navigate to `http://localhost:8080/swagger.json` for automatically generated navigation.
+ 
 ## Query parameters
 For all resources the query parameter ?expand=true can be appended to get a full list of JSON objects at the collection resource level. For example, instead of http://localhost:8080/achievements the url http://localhost:8080/achievements?expand=true should be used.
 

@@ -11,7 +11,7 @@ public enum InfoboxTemplate implements WikiTemplate {
     CIPSOFT_MEMBER("Cipsoft_Member", "CipSoft_Members"),
     CORPSE("Corpse", "Corpses"),
     CREATURE("Creature", "Creatures"),
-    EFFECTS("Effect", "Effects"),
+    EFFECT("Effect", "Effects"),
     FANSITE("Fansite", "Tibia_Fansites"),
     GEOGRAPHY("Geography", "Locations"),
     HUNT("Hunt", "Hunting Places"),

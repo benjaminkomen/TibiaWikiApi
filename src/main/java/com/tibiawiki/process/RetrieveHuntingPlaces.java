@@ -13,8 +13,6 @@ import java.util.stream.Stream;
 
 public class RetrieveHuntingPlaces extends RetrieveAny {
 
-    private static final String CATEGORY = "Hunting Places";
-
     public RetrieveHuntingPlaces() {
         super();
     }
@@ -24,7 +22,7 @@ public class RetrieveHuntingPlaces extends RetrieveAny {
     }
 
     public List<String> getHuntingPlacesList() {
-        final List<String> huntingPlacesCategory = articleRepository.getPageNamesFromCategory(CATEGORY);
+        final List<String> huntingPlacesCategory = articleRepository.getPageNamesFromCategory(InfoboxTemplate.HUNT.getCategoryName());
         final List<String> listsCategory = articleRepository.getPageNamesFromCategory(CATEGORY_LISTS);
 
         return huntingPlacesCategory.stream()

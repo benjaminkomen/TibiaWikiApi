@@ -13,8 +13,6 @@ import java.util.stream.Stream;
 
 public class RetrieveMounts extends RetrieveAny {
 
-    private static final String CATEGORY = "Mounts";
-
     public RetrieveMounts() {
         super();
     }
@@ -24,7 +22,7 @@ public class RetrieveMounts extends RetrieveAny {
     }
 
     public List<String> getMountsList() {
-        final List<String> mountsCategory = articleRepository.getPageNamesFromCategory(CATEGORY);
+        final List<String> mountsCategory = articleRepository.getPageNamesFromCategory(InfoboxTemplate.MOUNT.getCategoryName());
         final List<String> listsCategory = articleRepository.getPageNamesFromCategory(CATEGORY_LISTS);
 
         return mountsCategory.stream()

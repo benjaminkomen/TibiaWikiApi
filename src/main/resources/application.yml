@@ -1,0 +1,2 @@
+# Jersey dispatcher servlet
+spring.jersey.application-path: /api

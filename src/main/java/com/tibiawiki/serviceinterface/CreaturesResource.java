@@ -1,12 +1,16 @@
 package com.tibiawiki.serviceinterface;
 
 import com.tibiawiki.process.RetrieveCreatures;
+import io.swagger.annotations.Api;
 import org.json.JSONObject;
+import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+@Component
+@Api(value = "Creatures")
 @Path("/")
 public class CreaturesResource {
 
@@ -33,7 +37,7 @@ public class CreaturesResource {
     @Path("/creatures/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCreatureByName(@PathParam("name") String name) {
-        return retrieveCreatures.getCreatureJson(name)
+        return retrieveCreatures.getCreatureJSON(name)
                 .map(a -> Response.ok()
                         .entity(a.toString(2))
                         .header("Access-Control-Allow-Origin", "*")

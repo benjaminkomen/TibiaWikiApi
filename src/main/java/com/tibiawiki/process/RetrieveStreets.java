@@ -13,8 +13,6 @@ import java.util.stream.Stream;
 
 public class RetrieveStreets extends RetrieveAny {
 
-    private static final String CATEGORY = "Streets";
-
     public RetrieveStreets() {
         super();
     }
@@ -24,7 +22,7 @@ public class RetrieveStreets extends RetrieveAny {
     }
 
     public List<String> getStreetsList() {
-        final List<String> streetsCategory = articleRepository.getPageNamesFromCategory(CATEGORY);
+        final List<String> streetsCategory = articleRepository.getPageNamesFromCategory(InfoboxTemplate.STREET.getCategoryName());
         final List<String> listsCategory = articleRepository.getPageNamesFromCategory(CATEGORY_LISTS);
 
         return streetsCategory.stream()

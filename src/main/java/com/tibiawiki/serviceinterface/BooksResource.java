@@ -1,12 +1,16 @@
 package com.tibiawiki.serviceinterface;
 
 import com.tibiawiki.process.RetrieveBooks;
+import io.swagger.annotations.Api;
 import org.json.JSONObject;
+import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+@Component
+@Api(value = "Books")
 @Path("/")
 public class BooksResource {
 

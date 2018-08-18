@@ -13,8 +13,6 @@ import java.util.stream.Stream;
 
 public class RetrieveNPCs extends RetrieveAny {
 
-    private static final String CATEGORY = "NPCs";
-
     public RetrieveNPCs() {
         super();
     }
@@ -24,7 +22,7 @@ public class RetrieveNPCs extends RetrieveAny {
     }
 
     public List<String> getNPCsList() {
-        final List<String> npcsCategory = articleRepository.getPageNamesFromCategory(CATEGORY);
+        final List<String> npcsCategory = articleRepository.getPageNamesFromCategory(InfoboxTemplate.NPC.getCategoryName());
         final List<String> listsCategory = articleRepository.getPageNamesFromCategory(CATEGORY_LISTS);
 
         return npcsCategory.stream()
