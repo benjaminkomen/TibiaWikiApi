@@ -10,13 +10,13 @@ Gets data from http://tibia.wikia.com and exposes this data using a RESTful JSON
 Clone this git project to your local computer and compile it using: `mvn clean install` from your favourite command line
 environment such as Git Bash. Now you can start the application by typing the following in your command line:
  `java -jar target/TibiaWikiApi-1.0.0-SNAPSHOT.jar` while the current directory is the home folder of the project. 
- This process was tested with Maven 3.5.2 and Java 9.0.1
+ This process was tested with Maven 3.5.3 and Java 11
  
  You can now access the REST resources using your browser or any REST client such as Postman or curl from your command line.
  E.g. navigating to http://localhost:8080/corpses should give you a list of corpses.
  
 ## API documentation
-Navigate to `http://localhost:8080/swagger.json` for automatically generated navigation.
+Navigate to http://localhost:8080/ for automatically generated api documentation provided by Swagger.
  
 ## Query parameters
 For all resources the query parameter ?expand=true can be appended to get a full list of JSON objects at the collection resource level. For example, instead of http://localhost:8080/achievements the url http://localhost:8080/achievements?expand=true should be used.
