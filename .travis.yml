@@ -1,10 +1,10 @@
 language: java
 
 jdk:
-  - oraclejdk10
+  - oraclejdk11
 
 env:
-  - JAVA_VERSION=10
+  - JAVA_VERSION=11
 
 addons:
   sonarcloud:
