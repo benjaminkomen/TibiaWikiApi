@@ -1,5 +1,6 @@
 package com.tibiawiki.domain.repositories;
 
+import com.tibiawiki.domain.utils.PropertiesUtil;
 import fastily.jwiki.core.MQuery;
 import fastily.jwiki.core.NS;
 import fastily.jwiki.core.Wiki;
@@ -19,6 +20,9 @@ public class ArticleRepository {
 
     public ArticleRepository() {
         wiki = new Wiki(null, null, HttpUrl.parse(DEFAULT_WIKI_URI), null, null);
+
+        // @todo get logging in to work
+//        this.login(wiki);
     }
 
     public ArticleRepository(Wiki wiki) {
@@ -44,5 +48,16 @@ public class ArticleRepository {
 
     public String getArticle(String pageName) {
         return wiki.getPageText(pageName);
+    }
+
+    private boolean login(Wiki wiki) {
+        String username = PropertiesUtil.getUsername();
+        String password = PropertiesUtil.getPassword();
+
+        if (username != null && password != null) {
+            return wiki.login(username, password);
+        } else {
+            return false;
+        }
     }
 }
