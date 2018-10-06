@@ -17,6 +17,7 @@ public enum BestiaryClass implements Description {
     HUMAN("Human"),
     HUMANOID("Humanoid"),
     LYCANTHROPE("Lycanthrope"),
+    LYCANTHROPE2("Lycantrophe"), // supposedly wrongly spelled
     MAGICAL("Magical"),
     MAMMAL("Mammal"),
     PLANT("Plant"),
