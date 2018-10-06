@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.tibiawiki.domain.enums.BestiaryClass;
 import com.tibiawiki.domain.enums.BestiaryLevel;
+import com.tibiawiki.domain.enums.BestiaryOccurrence;
 import com.tibiawiki.domain.enums.Spawntype;
 import com.tibiawiki.domain.enums.YesNo;
 import lombok.AccessLevel;
@@ -30,6 +31,7 @@ public class Creature extends WikiObject {
     private String secondarytype;
     private BestiaryClass bestiaryclass;
     private BestiaryLevel bestiarylevel;
+    private BestiaryOccurrence occurrence;
     private List<Spawntype> spawntype;
     private YesNo isboss;
     private YesNo isarenaboss;
@@ -52,6 +54,7 @@ public class Creature extends WikiObject {
     private Percentage earthDmgMod;
     private Percentage drownDmgMod;
     private Percentage hpDrainDmgMod;
+    private Percentage healmod;
     private String bestiaryname;
     private String bestiarytext;
     private List<String> sounds;
