@@ -31,7 +31,7 @@
         <maven.surefire.plugin.version>2.22.0</maven.surefire.plugin.version>
         <maven.compiler.plugin.version>3.8.0</maven.compiler.plugin.version>
         <junit.platform.surefire.provider.version>1.2.0</junit.platform.surefire.provider.version>
-        <jwiki.version>1.6.0</jwiki.version>
+        <jwiki.version>2.0.0</jwiki.version>
         <guava.version>26.0-jre</guava.version>
         <ow2.asm.version>6.2.1</ow2.asm.version>
         <swagger.jersey2.jaxrs.version>1.5.21</swagger.jersey2.jaxrs.version>
@@ -76,7 +76,7 @@
 
         <!-- MediaWiki API -->
         <dependency>
-            <groupId>fastily</groupId>
+            <groupId>benjaminkomen</groupId>
             <artifactId>jwiki</artifactId>
             <version>${jwiki.version}</version>
         </dependency>

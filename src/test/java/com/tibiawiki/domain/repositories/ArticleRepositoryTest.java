@@ -1,7 +1,7 @@
 package com.tibiawiki.domain.repositories;
 
-import fastily.jwiki.core.NS;
-import fastily.jwiki.core.Wiki;
+import benjaminkomen.jwiki.core.NS;
+import benjaminkomen.jwiki.core.Wiki;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

@@ -61,28 +61,15 @@ public class JsonFactoryTest {
         assertThat(result.get("lvlmages"), is("50"));
         assertThat(result.get("skknights"), is("75"));
         assertThat(result.get("skpaladins"), is("80"));
-        assertThat(result.get("skmages"), is(""));
         assertThat(result.get("defknights"), is("75"));
-        assertThat(result.get("defpaladins"), is(""));
-        assertThat(result.get("defmages"), is(""));
         assertThat(result.get("lowerlevels"), instanceOf(JSONArray.class));
         assertThat(((JSONObject) ((JSONArray) result.get("lowerlevels")).get(0)).get("areaname"), is("Demons"));
         assertThat(((JSONObject) ((JSONArray) result.get("lowerlevels")).get(0)).get("lvlknights"), is("130"));
         assertThat(((JSONObject) ((JSONArray) result.get("lowerlevels")).get(0)).get("lvlpaladins"), is("130"));
         assertThat(((JSONObject) ((JSONArray) result.get("lowerlevels")).get(0)).get("lvlmages"), is("130"));
-        assertThat(((JSONObject) ((JSONArray) result.get("lowerlevels")).get(0)).get("skknights"), is(""));
-        assertThat(((JSONObject) ((JSONArray) result.get("lowerlevels")).get(0)).get("skpaladins"), is(""));
-        assertThat(((JSONObject) ((JSONArray) result.get("lowerlevels")).get(0)).get("skmages"), is(""));
-        assertThat(((JSONObject) ((JSONArray) result.get("lowerlevels")).get(0)).get("defknights"), is(""));
-        assertThat(((JSONObject) ((JSONArray) result.get("lowerlevels")).get(0)).get("defpaladins"), is(""));
-        assertThat(((JSONObject) ((JSONArray) result.get("lowerlevels")).get(0)).get("defmages"), is(""));
         assertThat(result.get("exp"), is("Good"));
         assertThat(result.get("loot"), is("Good"));
         assertThat(result.get("bestloot"), is("Reins"));
-        assertThat(result.get("bestloot2"), is(""));
-        assertThat(result.get("bestloot3"), is(""));
-        assertThat(result.get("bestloot4"), is(""));
-        assertThat(result.get("bestloot5"), is(""));
         assertThat(result.get("map"), is("Hero Cave 3.png"));
         assertThat(result.get("map2"), is("Hero Cave 6.png"));
     }

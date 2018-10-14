@@ -1,9 +1,9 @@
 package com.tibiawiki.domain.repositories;
 
 import com.tibiawiki.domain.utils.PropertiesUtil;
-import fastily.jwiki.core.MQuery;
-import fastily.jwiki.core.NS;
-import fastily.jwiki.core.Wiki;
+import benjaminkomen.jwiki.core.MQuery;
+import benjaminkomen.jwiki.core.NS;
+import benjaminkomen.jwiki.core.Wiki;
 import okhttp3.HttpUrl;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public class ArticleRepository {
     private Wiki wiki;
 
     public ArticleRepository() {
-        wiki = new Wiki(null, null, HttpUrl.parse(DEFAULT_WIKI_URI), null, null);
+        wiki = new Wiki(null, null, HttpUrl.parse(DEFAULT_WIKI_URI), null, null, true);
 
         // @todo get logging in to work
 //        this.login(wiki);
