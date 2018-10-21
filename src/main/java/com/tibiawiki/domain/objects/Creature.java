@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 import java.util.Arrays;
 import java.util.List;
 
-@JsonIgnoreProperties({"objectType", "runast", "runstat"})
+@JsonIgnoreProperties({"objectType"})
 @Getter
 @NoArgsConstructor(access = AccessLevel.PUBLIC) // TODO make this private and add builder
 public class Creature extends WikiObject {
@@ -85,24 +85,16 @@ public class Creature extends WikiObject {
         this.experiencePoints = experiencePoints;
     }
 
+    // TODO remove this when all creatures who use this start using healMOD
     @JsonGetter("healmod")
     public Percentage gethealmod() {
         return healMod;
     }
 
+    // TODO remove this when all creatures who use this start using healMOD
     @JsonSetter("healmod")
     public void sethealmod(Percentage healmod) {
         this.healMod = healmod;
-    }
-
-    @JsonGetter("healingMod")
-    public Percentage gethealingMod() {
-        return healMod;
-    }
-
-    @JsonSetter("healingMod")
-    public void sethealingMod(Percentage healingMod) {
-        this.healMod = healingMod;
     }
 
     @JsonGetter("healMod")

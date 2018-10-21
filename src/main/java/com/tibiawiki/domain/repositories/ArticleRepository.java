@@ -1,10 +1,11 @@
 package com.tibiawiki.domain.repositories;
 
-import com.tibiawiki.domain.utils.PropertiesUtil;
 import benjaminkomen.jwiki.core.MQuery;
 import benjaminkomen.jwiki.core.NS;
 import benjaminkomen.jwiki.core.Wiki;
+import com.tibiawiki.domain.utils.PropertiesUtil;
 import okhttp3.HttpUrl;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import java.util.Map;
  * This repository is responsible for obtaining data from the external wiki source. Given a pageName or categoryName
  * it can retrieve one Article or list of Articles from the wiki.
  */
+@Repository
 public class ArticleRepository {
 
     private static final String DEFAULT_WIKI_URI = "https://tibia.wikia.com/api.php";
@@ -21,8 +23,7 @@ public class ArticleRepository {
     public ArticleRepository() {
         wiki = new Wiki(null, null, HttpUrl.parse(DEFAULT_WIKI_URI), null, null, true);
 
-        // @todo get logging in to work
-//        this.login(wiki);
+        this.login(wiki);
     }
 
     public ArticleRepository(Wiki wiki) {
