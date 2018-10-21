@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import java.util.Arrays;
 import java.util.List;
 
-@JsonIgnoreProperties({"objectType"})
+@JsonIgnoreProperties({"templateType"})
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Location extends WikiObject {

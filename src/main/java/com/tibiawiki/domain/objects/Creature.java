@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 import java.util.Arrays;
 import java.util.List;
 
-@JsonIgnoreProperties({"objectType"})
+@JsonIgnoreProperties({"templateType"})
 @Getter
 @NoArgsConstructor(access = AccessLevel.PUBLIC) // TODO make this private and add builder
 public class Creature extends WikiObject {

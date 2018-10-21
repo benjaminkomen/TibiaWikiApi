@@ -32,7 +32,7 @@ public class JsonFactoryTest {
     public void testConvertInfoboxPartOfArticleToJson_InfoboxAchievement() {
         JSONObject result = target.convertInfoboxPartOfArticleToJson(INFOBOX__ACHIEVEMENT_TEXT);
 
-        assertThat(result.get("type"), is("Achievement"));
+        assertThat(result.get("templateType"), is("Achievement"));
         assertThat(result.get("grade"), is("1"));
         assertThat(result.get("name"), is("Goo Goo Dancer"));
         assertThat(result.get("description"), is("Seeing a mucus plug makes your heart dance and you can't resist to see what it hides. Goo goo away!"));
@@ -49,7 +49,7 @@ public class JsonFactoryTest {
     public void testConvertInfoboxPartOfArticleToJson_InfoboxHunt() {
         JSONObject result = target.convertInfoboxPartOfArticleToJson(INFOBOX_HUNT_TEXT);
 
-        assertThat(result.get("type"), is("Hunt"));
+        assertThat(result.get("templateType"), is("Hunt"));
         assertThat(result.get("name"), is("Hero Cave"));
         assertThat(result.get("image"), is("Hero"));
         assertThat(result.get("implemented"), is("6.4"));
@@ -101,7 +101,7 @@ public class JsonFactoryTest {
     public void testEnhanceJsonObject_Failure_Sounds() {
         final JSONObject inputJsonObject = new JSONObject(Map.of(
                 "name", "Dragon",
-                "type", "Creature",
+                "templateType", "Creature",
                 "sounds", "FCHHHHH, GROOAAARRR"
         ));
         JSONObject result = target.enhanceJsonObject(inputJsonObject);
@@ -112,7 +112,7 @@ public class JsonFactoryTest {
     public void testEnhanceJsonObject_Succes_Sounds() {
         final JSONObject inputJsonObject = new JSONObject(Map.of(
                 "name", "Dragon",
-                "type", "Creature",
+                "templateType", "Creature",
                 "sounds", "{{Sound List|FCHHHHH|GROOAAARRR}}"
         ));
         JSONObject result = target.enhanceJsonObject(inputJsonObject);
@@ -124,7 +124,7 @@ public class JsonFactoryTest {
     public void testEnhanceJsonObject_Spawntype_Empty() {
         final JSONObject inputJsonObject = new JSONObject(Map.of(
                 "name", "Demon",
-                "type", "Creature",
+                "templateType", "Creature",
                 "spawntype", " "
         ));
         JSONObject result = target.enhanceJsonObject(inputJsonObject);
@@ -135,7 +135,7 @@ public class JsonFactoryTest {
     public void testEnhanceJsonObject_Spawntype_Succes() {
         final JSONObject inputJsonObject = new JSONObject(Map.of(
                 "name", "Demon",
-                "type", "Creature",
+                "templateType", "Creature",
                 "spawntype", "Regular, Raid"
         ));
         JSONObject result = target.enhanceJsonObject(inputJsonObject);
@@ -153,28 +153,28 @@ public class JsonFactoryTest {
     public void testDetermineArticleName_Book() {
         JSONObject input = new JSONObject(Map.of("pagename", "Foobar"));
 
-        assertThat(target.determineArticleName(input, JsonFactory.OBJECT_TYPE_BOOK), is("Foobar"));
+        assertThat(target.determineArticleName(input, JsonFactory.TEMPLATE_TYPE_BOOK), is("Foobar"));
     }
 
     @Test
     public void testDetermineArticleName_Location() {
         JSONObject input = new JSONObject();
 
-        assertThat(target.determineArticleName(input, JsonFactory.OBJECT_TYPE_LOCATION), is("Unknown"));
+        assertThat(target.determineArticleName(input, JsonFactory.TEMPLATE_TYPE_LOCATION), is("Unknown"));
     }
 
     @Test
     public void testDetermineArticleName_Key() {
         JSONObject input = new JSONObject(Map.of("number", "1234"));
 
-        assertThat(target.determineArticleName(input, JsonFactory.OBJECT_TYPE_KEY), is("Key 1234"));
+        assertThat(target.determineArticleName(input, JsonFactory.TEMPLATE_TYPE_KEY), is("Key 1234"));
     }
 
     @Test
     public void testDetermineArticleName_Achievement() {
         JSONObject input = new JSONObject(Map.of("name", "Foobar"));
 
-        assertThat(target.determineArticleName(input, JsonFactory.OBJECT_TYPE_ACHIEVEMENT), is("Foobar"));
+        assertThat(target.determineArticleName(input, JsonFactory.TEMPLATE_TYPE_ACHIEVEMENT), is("Foobar"));
     }
 
     private String makeInfoboxPartOfArticle() {

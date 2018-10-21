@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.util.Collections;
 import java.util.List;
 
-@JsonIgnoreProperties({"objectType"})
+@JsonIgnoreProperties({"templateType"})
 @Getter
 @NoArgsConstructor
 public class TibiaObject extends WikiObject {

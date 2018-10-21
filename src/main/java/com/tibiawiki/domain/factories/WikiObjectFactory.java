@@ -19,24 +19,24 @@ import java.util.stream.Stream;
 public class WikiObjectFactory {
 
     private static final Logger log = LoggerFactory.getLogger(WikiObjectFactory.class);
-    private static final String OBJECT_TYPE = "type";
-    private static final String OBJECT_TYPE_ACHIEVEMENT = "Achievement";
-    private static final String OBJECT_TYPE_BOOK = "Book";
-    private static final String OBJECT_TYPE_BUILDING = "Building";
-    private static final String OBJECT_TYPE_CORPSE = "Corpse";
-    private static final String OBJECT_TYPE_CREATURE = "Creature";
-    private static final String OBJECT_TYPE_EFFECT = "Effect";
-    private static final String OBJECT_TYPE_LOCATION = "Geography";
-    private static final String OBJECT_TYPE_HUNTING_PLACE = "Hunt";
-    private static final String OBJECT_TYPE_MOUNT = "Mount";
-    private static final String OBJECT_TYPE_ITEM = "Item";
-    private static final String OBJECT_TYPE_KEY = "Key";
-    private static final String OBJECT_TYPE_NPC = "NPC";
-    private static final String OBJECT_TYPE_OBJECT = "Object";
-    private static final String OBJECT_TYPE_OUTFIT = "Outfit";
-    private static final String OBJECT_TYPE_QUEST = "Quest";
-    private static final String OBJECT_TYPE_SPELL = "Spell";
-    private static final String OBJECT_TYPE_STREET = "Street";
+    private static final String TEMPLATE_TYPE = "templateType";
+    private static final String TEMPLATE_TYPE_ACHIEVEMENT = "Achievement";
+    private static final String TEMPLATE_TYPE_BOOK = "Book";
+    private static final String TEMPLATE_TYPE_BUILDING = "Building";
+    private static final String TEMPLATE_TYPE_CORPSE = "Corpse";
+    private static final String TEMPLATE_TYPE_CREATURE = "Creature";
+    private static final String TEMPLATE_TYPE_EFFECT = "Effect";
+    private static final String TEMPLATE_TYPE_LOCATION = "Geography";
+    private static final String TEMPLATE_TYPE_HUNTING_PLACE = "Hunt";
+    private static final String TEMPLATE_TYPE_MOUNT = "Mount";
+    private static final String TEMPLATE_TYPE_ITEM = "Item";
+    private static final String TEMPLATE_TYPE_KEY = "Key";
+    private static final String TEMPLATE_TYPE_NPC = "NPC";
+    private static final String TEMPLATE_TYPE_OBJECT = "Object";
+    private static final String TEMPLATE_TYPE_OUTFIT = "Outfit";
+    private static final String TEMPLATE_TYPE_QUEST = "Quest";
+    private static final String TEMPLATE_TYPE_SPELL = "Spell";
+    private static final String TEMPLATE_TYPE_STREET = "Street";
 
     private ObjectMapper objectMapper;
 
@@ -60,62 +60,62 @@ public class WikiObjectFactory {
      */
     public WikiObject createWikiObject(JSONObject wikiObjectJson) {
         final WikiObject wikiObject;
-        final String objectType = (String) wikiObjectJson.get(OBJECT_TYPE);
+        final String templateType = (String) wikiObjectJson.get(TEMPLATE_TYPE);
 
-        switch (objectType) {
-            case OBJECT_TYPE_ACHIEVEMENT:
+        switch (templateType) {
+            case TEMPLATE_TYPE_ACHIEVEMENT:
                 wikiObject = mapJsonToObject(wikiObjectJson, Achievement.class);
                 break;
-            case OBJECT_TYPE_BOOK:
+            case TEMPLATE_TYPE_BOOK:
                 wikiObject = mapJsonToObject(wikiObjectJson, Book.class);
                 break;
-            case OBJECT_TYPE_BUILDING:
+            case TEMPLATE_TYPE_BUILDING:
                 wikiObject = mapJsonToObject(wikiObjectJson, Building.class);
                 break;
-            case OBJECT_TYPE_CORPSE:
+            case TEMPLATE_TYPE_CORPSE:
                 wikiObject = mapJsonToObject(wikiObjectJson, Corpse.class);
                 break;
-            case OBJECT_TYPE_CREATURE:
+            case TEMPLATE_TYPE_CREATURE:
                 wikiObject = mapJsonToObject(wikiObjectJson, Creature.class);
                 break;
-            case OBJECT_TYPE_EFFECT:
+            case TEMPLATE_TYPE_EFFECT:
                 wikiObject = mapJsonToObject(wikiObjectJson, Effect.class);
                 break;
-            case OBJECT_TYPE_LOCATION:
+            case TEMPLATE_TYPE_LOCATION:
                 wikiObject = mapJsonToObject(wikiObjectJson, Location.class);
                 break;
-            case OBJECT_TYPE_HUNTING_PLACE:
+            case TEMPLATE_TYPE_HUNTING_PLACE:
                 wikiObject = mapJsonToObject(wikiObjectJson, HuntingPlace.class);
                 break;
-            case OBJECT_TYPE_ITEM:
+            case TEMPLATE_TYPE_ITEM:
                 wikiObject = mapJsonToObject(wikiObjectJson, Item.class);
                 break;
-            case OBJECT_TYPE_KEY:
+            case TEMPLATE_TYPE_KEY:
                 wikiObject = mapJsonToObject(wikiObjectJson, Key.class);
                 break;
-            case OBJECT_TYPE_MOUNT:
+            case TEMPLATE_TYPE_MOUNT:
                 wikiObject = mapJsonToObject(wikiObjectJson, Mount.class);
                 break;
-            case OBJECT_TYPE_NPC:
+            case TEMPLATE_TYPE_NPC:
                 wikiObject = mapJsonToObject(wikiObjectJson, NPC.class);
                 break;
-            case OBJECT_TYPE_OBJECT:
+            case TEMPLATE_TYPE_OBJECT:
                 wikiObject = mapJsonToObject(wikiObjectJson, TibiaObject.class);
                 break;
-            case OBJECT_TYPE_OUTFIT:
+            case TEMPLATE_TYPE_OUTFIT:
                 wikiObject = mapJsonToObject(wikiObjectJson, Outfit.class);
                 break;
-            case OBJECT_TYPE_QUEST:
+            case TEMPLATE_TYPE_QUEST:
                 wikiObject = mapJsonToObject(wikiObjectJson, Quest.class);
                 break;
-            case OBJECT_TYPE_SPELL:
+            case TEMPLATE_TYPE_SPELL:
                 wikiObject = mapJsonToObject(wikiObjectJson, Spell.class);
                 break;
-            case OBJECT_TYPE_STREET:
+            case TEMPLATE_TYPE_STREET:
                 wikiObject = mapJsonToObject(wikiObjectJson, Street.class);
                 break;
             default:
-                log.warn("object type '{}' not supported, terminating..", objectType);
+                log.warn("object type '{}' not supported, terminating..", templateType);
                 return null;
         }
 
