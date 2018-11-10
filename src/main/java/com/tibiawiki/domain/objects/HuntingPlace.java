@@ -7,6 +7,7 @@ import com.tibiawiki.domain.enums.Star;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 @JsonIgnoreProperties({"templateType"})
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@Component
 public class HuntingPlace extends WikiObject {
 
     private String image;

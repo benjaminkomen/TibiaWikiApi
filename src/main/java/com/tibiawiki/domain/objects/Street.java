@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tibiawiki.domain.enums.City;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @JsonIgnoreProperties({"templateType"})
 @Getter
 @NoArgsConstructor
+@Component
 public class Street extends WikiObject {
 
     private City city;

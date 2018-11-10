@@ -4,6 +4,7 @@ import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.factories.JsonFactory;
 import com.tibiawiki.domain.repositories.ArticleRepository;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -15,14 +16,15 @@ public abstract class RetrieveAny {
 
     protected static final String CATEGORY_LISTS = "Lists";
 
+    @Autowired
     protected ArticleRepository articleRepository;
+    @Autowired
     protected ArticleFactory articleFactory;
+    @Autowired
     protected JsonFactory jsonFactory;
 
-    public RetrieveAny() {
-        articleRepository = new ArticleRepository();
-        articleFactory = new ArticleFactory();
-        jsonFactory = new JsonFactory();
+    protected RetrieveAny() {
+        // nothing to do, all dependencies are injected
     }
 
     public RetrieveAny(ArticleRepository articleRepository, ArticleFactory articleFactory, JsonFactory jsonFactory) {

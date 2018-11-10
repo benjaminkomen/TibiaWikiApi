@@ -3,6 +3,7 @@ package com.tibiawiki.serviceinterface;
 import com.tibiawiki.process.RetrieveMounts;
 import io.swagger.annotations.Api;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
@@ -14,10 +15,11 @@ import javax.ws.rs.core.Response;
 @Path("/")
 public class MountsResource {
 
+    @Autowired
     private RetrieveMounts retrieveMounts;
 
-    public MountsResource() {
-        retrieveMounts = new RetrieveMounts();
+    private MountsResource() {
+        // nothing to do, all dependencies are injected
     }
 
     @GET

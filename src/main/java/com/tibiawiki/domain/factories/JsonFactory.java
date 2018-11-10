@@ -7,8 +7,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -16,6 +22,7 @@ import java.util.stream.Collectors;
 /**
  * Conversion from infoboxPartOfArticle to JSON.
  */
+@Component
 public class JsonFactory {
 
     private static final Logger log = LoggerFactory.getLogger(JsonFactory.class);

@@ -8,12 +8,14 @@ import com.tibiawiki.domain.enums.WeaponType;
 import com.tibiawiki.domain.enums.YesNo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
 
 @Getter
 @NoArgsConstructor
+@Component
 public class Item extends WikiObject {
 
     private List<Integer> itemid;

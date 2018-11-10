@@ -5,16 +5,18 @@ import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.factories.JsonFactory;
 import com.tibiawiki.domain.repositories.ArticleRepository;
 import org.json.JSONObject;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Component
 public class RetrieveQuests extends RetrieveAny {
 
-    public RetrieveQuests() {
-        super();
+    private RetrieveQuests() {
+        // nothing to do, all dependencies are injected
     }
 
     public RetrieveQuests(ArticleRepository articleRepository, ArticleFactory articleFactory, JsonFactory jsonFactory) {

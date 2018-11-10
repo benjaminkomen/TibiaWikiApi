@@ -3,6 +3,7 @@ package com.tibiawiki.serviceinterface;
 import com.tibiawiki.process.RetrieveOutfits;
 import io.swagger.annotations.Api;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
@@ -14,10 +15,11 @@ import javax.ws.rs.core.Response;
 @Path("/")
 public class OutfitsResource {
 
+    @Autowired
     private RetrieveOutfits retrieveOutfits;
 
-    public OutfitsResource() {
-        retrieveOutfits = new RetrieveOutfits();
+    private OutfitsResource() {
+        // nothing to do, all dependencies are injected
     }
 
     @GET

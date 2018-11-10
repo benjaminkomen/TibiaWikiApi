@@ -3,9 +3,14 @@ package com.tibiawiki.serviceinterface;
 import com.tibiawiki.process.RetrieveHuntingPlaces;
 import io.swagger.annotations.Api;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -14,10 +19,11 @@ import javax.ws.rs.core.Response;
 @Path("/")
 public class HuntingPlacesResource {
 
+    @Autowired
     private RetrieveHuntingPlaces retrieveHuntingPlaces;
 
-    public HuntingPlacesResource() {
-        retrieveHuntingPlaces = new RetrieveHuntingPlaces();
+    private HuntingPlacesResource() {
+        // nothing to do, all dependencies are injected
     }
 
     @GET

@@ -17,7 +17,7 @@ import java.util.Map;
 @Repository
 public class ArticleRepository {
 
-    private static final String DEFAULT_WIKI_URI = "https://tibia.wikia.com/api.php";
+    private static final String DEFAULT_WIKI_URI = "https://tibia.fandom.com/api.php";
     private Wiki wiki;
 
     public ArticleRepository() {

@@ -6,6 +6,7 @@ import com.tibiawiki.domain.enums.Gender;
 import com.tibiawiki.domain.enums.YesNo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 @JsonIgnoreProperties({"templateType"})
 @Getter
 @NoArgsConstructor
+@Component
 public class NPC extends WikiObject {
 
     private String job;

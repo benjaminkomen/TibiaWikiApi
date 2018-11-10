@@ -5,16 +5,18 @@ import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.factories.JsonFactory;
 import com.tibiawiki.domain.repositories.ArticleRepository;
 import org.json.JSONObject;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Component
 public class RetrieveStreets extends RetrieveAny {
 
-    public RetrieveStreets() {
-        super();
+    private RetrieveStreets() {
+        // nothing to do, all dependencies are injected
     }
 
     public RetrieveStreets(ArticleRepository articleRepository, ArticleFactory articleFactory, JsonFactory jsonFactory) {

@@ -6,6 +6,7 @@ import com.tibiawiki.domain.enums.YesNo;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 @JsonIgnoreProperties({"templateType"})
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@Component
 public class Corpse extends WikiObject {
 
     private String flavortext;

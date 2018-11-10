@@ -3,10 +3,28 @@ package com.tibiawiki.domain.factories;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Strings;
-import com.tibiawiki.domain.objects.*;
+import com.tibiawiki.domain.objects.Achievement;
+import com.tibiawiki.domain.objects.Book;
+import com.tibiawiki.domain.objects.Building;
+import com.tibiawiki.domain.objects.Corpse;
+import com.tibiawiki.domain.objects.Creature;
+import com.tibiawiki.domain.objects.Effect;
+import com.tibiawiki.domain.objects.HuntingPlace;
+import com.tibiawiki.domain.objects.Item;
+import com.tibiawiki.domain.objects.Key;
+import com.tibiawiki.domain.objects.Location;
+import com.tibiawiki.domain.objects.Mount;
+import com.tibiawiki.domain.objects.NPC;
+import com.tibiawiki.domain.objects.Outfit;
+import com.tibiawiki.domain.objects.Quest;
+import com.tibiawiki.domain.objects.Spell;
+import com.tibiawiki.domain.objects.Street;
+import com.tibiawiki.domain.objects.TibiaObject;
+import com.tibiawiki.domain.objects.WikiObject;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -16,6 +34,7 @@ import java.util.stream.Stream;
 /**
  * Create a WikiObject from a previously constructed JSONObject, and back.
  */
+@Component
 public class WikiObjectFactory {
 
     private static final Logger log = LoggerFactory.getLogger(WikiObjectFactory.class);
