@@ -4,7 +4,7 @@
 
     <groupId>com.tibiawiki</groupId>
     <artifactId>TibiaWikiApi</artifactId>
-    <version>1.3.1</version>
+    <version>1.4.0</version>
     <packaging>jar</packaging>
     <name>TibiaWikiApi</name>
     <url>https://github.com/benjaminkomen/TibiaWikiApi</url>
@@ -217,6 +217,7 @@
                 <configuration>
                     <source>11</source>
                     <target>11</target>
+                    <release>11</release>
                 </configuration>
                 <dependencies>
                     <dependency>
