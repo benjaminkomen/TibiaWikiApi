@@ -5,13 +5,15 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tibiawiki.domain.enums.YesNo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
 
-@JsonIgnoreProperties({"objectType"})
+@JsonIgnoreProperties({"templateType"})
 @Getter
 @NoArgsConstructor
+@Component
 public class Mount extends WikiObject {
 
     private Integer speed;

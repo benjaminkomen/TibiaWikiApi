@@ -105,6 +105,7 @@ public class TemplateUtils {
                 .filter(s -> !s.isEmpty())
                 .map(String::trim)
                 .map(s -> s.replaceAll("\n$", ""))
+                .map(s -> "".equals(s) ? null : s) // transform empty strings to null values
                 .collect(Collectors.toList());
 
         if (keys.size() != sanitizedValues.size()) {

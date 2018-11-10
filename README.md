@@ -12,6 +12,8 @@ environment such as Git Bash. Now you can start the application by typing the fo
  `java -jar target/TibiaWikiApi-1.0.0-SNAPSHOT.jar` while the current directory is the home folder of the project. 
  This process was tested with Maven 3.5.3 and Java 11
  
+ Alternatively and maybe easier, you can also execute: `mvn spring-boot:run` in your command line.
+ 
  You can now access the REST resources using your browser or any REST client such as Postman or curl from your command line.
  E.g. navigating to http://localhost:8080/corpses should give you a list of corpses.
  

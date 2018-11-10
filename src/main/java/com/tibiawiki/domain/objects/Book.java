@@ -5,13 +5,15 @@ import com.tibiawiki.domain.enums.BookType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
 
-@JsonIgnoreProperties({"objectType"})
+@JsonIgnoreProperties({"templateType"})
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@Component
 public class Book extends WikiObject {
 
     private BookType booktype;

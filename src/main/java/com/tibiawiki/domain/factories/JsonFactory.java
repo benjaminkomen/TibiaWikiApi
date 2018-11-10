@@ -7,8 +7,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -16,15 +22,16 @@ import java.util.stream.Collectors;
 /**
  * Conversion from infoboxPartOfArticle to JSON.
  */
+@Component
 public class JsonFactory {
 
     private static final Logger log = LoggerFactory.getLogger(JsonFactory.class);
-    private static final String OBJECT_TYPE = "type";
-    protected static final String OBJECT_TYPE_ACHIEVEMENT = "Achievement";
-    protected static final String OBJECT_TYPE_BOOK = "Book";
-    protected static final String OBJECT_TYPE_LOCATION = "Geography";
-    private static final String OBJECT_TYPE_HUNTING_PLACE = "Hunt";
-    protected static final String OBJECT_TYPE_KEY = "Key";
+    private static final String TEMPLATE_TYPE = "templateType";
+    protected static final String TEMPLATE_TYPE_ACHIEVEMENT = "Achievement";
+    protected static final String TEMPLATE_TYPE_BOOK = "Book";
+    protected static final String TEMPLATE_TYPE_LOCATION = "Geography";
+    private static final String TEMPLATE_TYPE_HUNTING_PLACE = "Hunt";
+    protected static final String TEMPLATE_TYPE_KEY = "Key";
     private static final String SOUNDS = "sounds";
     private static final String SPAWN_TYPE = "spawntype";
     private static final String LOOT = "loot";
@@ -33,6 +40,7 @@ public class JsonFactory {
     private static final String LOWER_LEVELS = "lowerlevels";
     private static final List ITEMS_WITH_NO_DROPPEDBY_LIST = Arrays.asList("Gold Coin", "Platinum Coin");
     private static final String INFOBOX_HEADER_PATTERN = "\\{\\{Infobox[\\s|_](.*?)[\\||\\n]";
+    private static final String RARITY_PATTERN = "(always|common|uncommon|semi-rare|rare|very rare|extremely rare)(|\\?)";
     private static final String UNKNOWN = "Unknown";
 
     /**
@@ -47,11 +55,11 @@ public class JsonFactory {
             return new JSONObject();
         }
 
-        final String objectType = getTemplateType(infoboxPartOfArticle);
+        final String templateType = getTemplateType(infoboxPartOfArticle);
         String infoboxTemplatePartOfArticleSanitized = TemplateUtils.removeFirstAndLastLine(infoboxPartOfArticle);
 
         // Do something special for Infobox Hunt input, to process the lowerlevels parameter
-        if (OBJECT_TYPE_HUNTING_PLACE.equals(objectType)) {
+        if (TEMPLATE_TYPE_HUNTING_PLACE.equals(templateType)) {
             Optional<Map<String, String>> lowerLevelsOptional = TemplateUtils.extractLowerLevels(infoboxTemplatePartOfArticleSanitized);
 
             if (lowerLevelsOptional.isPresent()) {
@@ -61,7 +69,7 @@ public class JsonFactory {
         }
 
         parametersAndValues.putAll(TemplateUtils.splitByParameter(infoboxTemplatePartOfArticleSanitized));
-        parametersAndValues.put(OBJECT_TYPE, objectType);
+        parametersAndValues.put(TEMPLATE_TYPE, templateType);
         return enhanceJsonObject(new JSONObject(parametersAndValues));
     }
 
@@ -85,12 +93,12 @@ public class JsonFactory {
     @NotNull
     protected JSONObject enhanceJsonObject(@NotNull JSONObject jsonObject) {
 
-        final String objectType = Optional.of(jsonObject)
-                .filter(j -> j.has(OBJECT_TYPE))
-                .map(j -> j.getString(OBJECT_TYPE))
+        final String templateType = Optional.of(jsonObject)
+                .filter(j -> j.has(TEMPLATE_TYPE))
+                .map(j -> j.getString(TEMPLATE_TYPE))
                 .orElse(UNKNOWN);
 
-        final String articleName = determineArticleName(jsonObject, objectType);
+        final String articleName = determineArticleName(jsonObject, templateType);
 
         if (jsonObject.has(SOUNDS)) {
             String soundsValue = jsonObject.getString(SOUNDS);
@@ -104,7 +112,7 @@ public class JsonFactory {
             jsonObject.put(SPAWN_TYPE, spawntypeArray);
         }
 
-        if (jsonObject.has(LOOT) && !OBJECT_TYPE_HUNTING_PLACE.equals(objectType)) {
+        if (jsonObject.has(LOOT) && !TEMPLATE_TYPE_HUNTING_PLACE.equals(templateType)) {
             String lootValue = jsonObject.getString(LOOT);
             JSONArray lootTableArray = makeLootTableArray(lootValue);
             jsonObject.put(LOOT, lootTableArray);
@@ -135,20 +143,20 @@ public class JsonFactory {
      * Usually the articleName is the value from the key 'name', but for books, locations or keys it is different.
      */
     @NotNull
-    protected String determineArticleName(@Nullable JSONObject jsonObject, @Nullable String objectType) {
-        if (jsonObject == null || objectType == null || "".equals(objectType)) {
+    protected String determineArticleName(@Nullable JSONObject jsonObject, @Nullable String templateType) {
+        if (jsonObject == null || templateType == null || "".equals(templateType)) {
             return UNKNOWN;
         }
 
         String articleName;
-        switch (objectType) {
-            case OBJECT_TYPE_BOOK:
+        switch (templateType) {
+            case TEMPLATE_TYPE_BOOK:
                 articleName = jsonObject.has("pagename") ? jsonObject.getString("pagename") : UNKNOWN;
                 break;
-            case OBJECT_TYPE_LOCATION:
+            case TEMPLATE_TYPE_LOCATION:
                 articleName = UNKNOWN;
                 break;
-            case OBJECT_TYPE_KEY:
+            case TEMPLATE_TYPE_KEY:
                 articleName = jsonObject.has("number") ? "Key " + jsonObject.getString("number") : UNKNOWN;
                 break;
             default:
@@ -208,14 +216,12 @@ public class JsonFactory {
         Map<String, String> lootItemMap = new HashMap<>();
 
         for (String lootItemPart : splitLootItem) {
-            if (Character.isUpperCase(lootItemPart.charAt(0))) {
-                lootItemMap.put("itemName", lootItemPart);
+            if (lootItemPart.toLowerCase().matches(RARITY_PATTERN)) {
+                lootItemMap.put("rarity", lootItemPart);
             } else if (Character.isDigit(lootItemPart.charAt(0))) {
                 lootItemMap.put("amount", lootItemPart);
-            } else if (Character.isLowerCase(lootItemPart.charAt(0))) {
-                lootItemMap.put("rarity", lootItemPart);
             } else {
-                log.warn("The text '{}' in Template:Loot Item could not be identified as item name, amount or rarity.", lootItemPart);
+                lootItemMap.put("itemName", lootItemPart);
             }
         }
         return new JSONObject(lootItemMap);

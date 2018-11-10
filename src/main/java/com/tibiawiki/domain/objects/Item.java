@@ -1,16 +1,21 @@
 package com.tibiawiki.domain.objects;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.tibiawiki.domain.enums.*;
+import com.tibiawiki.domain.enums.DamageElement;
+import com.tibiawiki.domain.enums.Hands;
+import com.tibiawiki.domain.enums.ItemClass;
+import com.tibiawiki.domain.enums.Status;
+import com.tibiawiki.domain.enums.WeaponType;
+import com.tibiawiki.domain.enums.YesNo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
 
-@JsonIgnoreProperties({"objectType"})
 @Getter
 @NoArgsConstructor
+@Component
 public class Item extends WikiObject {
 
     private List<Integer> itemid;

@@ -1,11 +1,20 @@
 package com.tibiawiki.serviceinterface;
 
 import com.tibiawiki.process.RetrieveAchievements;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -14,10 +23,11 @@ import javax.ws.rs.core.Response;
 @Path("/")
 public class AchievementsResource {
 
+    @Autowired
     private RetrieveAchievements retrieveAchievements;
 
-    public AchievementsResource() {
-        retrieveAchievements = new RetrieveAchievements();
+    private AchievementsResource() {
+        // nothing to do, all dependencies are injected
     }
 
     @GET
@@ -28,7 +38,7 @@ public class AchievementsResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAchievements(@ApiParam(value = "optionally expands the result to retrieve not only " +
             "the achievement names but the full achievements", required = false)
-                                        @QueryParam("expand") Boolean expand) {
+                                    @QueryParam("expand") Boolean expand) {
         return Response.ok()
                 .entity(expand != null && expand
                         ? retrieveAchievements.getAchievementsJSON().map(JSONObject::toMap)

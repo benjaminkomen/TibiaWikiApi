@@ -12,7 +12,6 @@ public class Percentage {
     private String originalValue;
     private Integer value;
 
-
     public Percentage(String value) {
         this.originalValue = value;
         this.value = sanitize(value);
