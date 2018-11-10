@@ -40,6 +40,7 @@ public class JsonFactory {
     private static final String LOWER_LEVELS = "lowerlevels";
     private static final List ITEMS_WITH_NO_DROPPEDBY_LIST = Arrays.asList("Gold Coin", "Platinum Coin");
     private static final String INFOBOX_HEADER_PATTERN = "\\{\\{Infobox[\\s|_](.*?)[\\||\\n]";
+    private static final String RARITY_PATTERN = "(always|common|uncommon|semi-rare|rare|very rare|extremely rare)(|\\?)";
     private static final String UNKNOWN = "Unknown";
 
     /**
@@ -215,14 +216,12 @@ public class JsonFactory {
         Map<String, String> lootItemMap = new HashMap<>();
 
         for (String lootItemPart : splitLootItem) {
-            if (Character.isUpperCase(lootItemPart.charAt(0))) {
-                lootItemMap.put("itemName", lootItemPart);
+            if (lootItemPart.toLowerCase().matches(RARITY_PATTERN)) {
+                lootItemMap.put("rarity", lootItemPart);
             } else if (Character.isDigit(lootItemPart.charAt(0))) {
                 lootItemMap.put("amount", lootItemPart);
-            } else if (Character.isLowerCase(lootItemPart.charAt(0))) {
-                lootItemMap.put("rarity", lootItemPart);
             } else {
-                log.warn("The text '{}' in Template:Loot Item could not be identified as item name, amount or rarity.", lootItemPart);
+                lootItemMap.put("itemName", lootItemPart);
             }
         }
         return new JSONObject(lootItemMap);
