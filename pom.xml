@@ -35,6 +35,7 @@
         <ow2.asm.version>6.2.1</ow2.asm.version>
         <swagger.jersey2.jaxrs.version>1.5.21</swagger.jersey2.jaxrs.version>
         <javax.activation.version>1.1.1</javax.activation.version>
+        <vavr.version>0.9.2</vavr.version>
     </properties>
 
     <repositories>
@@ -147,6 +148,14 @@
             <version>${swagger.jersey2.jaxrs.version}</version>
         </dependency>
 
+        <!-- Vavr - functional language features -->
+        <dependency>
+            <groupId>io.vavr</groupId>
+            <artifactId>vavr</artifactId>
+            <version>${vavr.version}</version>
+        </dependency>
+
+
         <!-- Test -->
 
         <!-- To write unit tests -->
@@ -217,7 +226,6 @@
                 <configuration>
                     <source>11</source>
                     <target>11</target>
-                    <release>11</release>
                 </configuration>
                 <dependencies>
                     <dependency>
