@@ -1,6 +1,7 @@
 package com.tibiawiki.serviceinterface;
 
 import com.tibiawiki.domain.objects.Achievement;
+import com.tibiawiki.domain.objects.validation.ValidationException;
 import com.tibiawiki.process.ModifyAchievement;
 import com.tibiawiki.process.RetrieveAchievements;
 import io.swagger.annotations.Api;
@@ -86,6 +87,7 @@ public class AchievementsResource {
                         .entity(a)
                         .header("Access-Control-Allow-Origin", "*")
                         .build())
+                .recover(ValidationException.class, e -> Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build())
                 .recover(e -> Response.serverError().build())
                 .get();
     }

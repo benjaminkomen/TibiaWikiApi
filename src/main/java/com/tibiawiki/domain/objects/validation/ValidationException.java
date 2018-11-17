@@ -1,6 +1,7 @@
 package com.tibiawiki.domain.objects.validation;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ValidationException extends RuntimeException {
 
@@ -25,5 +26,18 @@ public class ValidationException extends RuntimeException {
 
     public static ValidationException fromResults(List<ValidationResult> validationResults) {
         return new ValidationException(validationResults);
+    }
+
+    public List<ValidationResult> getValidationResults() {
+        return validationResults;
+    }
+
+    @Override
+    public String getMessage() {
+        return super.getMessage() != null
+                ? super.getMessage()
+                : validationResults != null && !validationResults.isEmpty()
+                ? validationResults.stream().map(ValidationResult::getDescription).collect(Collectors.joining(", "))
+                : "";
     }
 }

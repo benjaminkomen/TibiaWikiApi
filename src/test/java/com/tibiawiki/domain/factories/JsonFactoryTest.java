@@ -1,5 +1,9 @@
 package com.tibiawiki.domain.factories;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tibiawiki.domain.enums.Grade;
+import com.tibiawiki.domain.enums.YesNo;
+import com.tibiawiki.domain.objects.Achievement;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,11 +19,13 @@ import static org.hamcrest.Matchers.is;
 public class JsonFactoryTest {
 
     private JsonFactory target;
+    private ObjectMapper objectMapper;
 
 
     @BeforeEach
     public void setup() {
         target = new JsonFactory();
+        objectMapper = new ObjectMapper();
     }
 
     @Test
@@ -177,8 +183,20 @@ public class JsonFactoryTest {
         assertThat(target.determineArticleName(input, JsonFactory.TEMPLATE_TYPE_ACHIEVEMENT), is("Foobar"));
     }
 
-    private String makeInfoboxPartOfArticle() {
-        return null;
+    @Test
+    void testConvertJsonToInfoboxPartOfArticle_Empty() {
+        assertThat(target.convertJsonToInfoboxPartOfArticle(null, Collections.emptyList()), is(""));
+        assertThat(target.convertJsonToInfoboxPartOfArticle(new JSONObject(), Collections.emptyList()), is(""));
+
+        final JSONObject jsonWithNoTemplateType = makeAchievementJson(makeAchievement());
+        jsonWithNoTemplateType.remove("templateType");
+        assertThat(target.convertJsonToInfoboxPartOfArticle(jsonWithNoTemplateType, Collections.emptyList()), is(""));
+    }
+
+    @Test
+    void testConvertJsonToInfoboxPartOfArticle_Simple() {
+        String result = target.convertJsonToInfoboxPartOfArticle(makeAchievementJson(makeAchievement()), makeAchievement().fieldOrder());
+        assertThat(result, is(INFOBOX__ACHIEVEMENT_TEXT));
     }
 
     private static final String INFOBOX_TEXT_SPACE = "{{Infobox Achievement|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
@@ -192,17 +210,17 @@ public class JsonFactoryTest {
     private static final String INFOBOX_TEXT_WRONG = "{{Infobax_Hunt  \n|List={{{1|}}}|GetValue={{{GetValue|}}}";
 
     private static final String INFOBOX__ACHIEVEMENT_TEXT = "{{Infobox Achievement|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
-            "| grade        = 1\n" +
-            "| name         = Goo Goo Dancer\n" +
-            "| description  = Seeing a mucus plug makes your heart dance and you can't resist to see what it hides. Goo goo away!\n" +
-            "| spoiler      = Obtainable by using 100 [[Muck Remover]]s on [[Mucus Plug]]s.\n" +
-            "| premium      = yes\n" +
-            "| points       = 1\n" +
-            "| secret       = yes\n" +
-            "| implemented  = 9.6\n" +
+            "| grade         = 1\n" +
+            "| name          = Goo Goo Dancer\n" +
+            "| description   = Seeing a mucus plug makes your heart dance and you can't resist to see what it hides. Goo goo away!\n" +
+            "| spoiler       = Obtainable by using 100 [[Muck Remover]]s on [[Mucus Plug]]s.\n" +
+            "| premium       = yes\n" +
+            "| points        = 1\n" +
+            "| secret        = yes\n" +
+            "| implemented   = 9.6\n" +
             "| achievementid = 319\n" +
-            "| relatedpages = [[Muck Remover]], [[Mucus Plug]]\n" +
-            "}}";
+            "| relatedpages  = [[Muck Remover]], [[Mucus Plug]]\n" +
+            "}}\n";
 
     private static final String INFOBOX_HUNT_TEXT = "{{Infobox Hunt|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
             "| name            = Hero Cave\n" +
@@ -244,4 +262,22 @@ public class JsonFactoryTest {
             "| map2            = Hero Cave 6.png\n" +
             "}}";
 
+    private Achievement makeAchievement() {
+        return Achievement.builder()
+                    .grade(Grade.ONE)
+                    .name("Goo Goo Dancer")
+                    .description("Seeing a mucus plug makes your heart dance and you can't resist to see what it hides. Goo goo away!")
+                    .spoiler("Obtainable by using 100 [[Muck Remover]]s on [[Mucus Plug]]s.")
+                    .premium(YesNo.YES_LOWERCASE)
+                    .points(1)
+                    .secret(YesNo.YES_LOWERCASE)
+                    .implemented("9.6")
+                    .achievementid(319)
+                    .relatedpages("[[Muck Remover]], [[Mucus Plug]]")
+                    .build();
+    }
+
+    private JSONObject makeAchievementJson(Achievement achievement) {
+        return new JSONObject(objectMapper.convertValue(achievement, Map.class)).put("templateType", "Achievement");
+    }
 }

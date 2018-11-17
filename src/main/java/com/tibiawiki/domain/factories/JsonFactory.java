@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @Component
 public class JsonFactory {
 
-    private static final Logger log = LoggerFactory.getLogger(JsonFactory.class);
+    private static final Logger LOG = LoggerFactory.getLogger(JsonFactory.class);
     private static final String TEMPLATE_TYPE = "templateType";
     protected static final String TEMPLATE_TYPE_ACHIEVEMENT = "Achievement";
     protected static final String TEMPLATE_TYPE_BOOK = "Book";
@@ -75,8 +75,13 @@ public class JsonFactory {
     }
 
     @NotNull
-    public String convertJsonToInfoboxPartOfArticle(@Nullable JSONObject jsonObject) {
+    public String convertJsonToInfoboxPartOfArticle(@Nullable JSONObject jsonObject, List<String> fieldOrder) {
         if (jsonObject == null || jsonObject.isEmpty()) {
+            return "";
+        }
+
+        if (!jsonObject.has(TEMPLATE_TYPE)) {
+            LOG.error("Template type unknown for given json object: {}", jsonObject);
             return "";
         }
 
@@ -86,13 +91,23 @@ public class JsonFactory {
         sb.append("|List={{{1|}}}|GetValue={{{GetValue|}}}").append("\n");
 
         int maxFieldLength = jsonObject.keySet().stream()
-                    .mapToInt(String::length)
-                    .max()
-                    .orElse(0);
+                .mapToInt(String::length)
+                .max()
+                .orElse(0);
 
-        int maxKeyLength = maxFieldLength + 2;
+        for (String key : fieldOrder) {
 
-        for (String key : jsonObject.keySet()) {
+            // don't add the metadata parameter templateType to the output
+            if (TEMPLATE_TYPE.equals(key)) {
+                continue;
+            }
+
+            // simply skip fields we don't have, in most cases this is legit, an object doesn't need to have all fields
+            // of its class
+            if (!jsonObject.has(key)) {
+                continue;
+            }
+
             Object value = jsonObject.get(key);
 
             if (value instanceof JSONArray) {
@@ -116,7 +131,7 @@ public class JsonFactory {
             } else if (value instanceof JSONObject) {
 
             } else {
-                String paddedKey = Strings.padEnd(key, maxKeyLength, ' ');
+                String paddedKey = Strings.padEnd(key, maxFieldLength, ' ');
                 sb.append("| ")
                         .append(paddedKey)
                         .append(" = ")
@@ -141,7 +156,7 @@ public class JsonFactory {
                 .map(m -> m.group(1))
                 .filter(s -> !"".equals(s))
                 .orElseGet(() -> {
-                    log.warn("Template type could not be determined from string {}", infoboxTemplatePartOfArticle);
+                    LOG.warn("Template type could not be determined from string {}", infoboxTemplatePartOfArticle);
                     return UNKNOWN;
                 });
     }
@@ -224,7 +239,7 @@ public class JsonFactory {
     @NotNull
     private JSONArray makeSoundsArray(@Nullable String soundsValue, @NotNull String articleName) {
         if (soundsValue != null && soundsValue.length() > 2 && !soundsValue.contains("{{Sound List")) {
-            log.error("soundsValue '{}' from article '{}' does not contain Template:Sound List", soundsValue, articleName);
+            LOG.error("soundsValue '{}' from article '{}' does not contain Template:Sound List", soundsValue, articleName);
             return new JSONArray();
         }
 
@@ -257,7 +272,7 @@ public class JsonFactory {
             }
             String lootItem = TemplateUtils.removeStartAndEndOfTemplate(lootItemTemplate);
             if (lootItem == null) {
-                log.error("Unable to create lootTableArray from lootValue: {}", lootValue);
+                LOG.error("Unable to create lootTableArray from lootValue: {}", lootValue);
                 return new JSONArray();
             }
             List<String> splitLootItem = Arrays.asList(Pattern.compile("\\|").split(lootItem));

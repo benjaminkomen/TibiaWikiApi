@@ -17,6 +17,7 @@ import java.util.Map;
 @Repository
 public class ArticleRepository {
 
+    private static final boolean IS_DEBUG_ENABLED = true;
     private static final String DEFAULT_WIKI_URI = "https://tibia.fandom.com/api.php";
     private Wiki wiki;
 
@@ -55,7 +56,9 @@ public class ArticleRepository {
     }
 
     public boolean modifyArticle(String pageName, String pageContent, String editSummary) {
-        return wiki.edit(pageName, pageContent, editSummary);
+        return IS_DEBUG_ENABLED
+                ? true
+                : wiki.edit(pageName, pageContent, editSummary);
     }
 
     private boolean login(Wiki wiki) {
