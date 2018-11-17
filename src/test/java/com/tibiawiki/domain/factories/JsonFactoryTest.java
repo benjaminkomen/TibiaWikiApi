@@ -1,6 +1,7 @@
 package com.tibiawiki.domain.factories;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tibiawiki.domain.enums.Article;
 import com.tibiawiki.domain.enums.BookType;
 import com.tibiawiki.domain.enums.BuildingType;
 import com.tibiawiki.domain.enums.City;
@@ -9,11 +10,14 @@ import com.tibiawiki.domain.enums.YesNo;
 import com.tibiawiki.domain.objects.Achievement;
 import com.tibiawiki.domain.objects.Book;
 import com.tibiawiki.domain.objects.Building;
+import com.tibiawiki.domain.objects.Corpse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Collections;
 import java.util.Map;
 
@@ -219,6 +223,13 @@ public class JsonFactoryTest {
         assertThat(result, is(INFOBOX_BUILDING_TEXT));
     }
 
+    @Test
+    void testConvertJsonToInfoboxPartOfArticle_Corpse() {
+        final Corpse corpse = makeCorpse();
+        String result = target.convertJsonToInfoboxPartOfArticle(makeCorpseJson(corpse), corpse.fieldOrder());
+        assertThat(result, is(INFOBOX_CORPSE_TEXT));
+    }
+
     private static final String INFOBOX_TEXT_SPACE = "{{Infobox Achievement|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
             "| name         = Goo Goo Dancer\n" +
             "}}";
@@ -350,25 +361,50 @@ public class JsonFactoryTest {
     }
 
     private static final String INFOBOX_CORPSE_TEXT = "{{Infobox Corpse|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
-            "| name           = Dead Rat\n" +
-            "| article        = a\n" +
-            "| liquid         = [[Blood]]\n" +
-            "| 1volume        = 5\n" +
-            "| 1weight        = 63.00\n" +
-            "| 2weight        = 44.00\n" +
-            "| 3weight        = 30.00\n" +
-            "| 1decaytime     = 5 minutes.\n" +
-            "| 2decaytime     = 5 minutes.\n" +
-            "| 3decaytime     = 60 seconds.\n" +
-            "| 1npcvalue      = 2\n" +
-            "| corpseof       = [[Rat]], [[Cave Rat]], [[Munster]]\n" +
-            "| sellto         = [[Tom]] ([[Rookgaard]]) '''2''' [[gp]]<br>[[Seymour]] ([[Rookgaard]]) '''2''' [[gp]]" +
+            "| name         = Dead Rat\n" +
+            "| article      = a\n" +
+            "| liquid       = [[Blood]]\n" +
+            "| 1decaytime   = 5 minutes.\n" +
+            "| 2decaytime   = 5 minutes.\n" +
+            "| 3decaytime   = 60 seconds.\n" +
+            "| 1volume      = 5\n" +
+            "| 1weight      = 63.00\n" +
+            "| 2weight      = 44.00\n" +
+            "| 3weight      = 30.00\n" +
+            "| corpseof     = [[Rat]], [[Cave Rat]], [[Munster]]\n" +
+            "| sellto       = [[Tom]] ([[Rookgaard]]) '''2''' [[gp]]<br>[[Seymour]] ([[Rookgaard]]) '''2''' [[gp]]" +
             "<br>[[Billy]] ([[Rookgaard]]) '''2''' [[gp]]<br>[[Humgolf]] ([[Kazordoon]]) '''2''' [[gp]]<br>\n" +
             "[[Baxter]] ([[Thais]]) '''1''' [[gp]]<br>\n" +
-            "| implemented    = Pre-6.0\n" +
-            "| notes          = These corpses are commonly used by low level players on [[Rookgaard]] to earn some gold" +
+            "| notes        = These corpses are commonly used by low level players on [[Rookgaard]] to earn some gold" +
             " for better [[equipment]]. Only fresh corpses are accepted, rotted corpses are ignored.\n" +
+            "| implemented  = Pre-6.0\n" +
             "}}\n";
+
+    private Corpse makeCorpse() {
+        return Corpse.builder()
+                .name("Dead Rat")
+                .article(Article.A)
+                .liquid("[[Blood]]")
+                .firstVolume(5)
+                .firstWeight(BigDecimal.valueOf(63.00).setScale(2, RoundingMode.HALF_UP))
+                .secondWeight(BigDecimal.valueOf(44.00).setScale(2, RoundingMode.HALF_UP))
+                .thirdWeight(BigDecimal.valueOf(30.00).setScale(2, RoundingMode.HALF_UP))
+                .firstDecaytime("5 minutes.")
+                .secondDecaytime("5 minutes.")
+                .thirdDecaytime("60 seconds.")
+                .corpseof("[[Rat]], [[Cave Rat]], [[Munster]]")
+                .sellto("[[Tom]] ([[Rookgaard]]) '''2''' [[gp]]<br>[[Seymour]] ([[Rookgaard]]) '''2''' [[gp]]" +
+                        "<br>[[Billy]] ([[Rookgaard]]) '''2''' [[gp]]<br>[[Humgolf]] ([[Kazordoon]]) '''2''' [[gp]]<br>" +
+                        "\n[[Baxter]] ([[Thais]]) '''1''' [[gp]]<br>")
+                .implemented("Pre-6.0")
+                .notes("These corpses are commonly used by low level players on [[Rookgaard]] to earn some gold" +
+                        " for better [[equipment]]. Only fresh corpses are accepted, rotted corpses are ignored.")
+                .build();
+    }
+
+    private JSONObject makeCorpseJson(Corpse corpse) {
+        return new JSONObject(objectMapper.convertValue(corpse, Map.class)).put("templateType", "Corpse");
+    }
 
     private static final String INFOBOX_CREATURE_TEXT = "{{Infobox Creature|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
             "| name           = Dragon\n" +

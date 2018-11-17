@@ -1,38 +1,81 @@
 package com.tibiawiki.domain.objects;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.tibiawiki.domain.enums.Article;
+import com.tibiawiki.domain.enums.Status;
 import com.tibiawiki.domain.enums.YesNo;
-import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
+import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 
-@JsonIgnoreProperties({"templateType"})
 @Getter
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Component
 public class Corpse extends WikiObject {
 
-    private String flavortext;
-    private YesNo skinable;
-    private String product;
-    private String liquid;
-    private Integer stages;
-    private String firstDecaytime; // FIXME should be Seconds
-    private String secondDecaytime; // FIXME should be Seconds
-    private String thirdDecaytime; // FIXME should be Seconds
-    private Integer firstVolume;
-    private Integer secondVolume;
-    private Integer thirdVolume;
-    private Double firstWeight;
-    private Double secondWeight;
-    private Double thirdWeight;
-    private String corpseof;
-    private String sellto;
+    private final String flavortext;
+    private final YesNo skinable;
+    private final String product;
+    private final String liquid;
+    private final Integer stages;
+    private final String firstDecaytime; // FIXME should be Seconds
+    private final String secondDecaytime; // FIXME should be Seconds
+    private final String thirdDecaytime; // FIXME should be Seconds
+    private final Integer firstVolume;
+    private final Integer secondVolume;
+    private final Integer thirdVolume;
+    private final BigDecimal firstWeight;
+    private final BigDecimal secondWeight;
+    private final BigDecimal thirdWeight;
+    private final String corpseof;
+    private final String sellto;
+
+    private Corpse() {
+        this.flavortext = null;
+        this.skinable = null;
+        this.product = null;
+        this.liquid = null;
+        this.stages = null;
+        this.firstDecaytime = null;
+        this.secondDecaytime = null;
+        this.thirdDecaytime = null;
+        this.firstVolume = null;
+        this.secondVolume = null;
+        this.thirdVolume = null;
+        this.firstWeight = null;
+        this.secondWeight = null;
+        this.thirdWeight = null;
+        this.corpseof = null;
+        this.sellto = null;
+    }
+
+    @Builder
+    private Corpse(String name, Article article, String actualname, String implemented, String notes, String history,
+                   Status status, String flavortext, YesNo skinable, String product, String liquid, Integer stages,
+                   String firstDecaytime, String secondDecaytime, String thirdDecaytime, Integer firstVolume,
+                   Integer secondVolume, Integer thirdVolume, BigDecimal firstWeight, BigDecimal secondWeight, BigDecimal thirdWeight,
+                   String corpseof, String sellto) {
+        super(name, article, actualname, null, implemented, notes, history, status);
+        this.flavortext = flavortext;
+        this.skinable = skinable;
+        this.product = product;
+        this.liquid = liquid;
+        this.stages = stages;
+        this.firstDecaytime = firstDecaytime;
+        this.secondDecaytime = secondDecaytime;
+        this.thirdDecaytime = thirdDecaytime;
+        this.firstVolume = firstVolume;
+        this.secondVolume = secondVolume;
+        this.thirdVolume = thirdVolume;
+        this.firstWeight = firstWeight;
+        this.secondWeight = secondWeight;
+        this.thirdWeight = thirdWeight;
+        this.corpseof = corpseof;
+        this.sellto = sellto;
+    }
 
     @JsonGetter("1decaytime")
     public String getFirstDecaytime() {
@@ -65,22 +108,24 @@ public class Corpse extends WikiObject {
     }
 
     @JsonGetter("1weight")
-    public Double getFirstWeight() {
+    public BigDecimal getFirstWeight() {
         return firstWeight;
     }
 
     @JsonGetter("2weight")
-    public Double getSecondWeight() {
+    public BigDecimal getSecondWeight() {
         return secondWeight;
     }
 
     @JsonGetter("3weight")
-    public Double getThirdWeight() {
+    public BigDecimal getThirdWeight() {
         return thirdWeight;
     }
 
     @Override
     public List<String> fieldOrder() {
-        return Collections.emptyList();
+        return Arrays.asList("name", "article", "actualname", "flavortext", "skinable", "product", "liquid", "stages",
+                "1decaytime", "2decaytime", "3decaytime", "1volume", "2volume", "3volume", "1weight", "2weight",
+                "3weight", "corpseof", "sellto", "notes", "implemented", "history", "status");
     }
 }
