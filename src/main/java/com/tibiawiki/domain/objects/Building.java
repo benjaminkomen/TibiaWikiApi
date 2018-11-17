@@ -3,10 +3,10 @@ package com.tibiawiki.domain.objects;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tibiawiki.domain.enums.BuildingType;
 import com.tibiawiki.domain.enums.City;
+import com.tibiawiki.domain.enums.Status;
 import com.tibiawiki.domain.enums.YesNo;
-import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -14,31 +14,83 @@ import java.util.List;
 
 @JsonIgnoreProperties({"templateType"})
 @Getter
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Component
 public class Building extends WikiObject {
 
-    private BuildingType type;
-    private String location;
-    private String posx;
-    private String posy;
-    private String posz;
-    private String street;
-    private String street2;
-    private String street3;
-    private String street4;
-    private String street5;
-    private Integer houseid;
-    private Integer size;
-    private Integer beds;
-    private Integer rent;
-    private YesNo ownable;
-    private City city;
-    private Integer openwindows;
-    private Integer floors;
-    private Integer rooms;
-    private String furnishings;
-    private String image;
+    private final BuildingType type;
+    private final String location;
+    private final String posx;
+    private final String posy;
+    private final String posz;
+    private final String street;
+    private final String street2;
+    private final String street3;
+    private final String street4;
+    private final String street5;
+    private final Integer houseid;
+    private final Integer size;
+    private final Integer beds;
+    private final Integer rent;
+    private final YesNo ownable;
+    private final City city;
+    private final Integer openwindows;
+    private final Integer floors;
+    private final Integer rooms;
+    private final String furnishings;
+    private final String image;
+
+    private Building() {
+        this.type = null;
+        this.location = null;
+        this.posx = null;
+        this.posy = null;
+        this.posz = null;
+        this.street = null;
+        this.street2 = null;
+        this.street3 = null;
+        this.street4 = null;
+        this.street5 = null;
+        this.houseid = null;
+        this.size = null;
+        this.beds = null;
+        this.rent = null;
+        this.ownable = null;
+        this.city = null;
+        this.openwindows = null;
+        this.floors = null;
+        this.rooms = null;
+        this.furnishings = null;
+        this.image = null;
+    }
+
+    @Builder
+    private Building(String name, String implemented, String notes, String history, Status status, BuildingType type, String location,
+                     String posx, String posy, String posz, String street, String street2, String street3, String street4,
+                     String street5, Integer houseid, Integer size, Integer beds, Integer rent, YesNo ownable, City city,
+                     Integer openwindows, Integer floors, Integer rooms, String furnishings, String image) {
+        super(name, null, null, null, implemented, notes, history, status);
+        this.type = type;
+        this.location = location;
+        this.posx = posx;
+        this.posy = posy;
+        this.posz = posz;
+        this.street = street;
+        this.street2 = street2;
+        this.street3 = street3;
+        this.street4 = street4;
+        this.street5 = street5;
+        this.houseid = houseid;
+        this.size = size;
+        this.beds = beds;
+        this.rent = rent;
+        this.ownable = ownable;
+        this.city = city;
+        this.openwindows = openwindows;
+        this.floors = floors;
+        this.rooms = rooms;
+        this.furnishings = furnishings;
+        this.image = image;
+    }
 
     @Override
     public List<String> fieldOrder() {

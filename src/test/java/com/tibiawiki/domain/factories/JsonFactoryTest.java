@@ -2,10 +2,13 @@ package com.tibiawiki.domain.factories;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tibiawiki.domain.enums.BookType;
+import com.tibiawiki.domain.enums.BuildingType;
+import com.tibiawiki.domain.enums.City;
 import com.tibiawiki.domain.enums.Grade;
 import com.tibiawiki.domain.enums.YesNo;
 import com.tibiawiki.domain.objects.Achievement;
 import com.tibiawiki.domain.objects.Book;
+import com.tibiawiki.domain.objects.Building;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -209,6 +212,13 @@ public class JsonFactoryTest {
         assertThat(result, is(INFOBOX_BOOK_TEXT));
     }
 
+    @Test
+    void testConvertJsonToInfoboxPartOfArticle_Building() {
+        final Building building = makeBuilding();
+        String result = target.convertJsonToInfoboxPartOfArticle(makeBuildingJson(building), building.fieldOrder());
+        assertThat(result, is(INFOBOX_BUILDING_TEXT));
+    }
+
     private static final String INFOBOX_TEXT_SPACE = "{{Infobox Achievement|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
             "| name         = Goo Goo Dancer\n" +
             "}}";
@@ -290,26 +300,54 @@ public class JsonFactoryTest {
     }
 
     private static final String INFOBOX_BUILDING_TEXT = "{{Infobox Building|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
-            "| name          = Theater Avenue 8b\n" +
-            "| implemented   = Pre-6.0\n" +
-            "| type          = House\n" +
-            "| location      = South-east of depot, two floors up.\n" +
-            "| posx          = 126.101\n" +
-            "| posy          = 124.48\n" +
-            "| posz          = 5\n" +
-            "| street        = Theater Avenue\n" +
-            "| houseid       = 20315\n" +
-            "| size          = 26\n" +
-            "| beds          = 3\n" +
-            "| rent          = 1370\n" +
-            "| city          = Carlin\n" +
-            "| openwindows   = 3\n" +
-            "| floors        = 1\n" +
-            "| rooms         = 1\n" +
-            "| furnishings   = 1 [[Wall Lamp]].\n" +
-            "| notes         = \n" +
-            "| image         = [[File:Theater Avenue 8b.png]]\n" +
+            "| name         = Theater Avenue 8b\n" +
+            "| implemented  = Pre-6.0\n" +
+            "| type         = House\n" +
+            "| location     = South-east of depot, two floors up.\n" +
+            "| posx         = 126.101\n" +
+            "| posy         = 124.48\n" +
+            "| posz         = 5\n" +
+            "| street       = Theater Avenue\n" +
+            "| houseid      = 20315\n" +
+            "| size         = 26\n" +
+            "| beds         = 3\n" +
+            "| rent         = 1370\n" +
+            "| city         = Carlin\n" +
+            "| openwindows  = 3\n" +
+            "| floors       = 1\n" +
+            "| rooms        = 1\n" +
+            "| furnishings  = 1 [[Wall Lamp]].\n" +
+            "| notes        = \n" +
+            "| image        = [[File:Theater Avenue 8b.png]]\n" +
             "}}\n";
+
+    private Building makeBuilding() {
+        return Building.builder()
+                .name("Theater Avenue 8b")
+                .implemented("Pre-6.0")
+                .type(BuildingType.House)
+                .location("South-east of depot, two floors up.")
+                .posx("126.101")
+                .posy("124.48")
+                .posz("5")
+                .street("Theater Avenue")
+                .houseid(20315)
+                .size(26)
+                .beds(3)
+                .rent(1370)
+                .city(City.CARLIN)
+                .openwindows(3)
+                .floors(1)
+                .rooms(1)
+                .furnishings("1 [[Wall Lamp]].")
+                .notes("")
+                .image("[[File:Theater Avenue 8b.png]]")
+                .build();
+    }
+
+    private JSONObject makeBuildingJson(Building building) {
+        return new JSONObject(objectMapper.convertValue(building, Map.class)).put("templateType", "Building");
+    }
 
     private static final String INFOBOX_CORPSE_TEXT = "{{Infobox Corpse|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
             "| name           = Dead Rat\n" +
