@@ -34,6 +34,9 @@ public class ArticleRepository {
         return wiki.getCategoryMembers(categoryName, NS.MAIN);
     }
 
+    /**
+     * @return a map of key-value pairs of: title - pagecontent
+     */
     public Map<String, String> getArticlesFromCategory(List<String> pageNames) {
         return MQuery.getPageText(wiki, pageNames);
     }
@@ -51,6 +54,10 @@ public class ArticleRepository {
         return wiki.getPageText(pageName);
     }
 
+    public boolean modifyArticle(String pageName, String pageContent, String editSummary) {
+        return wiki.edit(pageName, pageContent, editSummary);
+    }
+
     private boolean login(Wiki wiki) {
         String username = PropertiesUtil.getUsername();
         String password = PropertiesUtil.getPassword();
@@ -60,5 +67,10 @@ public class ArticleRepository {
         } else {
             return false;
         }
+    }
+
+    // TODO implement this method
+    private boolean isLoggedIn() {
+        return false;
     }
 }

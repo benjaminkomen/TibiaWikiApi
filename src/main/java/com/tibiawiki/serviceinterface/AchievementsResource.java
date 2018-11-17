@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -74,12 +75,13 @@ public class AchievementsResource {
     @PUT
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "the changed achievement"),
-            @ApiResponse(code = 400, message = "the provided changed achievement is not valid")
+            @ApiResponse(code = 400, message = "the provided changed achievement is not valid"),
+            @ApiResponse(code = 401, message = "not authorized to edit without providing credentials")
     })
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response putAchievement(Achievement achievement) {
-        return modifyAchievement.modify(achievement)
+    public Response putAchievement(Achievement achievement, @HeaderParam("X-WIKI-Edit-Summary") String editSummary) {
+        return modifyAchievement.modify(achievement, editSummary)
                 .map(a -> Response.ok()
                         .entity(a)
                         .header("Access-Control-Allow-Origin", "*")

@@ -1,5 +1,6 @@
 package com.tibiawiki.domain.factories;
 
+import com.google.common.base.Strings;
 import com.tibiawiki.domain.utils.TemplateUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -20,7 +21,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
- * Conversion from infoboxPartOfArticle to JSON.
+ * Conversion from infoboxPartOfArticle to JSON and back.
  */
 @Component
 public class JsonFactory {
@@ -71,6 +72,61 @@ public class JsonFactory {
         parametersAndValues.putAll(TemplateUtils.splitByParameter(infoboxTemplatePartOfArticleSanitized));
         parametersAndValues.put(TEMPLATE_TYPE, templateType);
         return enhanceJsonObject(new JSONObject(parametersAndValues));
+    }
+
+    @NotNull
+    public String convertJsonToInfoboxPartOfArticle(@Nullable JSONObject jsonObject) {
+        if (jsonObject == null || jsonObject.isEmpty()) {
+            return "";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("{{Infobox ");
+        sb.append(jsonObject.get(TEMPLATE_TYPE));
+        sb.append("|List={{{1|}}}|GetValue={{{GetValue|}}}").append("\n");
+
+        int maxFieldLength = jsonObject.keySet().stream()
+                    .mapToInt(String::length)
+                    .max()
+                    .orElse(0);
+
+        int maxKeyLength = maxFieldLength + 2;
+
+        for (String key : jsonObject.keySet()) {
+            Object value = jsonObject.get(key);
+
+            if (value instanceof JSONArray) {
+
+                if (SOUNDS.equals(key)) {
+                    // do the opposite of makeSoundsArray()
+                } else if (SPAWN_TYPE.equals(key)) {
+
+                } else if (LOOT.equals(key)) {
+
+                } else if (DROPPED_BY.equals(key)) {
+
+                } else if (ITEM_ID.equals(key)) {
+
+                } else if (LOWER_LEVELS.equals(key)) {
+
+                } else {
+                    // just convert to a comma-separated list of array values
+                }
+
+            } else if (value instanceof JSONObject) {
+
+            } else {
+                String paddedKey = Strings.padEnd(key, maxKeyLength, ' ');
+                sb.append("| ")
+                        .append(paddedKey)
+                        .append(" = ")
+                        .append(value)
+                        .append("\n");
+            }
+        }
+
+        sb.append("}}").append("\n");
+        return sb.toString();
     }
 
     /**

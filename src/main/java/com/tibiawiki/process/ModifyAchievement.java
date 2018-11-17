@@ -25,7 +25,7 @@ public class ModifyAchievement {
         // nothing to do, all dependencies are injected
     }
 
-    public Try<Achievement> modify(Achievement achievement) {
+    public Try<Achievement> modify(Achievement achievement, String editSummary) {
         return validate(achievement)
 //                .map(a -> retrieveAchievements.getAchievementJSON(a.getName()))
                 ;
