@@ -3,13 +3,16 @@ package com.tibiawiki.domain.objects;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tibiawiki.domain.enums.Article;
 import com.tibiawiki.domain.enums.Status;
+import com.tibiawiki.domain.interfaces.Validatable;
+import com.tibiawiki.domain.objects.validation.ValidationResult;
 import lombok.Getter;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Getter
-public abstract class WikiObject {
+public abstract class WikiObject implements Validatable {
 
     private final String name;
     private final Article article;
@@ -55,6 +58,11 @@ public abstract class WikiObject {
         return "Class: " + getClassName() + ", name: " + getName();
     }
 
+    @Override
+    public List<ValidationResult> validate() {
+        return Collections.emptyList();
+    }
+
     public static class WikiObjectImpl extends WikiObject {
 
         public WikiObjectImpl() {
@@ -64,6 +72,11 @@ public abstract class WikiObject {
         @Override
         public List<String> fieldOrder() {
             return Arrays.asList("name", "article", "actualname", "plural", "implemented", "notes", "history", "status");
+        }
+
+        @Override
+        public List<ValidationResult> validate() {
+            return Collections.emptyList();
         }
     }
 }

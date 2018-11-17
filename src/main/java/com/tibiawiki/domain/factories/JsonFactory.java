@@ -90,21 +90,12 @@ public class JsonFactory {
         sb.append(jsonObject.get(TEMPLATE_TYPE));
         sb.append("|List={{{1|}}}|GetValue={{{GetValue|}}}").append("\n");
 
-        int maxFieldLength = jsonObject.keySet().stream()
-                .mapToInt(String::length)
-                .max()
-                .orElse(0);
-
         for (String key : fieldOrder) {
 
             // don't add the metadata parameter templateType to the output
-            if (TEMPLATE_TYPE.equals(key)) {
-                continue;
-            }
-
             // simply skip fields we don't have, in most cases this is legit, an object doesn't need to have all fields
             // of its class
-            if (!jsonObject.has(key)) {
+            if (TEMPLATE_TYPE.equals(key) || !jsonObject.has(key)) {
                 continue;
             }
 
@@ -131,7 +122,7 @@ public class JsonFactory {
             } else if (value instanceof JSONObject) {
 
             } else {
-                String paddedKey = Strings.padEnd(key, maxFieldLength, ' ');
+                String paddedKey = Strings.padEnd(key, getMaxFieldLength(jsonObject), ' ');
                 sb.append("| ")
                         .append(paddedKey)
                         .append(" = ")
@@ -332,5 +323,12 @@ public class JsonFactory {
 
     private boolean legallyHasNoDroppedByTemplate(String name) {
         return ITEMS_WITH_NO_DROPPEDBY_LIST.contains(name);
+    }
+
+    private int getMaxFieldLength(@NotNull JSONObject jsonObject) {
+        return jsonObject.keySet().stream()
+                .mapToInt(String::length)
+                .max()
+                .orElse(0);
     }
 }

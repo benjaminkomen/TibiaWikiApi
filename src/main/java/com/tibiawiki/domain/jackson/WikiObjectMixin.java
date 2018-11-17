@@ -21,7 +21,7 @@ import com.tibiawiki.domain.objects.Street;
 import com.tibiawiki.domain.objects.TibiaObject;
 import com.tibiawiki.domain.objects.WikiObject;
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "templateType")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "templateType", visible = true)
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Achievement.class, name = "Achievement"),
         @JsonSubTypes.Type(value = Book.class, name = "Book"),
