@@ -2,22 +2,31 @@ package com.tibiawiki.domain.factories;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tibiawiki.domain.enums.Article;
+import com.tibiawiki.domain.enums.BestiaryClass;
+import com.tibiawiki.domain.enums.BestiaryLevel;
+import com.tibiawiki.domain.enums.BestiaryOccurrence;
 import com.tibiawiki.domain.enums.BookType;
 import com.tibiawiki.domain.enums.BuildingType;
 import com.tibiawiki.domain.enums.City;
 import com.tibiawiki.domain.enums.Grade;
+import com.tibiawiki.domain.enums.Rarity;
 import com.tibiawiki.domain.enums.YesNo;
 import com.tibiawiki.domain.objects.Achievement;
 import com.tibiawiki.domain.objects.Book;
 import com.tibiawiki.domain.objects.Building;
 import com.tibiawiki.domain.objects.Corpse;
+import com.tibiawiki.domain.objects.Creature;
+import com.tibiawiki.domain.objects.LootItem;
+import com.tibiawiki.domain.objects.Percentage;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
 
@@ -230,6 +239,15 @@ public class JsonFactoryTest {
         assertThat(result, is(INFOBOX_CORPSE_TEXT));
     }
 
+    // It almost works, not sure why not
+    @Disabled
+    @Test
+    void testConvertJsonToInfoboxPartOfArticle_Creature() {
+        final Creature creature = makeCreature();
+        String result = target.convertJsonToInfoboxPartOfArticle(makeCreatureJson(creature), creature.fieldOrder());
+        assertThat(result, is(INFOBOX_CREATURE_TEXT));
+    }
+
     private static final String INFOBOX_TEXT_SPACE = "{{Infobox Achievement|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
             "| name         = Goo Goo Dancer\n" +
             "}}";
@@ -411,9 +429,9 @@ public class JsonFactoryTest {
             "| article        = a\n" +
             "| actualname     = dragon\n" +
             "| plural         = dragons\n" +
-            "| implemented    = Pre-6.0\n" +
             "| hp             = 1000\n" +
             "| exp            = 700\n" +
+            "| armor          = 25\n" +
             "| summon         = --\n" +
             "| convince       = --\n" +
             "| illusionable   = yes\n" +
@@ -426,11 +444,10 @@ public class JsonFactoryTest {
             "| isarenaboss    = no\n" +
             "| abilities      = [[Melee]] (0-120), [[Fire Wave]] (100-170), [[Great Fireball]] (60-140), [[Self-Healing]] (40-70)\n" +
             "| maxdmg         = 430\n" +
-            "| armor          = 25\n" +
-            "| pushable       = No\n" +
-            "| pushobjects    = Yes\n" +
-            "| walksthrough   = Fire, Energy, Poison\n" +
+            "| pushable       = no\n" +
+            "| pushobjects    = yes\n" +
             "| walksaround    = None\n" +
+            "| walksthrough   = Fire, Energy, Poison\n" +
             "| paraimmune     = yes\n" +
             "| senseinvis     = yes\n" +
             "| physicalDmgMod = 100%\n" +
@@ -448,6 +465,7 @@ public class JsonFactoryTest {
             " powerful monsters and will strive for killing every intruder. Besides their immense strength, they shoot" +
             " fireballs at their victims and spit fire. Moreover, they can heal themselves.\n" +
             "| sounds         = {{Sound List|FCHHHHH|GROOAAARRR}}\n" +
+            "| implemented    = Pre-6.0\n" +
             "| notes          = Dragons are very slow-moving, but have a potent set of attacks. A [[mage]] or" +
             " [[paladin]] can kill one without taking any damage once they master the art. These creatures can be" +
             " skinned with an [[Obsidian Knife]]. See also: [[Green Dragon Leather/Skinning]].\n" +
@@ -455,13 +473,6 @@ public class JsonFactoryTest {
             " hunt to be burned or killed.\n" +
             "| runsat         = 300\n" +
             "| speed          = 86\n" +
-            "| location       = [[Thais]] [[Ancient Temple]], [[Darashia Dragon Lair]], [[Mount Sternum Dragon Cave]]," +
-            " [[Mintwallin]], deep in [[Fibula Dungeon]], [[Kazordoon Dragon Lair]] (near [[Dwarf Bridge]]), [[Plains" +
-            " of Havoc]], [[Elven Bane]] castle, [[Maze of Lost Souls]], southern cave and dragon tower in" +
-            " [[Shadowthorn]], [[Orc Fortress]], [[Venore]] [[Dragon Lair]], [[Pits of Inferno]], [[Behemoth Quest]]" +
-            " room in [[Edron]], [[Hero Cave]], deep [[Cyclopolis]], [[Edron Dragon Lair]], [[Goroma]], [[Ankrahmun" +
-            " Dragon Lair]]s, [[Draconia]], [[Dragonblaze Peaks]], some [[Ankrahmun Tombs]], underground of [[Fenrock]]" +
-            " (on the way to [[Beregar]]), [[Krailos Steppe]] and [[Crystal Lakes]].\n" +
             "| strategy       = '''All''' [[player]]s should stand diagonal from the dragon, whenever possible, to" +
             " avoid the [[Fire Wave]].\n" +
             " \n" +
@@ -490,6 +501,13 @@ public class JsonFactoryTest {
             " potions. Killing a dragon at this level will only prove your strength as a paladin will spend" +
             " approximately 500 [[gp]]s per dragon and the chance of dying is very high if not careful. It is advisable" +
             " to bring some [[Icicle Rune|Icicles]] or [[Avalanche Rune]]s if facing two or more of them.\n" +
+            "| location       = [[Thais]] [[Ancient Temple]], [[Darashia Dragon Lair]], [[Mount Sternum Dragon Cave]]," +
+            " [[Mintwallin]], deep in [[Fibula Dungeon]], [[Kazordoon Dragon Lair]] (near [[Dwarf Bridge]]), [[Plains" +
+            " of Havoc]], [[Elven Bane]] castle, [[Maze of Lost Souls]], southern cave and dragon tower in" +
+            " [[Shadowthorn]], [[Orc Fortress]], [[Venore]] [[Dragon Lair]], [[Pits of Inferno]], [[Behemoth Quest]]" +
+            " room in [[Edron]], [[Hero Cave]], deep [[Cyclopolis]], [[Edron Dragon Lair]], [[Goroma]], [[Ankrahmun" +
+            " Dragon Lair]]s, [[Draconia]], [[Dragonblaze Peaks]], some [[Ankrahmun Tombs]], underground of [[Fenrock]]" +
+            " (on the way to [[Beregar]]), [[Krailos Steppe]] and [[Crystal Lakes]].\n" +
             "| loot           = {{Loot Table\n" +
             " |{{Loot Item|0-105|Gold Coin}}\n" +
             " |{{Loot Item|0-3|Dragon Ham}}\n" +
@@ -513,7 +531,7 @@ public class JsonFactoryTest {
             " |{{Loot Item|Life Crystal|very rare}}\n" +
             " |{{Loot Item|Dragonbone Staff|very rare}}\n" +
             "}}\n" +
-            "| history            = Dragons are one of the oldest creatures in the game. In older times (prior to 2001" +
+            "| history        = Dragons are one of the oldest creatures in the game. In older times (prior to 2001" +
             " at least) dragons were [[Summon Creature|summonable]], and during these times it was possible to summon" +
             " up to 8 creatures at once (even through requiring very high [[mana]]) and only the highest leveled" +
             " [[mage]]s could summon them (back then the highest [[level]]s were only around level 60 or 70). It was a" +
@@ -522,6 +540,129 @@ public class JsonFactoryTest {
             " into wild creatures. Often mages would leave the game after summoning as many as 8 dragons in the middle" +
             " of major [[Hometowns|cities]], causing chaos.\n" +
             "}}\n";
+
+    private Creature makeCreature() {
+        return Creature.builder()
+                .name("Dragon")
+                .article(Article.A)
+                .actualname("dragon")
+                .plural("dragons")
+                .implemented("Pre-6.0")
+                .hitPoints("1000")
+                .experiencePoints("700")
+                .summon("--")
+                .convince("--")
+                .illusionable(YesNo.YES_LOWERCASE)
+                .creatureclass("Reptiles")
+                .primarytype("Dragons")
+                .bestiaryclass(BestiaryClass.DRAGON)
+                .bestiarylevel(BestiaryLevel.Medium)
+                .occurrence(BestiaryOccurrence.COMMON)
+                .isboss(YesNo.NO_LOWERCASE)
+                .isarenaboss(YesNo.NO_LOWERCASE)
+                .abilities("[[Melee]] (0-120), [[Fire Wave]] (100-170), [[Great Fireball]] (60-140), [[Self-Healing]] (40-70)")
+                .maxdmg("430")
+                .armor("25")
+                .pushable(YesNo.NO_LOWERCASE)
+                .pushobjects(YesNo.YES_LOWERCASE)
+                .walksthrough("Fire, Energy, Poison")
+                .walksaround("None")
+                .paraimmune(YesNo.YES_LOWERCASE)
+                .senseinvis(YesNo.YES_LOWERCASE)
+                .physicalDmgMod(Percentage.of(100))
+                .holyDmgMod(Percentage.of(100))
+                .deathDmgMod(Percentage.of(100))
+                .fireDmgMod(Percentage.of(0))
+                .energyDmgMod(Percentage.of(80))
+                .iceDmgMod(Percentage.of(110))
+                .earthDmgMod(Percentage.of(20))
+                .drownDmgMod(Percentage.of("100%?"))
+                .hpDrainDmgMod(Percentage.of("100%?"))
+                .bestiaryname("dragon")
+                .bestiarytext("Dragons were among the first creatures of Tibia and once ruled the whole continent." +
+                        " Nowadays, there are only a few of them left which live deep in the dungeons. Nevertheless, they are very" +
+                        " powerful monsters and will strive for killing every intruder. Besides their immense strength, they shoot" +
+                        " fireballs at their victims and spit fire. Moreover, they can heal themselves.")
+                .sounds(Arrays.asList("FCHHHHH", "GROOAAARRR"))
+                .notes("Dragons are very slow-moving, but have a potent set of attacks. A [[mage]] or" +
+                        " [[paladin]] can kill one without taking any damage once they master the art. These creatures can be" +
+                        " skinned with an [[Obsidian Knife]]. See also: [[Green Dragon Leather/Skinning]].")
+                .behaviour("Dragons are known to [[Retargeting|retarget]]. This often causes shooters in a team" +
+                        " hunt to be burned or killed.")
+                .runsat("300")
+                .speed("86")
+                .location("[[Thais]] [[Ancient Temple]], [[Darashia Dragon Lair]], [[Mount Sternum Dragon Cave]]," +
+                        " [[Mintwallin]], deep in [[Fibula Dungeon]], [[Kazordoon Dragon Lair]] (near [[Dwarf Bridge]]), [[Plains" +
+                        " of Havoc]], [[Elven Bane]] castle, [[Maze of Lost Souls]], southern cave and dragon tower in" +
+                        " [[Shadowthorn]], [[Orc Fortress]], [[Venore]] [[Dragon Lair]], [[Pits of Inferno]], [[Behemoth Quest]]" +
+                        " room in [[Edron]], [[Hero Cave]], deep [[Cyclopolis]], [[Edron Dragon Lair]], [[Goroma]], [[Ankrahmun" +
+                        " Dragon Lair]]s, [[Draconia]], [[Dragonblaze Peaks]], some [[Ankrahmun Tombs]], underground of [[Fenrock]]" +
+                        " (on the way to [[Beregar]]), [[Krailos Steppe]] and [[Crystal Lakes]].")
+                .strategy("'''All''' [[player]]s should stand diagonal from the dragon, whenever possible, to" +
+                        " avoid the [[Fire Wave]].\\n" +
+                        " \\n" +
+                        "'''[[Knight]]s''': Only one knight should be present in a team hunt, as they, the [[Blocking|blocker]]," +
+                        " must be able to move freely around the dragon and to maintain their diagonal position as the dragon" +
+                        " takes a step. It is quite easy for a knight of [[level]] 40 or higher to block a dragon without using" +
+                        " any Health Potions at all. Around level 60 a knight with good skills (70/70) can hunt dragons with little" +
+                        " waste and possibly profit. Remember to stand diagonal to it and always be prepared to use" +
+                        " [[Health Potion|potions]]. A level 80+ knight can hunt dragons using only food and" +
+                        " [[Pair of Soft Boots|Soft Boots]].<br />\\n" +
+                        "'''[[Mage]]s''' of level 28 or higher can kill dragons without help from other players, but you need to be" +
+                        " very careful. They can [[Summon]] two [[Demon Skeleton]]s and drink a few extra [[Mana Potion]]s" +
+                        " afterwards. They should try to keep enough [[mana]] to heal, if needed. They should enter, lure the" +
+                        " dragon out, attack it with the demon skeletons, then move to a different floor so the dragon will target" +
+                        " the demon skeletons. It is advisable to move to a space about 3 squares diagonal and use a strike spell" +
+                        " ([[Ice Strike]] if possible) or [[Icicle Rune]]s to kill faster. Heal when your hit points drop below" +
+                        " 250-280. Druids level 35 or higher, can use [[Mass Healing]] to prevent their summons from dying," +
+                        " otherwise use [[Healing Runes]]. This is a reasonably cheap way to hunt dragons although the demon" +
+                        " skeletons also gain a share of the experience.<br />\\n" +
+                        "'''[[Paladin]]s''' with a distance skill of 60+ and enough hit points to survive a fire attack are welcome" +
+                        " additions to a team dragon hunt. Just be sure to have the [[Divine Healing]] spell ready to use, and" +
+                        " stand where you can also escape if the dragon retargets. A paladin's ability to solo a dragon depends" +
+                        " greatly on the terrain. A dragon's melee is weaker than their area attacks, so it would be advisable to" +
+                        " stand diagonal the Dragon but only 1 sqm away, while shooting [[Royal Spear]]s or [[Enchanted Spear]]s." +
+                        " A level 20 paladin with skills 65+ may attempt to solo a single dragon spawn but will have to bring some" +
+                        " potions. Killing a dragon at this level will only prove your strength as a paladin will spend" +
+                        " approximately 500 [[gp]]s per dragon and the chance of dying is very high if not careful. It is advisable" +
+                        " to bring some [[Icicle Rune|Icicles]] or [[Avalanche Rune]]s if facing two or more of them.")
+                .loot(Arrays.asList(
+                        LootItem.builder().amount("0-105").itemName("Gold Coin").build(),
+                        LootItem.builder().amount("0-3").itemName("Dragon Ham").build(),
+                        LootItem.builder().itemName("Steel Shield").build(),
+                        LootItem.builder().itemName("Crossbow").build(),
+                        LootItem.builder().itemName("Dragon's Tail").build(),
+                        LootItem.builder().amount("0-10").itemName("Burst Arrow").build(),
+                        LootItem.builder().itemName("Longsword").rarity(Rarity.SEMI_RARE).build(),
+                        LootItem.builder().itemName("Steel Helmet").rarity(Rarity.SEMI_RARE).build(),
+                        LootItem.builder().itemName("Broadsword").rarity(Rarity.SEMI_RARE).build(),
+                        LootItem.builder().itemName("Plate Legs").rarity(Rarity.SEMI_RARE).build(),
+                        LootItem.builder().itemName("Green Dragon Leather").rarity(Rarity.RARE).build(),
+                        LootItem.builder().itemName("Wand of Inferno").rarity(Rarity.RARE).build(),
+                        LootItem.builder().itemName("Strong Health Potion").rarity(Rarity.RARE).build(),
+                        LootItem.builder().itemName("Green Dragon Scale").rarity(Rarity.RARE).build(),
+                        LootItem.builder().itemName("Double Axe").rarity(Rarity.RARE).build(),
+                        LootItem.builder().itemName("Dragon Hammer").rarity(Rarity.RARE).build(),
+                        LootItem.builder().itemName("Serpent Sword").rarity(Rarity.RARE).build(),
+                        LootItem.builder().itemName("Small Diamond").rarity(Rarity.VERY_RARE).build(),
+                        LootItem.builder().itemName("Dragon Shield").rarity(Rarity.VERY_RARE).build(),
+                        LootItem.builder().itemName("Life Crystal").rarity(Rarity.VERY_RARE).build(),
+                        LootItem.builder().itemName("Dragonbone Staff").rarity(Rarity.VERY_RARE).build()
+                ))
+                .history("Dragons are one of the oldest creatures in the game. In older times (prior to 2001" +
+                        " at least) dragons were [[Summon Creature|summonable]], and during these times it was possible to summon" +
+                        " up to 8 creatures at once (even through requiring very high [[mana]]) and only the highest leveled" +
+                        " [[mage]]s could summon them (back then the highest [[level]]s were only around level 60 or 70). It was a" +
+                        " somewhat common occurrence to see mages walking the streets of [[Thais]] with several dragons summoned" +
+                        " at one time. It was also possible to set summons free by logging out of the game, turning the summons" +
+                        " into wild creatures. Often mages would leave the game after summoning as many as 8 dragons in the middle" +
+                        " of major [[Hometowns|cities]], causing chaos.")
+                .build();
+    }
+
+    private JSONObject makeCreatureJson(Creature creature) {
+        return new JSONObject(objectMapper.convertValue(creature, Map.class)).put("templateType", "Creature");
+    }
 
     private static final String INFOBOX_EFFECT_TEXT = "{{Infobox Effect|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
             "| name          = Fireball Effect\n" +

@@ -43,6 +43,9 @@ public class JsonFactory {
     private static final String INFOBOX_HEADER_PATTERN = "\\{\\{Infobox[\\s|_](.*?)[\\||\\n]";
     private static final String RARITY_PATTERN = "(always|common|uncommon|semi-rare|rare|very rare|extremely rare)(|\\?)";
     private static final String UNKNOWN = "Unknown";
+    private static final String RARITY = "rarity";
+    private static final String AMOUNT = "amount";
+    private static final String ITEM_NAME = "itemName";
 
     /**
      * Convert a String which consists of key-value pairs of infobox template parameters to a JSON object, or an empty
@@ -85,11 +88,18 @@ public class JsonFactory {
             return "";
         }
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("{{Infobox ");
-        sb.append(jsonObject.get(TEMPLATE_TYPE));
-        sb.append("|List={{{1|}}}|GetValue={{{GetValue|}}}").append("\n");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("{{Infobox ");
+        stringBuilder.append(jsonObject.get(TEMPLATE_TYPE));
+        stringBuilder.append("|List={{{1|}}}|GetValue={{{GetValue|}}}").append("\n");
 
+        constructKeyValuePairs(jsonObject, fieldOrder, stringBuilder);
+
+        stringBuilder.append("}}").append("\n");
+        return stringBuilder.toString();
+    }
+
+    private void constructKeyValuePairs(@NotNull JSONObject jsonObject, List<String> fieldOrder, StringBuilder sb) {
         for (String key : fieldOrder) {
 
             // don't add the metadata parameter templateType to the output
@@ -104,11 +114,11 @@ public class JsonFactory {
             if (value instanceof JSONArray) {
 
                 if (SOUNDS.equals(key)) {
-                    // do the opposite of makeSoundsArray()
+                    sb.append(makeSoundList(jsonObject, key, (JSONArray) value));
                 } else if (SPAWN_TYPE.equals(key)) {
 
                 } else if (LOOT.equals(key)) {
-
+                    sb.append(makeLootTable(jsonObject, key, (JSONArray) value));
                 } else if (DROPPED_BY.equals(key)) {
 
                 } else if (ITEM_ID.equals(key)) {
@@ -120,7 +130,8 @@ public class JsonFactory {
                 }
 
             } else if (value instanceof JSONObject) {
-
+                // TODO check if this works
+                constructKeyValuePairs(((JSONObject) value), fieldOrder, sb);
             } else {
                 String paddedKey = Strings.padEnd(key, getMaxFieldLength(jsonObject), ' ');
                 sb.append("| ")
@@ -130,9 +141,6 @@ public class JsonFactory {
                         .append("\n");
             }
         }
-
-        sb.append("}}").append("\n");
-        return sb.toString();
     }
 
     /**
@@ -279,11 +287,11 @@ public class JsonFactory {
 
         for (String lootItemPart : splitLootItem) {
             if (lootItemPart.toLowerCase().matches(RARITY_PATTERN)) {
-                lootItemMap.put("rarity", lootItemPart);
+                lootItemMap.put(RARITY, lootItemPart);
             } else if (Character.isDigit(lootItemPart.charAt(0))) {
-                lootItemMap.put("amount", lootItemPart);
+                lootItemMap.put(AMOUNT, lootItemPart);
             } else {
-                lootItemMap.put("itemName", lootItemPart);
+                lootItemMap.put(ITEM_NAME, lootItemPart);
             }
         }
         return new JSONObject(lootItemMap);
@@ -330,5 +338,38 @@ public class JsonFactory {
                 .mapToInt(String::length)
                 .max()
                 .orElse(0);
+    }
+
+    private String makeSoundList(@NotNull JSONObject jsonObject, String key, JSONArray jsonArray) {
+        final String paddedKey = Strings.padEnd(key, getMaxFieldLength(jsonObject), ' ');
+        final String value = jsonArray.toList().stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining("|"));
+
+        return "| " + paddedKey + " = {{Sound List|" + value + "}}\n";
+    }
+
+    private String makeLootTable(JSONObject jsonObject, String key, JSONArray jsonArray) {
+        final String paddedKey = Strings.padEnd(key, getMaxFieldLength(jsonObject), ' ');
+        final String value = jsonArray.toList().stream()
+                .map(this::makeLootItem)
+                .collect(Collectors.joining("\n |"));
+
+        return "| " + paddedKey + " = {{Loot Table\n |" + value + "\n}}\n";
+    }
+
+    private String makeLootItem(Object obj) {
+        Map map = (Map) obj;
+        StringBuilder result = new StringBuilder("{{Loot Item");
+        if (map.containsKey(AMOUNT)) {
+            result.append("|").append(map.get(AMOUNT));
+        }
+        if (map.containsKey(ITEM_NAME)) {
+            result.append("|").append(map.get(ITEM_NAME));
+        }
+        if (map.containsKey(RARITY)) {
+            result.append("|").append(map.get(RARITY));
+        }
+        return result.append("}}").toString();
     }
 }
