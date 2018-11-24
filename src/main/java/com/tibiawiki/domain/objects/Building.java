@@ -1,6 +1,5 @@
 package com.tibiawiki.domain.objects;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tibiawiki.domain.enums.BuildingType;
 import com.tibiawiki.domain.enums.City;
 import com.tibiawiki.domain.enums.Status;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 import java.util.List;
 
-@JsonIgnoreProperties({"templateType"})
 @Getter
 @Component
 public class Building extends WikiObject {
