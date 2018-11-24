@@ -8,16 +8,33 @@ import com.tibiawiki.domain.enums.BestiaryOccurrence;
 import com.tibiawiki.domain.enums.BookType;
 import com.tibiawiki.domain.enums.BuildingType;
 import com.tibiawiki.domain.enums.City;
+import com.tibiawiki.domain.enums.Gender;
 import com.tibiawiki.domain.enums.Grade;
+import com.tibiawiki.domain.enums.KeyType;
 import com.tibiawiki.domain.enums.Rarity;
+import com.tibiawiki.domain.enums.SpellSubclass;
+import com.tibiawiki.domain.enums.SpellType;
 import com.tibiawiki.domain.enums.YesNo;
 import com.tibiawiki.domain.objects.Achievement;
 import com.tibiawiki.domain.objects.Book;
 import com.tibiawiki.domain.objects.Building;
 import com.tibiawiki.domain.objects.Corpse;
 import com.tibiawiki.domain.objects.Creature;
+import com.tibiawiki.domain.objects.Effect;
+import com.tibiawiki.domain.objects.HuntingPlace;
+import com.tibiawiki.domain.objects.Item;
+import com.tibiawiki.domain.objects.Key;
+import com.tibiawiki.domain.objects.Location;
 import com.tibiawiki.domain.objects.LootItem;
+import com.tibiawiki.domain.objects.Missile;
+import com.tibiawiki.domain.objects.Mount;
+import com.tibiawiki.domain.objects.NPC;
+import com.tibiawiki.domain.objects.Outfit;
 import com.tibiawiki.domain.objects.Percentage;
+import com.tibiawiki.domain.objects.Quest;
+import com.tibiawiki.domain.objects.Spell;
+import com.tibiawiki.domain.objects.Street;
+import com.tibiawiki.domain.objects.TibiaObject;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -239,13 +256,113 @@ public class JsonFactoryTest {
         assertThat(result, is(INFOBOX_CORPSE_TEXT));
     }
 
-    // It almost works, not sure why not
-    @Disabled
     @Test
     void testConvertJsonToInfoboxPartOfArticle_Creature() {
         final Creature creature = makeCreature();
         String result = target.convertJsonToInfoboxPartOfArticle(makeCreatureJson(creature), creature.fieldOrder());
         assertThat(result, is(INFOBOX_CREATURE_TEXT));
+    }
+
+    @Test
+    void testConvertJsonToInfoboxPartOfArticle_Effect() {
+        final Effect effect = makeEffect();
+        String result = target.convertJsonToInfoboxPartOfArticle(makeEffectJson(effect), effect.fieldOrder());
+        assertThat(result, is(INFOBOX_EFFECT_TEXT));
+    }
+
+    @Disabled
+    @Test
+    void testConvertJsonToInfoboxPartOfArticle_HuntingPlace() {
+        final HuntingPlace huntingPlace = makeHuntingPlace();
+        String result = target.convertJsonToInfoboxPartOfArticle(makeHuntingPlaceJson(huntingPlace), huntingPlace.fieldOrder());
+        assertThat(result, is(INFOBOX_HUNT_TEXT));
+    }
+
+    @Disabled
+    @Test
+    void testConvertJsonToInfoboxPartOfArticle_Item() {
+        final Item item = makeItem();
+        String result = target.convertJsonToInfoboxPartOfArticle(makeItemJson(item), item.fieldOrder());
+        assertThat(result, is(INFOBOX_ITEM_TEXT));
+    }
+
+    @Disabled
+    @Test
+    void testConvertJsonToInfoboxPartOfArticle_Key() {
+        final Key key = makeKey();
+        String result = target.convertJsonToInfoboxPartOfArticle(makeKeyJson(key), key.fieldOrder());
+        assertThat(result, is(INFOBOX_KEY_TEXT));
+    }
+
+    @Disabled
+    @Test
+    void testConvertJsonToInfoboxPartOfArticle_Location() {
+        final Location location = makeLocation();
+        String result = target.convertJsonToInfoboxPartOfArticle(makeLocationJson(location), location.fieldOrder());
+        assertThat(result, is(INFOBOX_LOCATION_TEXT));
+    }
+
+    @Disabled
+    @Test
+    void testConvertJsonToInfoboxPartOfArticle_Missile() {
+        final Missile missile = makeMissile();
+        String result = target.convertJsonToInfoboxPartOfArticle(makeMissileJson(missile), missile.fieldOrder());
+        assertThat(result, is(INFOBOX_MISSILE_TEXT));
+    }
+
+    @Disabled
+    @Test
+    void testConvertJsonToInfoboxPartOfArticle_Mount() {
+        final Mount mount = makeMount();
+        String result = target.convertJsonToInfoboxPartOfArticle(makeMountJson(mount), mount.fieldOrder());
+        assertThat(result, is(INFOBOX_MOUNT_TEXT));
+    }
+
+    @Disabled
+    @Test
+    void testConvertJsonToInfoboxPartOfArticle_NPC() {
+        final NPC npc = makeNPC();
+        String result = target.convertJsonToInfoboxPartOfArticle(makeNPCJson(npc), npc.fieldOrder());
+        assertThat(result, is(INFOBOX_NPC_TEXT));
+    }
+
+    @Disabled
+    @Test
+    void testConvertJsonToInfoboxPartOfArticle_Object() {
+        final TibiaObject tibiaObject = makeTibiaObject();
+        String result = target.convertJsonToInfoboxPartOfArticle(makeTibiaObjectJson(tibiaObject), tibiaObject.fieldOrder());
+        assertThat(result, is(INFOBOX_OBJECT_TEXT));
+    }
+
+    @Disabled
+    @Test
+    void testConvertJsonToInfoboxPartOfArticle_Outfit() {
+        final Outfit outfit = makeOutfit();
+        String result = target.convertJsonToInfoboxPartOfArticle(makeOutfitJson(outfit), outfit.fieldOrder());
+        assertThat(result, is(INFOBOX_OUTFIT_TEXT));
+    }
+
+    @Disabled
+    @Test
+    void testConvertJsonToInfoboxPartOfArticle_Quest() {
+        final Quest quest = makeQuest();
+        String result = target.convertJsonToInfoboxPartOfArticle(makeQuestJson(quest), quest.fieldOrder());
+        assertThat(result, is(INFOBOX_QUEST_TEXT));
+    }
+
+    @Test
+    void testConvertJsonToInfoboxPartOfArticle_Spell() {
+        final Spell spell = makeSpell();
+        String result = target.convertJsonToInfoboxPartOfArticle(makeSpellJson(spell), spell.fieldOrder());
+        assertThat(result, is(INFOBOX_SPELL_TEXT));
+    }
+
+    @Disabled
+    @Test
+    void testConvertJsonToInfoboxPartOfArticle_Street() {
+        final Street street = makeStreet();
+        String result = target.convertJsonToInfoboxPartOfArticle(makeStreetJson(street), street.fieldOrder());
+        assertThat(result, is(INFOBOX_STREET_TEXT));
     }
 
     private static final String INFOBOX_TEXT_SPACE = "{{Infobox Achievement|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
@@ -460,47 +577,14 @@ public class JsonFactoryTest {
             "| drownDmgMod    = 100%?\n" +
             "| hpDrainDmgMod  = 100%?\n" +
             "| bestiaryname   = dragon\n" +
-            "| bestiarytext   = Dragons were among the first creatures of Tibia and once ruled the whole continent." +
-            " Nowadays, there are only a few of them left which live deep in the dungeons. Nevertheless, they are very" +
-            " powerful monsters and will strive for killing every intruder. Besides their immense strength, they shoot" +
-            " fireballs at their victims and spit fire. Moreover, they can heal themselves.\n" +
+            "| bestiarytext   = Dragons were\n" +
             "| sounds         = {{Sound List|FCHHHHH|GROOAAARRR}}\n" +
             "| implemented    = Pre-6.0\n" +
-            "| notes          = Dragons are very slow-moving, but have a potent set of attacks. A [[mage]] or" +
-            " [[paladin]] can kill one without taking any damage once they master the art. These creatures can be" +
-            " skinned with an [[Obsidian Knife]]. See also: [[Green Dragon Leather/Skinning]].\n" +
-            "| behaviour      = Dragons are known to [[Retargeting|retarget]]. This often causes shooters in a team" +
-            " hunt to be burned or killed.\n" +
+            "| notes          = Dragons are\n" +
+            "| behaviour      = Dragons are\n" +
             "| runsat         = 300\n" +
             "| speed          = 86\n" +
-            "| strategy       = '''All''' [[player]]s should stand diagonal from the dragon, whenever possible, to" +
-            " avoid the [[Fire Wave]].\n" +
-            " \n" +
-            "'''[[Knight]]s''': Only one knight should be present in a team hunt, as they, the [[Blocking|blocker]]," +
-            " must be able to move freely around the dragon and to maintain their diagonal position as the dragon" +
-            " takes a step. It is quite easy for a knight of [[level]] 40 or higher to block a dragon without using" +
-            " any Health Potions at all. Around level 60 a knight with good skills (70/70) can hunt dragons with little" +
-            " waste and possibly profit. Remember to stand diagonal to it and always be prepared to use" +
-            " [[Health Potion|potions]]. A level 80+ knight can hunt dragons using only food and" +
-            " [[Pair of Soft Boots|Soft Boots]].<br />\n" +
-            "'''[[Mage]]s''' of level 28 or higher can kill dragons without help from other players, but you need to be" +
-            " very careful. They can [[Summon]] two [[Demon Skeleton]]s and drink a few extra [[Mana Potion]]s" +
-            " afterwards. They should try to keep enough [[mana]] to heal, if needed. They should enter, lure the" +
-            " dragon out, attack it with the demon skeletons, then move to a different floor so the dragon will target" +
-            " the demon skeletons. It is advisable to move to a space about 3 squares diagonal and use a strike spell" +
-            " ([[Ice Strike]] if possible) or [[Icicle Rune]]s to kill faster. Heal when your hit points drop below" +
-            " 250-280. Druids level 35 or higher, can use [[Mass Healing]] to prevent their summons from dying," +
-            " otherwise use [[Healing Runes]]. This is a reasonably cheap way to hunt dragons although the demon" +
-            " skeletons also gain a share of the experience.<br />\n" +
-            "'''[[Paladin]]s''' with a distance skill of 60+ and enough hit points to survive a fire attack are welcome" +
-            " additions to a team dragon hunt. Just be sure to have the [[Divine Healing]] spell ready to use, and " +
-            "stand where you can also escape if the dragon retargets. A paladin's ability to solo a dragon depends" +
-            " greatly on the terrain. A dragon's melee is weaker than their area attacks, so it would be advisable to" +
-            " stand diagonal the Dragon but only 1 sqm away, while shooting [[Royal Spear]]s or [[Enchanted Spear]]s." +
-            " A level 20 paladin with skills 65+ may attempt to solo a single dragon spawn but will have to bring some" +
-            " potions. Killing a dragon at this level will only prove your strength as a paladin will spend" +
-            " approximately 500 [[gp]]s per dragon and the chance of dying is very high if not careful. It is advisable" +
-            " to bring some [[Icicle Rune|Icicles]] or [[Avalanche Rune]]s if facing two or more of them.\n" +
+            "| strategy       = '''All''' [[player]]s\n" +
             "| location       = [[Thais]] [[Ancient Temple]], [[Darashia Dragon Lair]], [[Mount Sternum Dragon Cave]]," +
             " [[Mintwallin]], deep in [[Fibula Dungeon]], [[Kazordoon Dragon Lair]] (near [[Dwarf Bridge]]), [[Plains" +
             " of Havoc]], [[Elven Bane]] castle, [[Maze of Lost Souls]], southern cave and dragon tower in" +
@@ -531,14 +615,7 @@ public class JsonFactoryTest {
             " |{{Loot Item|Life Crystal|very rare}}\n" +
             " |{{Loot Item|Dragonbone Staff|very rare}}\n" +
             "}}\n" +
-            "| history        = Dragons are one of the oldest creatures in the game. In older times (prior to 2001" +
-            " at least) dragons were [[Summon Creature|summonable]], and during these times it was possible to summon" +
-            " up to 8 creatures at once (even through requiring very high [[mana]]) and only the highest leveled" +
-            " [[mage]]s could summon them (back then the highest [[level]]s were only around level 60 or 70). It was a" +
-            " somewhat common occurrence to see mages walking the streets of [[Thais]] with several dragons summoned" +
-            " at one time. It was also possible to set summons free by logging out of the game, turning the summons" +
-            " into wild creatures. Often mages would leave the game after summoning as many as 8 dragons in the middle" +
-            " of major [[Hometowns|cities]], causing chaos.\n" +
+            "| history        = Dragons are\n" +
             "}}\n";
 
     private Creature makeCreature() {
@@ -579,16 +656,10 @@ public class JsonFactoryTest {
                 .drownDmgMod(Percentage.of("100%?"))
                 .hpDrainDmgMod(Percentage.of("100%?"))
                 .bestiaryname("dragon")
-                .bestiarytext("Dragons were among the first creatures of Tibia and once ruled the whole continent." +
-                        " Nowadays, there are only a few of them left which live deep in the dungeons. Nevertheless, they are very" +
-                        " powerful monsters and will strive for killing every intruder. Besides their immense strength, they shoot" +
-                        " fireballs at their victims and spit fire. Moreover, they can heal themselves.")
+                .bestiarytext("Dragons were")
                 .sounds(Arrays.asList("FCHHHHH", "GROOAAARRR"))
-                .notes("Dragons are very slow-moving, but have a potent set of attacks. A [[mage]] or" +
-                        " [[paladin]] can kill one without taking any damage once they master the art. These creatures can be" +
-                        " skinned with an [[Obsidian Knife]]. See also: [[Green Dragon Leather/Skinning]].")
-                .behaviour("Dragons are known to [[Retargeting|retarget]]. This often causes shooters in a team" +
-                        " hunt to be burned or killed.")
+                .notes("Dragons are")
+                .behaviour("Dragons are")
                 .runsat("300")
                 .speed("86")
                 .location("[[Thais]] [[Ancient Temple]], [[Darashia Dragon Lair]], [[Mount Sternum Dragon Cave]]," +
@@ -598,34 +669,7 @@ public class JsonFactoryTest {
                         " room in [[Edron]], [[Hero Cave]], deep [[Cyclopolis]], [[Edron Dragon Lair]], [[Goroma]], [[Ankrahmun" +
                         " Dragon Lair]]s, [[Draconia]], [[Dragonblaze Peaks]], some [[Ankrahmun Tombs]], underground of [[Fenrock]]" +
                         " (on the way to [[Beregar]]), [[Krailos Steppe]] and [[Crystal Lakes]].")
-                .strategy("'''All''' [[player]]s should stand diagonal from the dragon, whenever possible, to" +
-                        " avoid the [[Fire Wave]].\\n" +
-                        " \\n" +
-                        "'''[[Knight]]s''': Only one knight should be present in a team hunt, as they, the [[Blocking|blocker]]," +
-                        " must be able to move freely around the dragon and to maintain their diagonal position as the dragon" +
-                        " takes a step. It is quite easy for a knight of [[level]] 40 or higher to block a dragon without using" +
-                        " any Health Potions at all. Around level 60 a knight with good skills (70/70) can hunt dragons with little" +
-                        " waste and possibly profit. Remember to stand diagonal to it and always be prepared to use" +
-                        " [[Health Potion|potions]]. A level 80+ knight can hunt dragons using only food and" +
-                        " [[Pair of Soft Boots|Soft Boots]].<br />\\n" +
-                        "'''[[Mage]]s''' of level 28 or higher can kill dragons without help from other players, but you need to be" +
-                        " very careful. They can [[Summon]] two [[Demon Skeleton]]s and drink a few extra [[Mana Potion]]s" +
-                        " afterwards. They should try to keep enough [[mana]] to heal, if needed. They should enter, lure the" +
-                        " dragon out, attack it with the demon skeletons, then move to a different floor so the dragon will target" +
-                        " the demon skeletons. It is advisable to move to a space about 3 squares diagonal and use a strike spell" +
-                        " ([[Ice Strike]] if possible) or [[Icicle Rune]]s to kill faster. Heal when your hit points drop below" +
-                        " 250-280. Druids level 35 or higher, can use [[Mass Healing]] to prevent their summons from dying," +
-                        " otherwise use [[Healing Runes]]. This is a reasonably cheap way to hunt dragons although the demon" +
-                        " skeletons also gain a share of the experience.<br />\\n" +
-                        "'''[[Paladin]]s''' with a distance skill of 60+ and enough hit points to survive a fire attack are welcome" +
-                        " additions to a team dragon hunt. Just be sure to have the [[Divine Healing]] spell ready to use, and" +
-                        " stand where you can also escape if the dragon retargets. A paladin's ability to solo a dragon depends" +
-                        " greatly on the terrain. A dragon's melee is weaker than their area attacks, so it would be advisable to" +
-                        " stand diagonal the Dragon but only 1 sqm away, while shooting [[Royal Spear]]s or [[Enchanted Spear]]s." +
-                        " A level 20 paladin with skills 65+ may attempt to solo a single dragon spawn but will have to bring some" +
-                        " potions. Killing a dragon at this level will only prove your strength as a paladin will spend" +
-                        " approximately 500 [[gp]]s per dragon and the chance of dying is very high if not careful. It is advisable" +
-                        " to bring some [[Icicle Rune|Icicles]] or [[Avalanche Rune]]s if facing two or more of them.")
+                .strategy("'''All''' [[player]]s")
                 .loot(Arrays.asList(
                         LootItem.builder().amount("0-105").itemName("Gold Coin").build(),
                         LootItem.builder().amount("0-3").itemName("Dragon Ham").build(),
@@ -649,14 +693,7 @@ public class JsonFactoryTest {
                         LootItem.builder().itemName("Life Crystal").rarity(Rarity.VERY_RARE).build(),
                         LootItem.builder().itemName("Dragonbone Staff").rarity(Rarity.VERY_RARE).build()
                 ))
-                .history("Dragons are one of the oldest creatures in the game. In older times (prior to 2001" +
-                        " at least) dragons were [[Summon Creature|summonable]], and during these times it was possible to summon" +
-                        " up to 8 creatures at once (even through requiring very high [[mana]]) and only the highest leveled" +
-                        " [[mage]]s could summon them (back then the highest [[level]]s were only around level 60 or 70). It was a" +
-                        " somewhat common occurrence to see mages walking the streets of [[Thais]] with several dragons summoned" +
-                        " at one time. It was also possible to set summons free by logging out of the game, turning the summons" +
-                        " into wild creatures. Often mages would leave the game after summoning as many as 8 dragons in the middle" +
-                        " of major [[Hometowns|cities]], causing chaos.")
+                .history("Dragons are")
                 .build();
     }
 
@@ -665,21 +702,31 @@ public class JsonFactoryTest {
     }
 
     private static final String INFOBOX_EFFECT_TEXT = "{{Infobox Effect|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
-            "| name          = Fireball Effect\n" +
-            "| implemented   =\n" +
-            "| effectid      = 7\n" +
-            "| primarytype   = Attack\n" +
-            "| secondarytype = \n" +
-            "| lightcolor    = 208\n" +
-            "| lightradius   = 6\n" +
-            "| causes        = \n" +
-            "*[[Fireball]] and [[Great Fireball]];\n" +
-            "*Certain [[Creature Spells]];\n" +
-            "*Making a [[Stuffed Dragon]] sneeze;\n" +
-            "*Using a [[Demon Infant]] on [[Lava]] if tasked to.\n" +
-            "| effect        = [[Fire Damage]] on target or nothing.\n" +
-            "| notes         =\n" +
+            "| name         = Fireball Effect\n" +
+            "| effectid     = 7\n" +
+            "| primarytype  = Attack\n" +
+            "| lightradius  = 6\n" +
+            "| lightcolor   = 208\n" +
+            "| causes       = *[[Fireball]] and [[Great Fireball]];\n" +
+            "| effect       = [[Fire Damage]] on target or nothing.\n" +
             "}}\n";
+
+
+    private Effect makeEffect() {
+        return Effect.builder()
+                .name("Fireball Effect")
+                .effectid(7)
+                .primarytype("Attack")
+                .lightcolor(208)
+                .lightradius(6)
+                .causes("*[[Fireball]] and [[Great Fireball]];")
+                .effect("[[Fire Damage]] on target or nothing.")
+                .build();
+    }
+
+    private JSONObject makeEffectJson(Effect effect) {
+        return new JSONObject(objectMapper.convertValue(effect, Map.class)).put("templateType", "Effect");
+    }
 
     private static final String INFOBOX_HUNT_TEXT = "{{Infobox Hunt|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
             "| name            = Hero Cave\n" +
@@ -721,6 +768,15 @@ public class JsonFactoryTest {
             "| map2            = Hero Cave 6.png\n" +
             "}}";
 
+    private HuntingPlace makeHuntingPlace() {
+        return HuntingPlace.builder()
+                .build();
+    }
+
+    private JSONObject makeHuntingPlaceJson(HuntingPlace huntingPlace) {
+        return new JSONObject(objectMapper.convertValue(huntingPlace, Map.class)).put("templateType", "Hunt");
+    }
+
     private static final String INFOBOX_ITEM_TEXT = "{{Infobox Item|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
             "| name          = Carlin Sword\n" +
             "| marketable    = yes\n" +
@@ -759,6 +815,15 @@ public class JsonFactoryTest {
             "{{JSpoiler|Obtainable in [[Rookgaard]] through the [[Minotaur Hell Quest]].}}\n" +
             "}}\n";
 
+    private Item makeItem() {
+        return Item.builder()
+                .build();
+    }
+
+    private JSONObject makeItemJson(Item item) {
+        return new JSONObject(objectMapper.convertValue(item, Map.class)).put("templateType", "Item");
+    }
+
     private static final String INFOBOX_KEY_TEXT = "{{Infobox Key|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
             "| number         = 4055\n" +
             "| aka            = Panpipe Quest Key\n" +
@@ -774,17 +839,76 @@ public class JsonFactoryTest {
             "| longnotes      = Allows you to open the door ([http://tibia.wikia.com/wiki/Mapper?coords=127.131,125.129,8,3,1,1 here]) to the [[Panpipe Quest]].\n" +
             "}}\n";
 
+    private Key makeKey() {
+        return Key.builder()
+                .number("4055")
+                .aka("Panpipe Quest Key")
+                .primarytype(KeyType.SILVER)
+                .location("[[Jakundaf Desert]]")
+                .value("Negotiable")
+                .npcvalue(0)
+                .npcprice(0)
+                .buyfrom("--")
+                .sellto("--")
+                .origin("Hidden in a rock south of the Desert Dungeon entrance.")
+                .shortnotes("Access to the [[Panpipe Quest]].")
+                .longnotes("Allows you to open the door ([http://tibia.wikia.com/wiki/Mapper?coords=127.131,125.129,8,3,1,1 here]) to the [[Panpipe Quest]].")
+                .build();
+    }
+
+    private JSONObject makeKeyJson(Key key) {
+        return new JSONObject(objectMapper.convertValue(key, Map.class)).put("templateType", "Key");
+    }
+
+    private static final String INFOBOX_LOCATION_TEXT = "{{Infobox Geography\n" +
+            "| ruler        = [[King Tibianus]]\n" +
+            "| implemented  = Pre-6.0\n" +
+            "| population   = {{PAGESINCATEGORY:Thais NPCs|pages}}\n" +
+            "| organization = [[Thieves Guild]], [[Tibian Bureau of Investigation]], [[Inquisition]]\n" +
+            "| near         = [[Fibula]], [[Mintwallin]], [[Greenshore]], [[Mount Sternum]]\n" +
+            "| map          = [[File:Map_thais.jpg]]\n" +
+            "| map2         = [[File:Thais.PNG]]\n" +
+            "}}";
+
+    private Location makeLocation() {
+        return Location.builder()
+                .ruler("[[King Tibianus]]")
+                .implemented("Pre-6.0")
+                .population("{{PAGESINCATEGORY:Thais NPCs|pages}}")
+                .organization("[[Thieves Guild]], [[Tibian Bureau of Investigation]], [[Inquisition]]")
+                .near("[[Fibula]], [[Mintwallin]], [[Greenshore]], [[Mount Sternum]]")
+                .map("[[File:Map_thais.jpg]]")
+                .map2("[[File:Thais.PNG]]")
+                .build();
+    }
+
+    private JSONObject makeLocationJson(Location location) {
+        return new JSONObject(objectMapper.convertValue(location, Map.class)).put("templateType", "Geography");
+    }
+
     private static final String INFOBOX_MISSILE_TEXT = "{{Infobox Missile|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
             "| name          = Throwing Cake Missile\n" +
             "| implemented   = 7.9\n" +
             "| missileid     = 42\n" +
             "| primarytype   = Throwing Weapon\n" +
-            "| secondarytype = \n" +
-            "| lightcolor    = \n" +
-            "| lightradius   = \n" +
             "| shotby        = [[Undead Jester]]'s attack and probably by throwing a [[Throwing Cake]].\n" +
             "| notes         = This missile is followed by the [[Cream Cake Effect]]: [[File:Cream Cake Effect.gif]]\n" +
             "}}\n";
+
+    private Missile makeMissile() {
+        return Missile.builder()
+                .name("Throwing Cake Missile")
+                .implemented("7.9")
+                .missileid(42)
+                .primarytype("Throwing Weapon")
+                .shotby("[[Undead Jester]]'s attack and probably by throwing a [[Throwing Cake]].")
+                .notes("This missile is followed by the [[Cream Cake Effect]]: [[File:Cream Cake Effect.gif]]")
+                .build();
+    }
+
+    private JSONObject makeMissileJson(Missile missile) {
+        return new JSONObject(objectMapper.convertValue(missile, Map.class)).put("templateType", "Missile");
+    }
 
     private static final String INFOBOX_MOUNT_TEXT = "{{Infobox_Mount|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
             "| name            = Donkey\n" +
@@ -792,19 +916,22 @@ public class JsonFactoryTest {
             "| taming_method   = Use a [[Bag of Apple Slices]] on a creature transformed into Donkey.\n" +
             "| implemented     = 9.1\n" +
             "| achievement     = Loyal Lad\n" +
-            "| notes           = Go to [[Incredibly Old Witch]]'s house, [http://tibia.wikia.com/wiki/Mapper?coords=" +
-            "125.250,126.95,7,2,1,1 here], then lure any wild creature and wait until the witch turns it into a Donkey." +
-            " Use a [[Bag of Apple Slices]] on the changed creature before it's changed again. You can also trap the" +
-            " Incredibly Old Witch and use the Bag when she transforms herself. It's recommended to put the Bag of" +
-            " Apple Slices on a hotkey so when a creature is changed to Donkey you just need to press it instead of" +
-            " clicking the item and then the Donkey.<br />\n" +
-            "If you tame the donkey by using the item on the witch herself (while she is transformed into Donkey), she" +
-            " will temporarily vanish, and respawns about 10 minutes later.<br />\n" +
-            "On most game worlds it's the cheapest mount to obtain, what makes it popular among low or mid levels who" +
-            " want to gain additional 10 points of speed.\n" +
-            "\n" +
-            "<gallery captionalign=\"center\">Donkey (Transformation).gif|Donkey (transformed creature)</gallery>\n" +
-            "}}\n";
+            "| notes           = Go to [[Incredibly Old Witch]]'s house,\n";
+
+    private Mount makeMount() {
+        return Mount.builder()
+                .name("Donkey")
+                .speed(10)
+                .tamingMethod("Use a [[Bag of Apple Slices]] on a creature transformed into Donkey.")
+                .implemented("9.1")
+                .achievement("Loyal Lad")
+                .notes("Go to [[Incredibly Old Witch]]'s house,")
+                .build();
+    }
+
+    private JSONObject makeMountJson(Mount mount) {
+        return new JSONObject(objectMapper.convertValue(mount, Map.class)).put("templateType", "Mount");
+    }
 
     private static final String INFOBOX_NPC_TEXT = "{{Infobox NPC|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
             "| name        = Sam\n" +
@@ -820,49 +947,65 @@ public class JsonFactoryTest {
             "| race        = Human\n" +
             "| city        = Thais\n" +
             "| buysell     = yes\n" +
-            "| sells       = {{Price to Buy |Axe |Battle Axe |Battle Hammer |Bone Sword |Brass Armor |Brass Helmet" +
-            " |Brass Legs |Brass Shield |Carlin Sword |Chain Armor |Chain Helmet |Chain Legs |Club |Coat |Crowbar " +
-            "|Dagger |Doublet |Dwarven Shield |Hand Axe |Iron Helmet |Jacket |Leather Armor |Leather Boots: 10 |Leather" +
-            " Helmet |Leather Legs |Longsword |Mace |Morning Star |Plate Armor |Plate Shield |Rapier |Sabre |Scale Armor" +
-            " |Short Sword |Sickle |Soldier Helmet |Spike Sword |Steel Helmet |Steel Shield |Studded Armor |Studded" +
-            " Helmet |Studded Legs |Studded Shield |Sword |Throwing Knife |Two Handed Sword |Viking Helmet |Viking " +
-            "Shield |War Hammer |Wooden Shield}}\n" +
-            "| buys        = {{Price to Sell |Axe |Battle Axe |Battle Hammer |Battle Shield |Bone Club |Bone Sword" +
-            " |Brass Armor |Brass Helmet |Brass Legs |Brass Shield |Carlin Sword |Chain Armor |Chain Helmet |Chain Legs" +
-            " |Club |Coat |Copper Shield |Crowbar |Dagger |Double Axe |Doublet |Dwarven Shield |Fire Sword: 1000" +
-            " |Halberd |Hand Axe: 4 |Hatchet |Iron Helmet |Jacket |Katana |Leather Armor |Leather Boots |Leather Helmet" +
-            " |Leather Legs |Legion Helmet |Longsword |Mace |Magic Plate Armor: 6400;sayname |Morning Star |Orcish Axe" +
-            " |Plate Armor |Plate Legs |Plate Shield |Rapier |Sabre |Scale Armor |Short Sword |Sickle |Small Axe " +
-            "|Soldier Helmet |Spike Sword: 240 |Steel Helmet |Steel Shield |Studded Armor |Studded Club |Studded Helmet" +
-            " |Studded Legs |Studded Shield |Swampling Club |Sword |Throwing Knife |Two Handed Sword |Viking Helmet " +
-            "|Viking Shield |War Hammer: 470 |Wooden Shield}}\n" +
+            "| sells       = {{Price to Buy |Axe\n" +
+            "| buys        = {{Price to Sell |Axe\n" +
             "| sounds      = {{Sound List|Hello there, adventurer! Need a deal in weapons or armor? I'm your man!}}\n" +
-            "| notes       = Sam is the Blacksmith of [[Thais]]. His real name is Samuel, but he prefers to be called " +
-            "Sam. He was named after his grandfather.\n" +
-            "He sells and buys many weapons and armors. Sam is one of the few [[NPC]]s that buys magic plate armors. " +
-            "The only way to sell it to him is by typing \"Sell magic plate armor\".\n" +
-            "His neighbor in Thais is [[Frodo]], innkeeper of the Frodo's Hut, which is clearly an [[Allusions#Samwise" +
-            " Gamgee|allusion]] to the J.R.R. Tolkien's novel [[wikipedia:The Lord of the Rings|The Lord of The Rings]]" +
-            " where [[Frodo]] and Sam are the main plot characters. He was the first NPC to see the Tibian light of day.\n" +
-            "{{JSpoiler|Part of the [[Sam's Old Backpack Quest]], the [[Knight Outfits Quest]], and mission 9 of" +
-            " [[What a Foolish Quest]].}}\n" +
+            "| notes       = Sam is the Blacksmith of [[Thais]].\n" +
             "}}\n";
+
+    private NPC makeNPC() {
+        return NPC.builder()
+                .name("Sam")
+                .implemented("Pre-6.0")
+                .job("Artisan")
+                .job2("Weapon Shopkeeper")
+                .job3("Armor Shopkeeper")
+                .location("[[Temple Street]] in [[Thais]].")
+                .posx(126.104)
+                .posy(125.200)
+                .posz(7)
+                .gender(Gender.MALE)
+                .race("Human")
+                .city(City.THAIS)
+                .buysell(YesNo.YES_LOWERCASE)
+                .sells("{{Price to Buy |Axe")
+                .buys("{{Price to Sell |Axe")
+                .sounds(Collections.singletonList("Hello there, adventurer! Need a deal in weapons or armor? I'm your man!"))
+                .notes("Sam is the Blacksmith of [[Thais]].")
+                .build();
+    }
+
+    private JSONObject makeNPCJson(NPC npc) {
+        return new JSONObject(objectMapper.convertValue(npc, Map.class)).put("templateType", "NPC");
+    }
 
     private static final String INFOBOX_OBJECT_TEXT = "{{Infobox Object|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
             "| name           = Blueberry Bush\n" +
             "| article        = a\n" +
             "| objectclass    = Bushes\n" +
             "| walkable       = no\n" +
-            "| location       = Can be found all around [[Tibia]]. There are many Blueberry bushes in [[Greenshore]]," +
-            " east from the wheat field. The [[Dryad Gardens]] also contain a lot of bushes.\n" +
-            "| notes          = They are the source of the [[blueberry|blueberries]]. 'Use' the [[bush]] first, then " +
-            "take the three remaining blueberries, however sometimes other players \"use\" the Blueberry Bush and don't" +
-            " take them with themselves. Thus, there can be up to six blueberries in a bush. It takes one hour for the" +
-            " blueberry bush to regenerate.\n" +
-            "| notes2         = <br />{{JSpoiler|After using [[Blueberry]] Bushes 500 times, you will earn the" +
-            " achievement [[Bluebarian]].}}\n" +
+            "| location       = Can be found all around [[Tibia]].\n" +
+            "| notes          = They are the source of the [[blueberry|blueberries]].\n" +
+            "| notes2         = <br />{{JSpoiler|After using [[Blueberry]] Bushes 500 times,\n" +
             "| implemented   = 7.1\n" +
             "}}\n";
+
+    private TibiaObject makeTibiaObject() {
+        return TibiaObject.builder()
+                .name("Blueberry Bush")
+                .article(Article.A)
+                .objectclass("Bushes")
+                .walkable(YesNo.NO_LOWERCASE)
+                .location("Can be found all around [[Tibia]].")
+                .notes("They are the source of the [[blueberry|blueberries]].")
+                .notes2("<br />{{JSpoiler|After using [[Blueberry]] Bushes 500 times,")
+                .implemented("7.1")
+                .build();
+    }
+
+    private JSONObject makeTibiaObjectJson(TibiaObject tibiaObject) {
+        return new JSONObject(objectMapper.convertValue(tibiaObject, Map.class)).put("templateType", "Object");
+    }
 
     private static final String INFOBOX_OUTFIT_TEXT = "{{Infobox_Outfit|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
             "| name            = Pirate\n" +
@@ -876,79 +1019,119 @@ public class JsonFactoryTest {
             "| notes           = Pirate outfits are perfect for swabbing the deck or walking the plank. Quite dashing and great for sailing.\n" +
             "}}\n";
 
+    private Outfit makeOutfit() {
+        return Outfit.builder()
+                .name("Pirate")
+                .primarytype("Quest")
+                .premium(YesNo.YES_LOWERCASE)
+                .outfit("premium, see [[Pirate Outfits Quest]].")
+                .addons("premium, see [[Pirate Outfits Quest]].")
+                .achievement("Swashbuckler")
+                .implemented("7.8")
+                .artwork("Pirate Outfits Artwork.jpg")
+                .notes("Pirate outfits are perfect for swabbing the deck or walking the plank. Quite dashing and great for sailing.")
+                .build();
+    }
+
+    private JSONObject makeOutfitJson(Outfit outfit) {
+        return new JSONObject(objectMapper.convertValue(outfit, Map.class)).put("templateType", "Outfit");
+    }
+
     private static final String INFOBOX_QUEST_TEXT = "{{Infobox Quest|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
             "| implemented    = 6.61-6.97\n" +
             "| premium        = yes\n" +
             "| name           = The Paradox Tower Quest\n" +
             "| aka            = Riddler Quest, Mathemagics Quest\n" +
-            "| reward         = Up to two of the following: 10k [[gp]], [[Wand of Cosmic Energy]],  32 [[Talon]]s," +
-            " [[Phoenix Egg]] and the [[achievement]] [[Mathemagician]]\n" +
+            "| reward         = Up to two of the following:\n" +
             "| location       = [[Paradox Tower]] near [[Kazordoon]]\n" +
             "| lvl            = 30\n" +
             "| lvlrec         = 50+\n" +
             "| log            = yes\n" +
             "| transcripts    = yes\n" +
-            "| dangers        = [[Wyvern]]s<br /> ([[Mintwallin]]): [[Minotaur]]s, [[Minotaur Archer]]s, [[Minotaur" +
-            " Guard]]s, [[Minotaur Mage]]s<br>([[Hellgate]]): [[Skeleton]]s, [[Ghoul]]s, [[Bonelord]]s, maybe [[Elder" +
-            " Bonelord]]<br />\n" +
-            "([[Plains of Havoc]]): [[Skeleton]]s, [[Ghoul]]s, [[Demon Skeleton]]s, [[Orc Berserker]], [[Orc" +
-            " Spearman]], maybe [[Cyclops]] and [[Giant Spider]]\n" +
+            "| dangers        = [[Wyvern]]s<br /> ([[Mintwallin]]): [[Minotaur]]s,\n" +
             "| legend         = Surpass the wrath of a madman and subject yourself to his twisted taunting.\n" +
             "}}\n";
+
+    private Quest makeQuest() {
+        return Quest.builder()
+                .implemented("6.61-6.97")
+                .premium(YesNo.YES_LOWERCASE)
+                .name("The Paradox Tower Quest")
+                .aka("Riddler Quest, Mathemagics Quest")
+                .reward("Up to two of the following:")
+                .location("[[Paradox Tower]] near [[Kazordoon]]")
+                .lvl(30)
+                .lvlrec(50)
+                .log(YesNo.YES_LOWERCASE)
+                .transcripts(YesNo.YES_LOWERCASE)
+                .dangers("[[Wyvern]]s<br /> ([[Mintwallin]]): [[Minotaur]]s,")
+                .legend("Surpass the wrath of a madman and subject yourself to his twisted taunting.")
+                .build();
+    }
+
+    private JSONObject makeQuestJson(Quest quest) {
+        return new JSONObject(objectMapper.convertValue(quest, Map.class)).put("templateType", "Quest");
+    }
 
     private static final String INFOBOX_SPELL_TEXT = "{{Infobox Spell|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
             "| name          = Light Healing\n" +
             "| type          = Instant\n" +
             "| subclass      = Healing\n" +
             "| words         = exura\n" +
-            "| premium       = no\n" +
             "| mana          = 20\n" +
-            "| levelrequired = 8\n" +
             "| cooldown      = 1\n" +
             "| cooldowngroup = 1\n" +
+            "| levelrequired = 8\n" +
+            "| premium       = no\n" +
             "| voc           = [[Paladin]]s, [[Druid]]s and [[Sorcerer]]s\n" +
             "| d-abd         = [[Maealil]]\n" +
             "| p-abd         = [[Maealil]]\n" +
             "| spellcost     = 0\n" +
             "| effect        = Restores a small amount of [[HP|health]]. (Cures [[paralysis]].)\n" +
-            "| notes         = A weak, but popular healing spell. It was the only healing spell for knights for many" +
-            " years until [[Wound Cleansing]] was introduced in late 2007. The number of [[hp]] it can heal depends " +
-            "upon your level and magic level (and is around 1/10th of your UH power). It is useful if you are trying" +
-            " to raise your [[Magic level]] or to get rid of [[Paralysis]]. [[Knight]]s can't use it since " +
-            "[[Updates/8.7|Winter Update 2010]]. Since [[Updates/9.8|Winter Update 2012]] this spell is free. It used " +
-            "to cost 170 [[gp]].\n" +
-            "[[File:Exura in low hp.png|thumb|left|168px|A player performing the Light Healing spell]]\n" +
+            "| notes         = A weak, but popular healing spell.\n" +
             "}}\n";
+
+    private Spell makeSpell() {
+        return Spell.builder()
+                .name("Light Healing")
+                .type(SpellType.Instant)
+                .subclass(SpellSubclass.Healing)
+                .words("exura")
+                .premium(YesNo.NO_LOWERCASE)
+                .mana(20)
+                .levelrequired(8)
+                .cooldown(1)
+                .cooldowngroup(1)
+                .voc("[[Paladin]]s, [[Druid]]s and [[Sorcerer]]s")
+                .druidAbDendriel("[[Maealil]]")
+                .paladinAbDendriel("[[Maealil]]")
+                .spellcost(0)
+                .effect("Restores a small amount of [[HP|health]]. (Cures [[paralysis]].)")
+                .notes("A weak, but popular healing spell.")
+                .build();
+    }
+
+    private JSONObject makeSpellJson(Spell spell) {
+        return new JSONObject(objectMapper.convertValue(spell, Map.class)).put("templateType", "Spell");
+    }
 
     private static final String INFOBOX_STREET_TEXT = "{{Infobox Street\n" +
             "| name           = Sugar Street\n" +
             "| implemented    = 7.8\n" +
             "| city           = Liberty Bay\n" +
-            "| floor          = \n" +
-            "| notes          = {{StreetStyles|Sugar Street}} is in west and central [[Liberty Bay]]. It touches " +
-            "{{StreetStyles|Harvester's Haven}} to the north, '''Smuggler Backyard''' and {{StreetStyles|Shady Trail}}" +
-            " to the south, and {{StreetStyles|Marble Lane}} and {{StreetStyles|Admiral's Avenue}} to the east.\n" +
-            "\n" +
-            "Buildings and NPCs from south to north and west to east:<br/>\n" +
-            "'''South-West:'''\n" +
-            "* [[Sugar Street 1]]\n" +
-            "* [[Sugar Street 2]]\n" +
-            "* [[Sugar Street 3a]]\n" +
-            "* [[Sugar Street 4a]]\n" +
-            "\n" +
-            "'''North-West:'''\n" +
-            "* [[Sugar Street 3b]]\n" +
-            "\n" +
-            "'''North:'''\n" +
-            "* [[Ivy Cottage]]\n" +
-            "\n" +
-            "'''Central:'''\n" +
-            "* [[Sugar Street 4b]]\n" +
-            "* [[Sugar Street 4c]]\n" +
-            "* [[Sugar Street 4d]]\n" +
-            "\n" +
-            "'''East:'''\n" +
-            "* [[Peggy]], [[Furniture|Furniture Store]]\n" +
-            "* [[Sugar Street 5]]\n" +
+            "| notes          = {{StreetStyles|Sugar Street}} is in west\n" +
             "}}\n";
+
+    private Street makeStreet() {
+        return Street.builder()
+                .name("Sugar Street")
+                .implemented("7.8")
+                .city(City.LIBERTY_BAY)
+                .notes("{{StreetStyles|Sugar Street}} is in west")
+                .build();
+    }
+
+    private JSONObject makeStreetJson(Street street) {
+        return new JSONObject(objectMapper.convertValue(street, Map.class)).put("templateType", "Street");
+    }
 }

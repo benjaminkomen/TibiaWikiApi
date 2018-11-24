@@ -14,7 +14,7 @@ import java.util.List;
 public class Location extends WikiObject {
 
     private final String ruler;
-    private final Integer population;
+    private final String population;
     private final String near;
     private final String organization;
     private final String map;
@@ -40,7 +40,7 @@ public class Location extends WikiObject {
     }
 
     @Builder
-    private Location(String name, String implemented, Status status, String ruler, Integer population, String near,
+    private Location(String name, String implemented, Status status, String ruler, String population, String near,
                      String organization, String map, String map2, String map3, String map4, String map5, String map6,
                      YesNo links) {
         super(name, null, null, null, implemented, null, null, status);

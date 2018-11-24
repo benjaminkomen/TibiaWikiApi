@@ -5,6 +5,7 @@ import com.tibiawiki.domain.enums.SpellSubclass;
 import com.tibiawiki.domain.enums.SpellType;
 import com.tibiawiki.domain.enums.Status;
 import com.tibiawiki.domain.enums.YesNo;
+import lombok.Builder;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
@@ -165,6 +166,7 @@ public class Spell extends WikiObject {
         this.animation = null;
     }
 
+    @Builder
     private Spell(String name, String implemented, String notes, String history, Status status, SpellType type,
                   SpellSubclass subclass, SpellSubclass runegroup, String damagetype, String words, Integer mana,
                   Integer cooldown, Integer cooldowngroup, Integer cooldowngroup2, Integer levelrequired, YesNo premium,
