@@ -124,7 +124,9 @@ public class NPC extends WikiObject {
 
     @Override
     public List<String> fieldOrder() {
-        return Arrays.asList("name", "actualname", "job", "location", "city", "street", "posx", "posy", "posz", "gender",
-                "race", "buysell", "buys", "sells", "sounds", "implemented", "notes", "history", "status");
+        return Arrays.asList("name", "actualname", "job", "job2", "job3", "job4", "job5", "job6", "location", "city",
+                "city2", "street", "posx", "posy", "posz", "posx2", "posy2", "posz2", "posx3", "posy3", "posz3", "posx4",
+                "posy4", "posz4", "posx5", "posy5", "posz5", "gender", "race", "buysell", "buys", "sells", "sounds",
+                "implemented", "notes", "history", "status");
     }
 }

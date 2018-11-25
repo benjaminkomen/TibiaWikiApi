@@ -10,10 +10,14 @@ import com.tibiawiki.domain.enums.BuildingType;
 import com.tibiawiki.domain.enums.City;
 import com.tibiawiki.domain.enums.Gender;
 import com.tibiawiki.domain.enums.Grade;
+import com.tibiawiki.domain.enums.Hands;
+import com.tibiawiki.domain.enums.ItemClass;
 import com.tibiawiki.domain.enums.KeyType;
 import com.tibiawiki.domain.enums.Rarity;
+import com.tibiawiki.domain.enums.Spawntype;
 import com.tibiawiki.domain.enums.SpellSubclass;
 import com.tibiawiki.domain.enums.SpellType;
+import com.tibiawiki.domain.enums.WeaponType;
 import com.tibiawiki.domain.enums.YesNo;
 import com.tibiawiki.domain.objects.Achievement;
 import com.tibiawiki.domain.objects.Book;
@@ -22,6 +26,7 @@ import com.tibiawiki.domain.objects.Corpse;
 import com.tibiawiki.domain.objects.Creature;
 import com.tibiawiki.domain.objects.Effect;
 import com.tibiawiki.domain.objects.HuntingPlace;
+import com.tibiawiki.domain.objects.HuntingPlaceSkills;
 import com.tibiawiki.domain.objects.Item;
 import com.tibiawiki.domain.objects.Key;
 import com.tibiawiki.domain.objects.Location;
@@ -270,15 +275,84 @@ public class JsonFactoryTest {
         assertThat(result, is(INFOBOX_EFFECT_TEXT));
     }
 
-    @Disabled
-    @Test
-    void testConvertJsonToInfoboxPartOfArticle_HuntingPlace() {
-        final HuntingPlace huntingPlace = makeHuntingPlace();
-        String result = target.convertJsonToInfoboxPartOfArticle(makeHuntingPlaceJson(huntingPlace), huntingPlace.fieldOrder());
-        assertThat(result, is(INFOBOX_HUNT_TEXT));
-    }
+    private static final String INFOBOX_CREATURE_TEXT = "{{Infobox Creature|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
+            "| name           = Dragon\n" +
+            "| article        = a\n" +
+            "| actualname     = dragon\n" +
+            "| plural         = dragons\n" +
+            "| hp             = 1000\n" +
+            "| exp            = 700\n" +
+            "| armor          = 25\n" +
+            "| summon         = --\n" +
+            "| convince       = --\n" +
+            "| illusionable   = yes\n" +
+            "| creatureclass  = Reptiles\n" +
+            "| primarytype    = Dragons\n" +
+            "| bestiaryclass  = Dragon\n" +
+            "| bestiarylevel  = Medium\n" +
+            "| occurrence     = Common\n" +
+            "| spawntype      = Regular, Raid\n" +
+            "| isboss         = no\n" +
+            "| isarenaboss    = no\n" +
+            "| abilities      = [[Melee]] (0-120), [[Fire Wave]] (100-170), [[Great Fireball]] (60-140), [[Self-Healing]] (40-70)\n" +
+            "| maxdmg         = 430\n" +
+            "| pushable       = no\n" +
+            "| pushobjects    = yes\n" +
+            "| walksaround    = None\n" +
+            "| walksthrough   = Fire, Energy, Poison\n" +
+            "| paraimmune     = yes\n" +
+            "| senseinvis     = yes\n" +
+            "| physicalDmgMod = 100%\n" +
+            "| holyDmgMod     = 100%\n" +
+            "| deathDmgMod    = 100%\n" +
+            "| fireDmgMod     = 0%\n" +
+            "| energyDmgMod   = 80%\n" +
+            "| iceDmgMod      = 110%\n" +
+            "| earthDmgMod    = 20%\n" +
+            "| drownDmgMod    = 100%?\n" +
+            "| hpDrainDmgMod  = 100%?\n" +
+            "| bestiaryname   = dragon\n" +
+            "| bestiarytext   = Dragons were\n" +
+            "| sounds         = {{Sound List|FCHHHHH|GROOAAARRR}}\n" +
+            "| implemented    = Pre-6.0\n" +
+            "| notes          = Dragons are\n" +
+            "| behaviour      = Dragons are\n" +
+            "| runsat         = 300\n" +
+            "| speed          = 86\n" +
+            "| strategy       = '''All''' [[player]]s\n" +
+            "| location       = [[Thais]] [[Ancient Temple]], [[Darashia Dragon Lair]], [[Mount Sternum Dragon Cave]]," +
+            " [[Mintwallin]], deep in [[Fibula Dungeon]], [[Kazordoon Dragon Lair]] (near [[Dwarf Bridge]]), [[Plains" +
+            " of Havoc]], [[Elven Bane]] castle, [[Maze of Lost Souls]], southern cave and dragon tower in" +
+            " [[Shadowthorn]], [[Orc Fortress]], [[Venore]] [[Dragon Lair]], [[Pits of Inferno]], [[Behemoth Quest]]" +
+            " room in [[Edron]], [[Hero Cave]], deep [[Cyclopolis]], [[Edron Dragon Lair]], [[Goroma]], [[Ankrahmun" +
+            " Dragon Lair]]s, [[Draconia]], [[Dragonblaze Peaks]], some [[Ankrahmun Tombs]], underground of [[Fenrock]]" +
+            " (on the way to [[Beregar]]), [[Krailos Steppe]] and [[Crystal Lakes]].\n" +
+            "| loot           = {{Loot Table\n" +
+            " |{{Loot Item|0-105|Gold Coin}}\n" +
+            " |{{Loot Item|0-3|Dragon Ham}}\n" +
+            " |{{Loot Item|Steel Shield}}\n" +
+            " |{{Loot Item|Crossbow}}\n" +
+            " |{{Loot Item|Dragon's Tail}}\n" +
+            " |{{Loot Item|0-10|Burst Arrow}}\n" +
+            " |{{Loot Item|Longsword|semi-rare}}\n" +
+            " |{{Loot Item|Steel Helmet|semi-rare}}\n" +
+            " |{{Loot Item|Broadsword|semi-rare}}\n" +
+            " |{{Loot Item|Plate Legs|semi-rare}}\n" +
+            " |{{Loot Item|Green Dragon Leather|rare}}\n" +
+            " |{{Loot Item|Wand of Inferno|rare}}\n" +
+            " |{{Loot Item|Strong Health Potion|rare}}\n" +
+            " |{{Loot Item|Green Dragon Scale|rare}}\n" +
+            " |{{Loot Item|Double Axe|rare}}\n" +
+            " |{{Loot Item|Dragon Hammer|rare}}\n" +
+            " |{{Loot Item|Serpent Sword|rare}}\n" +
+            " |{{Loot Item|Small Diamond|very rare}}\n" +
+            " |{{Loot Item|Dragon Shield|very rare}}\n" +
+            " |{{Loot Item|Life Crystal|very rare}}\n" +
+            " |{{Loot Item|Dragonbone Staff|very rare}}\n" +
+            "}}\n" +
+            "| history        = Dragons are\n" +
+            "}}\n";
 
-    @Disabled
     @Test
     void testConvertJsonToInfoboxPartOfArticle_Item() {
         final Item item = makeItem();
@@ -286,7 +360,6 @@ public class JsonFactoryTest {
         assertThat(result, is(INFOBOX_ITEM_TEXT));
     }
 
-    @Disabled
     @Test
     void testConvertJsonToInfoboxPartOfArticle_Key() {
         final Key key = makeKey();
@@ -294,15 +367,46 @@ public class JsonFactoryTest {
         assertThat(result, is(INFOBOX_KEY_TEXT));
     }
 
-    @Disabled
-    @Test
-    void testConvertJsonToInfoboxPartOfArticle_Location() {
-        final Location location = makeLocation();
-        String result = target.convertJsonToInfoboxPartOfArticle(makeLocationJson(location), location.fieldOrder());
-        assertThat(result, is(INFOBOX_LOCATION_TEXT));
-    }
+    private static final String INFOBOX_HUNT_TEXT = "{{Infobox Hunt|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
+            "| name         = Hero Cave\n" +
+            "| image        = Hero\n" +
+            "| implemented  = 6.4\n" +
+            "| city         = Edron\n" +
+            "| location     = North of [[Edron]], [http://tibia.wikia.com/wiki/Mapper?coords=129.140,123.150,7,3,1,1 here].\n" +
+            "| vocation     = All vocations.\n" +
+            "| lvlknights   = 70\n" +
+            "| lvlpaladins  = 60\n" +
+            "| lvlmages     = 50\n" +
+            "| skknights    = 75\n" +
+            "| skpaladins   = 80\n" +
+            "| skmages      = 1\n" +
+            "| defknights   = 75\n" +
+            "| defpaladins  = 1\n" +
+            "| defmages     = 1\n" +
+            "| lowerlevels  = \n" +
+            "    {{Infobox Hunt Skills\n" +
+            "    | areaname        = Demons\n" +
+            "    | lvlknights      = 130\n" +
+            "    | lvlpaladins     = 130\n" +
+            "    | lvlmages        = 130\n" +
+            "    | skknights       = 1\n" +
+            "    | skpaladins      = 1\n" +
+            "    | skmages         = 1\n" +
+            "    | defknights      = 1\n" +
+            "    | defpaladins     = 1\n" +
+            "    | defmages        = 1\n" +
+            "    }}\n" +
+            "| loot         = Good\n" +
+            "| exp          = Good\n" +
+            "| bestloot     = Reins\n" +
+            "| bestloot2    = Foobar\n" +
+            "| bestloot3    = Foobar\n" +
+            "| bestloot4    = Foobar\n" +
+            "| bestloot5    = Foobar\n" +
+            "| map          = Hero Cave 3.png\n" +
+            "| map2         = Hero Cave 6.png\n" +
+            "}}\n";
 
-    @Disabled
     @Test
     void testConvertJsonToInfoboxPartOfArticle_Missile() {
         final Missile missile = makeMissile();
@@ -310,7 +414,6 @@ public class JsonFactoryTest {
         assertThat(result, is(INFOBOX_MISSILE_TEXT));
     }
 
-    @Disabled
     @Test
     void testConvertJsonToInfoboxPartOfArticle_Mount() {
         final Mount mount = makeMount();
@@ -318,15 +421,37 @@ public class JsonFactoryTest {
         assertThat(result, is(INFOBOX_MOUNT_TEXT));
     }
 
-    @Disabled
-    @Test
-    void testConvertJsonToInfoboxPartOfArticle_NPC() {
-        final NPC npc = makeNPC();
-        String result = target.convertJsonToInfoboxPartOfArticle(makeNPCJson(npc), npc.fieldOrder());
-        assertThat(result, is(INFOBOX_NPC_TEXT));
-    }
+    private static final String INFOBOX_ITEM_TEXT = "{{Infobox Item|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
+            "| name          = Carlin Sword\n" +
+            "| article       = a\n" +
+            "| actualname    = carlin sword\n" +
+            "| plural        = ?\n" +
+            "| itemid        = 3283\n" +
+            "| marketable    = yes\n" +
+            "| usable        = yes\n" +
+            "| sprites       = {{Frames|{{Frame Sprite|55266}}}}\n" +
+            "| flavortext    = Foobar\n" +
+            "| itemclass     = Weapons\n" +
+            "| primarytype   = Sword Weapons\n" +
+            "| levelrequired = 0\n" +
+            "| hands         = One\n" +
+            "| type          = Sword\n" +
+            "| attack        = 15\n" +
+            "| defense       = 13\n" +
+            "| defensemod    = +1\n" +
+            "| enchantable   = no\n" +
+            "| weight        = 40.00\n" +
+            "| droppedby     = {{Dropped By|Grorlam|Stone Golem}}\n" +
+            "| value         = 118\n" +
+            "| npcvalue      = 118\n" +
+            "| npcprice      = 473\n" +
+            "| npcvaluerook  = 0\n" +
+            "| npcpricerook  = 0\n" +
+            "| buyfrom       = Baltim, Brengus, Cedrik,\n" +
+            "| sellto        = Baltim, Brengus, Cedrik, Esrik,\n" +
+            "| notes         = If you have one of these \n" +
+            "}}\n";
 
-    @Disabled
     @Test
     void testConvertJsonToInfoboxPartOfArticle_Object() {
         final TibiaObject tibiaObject = makeTibiaObject();
@@ -334,7 +459,6 @@ public class JsonFactoryTest {
         assertThat(result, is(INFOBOX_OBJECT_TEXT));
     }
 
-    @Disabled
     @Test
     void testConvertJsonToInfoboxPartOfArticle_Outfit() {
         final Outfit outfit = makeOutfit();
@@ -342,7 +466,6 @@ public class JsonFactoryTest {
         assertThat(result, is(INFOBOX_OUTFIT_TEXT));
     }
 
-    @Disabled
     @Test
     void testConvertJsonToInfoboxPartOfArticle_Quest() {
         final Quest quest = makeQuest();
@@ -357,13 +480,20 @@ public class JsonFactoryTest {
         assertThat(result, is(INFOBOX_SPELL_TEXT));
     }
 
-    @Disabled
-    @Test
-    void testConvertJsonToInfoboxPartOfArticle_Street() {
-        final Street street = makeStreet();
-        String result = target.convertJsonToInfoboxPartOfArticle(makeStreetJson(street), street.fieldOrder());
-        assertThat(result, is(INFOBOX_STREET_TEXT));
-    }
+    private static final String INFOBOX_KEY_TEXT = "{{Infobox Key|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
+            "| number       = 4055\n" +
+            "| aka          = Panpipe Quest Key\n" +
+            "| primarytype  = Silver\n" +
+            "| location     = [[Jakundaf Desert]]\n" +
+            "| value        = Negotiable\n" +
+            "| npcvalue     = 0\n" +
+            "| npcprice     = 0\n" +
+            "| buyfrom      = --\n" +
+            "| sellto       = --\n" +
+            "| origin       = Hidden in a rock south of the Desert Dungeon entrance.\n" +
+            "| shortnotes   = Access to the [[Panpipe Quest]].\n" +
+            "| longnotes    = Allows you to open the door ([http://tibia.wikia.com/wiki/Mapper?coords=127.131,125.129,8,3,1,1 here]) to the [[Panpipe Quest]].\n" +
+            "}}\n";
 
     private static final String INFOBOX_TEXT_SPACE = "{{Infobox Achievement|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
             "| name         = Goo Goo Dancer\n" +
@@ -541,82 +671,288 @@ public class JsonFactoryTest {
         return new JSONObject(objectMapper.convertValue(corpse, Map.class)).put("templateType", "Corpse");
     }
 
-    private static final String INFOBOX_CREATURE_TEXT = "{{Infobox Creature|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
-            "| name           = Dragon\n" +
-            "| article        = a\n" +
-            "| actualname     = dragon\n" +
-            "| plural         = dragons\n" +
-            "| hp             = 1000\n" +
-            "| exp            = 700\n" +
-            "| armor          = 25\n" +
-            "| summon         = --\n" +
-            "| convince       = --\n" +
-            "| illusionable   = yes\n" +
-            "| creatureclass  = Reptiles\n" +
-            "| primarytype    = Dragons\n" +
-            "| bestiaryclass  = Dragon\n" +
-            "| bestiarylevel  = Medium\n" +
-            "| occurrence     = Common\n" +
-            "| isboss         = no\n" +
-            "| isarenaboss    = no\n" +
-            "| abilities      = [[Melee]] (0-120), [[Fire Wave]] (100-170), [[Great Fireball]] (60-140), [[Self-Healing]] (40-70)\n" +
-            "| maxdmg         = 430\n" +
-            "| pushable       = no\n" +
-            "| pushobjects    = yes\n" +
-            "| walksaround    = None\n" +
-            "| walksthrough   = Fire, Energy, Poison\n" +
-            "| paraimmune     = yes\n" +
-            "| senseinvis     = yes\n" +
-            "| physicalDmgMod = 100%\n" +
-            "| holyDmgMod     = 100%\n" +
-            "| deathDmgMod    = 100%\n" +
-            "| fireDmgMod     = 0%\n" +
-            "| energyDmgMod   = 80%\n" +
-            "| iceDmgMod      = 110%\n" +
-            "| earthDmgMod    = 20%\n" +
-            "| drownDmgMod    = 100%?\n" +
-            "| hpDrainDmgMod  = 100%?\n" +
-            "| bestiaryname   = dragon\n" +
-            "| bestiarytext   = Dragons were\n" +
-            "| sounds         = {{Sound List|FCHHHHH|GROOAAARRR}}\n" +
-            "| implemented    = Pre-6.0\n" +
-            "| notes          = Dragons are\n" +
-            "| behaviour      = Dragons are\n" +
-            "| runsat         = 300\n" +
-            "| speed          = 86\n" +
-            "| strategy       = '''All''' [[player]]s\n" +
-            "| location       = [[Thais]] [[Ancient Temple]], [[Darashia Dragon Lair]], [[Mount Sternum Dragon Cave]]," +
-            " [[Mintwallin]], deep in [[Fibula Dungeon]], [[Kazordoon Dragon Lair]] (near [[Dwarf Bridge]]), [[Plains" +
-            " of Havoc]], [[Elven Bane]] castle, [[Maze of Lost Souls]], southern cave and dragon tower in" +
-            " [[Shadowthorn]], [[Orc Fortress]], [[Venore]] [[Dragon Lair]], [[Pits of Inferno]], [[Behemoth Quest]]" +
-            " room in [[Edron]], [[Hero Cave]], deep [[Cyclopolis]], [[Edron Dragon Lair]], [[Goroma]], [[Ankrahmun" +
-            " Dragon Lair]]s, [[Draconia]], [[Dragonblaze Peaks]], some [[Ankrahmun Tombs]], underground of [[Fenrock]]" +
-            " (on the way to [[Beregar]]), [[Krailos Steppe]] and [[Crystal Lakes]].\n" +
-            "| loot           = {{Loot Table\n" +
-            " |{{Loot Item|0-105|Gold Coin}}\n" +
-            " |{{Loot Item|0-3|Dragon Ham}}\n" +
-            " |{{Loot Item|Steel Shield}}\n" +
-            " |{{Loot Item|Crossbow}}\n" +
-            " |{{Loot Item|Dragon's Tail}}\n" +
-            " |{{Loot Item|0-10|Burst Arrow}}\n" +
-            " |{{Loot Item|Longsword|semi-rare}}\n" +
-            " |{{Loot Item|Steel Helmet|semi-rare}}\n" +
-            " |{{Loot Item|Broadsword|semi-rare}}\n" +
-            " |{{Loot Item|Plate Legs|semi-rare}}\n" +
-            " |{{Loot Item|Green Dragon Leather|rare}}\n" +
-            " |{{Loot Item|Wand of Inferno|rare}}\n" +
-            " |{{Loot Item|Strong Health Potion|rare}}\n" +
-            " |{{Loot Item|Green Dragon Scale|rare}}\n" +
-            " |{{Loot Item|Double Axe|rare}}\n" +
-            " |{{Loot Item|Dragon Hammer|rare}}\n" +
-            " |{{Loot Item|Serpent Sword|rare}}\n" +
-            " |{{Loot Item|Small Diamond|very rare}}\n" +
-            " |{{Loot Item|Dragon Shield|very rare}}\n" +
-            " |{{Loot Item|Life Crystal|very rare}}\n" +
-            " |{{Loot Item|Dragonbone Staff|very rare}}\n" +
-            "}}\n" +
-            "| history        = Dragons are\n" +
+    private static final String INFOBOX_LOCATION_TEXT = "{{Infobox Geography\n" +
+            "| implemented  = Pre-6.0\n" +
+            "| ruler        = [[King Tibianus]]\n" +
+            "| population   = {{PAGESINCATEGORY:Thais NPCs|pages}}\n" +
+            "| near         = [[Fibula]], [[Mintwallin]], [[Greenshore]], [[Mount Sternum]]\n" +
+            "| organization = [[Thieves Guild]], [[Tibian Bureau of Investigation]], [[Inquisition]]\n" +
+            "| map          = [[File:Map_thais.jpg]]\n" +
+            "| map2         = [[File:Thais.PNG]]\n" +
             "}}\n";
+    private static final String INFOBOX_MISSILE_TEXT = "{{Infobox Missile|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
+            "| name         = Throwing Cake Missile\n" +
+            "| implemented  = 7.9\n" +
+            "| missileid    = 42\n" +
+            "| primarytype  = Throwing Weapon\n" +
+            "| shotby       = [[Undead Jester]]'s attack and probably by throwing a [[Throwing Cake]].\n" +
+            "| notes        = This missile is followed by the [[Cream Cake Effect]]: [[File:Cream Cake Effect.gif]]\n" +
+            "}}\n";
+
+    private JSONObject makeCreatureJson(Creature creature) {
+        return new JSONObject(objectMapper.convertValue(creature, Map.class)).put("templateType", "Creature");
+    }
+
+    private static final String INFOBOX_EFFECT_TEXT = "{{Infobox Effect|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
+            "| name         = Fireball Effect\n" +
+            "| effectid     = 7\n" +
+            "| primarytype  = Attack\n" +
+            "| lightradius  = 6\n" +
+            "| lightcolor   = 208\n" +
+            "| causes       = *[[Fireball]] and [[Great Fireball]];\n" +
+            "| effect       = [[Fire Damage]] on target or nothing.\n" +
+            "}}\n";
+
+
+    private Effect makeEffect() {
+        return Effect.builder()
+                .name("Fireball Effect")
+                .effectid(7)
+                .primarytype("Attack")
+                .lightcolor(208)
+                .lightradius(6)
+                .causes("*[[Fireball]] and [[Great Fireball]];")
+                .effect("[[Fire Damage]] on target or nothing.")
+                .build();
+    }
+
+    private JSONObject makeEffectJson(Effect effect) {
+        return new JSONObject(objectMapper.convertValue(effect, Map.class)).put("templateType", "Effect");
+    }
+
+    private static final String INFOBOX_MOUNT_TEXT = "{{Infobox Mount|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
+            "| name          = Donkey\n" +
+            "| speed         = 10\n" +
+            "| taming_method = Use a [[Bag of Apple Slices]] on a creature transformed into Donkey.\n" +
+            "| achievement   = Loyal Lad\n" +
+            "| implemented   = 9.1\n" +
+            "| notes         = Go to [[Incredibly Old Witch]]'s house,\n" +
+            "}}\n";
+    private static final String INFOBOX_NPC_TEXT = "{{Infobox NPC|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
+            "| name         = Sam\n" +
+            "| job          = Artisan\n" +
+            "| job2         = Weapon Shopkeeper\n" +
+            "| job3         = Armor Shopkeeper\n" +
+            "| location     = [[Temple Street]] in [[Thais]].\n" +
+            "| city         = Thais\n" +
+            "| posx         = 126.104\n" +
+            "| posy         = 125.200\n" +
+            "| posz         = 7\n" +
+            "| gender       = Male\n" +
+            "| race         = Human\n" +
+            "| buysell      = yes\n" +
+            "| buys         = {{Price to Sell |Axe\n" +
+            "| sells        = {{Price to Buy |Axe\n" +
+            "| sounds       = {{Sound List|Hello there, adventurer! Need a deal in weapons or armor? I'm your man!}}\n" +
+            "| implemented  = Pre-6.0\n" +
+            "| notes        = Sam is the Blacksmith of [[Thais]].\n" +
+            "}}\n";
+
+    private JSONObject makeHuntingPlaceJson(HuntingPlace huntingPlace) {
+        return new JSONObject(objectMapper.convertValue(huntingPlace, Map.class)).put("templateType", "Hunt");
+    }
+
+    private static final String INFOBOX_OBJECT_TEXT = "{{Infobox Object|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
+            "| name         = Blueberry Bush\n" +
+            "| article      = a\n" +
+            "| objectclass  = Bushes\n" +
+            "| implemented  = 7.1\n" +
+            "| walkable     = no\n" +
+            "| location     = Can be found all around [[Tibia]].\n" +
+            "| notes        = They are the source of the [[blueberry|blueberries]].\n" +
+            "| notes2       = <br />{{JSpoiler|After using [[Blueberry]] Bushes 500 times,\n" +
+            "}}\n";
+    private static final String INFOBOX_OUTFIT_TEXT = "{{Infobox Outfit|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
+            "| name         = Pirate\n" +
+            "| primarytype  = Quest\n" +
+            "| premium      = yes\n" +
+            "| outfit       = premium, see [[Pirate Outfits Quest]].\n" +
+            "| addons       = premium, see [[Pirate Outfits Quest]].\n" +
+            "| achievement  = Swashbuckler\n" +
+            "| implemented  = 7.8\n" +
+            "| artwork      = Pirate Outfits Artwork.jpg\n" +
+            "| notes        = Pirate outfits are perfect for swabbing the deck or walking the plank. Quite dashing and great for sailing.\n" +
+            "}}\n";
+
+    private JSONObject makeItemJson(Item item) {
+        return new JSONObject(objectMapper.convertValue(item, Map.class)).put("templateType", "Item");
+    }
+
+    private static final String INFOBOX_QUEST_TEXT = "{{Infobox Quest|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
+            "| name         = The Paradox Tower Quest\n" +
+            "| aka          = Riddler Quest, Mathemagics Quest\n" +
+            "| reward       = Up to two of the following:\n" +
+            "| location     = [[Paradox Tower]] near [[Kazordoon]]\n" +
+            "| lvl          = 30\n" +
+            "| lvlrec       = 50\n" +
+            "| log          = yes\n" +
+            "| premium      = yes\n" +
+            "| transcripts  = yes\n" +
+            "| dangers      = [[Wyvern]]s<br /> ([[Mintwallin]]): [[Minotaur]]s,\n" +
+            "| legend       = Surpass the wrath of a madman and subject yourself to his twisted taunting.\n" +
+            "| implemented  = 6.61-6.97\n" +
+            "}}\n";
+
+    private Key makeKey() {
+        return Key.builder()
+                .number("4055")
+                .aka("Panpipe Quest Key")
+                .primarytype(KeyType.SILVER)
+                .location("[[Jakundaf Desert]]")
+                .value("Negotiable")
+                .npcvalue(0)
+                .npcprice(0)
+                .buyfrom("--")
+                .sellto("--")
+                .origin("Hidden in a rock south of the Desert Dungeon entrance.")
+                .shortnotes("Access to the [[Panpipe Quest]].")
+                .longnotes("Allows you to open the door ([http://tibia.wikia.com/wiki/Mapper?coords=127.131,125.129,8,3,1,1 here]) to the [[Panpipe Quest]].")
+                .build();
+    }
+
+    private JSONObject makeKeyJson(Key key) {
+        return new JSONObject(objectMapper.convertValue(key, Map.class)).put("templateType", "Key");
+    }
+
+    private static final String INFOBOX_STREET_TEXT = "{{Infobox Street\n" +
+            "| name         = Sugar Street\n" +
+            "| implemented  = 7.8\n" +
+            "| city         = Liberty Bay\n" +
+            "| notes        = {{StreetStyles|Sugar Street}} is in west\n" +
+            "}}\n";
+
+    private Location makeLocation() {
+        return Location.builder()
+                .ruler("[[King Tibianus]]")
+                .implemented("Pre-6.0")
+                .population("{{PAGESINCATEGORY:Thais NPCs|pages}}")
+                .organization("[[Thieves Guild]], [[Tibian Bureau of Investigation]], [[Inquisition]]")
+                .near("[[Fibula]], [[Mintwallin]], [[Greenshore]], [[Mount Sternum]]")
+                .map("[[File:Map_thais.jpg]]")
+                .map2("[[File:Thais.PNG]]")
+                .build();
+    }
+
+    private JSONObject makeLocationJson(Location location) {
+        return new JSONObject(objectMapper.convertValue(location, Map.class)).put("templateType", "Geography");
+    }
+
+    /**
+     * FIXME enable this test when the factory is make to work
+     */
+    @Disabled
+    @Test
+    void testConvertJsonToInfoboxPartOfArticle_HuntingPlace() {
+        final HuntingPlace huntingPlace = makeHuntingPlace();
+        String result = target.convertJsonToInfoboxPartOfArticle(makeHuntingPlaceJson(huntingPlace), huntingPlace.fieldOrder());
+        assertThat(result, is(INFOBOX_HUNT_TEXT));
+    }
+
+    private Missile makeMissile() {
+        return Missile.builder()
+                .name("Throwing Cake Missile")
+                .implemented("7.9")
+                .missileid(42)
+                .primarytype("Throwing Weapon")
+                .shotby("[[Undead Jester]]'s attack and probably by throwing a [[Throwing Cake]].")
+                .notes("This missile is followed by the [[Cream Cake Effect]]: [[File:Cream Cake Effect.gif]]")
+                .build();
+    }
+
+    private JSONObject makeMissileJson(Missile missile) {
+        return new JSONObject(objectMapper.convertValue(missile, Map.class)).put("templateType", "Missile");
+    }
+
+    /**
+     * FIXME enable this test when the factory is make to work (not always List and GetValue parameters)
+     */
+    @Disabled
+    @Test
+    void testConvertJsonToInfoboxPartOfArticle_Location() {
+        final Location location = makeLocation();
+        String result = target.convertJsonToInfoboxPartOfArticle(makeLocationJson(location), location.fieldOrder());
+        assertThat(result, is(INFOBOX_LOCATION_TEXT));
+    }
+
+    private Mount makeMount() {
+        return Mount.builder()
+                .name("Donkey")
+                .speed(10)
+                .tamingMethod("Use a [[Bag of Apple Slices]] on a creature transformed into Donkey.")
+                .implemented("9.1")
+                .achievement("Loyal Lad")
+                .notes("Go to [[Incredibly Old Witch]]'s house,")
+                .build();
+    }
+
+    private JSONObject makeMountJson(Mount mount) {
+        return new JSONObject(objectMapper.convertValue(mount, Map.class)).put("templateType", "Mount");
+    }
+
+    /**
+     * FIXME enable this test when the factory is make to work (posx, posy etc. as doubles was a bad idea, can't set scale)
+     */
+    @Disabled
+    @Test
+    void testConvertJsonToInfoboxPartOfArticle_NPC() {
+        final NPC npc = makeNPC();
+        String result = target.convertJsonToInfoboxPartOfArticle(makeNPCJson(npc), npc.fieldOrder());
+        assertThat(result, is(INFOBOX_NPC_TEXT));
+    }
+
+    private NPC makeNPC() {
+        return NPC.builder()
+                .name("Sam")
+                .implemented("Pre-6.0")
+                .job("Artisan")
+                .job2("Weapon Shopkeeper")
+                .job3("Armor Shopkeeper")
+                .location("[[Temple Street]] in [[Thais]].")
+                .posx(126.104)
+                .posy(125.200)
+                .posz(7)
+                .gender(Gender.MALE)
+                .race("Human")
+                .city(City.THAIS)
+                .buysell(YesNo.YES_LOWERCASE)
+                .sells("{{Price to Buy |Axe")
+                .buys("{{Price to Sell |Axe")
+                .sounds(Collections.singletonList("Hello there, adventurer! Need a deal in weapons or armor? I'm your man!"))
+                .notes("Sam is the Blacksmith of [[Thais]].")
+                .build();
+    }
+
+    private JSONObject makeNPCJson(NPC npc) {
+        return new JSONObject(objectMapper.convertValue(npc, Map.class)).put("templateType", "NPC");
+    }
+
+    /**
+     * FIXME enable this test when the factory is make to work (not always List and GetValue parameters)
+     */
+    @Disabled
+    @Test
+    void testConvertJsonToInfoboxPartOfArticle_Street() {
+        final Street street = makeStreet();
+        String result = target.convertJsonToInfoboxPartOfArticle(makeStreetJson(street), street.fieldOrder());
+        assertThat(result, is(INFOBOX_STREET_TEXT));
+    }
+
+    private TibiaObject makeTibiaObject() {
+        return TibiaObject.builder()
+                .name("Blueberry Bush")
+                .article(Article.A)
+                .objectclass("Bushes")
+                .walkable(YesNo.NO_LOWERCASE)
+                .location("Can be found all around [[Tibia]].")
+                .notes("They are the source of the [[blueberry|blueberries]].")
+                .notes2("<br />{{JSpoiler|After using [[Blueberry]] Bushes 500 times,")
+                .implemented("7.1")
+                .build();
+    }
+
+    private JSONObject makeTibiaObjectJson(TibiaObject tibiaObject) {
+        return new JSONObject(objectMapper.convertValue(tibiaObject, Map.class)).put("templateType", "Object");
+    }
 
     private Creature makeCreature() {
         return Creature.builder()
@@ -635,6 +971,7 @@ public class JsonFactoryTest {
                 .bestiaryclass(BestiaryClass.DRAGON)
                 .bestiarylevel(BestiaryLevel.Medium)
                 .occurrence(BestiaryOccurrence.COMMON)
+                .spawntype(Arrays.asList(Spawntype.REGULAR, Spawntype.RAID))
                 .isboss(YesNo.NO_LOWERCASE)
                 .isarenaboss(YesNo.NO_LOWERCASE)
                 .abilities("[[Melee]] (0-120), [[Fire Wave]] (100-170), [[Great Fireball]] (60-140), [[Self-Healing]] (40-70)")
@@ -697,328 +1034,6 @@ public class JsonFactoryTest {
                 .build();
     }
 
-    private JSONObject makeCreatureJson(Creature creature) {
-        return new JSONObject(objectMapper.convertValue(creature, Map.class)).put("templateType", "Creature");
-    }
-
-    private static final String INFOBOX_EFFECT_TEXT = "{{Infobox Effect|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
-            "| name         = Fireball Effect\n" +
-            "| effectid     = 7\n" +
-            "| primarytype  = Attack\n" +
-            "| lightradius  = 6\n" +
-            "| lightcolor   = 208\n" +
-            "| causes       = *[[Fireball]] and [[Great Fireball]];\n" +
-            "| effect       = [[Fire Damage]] on target or nothing.\n" +
-            "}}\n";
-
-
-    private Effect makeEffect() {
-        return Effect.builder()
-                .name("Fireball Effect")
-                .effectid(7)
-                .primarytype("Attack")
-                .lightcolor(208)
-                .lightradius(6)
-                .causes("*[[Fireball]] and [[Great Fireball]];")
-                .effect("[[Fire Damage]] on target or nothing.")
-                .build();
-    }
-
-    private JSONObject makeEffectJson(Effect effect) {
-        return new JSONObject(objectMapper.convertValue(effect, Map.class)).put("templateType", "Effect");
-    }
-
-    private static final String INFOBOX_HUNT_TEXT = "{{Infobox Hunt|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
-            "| name            = Hero Cave\n" +
-            "| image           = Hero\n" +
-            "| implemented     = 6.4\n" +
-            "| city            = Edron\n" +
-            "| location        = North of [[Edron]], [http://tibia.wikia.com/wiki/Mapper?coords=129.140,123.150,7,3,1,1 here].\n" +
-            "| vocation        = All vocations.\n" +
-            "| lvlknights      = 70\n" +
-            "| lvlpaladins     = 60\n" +
-            "| lvlmages        = 50\n" +
-            "| skknights       = 75\n" +
-            "| skpaladins      = 80\n" +
-            "| skmages         = \n" +
-            "| defknights      = 75\n" +
-            "| defpaladins     = \n" +
-            "| defmages        =\n" +
-            "| lowerlevels     = \n" +
-            "    {{Infobox Hunt Skills\n" +
-            "    | areaname        = Demons\n" +
-            "    | lvlknights      = 130\n" +
-            "    | lvlpaladins     = 130\n" +
-            "    | lvlmages        = 130\n" +
-            "    | skknights       = \n" +
-            "    | skpaladins      = \n" +
-            "    | skmages         = \n" +
-            "    | defknights      = \n" +
-            "    | defpaladins     =\n" +
-            "    | defmages        =\n" +
-            "    }}\n" +
-            "| exp             = Good\n" +
-            "| loot            = Good\n" +
-            "| bestloot        = Reins\n" +
-            "| bestloot2       = \n" +
-            "| bestloot3       = \n" +
-            "| bestloot4       = \n" +
-            "| bestloot5       = \n" +
-            "| map             = Hero Cave 3.png\n" +
-            "| map2            = Hero Cave 6.png\n" +
-            "}}";
-
-    private HuntingPlace makeHuntingPlace() {
-        return HuntingPlace.builder()
-                .build();
-    }
-
-    private JSONObject makeHuntingPlaceJson(HuntingPlace huntingPlace) {
-        return new JSONObject(objectMapper.convertValue(huntingPlace, Map.class)).put("templateType", "Hunt");
-    }
-
-    private static final String INFOBOX_ITEM_TEXT = "{{Infobox Item|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
-            "| name          = Carlin Sword\n" +
-            "| marketable    = yes\n" +
-            "| usable        = yes\n" +
-            "| sprites       = {{Frames|{{Frame Sprite|55266}}}}\n" +
-            "| article       = a\n" +
-            "| actualname    = carlin sword\n" +
-            "| plural        = ?\n" +
-            "| itemid        = 3283\n" +
-            "| flavortext    =\n" +
-            "| itemclass     = Weapons\n" +
-            "| primarytype   = Sword Weapons\n" +
-            "| levelrequired = 0\n" +
-            "| hands         = One\n" +
-            "| type          = Sword\n" +
-            "| attack        = 15\n" +
-            "| defense       = 13\n" +
-            "| defensemod    = +1\n" +
-            "| enchantable   = no\n" +
-            "| weight        = 40.00\n" +
-            "| droppedby     = {{Dropped By|Grorlam|Stone Golem}}\n" +
-            "| value         = 118 \n" +
-            "| npcvalue      = 118 \n" +
-            "| npcprice      = 473 \n" +
-            "| npcvaluerook  = 0\n" +
-            "| npcpricerook  = 0\n" +
-            "| buyfrom       = Baltim, Brengus, Cedrik, Esrik, Flint, Gamel, Habdel, Hardek, Memech, Morpel, Robert," +
-            " Rock In A Hard Place, Romella, Rowenna, Sam, Shanar, Turvy, Ulrik, Uzgod, Willard\n" +
-            "| sellto        = Baltim, Brengus, Cedrik, Esrik, Flint, Gamel, H.L.: 5, Habdel, Hardek, Memech, Morpel," +
-            " Robert, Rock In A Hard Place, Romella, Rowenna, Sam, Shanar, Turvy, Ulrik, Uzgod, Willard\n" +
-            "| notes         = If you have one of these in [[Rookgaard]] and already reached level 8 you may want to" +
-            " keep it, if you are going to [[Carlin]]. A common strategy in [[Rookgaard]] was to buy as many carlin" +
-            " swords as the Rookgaardian can carry and sell all their [[equipment]] to other Rookgaardians and make a" +
-            " hefty profit on the carlin swords in [[Mainland]], although this may not be recommendable now that one" +
-            " goes to the [[Island of Destiny]] at [[level]] 8 ([[Raffael]] doesn't buy Carlin Swords).\n" +
-            "{{JSpoiler|Obtainable in [[Rookgaard]] through the [[Minotaur Hell Quest]].}}\n" +
-            "}}\n";
-
-    private Item makeItem() {
-        return Item.builder()
-                .build();
-    }
-
-    private JSONObject makeItemJson(Item item) {
-        return new JSONObject(objectMapper.convertValue(item, Map.class)).put("templateType", "Item");
-    }
-
-    private static final String INFOBOX_KEY_TEXT = "{{Infobox Key|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
-            "| number         = 4055\n" +
-            "| aka            = Panpipe Quest Key\n" +
-            "| primarytype    = Silver\n" +
-            "| location       = [[Jakundaf Desert]]\n" +
-            "| value          = Negotiable\n" +
-            "| npcvalue       = 0\n" +
-            "| npcprice       = 0\n" +
-            "| buyfrom        = --\n" +
-            "| sellto         = --\n" +
-            "| origin         = Hidden in a rock south of the Desert Dungeon entrance.\n" +
-            "| shortnotes     = Access to the [[Panpipe Quest]].\n" +
-            "| longnotes      = Allows you to open the door ([http://tibia.wikia.com/wiki/Mapper?coords=127.131,125.129,8,3,1,1 here]) to the [[Panpipe Quest]].\n" +
-            "}}\n";
-
-    private Key makeKey() {
-        return Key.builder()
-                .number("4055")
-                .aka("Panpipe Quest Key")
-                .primarytype(KeyType.SILVER)
-                .location("[[Jakundaf Desert]]")
-                .value("Negotiable")
-                .npcvalue(0)
-                .npcprice(0)
-                .buyfrom("--")
-                .sellto("--")
-                .origin("Hidden in a rock south of the Desert Dungeon entrance.")
-                .shortnotes("Access to the [[Panpipe Quest]].")
-                .longnotes("Allows you to open the door ([http://tibia.wikia.com/wiki/Mapper?coords=127.131,125.129,8,3,1,1 here]) to the [[Panpipe Quest]].")
-                .build();
-    }
-
-    private JSONObject makeKeyJson(Key key) {
-        return new JSONObject(objectMapper.convertValue(key, Map.class)).put("templateType", "Key");
-    }
-
-    private static final String INFOBOX_LOCATION_TEXT = "{{Infobox Geography\n" +
-            "| ruler        = [[King Tibianus]]\n" +
-            "| implemented  = Pre-6.0\n" +
-            "| population   = {{PAGESINCATEGORY:Thais NPCs|pages}}\n" +
-            "| organization = [[Thieves Guild]], [[Tibian Bureau of Investigation]], [[Inquisition]]\n" +
-            "| near         = [[Fibula]], [[Mintwallin]], [[Greenshore]], [[Mount Sternum]]\n" +
-            "| map          = [[File:Map_thais.jpg]]\n" +
-            "| map2         = [[File:Thais.PNG]]\n" +
-            "}}";
-
-    private Location makeLocation() {
-        return Location.builder()
-                .ruler("[[King Tibianus]]")
-                .implemented("Pre-6.0")
-                .population("{{PAGESINCATEGORY:Thais NPCs|pages}}")
-                .organization("[[Thieves Guild]], [[Tibian Bureau of Investigation]], [[Inquisition]]")
-                .near("[[Fibula]], [[Mintwallin]], [[Greenshore]], [[Mount Sternum]]")
-                .map("[[File:Map_thais.jpg]]")
-                .map2("[[File:Thais.PNG]]")
-                .build();
-    }
-
-    private JSONObject makeLocationJson(Location location) {
-        return new JSONObject(objectMapper.convertValue(location, Map.class)).put("templateType", "Geography");
-    }
-
-    private static final String INFOBOX_MISSILE_TEXT = "{{Infobox Missile|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
-            "| name          = Throwing Cake Missile\n" +
-            "| implemented   = 7.9\n" +
-            "| missileid     = 42\n" +
-            "| primarytype   = Throwing Weapon\n" +
-            "| shotby        = [[Undead Jester]]'s attack and probably by throwing a [[Throwing Cake]].\n" +
-            "| notes         = This missile is followed by the [[Cream Cake Effect]]: [[File:Cream Cake Effect.gif]]\n" +
-            "}}\n";
-
-    private Missile makeMissile() {
-        return Missile.builder()
-                .name("Throwing Cake Missile")
-                .implemented("7.9")
-                .missileid(42)
-                .primarytype("Throwing Weapon")
-                .shotby("[[Undead Jester]]'s attack and probably by throwing a [[Throwing Cake]].")
-                .notes("This missile is followed by the [[Cream Cake Effect]]: [[File:Cream Cake Effect.gif]]")
-                .build();
-    }
-
-    private JSONObject makeMissileJson(Missile missile) {
-        return new JSONObject(objectMapper.convertValue(missile, Map.class)).put("templateType", "Missile");
-    }
-
-    private static final String INFOBOX_MOUNT_TEXT = "{{Infobox_Mount|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
-            "| name            = Donkey\n" +
-            "| speed           = 10\n" +
-            "| taming_method   = Use a [[Bag of Apple Slices]] on a creature transformed into Donkey.\n" +
-            "| implemented     = 9.1\n" +
-            "| achievement     = Loyal Lad\n" +
-            "| notes           = Go to [[Incredibly Old Witch]]'s house,\n";
-
-    private Mount makeMount() {
-        return Mount.builder()
-                .name("Donkey")
-                .speed(10)
-                .tamingMethod("Use a [[Bag of Apple Slices]] on a creature transformed into Donkey.")
-                .implemented("9.1")
-                .achievement("Loyal Lad")
-                .notes("Go to [[Incredibly Old Witch]]'s house,")
-                .build();
-    }
-
-    private JSONObject makeMountJson(Mount mount) {
-        return new JSONObject(objectMapper.convertValue(mount, Map.class)).put("templateType", "Mount");
-    }
-
-    private static final String INFOBOX_NPC_TEXT = "{{Infobox NPC|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
-            "| name        = Sam\n" +
-            "| implemented = Pre-6.0\n" +
-            "| job         = Artisan\n" +
-            "| job2        = Weapon Shopkeeper\n" +
-            "| job3        = Armor Shopkeeper\n" +
-            "| location    = [[Temple Street]] in [[Thais]].\n" +
-            "| posx        = 126.104\n" +
-            "| posy        = 125.200\n" +
-            "| posz        = 7\n" +
-            "| gender      = Male\n" +
-            "| race        = Human\n" +
-            "| city        = Thais\n" +
-            "| buysell     = yes\n" +
-            "| sells       = {{Price to Buy |Axe\n" +
-            "| buys        = {{Price to Sell |Axe\n" +
-            "| sounds      = {{Sound List|Hello there, adventurer! Need a deal in weapons or armor? I'm your man!}}\n" +
-            "| notes       = Sam is the Blacksmith of [[Thais]].\n" +
-            "}}\n";
-
-    private NPC makeNPC() {
-        return NPC.builder()
-                .name("Sam")
-                .implemented("Pre-6.0")
-                .job("Artisan")
-                .job2("Weapon Shopkeeper")
-                .job3("Armor Shopkeeper")
-                .location("[[Temple Street]] in [[Thais]].")
-                .posx(126.104)
-                .posy(125.200)
-                .posz(7)
-                .gender(Gender.MALE)
-                .race("Human")
-                .city(City.THAIS)
-                .buysell(YesNo.YES_LOWERCASE)
-                .sells("{{Price to Buy |Axe")
-                .buys("{{Price to Sell |Axe")
-                .sounds(Collections.singletonList("Hello there, adventurer! Need a deal in weapons or armor? I'm your man!"))
-                .notes("Sam is the Blacksmith of [[Thais]].")
-                .build();
-    }
-
-    private JSONObject makeNPCJson(NPC npc) {
-        return new JSONObject(objectMapper.convertValue(npc, Map.class)).put("templateType", "NPC");
-    }
-
-    private static final String INFOBOX_OBJECT_TEXT = "{{Infobox Object|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
-            "| name           = Blueberry Bush\n" +
-            "| article        = a\n" +
-            "| objectclass    = Bushes\n" +
-            "| walkable       = no\n" +
-            "| location       = Can be found all around [[Tibia]].\n" +
-            "| notes          = They are the source of the [[blueberry|blueberries]].\n" +
-            "| notes2         = <br />{{JSpoiler|After using [[Blueberry]] Bushes 500 times,\n" +
-            "| implemented   = 7.1\n" +
-            "}}\n";
-
-    private TibiaObject makeTibiaObject() {
-        return TibiaObject.builder()
-                .name("Blueberry Bush")
-                .article(Article.A)
-                .objectclass("Bushes")
-                .walkable(YesNo.NO_LOWERCASE)
-                .location("Can be found all around [[Tibia]].")
-                .notes("They are the source of the [[blueberry|blueberries]].")
-                .notes2("<br />{{JSpoiler|After using [[Blueberry]] Bushes 500 times,")
-                .implemented("7.1")
-                .build();
-    }
-
-    private JSONObject makeTibiaObjectJson(TibiaObject tibiaObject) {
-        return new JSONObject(objectMapper.convertValue(tibiaObject, Map.class)).put("templateType", "Object");
-    }
-
-    private static final String INFOBOX_OUTFIT_TEXT = "{{Infobox_Outfit|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
-            "| name            = Pirate\n" +
-            "| primarytype     = Quest\n" +
-            "| premium         = yes\n" +
-            "| outfit          = premium, see [[Pirate Outfits Quest]].\n" +
-            "| addons          = premium, see [[Pirate Outfits Quest]].\n" +
-            "| achievement     = Swashbuckler\n" +
-            "| implemented     = 7.8\n" +
-            "| artwork         = Pirate Outfits Artwork.jpg\n" +
-            "| notes           = Pirate outfits are perfect for swabbing the deck or walking the plank. Quite dashing and great for sailing.\n" +
-            "}}\n";
-
     private Outfit makeOutfit() {
         return Outfit.builder()
                 .name("Pirate")
@@ -1037,35 +1052,77 @@ public class JsonFactoryTest {
         return new JSONObject(objectMapper.convertValue(outfit, Map.class)).put("templateType", "Outfit");
     }
 
-    private static final String INFOBOX_QUEST_TEXT = "{{Infobox Quest|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
-            "| implemented    = 6.61-6.97\n" +
-            "| premium        = yes\n" +
-            "| name           = The Paradox Tower Quest\n" +
-            "| aka            = Riddler Quest, Mathemagics Quest\n" +
-            "| reward         = Up to two of the following:\n" +
-            "| location       = [[Paradox Tower]] near [[Kazordoon]]\n" +
-            "| lvl            = 30\n" +
-            "| lvlrec         = 50+\n" +
-            "| log            = yes\n" +
-            "| transcripts    = yes\n" +
-            "| dangers        = [[Wyvern]]s<br /> ([[Mintwallin]]): [[Minotaur]]s,\n" +
-            "| legend         = Surpass the wrath of a madman and subject yourself to his twisted taunting.\n" +
-            "}}\n";
+    private HuntingPlace makeHuntingPlace() {
+        return HuntingPlace.builder()
+                .name("Hero Cave")
+                .image("Hero")
+                .implemented("6.4")
+                .city(City.EDRON)
+                .location("North of [[Edron]], [http://tibia.wikia.com/wiki/Mapper?coords=129.140,123.150,7,3,1,1 here].")
+                .vocation("All vocations.")
+                .lvlknights("70")
+                .lvlpaladins("60")
+                .lvlmages("50")
+                .skknights("75")
+                .skpaladins("80")
+                .skmages("1")
+                .defknights("75")
+                .defpaladins("1")
+                .defmages("1")
+                .lowerlevels(Collections.singletonList(HuntingPlaceSkills.builder()
+                        .areaname("Demons")
+                        .lvlknights("130")
+                        .lvlpaladins("130")
+                        .lvlmages("130")
+                        .skknights("1")
+                        .skpaladins("1")
+                        .skmages("1")
+                        .defknights("1")
+                        .defpaladins("1")
+                        .defmages("1")
+                        .build()))
+                .exp("Good")
+                .loot("Good")
+                .bestloot("Reins")
+                .bestloot2("Foobar")
+                .bestloot3("Foobar")
+                .bestloot4("Foobar")
+                .bestloot5("Foobar")
+                .map("Hero Cave 3.png")
+                .map2("Hero Cave 6.png")
+                .build();
+    }
 
-    private Quest makeQuest() {
-        return Quest.builder()
-                .implemented("6.61-6.97")
-                .premium(YesNo.YES_LOWERCASE)
-                .name("The Paradox Tower Quest")
-                .aka("Riddler Quest, Mathemagics Quest")
-                .reward("Up to two of the following:")
-                .location("[[Paradox Tower]] near [[Kazordoon]]")
-                .lvl(30)
-                .lvlrec(50)
-                .log(YesNo.YES_LOWERCASE)
-                .transcripts(YesNo.YES_LOWERCASE)
-                .dangers("[[Wyvern]]s<br /> ([[Mintwallin]]): [[Minotaur]]s,")
-                .legend("Surpass the wrath of a madman and subject yourself to his twisted taunting.")
+    private Item makeItem() {
+        return Item.builder()
+                .name("Carlin Sword")
+                .marketable(YesNo.YES_LOWERCASE)
+                .usable(YesNo.YES_LOWERCASE)
+                .sprites("{{Frames|{{Frame Sprite|55266}}}}")
+                .article(Article.A)
+                .actualname("carlin sword")
+                .plural("?")
+                .itemid(Collections.singletonList(3283))
+                .flavortext("Foobar")
+                .itemclass(ItemClass.WEAPONS)
+                .primarytype("Sword Weapons")
+                .levelrequired(0)
+                .hands(Hands.One)
+                .type(WeaponType.Sword)
+                .attack("15")
+                .defense(13)
+                .defensemod("+1")
+                .enchantable(YesNo.NO_LOWERCASE)
+                .weight(BigDecimal.valueOf(40.00).setScale(2, RoundingMode.HALF_UP))
+                .droppedby(Arrays.asList("Grorlam", "Stone Golem"))
+                .value("118")
+                .npcvalue("118")
+                .npcprice("473")
+                .npcvaluerook("0")
+                .npcpricerook("0")
+                .buyfrom("Baltim, Brengus, Cedrik,")
+                .sellto("Baltim, Brengus, Cedrik, Esrik,")
+                .notes("If you have one of these ")
                 .build();
     }
 
@@ -1115,12 +1172,22 @@ public class JsonFactoryTest {
         return new JSONObject(objectMapper.convertValue(spell, Map.class)).put("templateType", "Spell");
     }
 
-    private static final String INFOBOX_STREET_TEXT = "{{Infobox Street\n" +
-            "| name           = Sugar Street\n" +
-            "| implemented    = 7.8\n" +
-            "| city           = Liberty Bay\n" +
-            "| notes          = {{StreetStyles|Sugar Street}} is in west\n" +
-            "}}\n";
+    private Quest makeQuest() {
+        return Quest.builder()
+                .name("The Paradox Tower Quest")
+                .aka("Riddler Quest, Mathemagics Quest")
+                .reward("Up to two of the following:")
+                .location("[[Paradox Tower]] near [[Kazordoon]]")
+                .lvl(30)
+                .lvlrec(50)
+                .log(YesNo.YES_LOWERCASE)
+                .premium(YesNo.YES_LOWERCASE)
+                .transcripts(YesNo.YES_LOWERCASE)
+                .dangers("[[Wyvern]]s<br /> ([[Mintwallin]]): [[Minotaur]]s,")
+                .legend("Surpass the wrath of a madman and subject yourself to his twisted taunting.")
+                .implemented("6.61-6.97")
+                .build();
+    }
 
     private Street makeStreet() {
         return Street.builder()

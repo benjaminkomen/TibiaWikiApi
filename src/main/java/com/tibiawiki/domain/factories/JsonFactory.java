@@ -114,19 +114,19 @@ public class JsonFactory {
             if (value instanceof JSONArray) {
 
                 if (SOUNDS.equals(key)) {
-                    sb.append(makeSoundList(jsonObject, key, (JSONArray) value));
+                    sb.append(makeTemplateList(jsonObject, key, (JSONArray) value, "Sound List"));
                 } else if (SPAWN_TYPE.equals(key)) {
-
+                    sb.append(makeCommaSeparatedStringList(jsonObject, key, (JSONArray) value));
                 } else if (LOOT.equals(key)) {
                     sb.append(makeLootTable(jsonObject, key, (JSONArray) value));
                 } else if (DROPPED_BY.equals(key)) {
-
+                    sb.append(makeTemplateList(jsonObject, key, (JSONArray) value, "Dropped By"));
                 } else if (ITEM_ID.equals(key)) {
-
+                    sb.append(makeCommaSeparatedStringList(jsonObject, key, (JSONArray) value));
                 } else if (LOWER_LEVELS.equals(key)) {
-
+                    sb.append(makeSkillsTable(jsonObject, key, (JSONArray) value));
                 } else {
-                    // just convert to a comma-separated list of array values
+                    sb.append(makeCommaSeparatedStringList(jsonObject, key, (JSONArray) value));
                 }
 
             } else if (value instanceof JSONObject) {
@@ -340,13 +340,24 @@ public class JsonFactory {
                 .orElse(0);
     }
 
-    private String makeSoundList(@NotNull JSONObject jsonObject, String key, JSONArray jsonArray) {
+
+    @NotNull
+    private String makeTemplateList(JSONObject jsonObject, String key, JSONArray jsonArray, String templateName) {
         final String paddedKey = Strings.padEnd(key, getMaxFieldLength(jsonObject), ' ');
         final String value = jsonArray.toList().stream()
                 .map(String::valueOf)
                 .collect(Collectors.joining("|"));
 
-        return "| " + paddedKey + " = {{Sound List|" + value + "}}\n";
+        return "| " + paddedKey + " = {{" + templateName + "|" + value + "}}\n";
+    }
+
+    private String makeCommaSeparatedStringList(JSONObject jsonObject, String key, JSONArray jsonArray) {
+        final String paddedKey = Strings.padEnd(key, getMaxFieldLength(jsonObject), ' ');
+        final String value = jsonArray.toList().stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(", "));
+
+        return "| " + paddedKey + " = " + value + "\n";
     }
 
     private String makeLootTable(JSONObject jsonObject, String key, JSONArray jsonArray) {
@@ -356,6 +367,18 @@ public class JsonFactory {
                 .collect(Collectors.joining("\n |"));
 
         return "| " + paddedKey + " = {{Loot Table\n |" + value + "\n}}\n";
+    }
+
+    /**
+     * TODO implement this method correctly
+     */
+    private String makeSkillsTable(JSONObject jsonObject, String key, JSONArray jsonArray) {
+        final String paddedKey = Strings.padEnd(key, getMaxFieldLength(jsonObject), ' ');
+        final String value = jsonArray.toList().stream()
+                .map(o -> ((Map) o).get("").toString())
+                .collect(Collectors.joining("\n |"));
+
+        return "| " + paddedKey + " = \n    {{Infobox Hunt Skills\n |" + value + "\n}}\n";
     }
 
     private String makeLootItem(Object obj) {

@@ -12,6 +12,7 @@ import lombok.Builder;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -57,7 +58,7 @@ public class Item extends WikiObject {
     private final Percentage hitpointLeechChance;
     private final Percentage hitpointLeechAmount;
     private final String attrib;
-    private final Double weight;
+    private final BigDecimal weight;
     private final YesNo stackable;
     private final YesNo pickupable;
     private final YesNo immobile;
@@ -84,8 +85,8 @@ public class Item extends WikiObject {
     private final String value;
     private final String npcvalue;
     private final String npcprice;
-    private final Double npcvaluerook;
-    private final Double npcpricerook;
+    private final String npcvaluerook;
+    private final String npcpricerook;
     private final String buyfrom;
     private final String sellto;
 
@@ -171,13 +172,13 @@ public class Item extends WikiObject {
                  YesNo enchantable, YesNo enchanted, String range, String attackModification, String hitpointModification,
                  Integer armor, String resist, Integer charges, Percentage criticalHitChance,
                  Percentage criticalHitExtraDamage, Percentage manaleechChance, Percentage manaleechAmount,
-                 Percentage hitpointLeechChance, Percentage hitpointLeechAmount, String attrib, Double weight,
+                 Percentage hitpointLeechChance, Percentage hitpointLeechAmount, String attrib, BigDecimal weight,
                  YesNo stackable, YesNo pickupable, YesNo immobile, YesNo walkable, YesNo unshootable, YesNo blockspath,
                  YesNo rotatable, Integer mapcolor, YesNo consumable, Integer regenseconds, List<String> sounds,
                  YesNo writable, YesNo rewritable, Integer writechars, YesNo hangable, YesNo holdsliquid, Integer mana,
                  DamageElement damagetype, String damage, Integer volume, String duration, YesNo destructible,
-                 List<String> droppedby, String value, String npcvalue, String npcprice, Double npcvaluerook,
-                 Double npcpricerook, String buyfrom, String sellto) {
+                 List<String> droppedby, String value, String npcvalue, String npcprice, String npcvaluerook,
+                 String npcpricerook, String buyfrom, String sellto) {
         super(name, article, actualname, plural, implemented, notes, history, status);
         this.itemid = itemid;
         this.marketable = marketable;
@@ -295,12 +296,12 @@ public class Item extends WikiObject {
         return Arrays.asList("name", "article", "actualname", "plural", "itemid", "marketable", "usable", "sprites",
                 "flavortext", "implemented", "words", "itemclass", "primarytype", "secondarytype", "lightcolor",
                 "lightradius", "levelrequired", "vocrequired", "mlrequired", "hands", "type", "attack", "elementattack",
-                "defense", "defensemod", "imbueslots", "imbuements", "range", "atk_mod", "hit_mod", "armor", "resist",
-                "charges", "crithit_ch", "critextra_dmg", "manaleech_ch", "manaleech_am", "hpleech_ch", "hpleech_am",
-                "attrib", "weight", "stackable", "pickupable", "immobile", "walkable", "unshootable", "blockspath",
-                "rotatable", "mapcolor", "consumable", "regenseconds", "sounds", "writable", "rewritable", "writechars",
-                "hangable", "holdsliquid", "mana", "damagetype", "damage", "volume", "duration", "destructible",
-                "droppedby", "value", "npcvalue", "npcprice", "npcvaluerook", "npcpricerook", "buyfrom", "sellto",
-                "notes", "history", "status");
+                "defense", "defensemod", "imbueslots", "imbuements", "enchantable", "enchanted", "range", "atk_mod",
+                "hit_mod", "armor", "resist", "charges", "crithit_ch", "critextra_dmg", "manaleech_ch", "manaleech_am",
+                "hpleech_ch", "hpleech_am", "attrib", "weight", "stackable", "pickupable", "immobile", "walkable",
+                "unshootable", "blockspath", "rotatable", "mapcolor", "consumable", "regenseconds", "sounds", "writable",
+                "rewritable", "writechars", "hangable", "holdsliquid", "mana", "damagetype", "damage", "volume",
+                "duration", "destructible", "droppedby", "value", "npcvalue", "npcprice", "npcvaluerook", "npcpricerook",
+                "buyfrom", "sellto", "notes", "history", "status");
     }
 }

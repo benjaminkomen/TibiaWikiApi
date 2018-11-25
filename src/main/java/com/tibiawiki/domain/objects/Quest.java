@@ -73,6 +73,7 @@ public class Quest extends WikiObject {
     @Override
     public List<String> fieldOrder() {
         return Arrays.asList("name", "aka", "reward", "location", "rookgaardquest", "type", "lvl", "lvlrec", "lvlnote",
-                "log", "time", "timealloc", "premium", "transcripts", "dangers", "legend", "history", "status");
+                "log", "time", "timealloc", "premium", "transcripts", "dangers", "legend", "implemented", "history",
+                "status");
     }
 }
