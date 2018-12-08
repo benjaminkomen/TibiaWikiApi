@@ -68,7 +68,7 @@ public class TemplateUtils {
         }
         int startOfTemplate = text.indexOf('|') + 1;
         int endOfTemplate = text.indexOf("}}");
-        if (startOfTemplate >= 0 && endOfTemplate >= 0) {
+        if (endOfTemplate >= 0) {
             return text.substring(startOfTemplate, endOfTemplate).trim();
         }
         log.error("Could not remove start and end of template.");

@@ -304,14 +304,21 @@ public class JsonFactory {
     }
 
     private JSONArray makeDroppedByArray(String droppedbyValue, String articleName) {
-        if (droppedbyValue.length() < 2 || droppedbyValue.matches("(N|n)one(\\.|)") || legallyHasNoDroppedByTemplate(articleName)) {
+        if (droppedbyValue.length() < 2 || droppedbyValue.matches("[Nn]one(\\.|)") ||
+                legallyHasNoDroppedByTemplate(articleName) || !droppedbyValue.contains("|")) {
             return new JSONArray();
         }
         assert (droppedbyValue.contains("{{Dropped By")) : "droppedbyValue " +
                 droppedbyValue + "' from article '" + articleName + "' does not contain Template:Dropped By";
         String creatures = TemplateUtils.removeStartAndEndOfTemplate(droppedbyValue);
-        List<String> splitLines = Arrays.asList(Pattern.compile("\\|").split(creatures));
-        return new JSONArray(splitLines);
+
+        if (creatures != null && creatures.length() > 0) {
+            List<String> splitLines = Arrays.asList(Pattern.compile("\\|").split(creatures));
+            return new JSONArray(splitLines);
+        } else {
+            return new JSONArray();
+        }
+
     }
 
     private JSONArray makeLowerLevelsArray(String lowerLevelsValue) {
