@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,20 +26,20 @@ public class NPC extends WikiObject {
     private final City city;
     private final City city2;
     private final String street;
-    private final Double posx;
-    private final Double posy;
+    private final BigDecimal posx;
+    private final BigDecimal posy;
     private final Integer posz;
-    private final Double posx2;
-    private final Double posy2;
+    private final BigDecimal posx2;
+    private final BigDecimal posy2;
     private final Integer posz2;
-    private final Double posx3;
-    private final Double posy3;
+    private final BigDecimal posx3;
+    private final BigDecimal posy3;
     private final Integer posz3;
-    private final Double posx4;
-    private final Double posy4;
+    private final BigDecimal posx4;
+    private final BigDecimal posy4;
     private final Integer posz4;
-    private final Double posx5;
-    private final Double posy5;
+    private final BigDecimal posx5;
+    private final BigDecimal posy5;
     private final Integer posz5;
     private final Gender gender;
     private final String race;
@@ -84,9 +85,9 @@ public class NPC extends WikiObject {
     @Builder
     private NPC(String name, String actualname, String implemented, String notes, String history, Status status,
                 String job, String job2, String job3, String job4, String job5, String job6, String location, City city,
-                City city2, String street, Double posx, Double posy, Integer posz, Double posx2, Double posy2,
-                Integer posz2, Double posx3, Double posy3, Integer posz3, Double posx4, Double posy4, Integer posz4,
-                Double posx5, Double posy5, Integer posz5, Gender gender, String race, YesNo buysell, String buys,
+                City city2, String street, BigDecimal posx, BigDecimal posy, Integer posz, BigDecimal posx2, BigDecimal posy2,
+                Integer posz2, BigDecimal posx3, BigDecimal posy3, Integer posz3, BigDecimal posx4, BigDecimal posy4, Integer posz4,
+                BigDecimal posx5, BigDecimal posy5, Integer posz5, Gender gender, String race, YesNo buysell, String buys,
                 String sells, List<String> sounds) {
         super(name, null, actualname, null, implemented, notes, history, status);
         this.job = job;

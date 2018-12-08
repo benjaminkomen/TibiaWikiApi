@@ -863,10 +863,6 @@ public class JsonFactoryTest {
         return new JSONObject(objectMapper.convertValue(missile, Map.class)).put("templateType", "Missile");
     }
 
-    /**
-     * FIXME enable this test when the factory is make to work (not always List and GetValue parameters)
-     */
-    @Disabled
     @Test
     void testConvertJsonToInfoboxPartOfArticle_Location() {
         final Location location = makeLocation();
@@ -889,10 +885,6 @@ public class JsonFactoryTest {
         return new JSONObject(objectMapper.convertValue(mount, Map.class)).put("templateType", "Mount");
     }
 
-    /**
-     * FIXME enable this test when the factory is make to work (posx, posy etc. as doubles was a bad idea, can't set scale)
-     */
-    @Disabled
     @Test
     void testConvertJsonToInfoboxPartOfArticle_NPC() {
         final NPC npc = makeNPC();
@@ -908,8 +900,8 @@ public class JsonFactoryTest {
                 .job2("Weapon Shopkeeper")
                 .job3("Armor Shopkeeper")
                 .location("[[Temple Street]] in [[Thais]].")
-                .posx(126.104)
-                .posy(125.200)
+                .posx(BigDecimal.valueOf(126.104).setScale(3, RoundingMode.HALF_UP))
+                .posy(BigDecimal.valueOf(125.200).setScale(3, RoundingMode.HALF_UP))
                 .posz(7)
                 .gender(Gender.MALE)
                 .race("Human")
@@ -926,10 +918,6 @@ public class JsonFactoryTest {
         return new JSONObject(objectMapper.convertValue(npc, Map.class)).put("templateType", "NPC");
     }
 
-    /**
-     * FIXME enable this test when the factory is make to work (not always List and GetValue parameters)
-     */
-    @Disabled
     @Test
     void testConvertJsonToInfoboxPartOfArticle_Street() {
         final Street street = makeStreet();

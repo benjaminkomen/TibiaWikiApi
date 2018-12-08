@@ -1,7 +1,6 @@
 package com.tibiawiki.serviceinterface;
 
 import com.tibiawiki.domain.objects.HuntingPlace;
-import com.tibiawiki.domain.objects.validation.ValidationException;
 import com.tibiawiki.process.ModifyAny;
 import com.tibiawiki.process.RetrieveHuntingPlaces;
 import io.swagger.annotations.Api;
@@ -70,13 +69,14 @@ public class HuntingPlacesResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response putHuntingPlace(HuntingPlace huntingPlace, @HeaderParam("X-WIKI-Edit-Summary") String editSummary) {
-        return modifyAny.modify(huntingPlace, editSummary)
-                .map(a -> Response.ok()
-                        .entity(a)
-                        .header("Access-Control-Allow-Origin", "*")
-                        .build())
-                .recover(ValidationException.class, e -> Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build())
-                .recover(e -> Response.serverError().build())
-                .get();
+        return Response.status(501).build();
+//        return modifyAny.modify(huntingPlace, editSummary)
+//                .map(a -> Response.ok()
+//                        .entity(a)
+//                        .header("Access-Control-Allow-Origin", "*")
+//                        .build())
+//                .recover(ValidationException.class, e -> Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build())
+//                .recover(e -> Response.serverError().build())
+//                .get();
     }
 }

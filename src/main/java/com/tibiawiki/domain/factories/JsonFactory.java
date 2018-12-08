@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,6 +33,7 @@ public class JsonFactory {
     protected static final String TEMPLATE_TYPE_BOOK = "Book";
     protected static final String TEMPLATE_TYPE_LOCATION = "Geography";
     private static final String TEMPLATE_TYPE_HUNTING_PLACE = "Hunt";
+    private static final String TEMPLATE_TYPE_STREET = "Street";
     protected static final String TEMPLATE_TYPE_KEY = "Key";
     private static final String SOUNDS = "sounds";
     private static final String SPAWN_TYPE = "spawntype";
@@ -91,7 +93,14 @@ public class JsonFactory {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{{Infobox ");
         stringBuilder.append(jsonObject.get(TEMPLATE_TYPE));
-        stringBuilder.append("|List={{{1|}}}|GetValue={{{GetValue|}}}").append("\n");
+
+        // Don't add this line with Location and Street templates
+        if (!Objects.equals(jsonObject.get(TEMPLATE_TYPE), TEMPLATE_TYPE_LOCATION) &&
+                !Objects.equals(jsonObject.get(TEMPLATE_TYPE), TEMPLATE_TYPE_STREET)) {
+            stringBuilder.append("|List={{{1|}}}|GetValue={{{GetValue|}}}");
+        }
+
+        stringBuilder.append("\n");
 
         constructKeyValuePairs(jsonObject, fieldOrder, stringBuilder);
 
