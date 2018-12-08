@@ -19,11 +19,11 @@ import javax.ws.rs.core.Response;
 @Path("/")
 public class BuildingsResource {
 
-    @Autowired
     private RetrieveBuildings retrieveBuildings;
 
-    private BuildingsResource() {
-        // nothing to do, all dependencies are injected
+    @Autowired
+    private BuildingsResource(RetrieveBuildings retrieveBuildings) {
+        this.retrieveBuildings = retrieveBuildings;
     }
 
     @GET

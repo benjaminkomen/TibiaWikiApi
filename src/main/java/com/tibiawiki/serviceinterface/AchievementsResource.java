@@ -29,13 +29,13 @@ import javax.ws.rs.core.Response;
 @Path("/achievements")
 public class AchievementsResource {
 
-    @Autowired
     private RetrieveAchievements retrieveAchievements;
-    @Autowired
     private ModifyAchievement modifyAchievement;
 
-    private AchievementsResource() {
-        // nothing to do, all dependencies are injected
+    @Autowired
+    private AchievementsResource(RetrieveAchievements retrieveAchievements, ModifyAchievement modifyAchievement) {
+        this.retrieveAchievements = retrieveAchievements;
+        this.modifyAchievement = modifyAchievement;
     }
 
     @GET

@@ -19,11 +19,11 @@ import javax.ws.rs.core.Response;
 @Path("/")
 public class EffectsResource {
 
-    @Autowired
     private RetrieveEffects retrieveEffects;
 
-    private EffectsResource() {
-        // nothing to do, all dependencies are injected
+    @Autowired
+    private EffectsResource(RetrieveEffects retrieveEffects) {
+        this.retrieveEffects = retrieveEffects;
     }
 
     @GET

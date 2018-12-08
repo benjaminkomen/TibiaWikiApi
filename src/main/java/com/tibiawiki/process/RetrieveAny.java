@@ -16,18 +16,12 @@ public abstract class RetrieveAny {
 
     protected static final String CATEGORY_LISTS = "Lists";
 
-    @Autowired
     protected ArticleRepository articleRepository;
-    @Autowired
     protected ArticleFactory articleFactory;
-    @Autowired
     protected JsonFactory jsonFactory;
 
-    protected RetrieveAny() {
-        // nothing to do, all dependencies are injected
-    }
-
-    public RetrieveAny(ArticleRepository articleRepository, ArticleFactory articleFactory, JsonFactory jsonFactory) {
+    @Autowired
+    protected RetrieveAny(ArticleRepository articleRepository, ArticleFactory articleFactory, JsonFactory jsonFactory) {
         this.articleRepository = articleRepository;
         this.articleFactory = articleFactory;
         this.jsonFactory = jsonFactory;

@@ -1,6 +1,23 @@
 package com.tibiawiki.serviceinterface.config;
 
-import com.tibiawiki.serviceinterface.*;
+import com.tibiawiki.serviceinterface.AchievementsResource;
+import com.tibiawiki.serviceinterface.BooksResource;
+import com.tibiawiki.serviceinterface.BuildingsResource;
+import com.tibiawiki.serviceinterface.CorpsesResource;
+import com.tibiawiki.serviceinterface.CreaturesResource;
+import com.tibiawiki.serviceinterface.EffectsResource;
+import com.tibiawiki.serviceinterface.HuntingPlacesResource;
+import com.tibiawiki.serviceinterface.ItemsResource;
+import com.tibiawiki.serviceinterface.KeysResource;
+import com.tibiawiki.serviceinterface.LocationsResource;
+import com.tibiawiki.serviceinterface.MissilesResource;
+import com.tibiawiki.serviceinterface.MountsResource;
+import com.tibiawiki.serviceinterface.NPCsResource;
+import com.tibiawiki.serviceinterface.ObjectsResource;
+import com.tibiawiki.serviceinterface.OutfitsResource;
+import com.tibiawiki.serviceinterface.QuestsResource;
+import com.tibiawiki.serviceinterface.SpellsResource;
+import com.tibiawiki.serviceinterface.StreetsResource;
 import io.swagger.jaxrs.config.BeanConfig;
 import io.swagger.jaxrs.listing.ApiListingResource;
 import io.swagger.jaxrs.listing.SwaggerSerializers;
@@ -37,6 +54,7 @@ public class JerseyConfig extends ResourceConfig {
         register(HuntingPlacesResource.class);
         register(ItemsResource.class);
         register(KeysResource.class);
+        register(MissilesResource.class);
         register(MountsResource.class);
         register(NPCsResource.class);
         register(ObjectsResource.class);

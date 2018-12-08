@@ -22,17 +22,18 @@ import java.util.List;
 @Component
 public class ModifyAchievement {
 
-    @Autowired
     private WikiObjectFactory wikiObjectFactory;
-    @Autowired
     private JsonFactory jsonFactory;
-    @Autowired
     private ArticleFactory articleFactory;
-    @Autowired
     private ArticleRepository articleRepository;
 
-    private ModifyAchievement() {
-        // nothing to do, all dependencies are injected
+    @Autowired
+    private ModifyAchievement(WikiObjectFactory wikiObjectFactory, JsonFactory jsonFactory, ArticleFactory articleFactory,
+                              ArticleRepository articleRepository) {
+        this.wikiObjectFactory = wikiObjectFactory;
+        this.jsonFactory = jsonFactory;
+        this.articleFactory = articleFactory;
+        this.articleRepository = articleRepository;
     }
 
     public Try<Achievement> modify(Achievement achievement, String editSummary) {

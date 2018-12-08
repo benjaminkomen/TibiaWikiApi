@@ -5,6 +5,7 @@ import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.factories.JsonFactory;
 import com.tibiawiki.domain.repositories.ArticleRepository;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -15,10 +16,7 @@ import java.util.stream.Stream;
 @Component
 public class RetrieveAchievements extends RetrieveAny {
 
-    private RetrieveAchievements() {
-        // nothing to do, all dependencies are injected
-    }
-
+    @Autowired
     public RetrieveAchievements(ArticleRepository articleRepository, ArticleFactory articleFactory, JsonFactory jsonFactory) {
         super(articleRepository, articleFactory, jsonFactory);
     }

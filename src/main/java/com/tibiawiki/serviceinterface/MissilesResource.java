@@ -1,6 +1,6 @@
 package com.tibiawiki.serviceinterface;
 
-import com.tibiawiki.process.RetrieveHuntingPlaces;
+import com.tibiawiki.process.RetrieveMissiles;
 import io.swagger.annotations.Api;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,35 +15,35 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Component
-@Api(value = "Hunting Places")
+@Api(value = "Missiles")
 @Path("/")
-public class HuntingPlacesResource {
+public class MissilesResource {
 
-    private RetrieveHuntingPlaces retrieveHuntingPlaces;
+    private RetrieveMissiles retrieveMissiles;
 
     @Autowired
-    private HuntingPlacesResource(RetrieveHuntingPlaces retrieveHuntingPlaces) {
-        this.retrieveHuntingPlaces = retrieveHuntingPlaces;
+    private MissilesResource(RetrieveMissiles retrieveMissiles) {
+        this.retrieveMissiles = retrieveMissiles;
     }
 
     @GET
-    @Path("/huntingplaces")
+    @Path("/missiles")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getHuntingPlaces(@QueryParam("expand") Boolean expand) {
+    public Response getMissiles(@QueryParam("expand") Boolean expand) {
         return Response.ok()
                 .entity(expand != null && expand
-                        ? retrieveHuntingPlaces.getHuntingPlacesJSON().map(JSONObject::toMap)
-                        : retrieveHuntingPlaces.getHuntingPlacesList()
+                        ? retrieveMissiles.getMissilesJSON().map(JSONObject::toMap)
+                        : retrieveMissiles.getMissilesList()
                 )
                 .header("Access-Control-Allow-Origin", "*")
                 .build();
     }
 
     @GET
-    @Path("/huntingplaces/{name}")
+    @Path("/missiles/{name}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getHuntingPlacesByName(@PathParam("name") String name) {
-        return retrieveHuntingPlaces.getHuntingPlaceJSON(name)
+    public Response getMissilesByName(@PathParam("name") String name) {
+        return retrieveMissiles.getMissileJSON(name)
                 .map(a -> Response.ok()
                         .entity(a.toString(2))
                         .header("Access-Control-Allow-Origin", "*")

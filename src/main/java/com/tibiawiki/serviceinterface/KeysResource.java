@@ -19,11 +19,11 @@ import javax.ws.rs.core.Response;
 @Path("/")
 public class KeysResource {
 
-    @Autowired
     private RetrieveKeys retrieveKeys;
 
-    private KeysResource() {
-        // nothing to do, all dependencies are injected
+    @Autowired
+    private KeysResource(RetrieveKeys retrieveKeys) {
+        this.retrieveKeys = retrieveKeys;
     }
 
     @GET

@@ -14,27 +14,27 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Component
-public class RetrieveOutfits extends RetrieveAny {
+public class RetrieveMissiles extends RetrieveAny {
 
     @Autowired
-    public RetrieveOutfits(ArticleRepository articleRepository, ArticleFactory articleFactory, JsonFactory jsonFactory) {
+    public RetrieveMissiles(ArticleRepository articleRepository, ArticleFactory articleFactory, JsonFactory jsonFactory) {
         super(articleRepository, articleFactory, jsonFactory);
     }
 
-    public List<String> getOutfitsList() {
-        final List<String> outfitsCategory = articleRepository.getPageNamesFromCategory(InfoboxTemplate.OUTFIT.getCategoryName());
+    public List<String> getMissilesList() {
+        final List<String> effectsCategory = articleRepository.getPageNamesFromCategory(InfoboxTemplate.MISSILE.getCategoryName());
         final List<String> listsCategory = articleRepository.getPageNamesFromCategory(CATEGORY_LISTS);
 
-        return outfitsCategory.stream()
+        return effectsCategory.stream()
                 .filter(page -> !listsCategory.contains(page))
                 .collect(Collectors.toList());
     }
 
-    public Stream<JSONObject> getOutfitsJSON() {
-        return getArticlesFromInfoboxTemplateAsJSON(getOutfitsList());
+    public Stream<JSONObject> getMissilesJSON() {
+        return getArticlesFromInfoboxTemplateAsJSON(getMissilesList());
     }
 
-    public Optional<JSONObject> getOutfitJSON(String pageName) {
+    public Optional<JSONObject> getMissileJSON(String pageName) {
         return super.getArticleAsJSON(pageName);
     }
 }
