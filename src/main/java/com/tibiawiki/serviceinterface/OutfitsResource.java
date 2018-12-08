@@ -44,7 +44,6 @@ public class OutfitsResource {
                         ? retrieveOutfits.getOutfitsJSON().map(JSONObject::toMap)
                         : retrieveOutfits.getOutfitsList()
                 )
-                .header("Access-Control-Allow-Origin", "*")
                 .build();
     }
 
@@ -55,7 +54,6 @@ public class OutfitsResource {
         return retrieveOutfits.getOutfitJSON(name)
                 .map(a -> Response.ok()
                         .entity(a.toString(2))
-                        .header("Access-Control-Allow-Origin", "*")
                         .build())
                 .orElseGet(() -> Response.status(Response.Status.NOT_FOUND)
                         .build());
@@ -73,7 +71,6 @@ public class OutfitsResource {
         return modifyAny.modify(outfit, editSummary)
                 .map(a -> Response.ok()
                         .entity(a)
-                        .header("Access-Control-Allow-Origin", "*")
                         .build())
                 .recover(ValidationException.class, e -> Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build())
                 .recover(e -> Response.serverError().build())

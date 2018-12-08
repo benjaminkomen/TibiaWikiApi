@@ -44,7 +44,6 @@ public class HuntingPlacesResource {
                         ? retrieveHuntingPlaces.getHuntingPlacesJSON().map(JSONObject::toMap)
                         : retrieveHuntingPlaces.getHuntingPlacesList()
                 )
-                .header("Access-Control-Allow-Origin", "*")
                 .build();
     }
 
@@ -55,7 +54,6 @@ public class HuntingPlacesResource {
         return retrieveHuntingPlaces.getHuntingPlaceJSON(name)
                 .map(a -> Response.ok()
                         .entity(a.toString(2))
-                        .header("Access-Control-Allow-Origin", "*")
                         .build())
                 .orElseGet(() -> Response.status(Response.Status.NOT_FOUND)
                         .build());
@@ -73,7 +71,6 @@ public class HuntingPlacesResource {
         return modifyAny.modify(huntingPlace, editSummary)
                 .map(a -> Response.ok()
                         .entity(a)
-                        .header("Access-Control-Allow-Origin", "*")
                         .build())
                 .recover(ValidationException.class, e -> Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build())
                 .recover(e -> Response.serverError().build())

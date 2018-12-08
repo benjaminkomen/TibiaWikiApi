@@ -44,6 +44,7 @@ public class JerseyConfig extends ResourceConfig {
     }
 
     private void registerEndpoints() {
+        register(CORSResponseFilter.class);
         register(AchievementsResource.class);
         register(BooksResource.class);
         register(BuildingsResource.class);

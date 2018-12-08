@@ -44,7 +44,6 @@ public class MountsResource {
                         ? retrieveMounts.getMountsJSON().map(JSONObject::toMap)
                         : retrieveMounts.getMountsList()
                 )
-                .header("Access-Control-Allow-Origin", "*")
                 .build();
     }
 
@@ -55,7 +54,6 @@ public class MountsResource {
         return retrieveMounts.getMountJSON(name)
                 .map(a -> Response.ok()
                         .entity(a.toString(2))
-                        .header("Access-Control-Allow-Origin", "*")
                         .build())
                 .orElseGet(() -> Response.status(Response.Status.NOT_FOUND)
                         .build());
@@ -73,7 +71,6 @@ public class MountsResource {
         return modifyAny.modify(mount, editSummary)
                 .map(a -> Response.ok()
                         .entity(a)
-                        .header("Access-Control-Allow-Origin", "*")
                         .build())
                 .recover(ValidationException.class, e -> Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build())
                 .recover(e -> Response.serverError().build())

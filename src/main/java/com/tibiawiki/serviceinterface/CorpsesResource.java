@@ -44,7 +44,6 @@ public class CorpsesResource {
                         ? retrieveCorpses.getCorpsesJSON().map(JSONObject::toMap)
                         : retrieveCorpses.getCorpsesList()
                 )
-                .header("Access-Control-Allow-Origin", "*")
                 .build();
     }
 
@@ -55,7 +54,6 @@ public class CorpsesResource {
         return retrieveCorpses.getCorpseJSON(name)
                 .map(a -> Response.ok()
                         .entity(a.toString(2))
-                        .header("Access-Control-Allow-Origin", "*")
                         .build())
                 .orElseGet(() -> Response.status(Response.Status.NOT_FOUND)
                         .build());
@@ -73,7 +71,6 @@ public class CorpsesResource {
         return modifyAny.modify(corpse, editSummary)
                 .map(a -> Response.ok()
                         .entity(a)
-                        .header("Access-Control-Allow-Origin", "*")
                         .build())
                 .recover(ValidationException.class, e -> Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build())
                 .recover(e -> Response.serverError().build())
