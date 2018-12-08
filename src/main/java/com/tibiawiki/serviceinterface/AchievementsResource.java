@@ -2,7 +2,7 @@ package com.tibiawiki.serviceinterface;
 
 import com.tibiawiki.domain.objects.Achievement;
 import com.tibiawiki.domain.objects.validation.ValidationException;
-import com.tibiawiki.process.ModifyAchievement;
+import com.tibiawiki.process.ModifyAny;
 import com.tibiawiki.process.RetrieveAchievements;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,12 +30,12 @@ import javax.ws.rs.core.Response;
 public class AchievementsResource {
 
     private RetrieveAchievements retrieveAchievements;
-    private ModifyAchievement modifyAchievement;
+    private ModifyAny modifyAny;
 
     @Autowired
-    private AchievementsResource(RetrieveAchievements retrieveAchievements, ModifyAchievement modifyAchievement) {
+    private AchievementsResource(RetrieveAchievements retrieveAchievements, ModifyAny modifyAny) {
         this.retrieveAchievements = retrieveAchievements;
-        this.modifyAchievement = modifyAchievement;
+        this.modifyAny = modifyAny;
     }
 
     @GET
@@ -82,7 +82,7 @@ public class AchievementsResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response putAchievement(Achievement achievement, @HeaderParam("X-WIKI-Edit-Summary") String editSummary) {
-        return modifyAchievement.modify(achievement, editSummary)
+        return modifyAny.modify(achievement, editSummary)
                 .map(a -> Response.ok()
                         .entity(a)
                         .header("Access-Control-Allow-Origin", "*")

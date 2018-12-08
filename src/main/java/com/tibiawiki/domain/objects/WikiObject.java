@@ -14,6 +14,7 @@ import java.util.List;
 @Getter
 public abstract class WikiObject implements Validatable {
 
+    private final String templateType;
     private final String name;
     private final Article article;
     private final String actualname;
@@ -24,6 +25,7 @@ public abstract class WikiObject implements Validatable {
     private final Status status;
 
     protected WikiObject() {
+        templateType = null;
         name = null;
         article = null;
         actualname = null;
@@ -36,6 +38,7 @@ public abstract class WikiObject implements Validatable {
 
     public WikiObject(String name, Article article, String actualname, String plural, String implemented, String notes,
                       String history, Status status) {
+        this.templateType = null;
         this.name = name;
         this.article = article;
         this.actualname = actualname;

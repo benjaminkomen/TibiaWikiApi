@@ -3,7 +3,7 @@ package com.tibiawiki.process;
 import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.factories.JsonFactory;
 import com.tibiawiki.domain.factories.WikiObjectFactory;
-import com.tibiawiki.domain.objects.Achievement;
+import com.tibiawiki.domain.objects.WikiObject;
 import com.tibiawiki.domain.objects.validation.ValidationException;
 import com.tibiawiki.domain.objects.validation.ValidationResult;
 import com.tibiawiki.domain.repositories.ArticleRepository;
@@ -14,13 +14,13 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * 1. Validate modified Achievement
+ * 1. Validate modified WikiObject
  * 2. Get current wikipage
  * 3. Replace infobox part of template with newly made infobox part of template
  * 4. Edit the wiki (via a repository)
  */
 @Component
-public class ModifyAchievement {
+public class ModifyAny {
 
     private WikiObjectFactory wikiObjectFactory;
     private JsonFactory jsonFactory;
@@ -28,33 +28,33 @@ public class ModifyAchievement {
     private ArticleRepository articleRepository;
 
     @Autowired
-    private ModifyAchievement(WikiObjectFactory wikiObjectFactory, JsonFactory jsonFactory, ArticleFactory articleFactory,
-                              ArticleRepository articleRepository) {
+    private ModifyAny(WikiObjectFactory wikiObjectFactory, JsonFactory jsonFactory, ArticleFactory articleFactory,
+                      ArticleRepository articleRepository) {
         this.wikiObjectFactory = wikiObjectFactory;
         this.jsonFactory = jsonFactory;
         this.articleFactory = articleFactory;
         this.articleRepository = articleRepository;
     }
 
-    public Try<Achievement> modify(Achievement achievement, String editSummary) {
-        final String originalAchievement = articleRepository.getArticle(achievement.getName());
+    public Try<WikiObject> modify(WikiObject wikiObject, String editSummary) {
+        final String originalWikiObject = articleRepository.getArticle(wikiObject.getName());
 
-        return validate(achievement)
-                .map(a -> wikiObjectFactory.createJSONObject(a, "Achievement"))
-                .map(json -> jsonFactory.convertJsonToInfoboxPartOfArticle(json, achievement.fieldOrder()))
-                .map(s -> articleFactory.insertInfoboxPartOfArticle(originalAchievement, s))
-                .map(s -> articleRepository.modifyArticle(achievement.getName(), s, editSummary))
+        return validate(wikiObject)
+                .map(wikiObj -> wikiObjectFactory.createJSONObject(wikiObj, wikiObj.getTemplateType()))
+                .map(json -> jsonFactory.convertJsonToInfoboxPartOfArticle(json, wikiObject.fieldOrder()))
+                .map(s -> articleFactory.insertInfoboxPartOfArticle(originalWikiObject, s))
+                .map(s -> articleRepository.modifyArticle(wikiObject.getName(), s, editSummary))
                 .flatMap(b -> b
-                        ? Try.success(achievement)
-                        : Try.failure(new ValidationException("Unable to edit achievement."))
+                        ? Try.success(wikiObject)
+                        : Try.failure(new ValidationException("Unable to edit wikiObject."))
                 );
     }
 
-    private Try<Achievement> validate(Achievement achievement) {
-        final List<ValidationResult> validationResults = achievement.validate();
+    private Try<WikiObject> validate(WikiObject wikiObject) {
+        final List<ValidationResult> validationResults = wikiObject.validate();
 
         return validationResults.isEmpty()
-                ? Try.success(achievement)
+                ? Try.success(wikiObject)
                 : Try.failure(ValidationException.fromResults(validationResults));
     }
 }
