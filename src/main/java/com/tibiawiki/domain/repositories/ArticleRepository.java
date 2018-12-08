@@ -3,8 +3,11 @@ package com.tibiawiki.domain.repositories;
 import benjaminkomen.jwiki.core.MQuery;
 import benjaminkomen.jwiki.core.NS;
 import benjaminkomen.jwiki.core.Wiki;
+import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.utils.PropertiesUtil;
 import okhttp3.HttpUrl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,6 +20,7 @@ import java.util.Map;
 @Repository
 public class ArticleRepository {
 
+    private static final Logger LOG = LoggerFactory.getLogger(ArticleFactory.class);
     private static final boolean IS_DEBUG_ENABLED = true;
     private static final String DEFAULT_WIKI_URI = "https://tibia.fandom.com/api.php";
     private Wiki wiki;
@@ -56,6 +60,9 @@ public class ArticleRepository {
     }
 
     public boolean modifyArticle(String pageName, String pageContent, String editSummary) {
+
+        LOG.info("Attempting to publish page {} with new content {}.", pageName, pageContent);
+
         return IS_DEBUG_ENABLED
                 ? true
                 : wiki.edit(pageName, pageContent, editSummary);
