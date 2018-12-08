@@ -154,6 +154,17 @@ public class JsonFactoryTest {
     }
 
     @Test
+    public void testEnhanceJsonObject_Failure_Empty_SoundsList() {
+        final JSONObject inputJsonObject = new JSONObject(Map.of(
+                "name", "Dragon",
+                "templateType", "Creature",
+                "sounds", "{{Sound List}}"
+        ));
+        JSONObject result = target.enhanceJsonObject(inputJsonObject);
+        assertThat(((JSONArray) result.get("sounds")).length(), is(0));
+    }
+
+    @Test
     public void testEnhanceJsonObject_Succes_Sounds() {
         final JSONObject inputJsonObject = new JSONObject(Map.of(
                 "name", "Dragon",

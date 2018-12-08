@@ -244,7 +244,9 @@ public class JsonFactory {
     @NotNull
     private JSONArray makeSoundsArray(@Nullable String soundsValue, @NotNull String articleName) {
         if (soundsValue != null && soundsValue.length() > 2 && !soundsValue.contains("{{Sound List")) {
-            LOG.error("soundsValue '{}' from article '{}' does not contain Template:Sound List", soundsValue, articleName);
+            LOG.warn("soundsValue '{}' from article '{}' does not contain Template:Sound List", soundsValue, articleName);
+            return new JSONArray();
+        } else if (soundsValue != null && !soundsValue.contains("|")) {
             return new JSONArray();
         }
 
