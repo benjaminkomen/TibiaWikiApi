@@ -24,7 +24,7 @@ import javax.ws.rs.core.Response;
 
 @Component
 @Api(value = "Missiles")
-@Path("/")
+@Path("/missiles")
 public class MissilesResource {
 
     private RetrieveMissiles retrieveMissiles;
@@ -37,7 +37,6 @@ public class MissilesResource {
     }
 
     @GET
-    @Path("/missiles")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMissiles(@QueryParam("expand") Boolean expand) {
         return Response.ok()
@@ -50,7 +49,7 @@ public class MissilesResource {
     }
 
     @GET
-    @Path("/missiles/{name}")
+    @Path("/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMissilesByName(@PathParam("name") String name) {
         return retrieveMissiles.getMissileJSON(name)

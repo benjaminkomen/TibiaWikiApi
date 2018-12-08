@@ -24,7 +24,7 @@ import javax.ws.rs.core.Response;
 
 @Component
 @Api(value = "NPCs")
-@Path("/")
+@Path("/npcs")
 public class NPCsResource {
 
     private RetrieveNPCs retrieveNPCs;
@@ -37,7 +37,6 @@ public class NPCsResource {
     }
 
     @GET
-    @Path("/npcs")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getNPCs(@QueryParam("expand") Boolean expand) {
         return Response.ok()
@@ -50,7 +49,7 @@ public class NPCsResource {
     }
 
     @GET
-    @Path("/npcs/{name}")
+    @Path("/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getNPCsByName(@PathParam("name") String name) {
         return retrieveNPCs.getNPCJSON(name)

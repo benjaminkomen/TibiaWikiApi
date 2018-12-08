@@ -24,7 +24,7 @@ import javax.ws.rs.core.Response;
 
 @Component
 @Api(value = "Locations")
-@Path("/")
+@Path("/locations")
 public class LocationsResource {
 
     private RetrieveLocations retrieveLocations;
@@ -37,7 +37,6 @@ public class LocationsResource {
     }
 
     @GET
-    @Path("/locations")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getLocations(@QueryParam("expand") Boolean expand) {
         return Response.ok()
@@ -50,7 +49,7 @@ public class LocationsResource {
     }
 
     @GET
-    @Path("/locations/{name}")
+    @Path("/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getLocationsByName(@PathParam("name") String name) {
         return retrieveLocations.getLocationJSON(name)

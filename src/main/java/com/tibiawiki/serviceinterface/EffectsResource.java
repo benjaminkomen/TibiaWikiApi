@@ -24,7 +24,7 @@ import javax.ws.rs.core.Response;
 
 @Component
 @Api(value = "Effects")
-@Path("/")
+@Path("/effects")
 public class EffectsResource {
 
     private RetrieveEffects retrieveEffects;
@@ -37,7 +37,6 @@ public class EffectsResource {
     }
 
     @GET
-    @Path("/effects")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getEffects(@QueryParam("expand") Boolean expand) {
         return Response.ok()
@@ -50,7 +49,7 @@ public class EffectsResource {
     }
 
     @GET
-    @Path("/effects/{name}")
+    @Path("/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getEffectsByName(@PathParam("name") String name) {
         return retrieveEffects.getEffectJSON(name)

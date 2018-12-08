@@ -24,7 +24,7 @@ import javax.ws.rs.core.Response;
 
 @Component
 @Api(value = "Spells")
-@Path("/")
+@Path("/spells")
 public class SpellsResource {
 
     private RetrieveSpells retrieveSpells;
@@ -37,7 +37,6 @@ public class SpellsResource {
     }
 
     @GET
-    @Path("/spells")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getSpells(@QueryParam("expand") Boolean expand) {
         return Response.ok()
@@ -50,7 +49,7 @@ public class SpellsResource {
     }
 
     @GET
-    @Path("/spells/{name}")
+    @Path("/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getSpellsByName(@PathParam("name") String name) {
         return retrieveSpells.getSpellJSON(name)

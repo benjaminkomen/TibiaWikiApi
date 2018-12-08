@@ -24,7 +24,7 @@ import javax.ws.rs.core.Response;
 
 @Component
 @Api(value = "Keys")
-@Path("/")
+@Path("/keys")
 public class KeysResource {
 
     private RetrieveKeys retrieveKeys;
@@ -37,7 +37,6 @@ public class KeysResource {
     }
 
     @GET
-    @Path("/keys")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getKeys(@QueryParam("expand") Boolean expand) {
         return Response.ok()
@@ -50,7 +49,7 @@ public class KeysResource {
     }
 
     @GET
-    @Path("/keys/{name}")
+    @Path("/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getKeysByName(@PathParam("name") String name) {
         return retrieveKeys.getKeyJSON(name)
