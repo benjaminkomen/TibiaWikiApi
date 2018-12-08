@@ -1,8 +1,6 @@
 package com.tibiawiki.domain.factories;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.Strings;
 import com.tibiawiki.domain.objects.Achievement;
 import com.tibiawiki.domain.objects.Book;
 import com.tibiawiki.domain.objects.Building;
@@ -24,11 +22,13 @@ import com.tibiawiki.domain.objects.WikiObject;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 /**
@@ -59,9 +59,9 @@ public class WikiObjectFactory {
 
     private ObjectMapper objectMapper;
 
-    public WikiObjectFactory() {
-        objectMapper = new ObjectMapper();
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+    @Autowired
+    public WikiObjectFactory(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
     }
 
     public Stream<WikiObject> createWikiObjects(List<JSONObject> jsonObjects) {
@@ -141,43 +141,14 @@ public class WikiObjectFactory {
         return wikiObject;
     }
 
-//    /**
-//     * Creates an Article from a WikiObject, for saving to the wiki.
-//     * The reverse is achieved by {@link #createWikiObject(JSONObject)} when reading from the wiki.
-//     */
-//    public static Article createJSONObject(WikiBot wikiBot, WikiObject wikiObject) {
-//        return new Article(wikiBot, createSimpleArticle(wikiBot, wikiObject));
-//    }
-//
-//    private static SimpleArticle createSimpleArticle(WikiBot wikiBot, WikiObject wikiObject) {
-//        SimpleArticle simpleArticle = new SimpleArticle();
-//        simpleArticle.setEditor(wikiBot.getUserinfo().getUsername());
-//        simpleArticle.setEditTimestamp(new Date(ZonedDateTime.now().toEpochSecond()));
-//        simpleArticle.setTitle(wikiObject.getName());
-//        simpleArticle.setText(createArticleText(wikiObject));
-//        return simpleArticle;
-//    }
-
-    protected static String createArticleText(WikiObject wikiObject) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("{{Infobox ");
-        sb.append(wikiObject.getClassName());
-        sb.append("|List={{{1|}}}|GetValue={{{GetValue|}}}").append("\n");
-
-        int maxKeyLength = wikiObject.maxFieldSize() + 2;
-
-        for (String key : wikiObject.getFieldNames()) {
-            Object value = wikiObject.getValue(key);
-            String paddedKey = Strings.padEnd(key, maxKeyLength, ' ');
-            sb.append("| ")
-                    .append(paddedKey)
-                    .append(" = ")
-                    .append(value)
-                    .append("\n");
-        }
-
-        sb.append("}}").append("\n");
-        return sb.toString();
+    /**
+     * Creates an Article from a WikiObject, for saving to the wiki.
+     * The reverse is achieved by {@link #createWikiObject(JSONObject)} when reading from the wiki.
+     */
+    public JSONObject createJSONObject(WikiObject wikiObject, String templateType) {
+        final Map<String, Object> wikiObjectAsMap = objectMapper.convertValue(wikiObject, Map.class);
+        wikiObjectAsMap.put(TEMPLATE_TYPE, templateType);
+        return new JSONObject(wikiObjectAsMap);
     }
 
     private <T> T mapJsonToObject(JSONObject wikiObjectJson, Class<T> clazz) {

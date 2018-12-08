@@ -1,6 +1,23 @@
 package com.tibiawiki.serviceinterface.config;
 
-import com.tibiawiki.serviceinterface.*;
+import com.tibiawiki.serviceinterface.AchievementsResource;
+import com.tibiawiki.serviceinterface.BooksResource;
+import com.tibiawiki.serviceinterface.BuildingsResource;
+import com.tibiawiki.serviceinterface.CorpsesResource;
+import com.tibiawiki.serviceinterface.CreaturesResource;
+import com.tibiawiki.serviceinterface.EffectsResource;
+import com.tibiawiki.serviceinterface.HuntingPlacesResource;
+import com.tibiawiki.serviceinterface.ItemsResource;
+import com.tibiawiki.serviceinterface.KeysResource;
+import com.tibiawiki.serviceinterface.LocationsResource;
+import com.tibiawiki.serviceinterface.MissilesResource;
+import com.tibiawiki.serviceinterface.MountsResource;
+import com.tibiawiki.serviceinterface.NPCsResource;
+import com.tibiawiki.serviceinterface.ObjectsResource;
+import com.tibiawiki.serviceinterface.OutfitsResource;
+import com.tibiawiki.serviceinterface.QuestsResource;
+import com.tibiawiki.serviceinterface.SpellsResource;
+import com.tibiawiki.serviceinterface.StreetsResource;
 import io.swagger.jaxrs.config.BeanConfig;
 import io.swagger.jaxrs.listing.ApiListingResource;
 import io.swagger.jaxrs.listing.SwaggerSerializers;
@@ -27,6 +44,7 @@ public class JerseyConfig extends ResourceConfig {
     }
 
     private void registerEndpoints() {
+        register(CORSResponseFilter.class);
         register(AchievementsResource.class);
         register(BooksResource.class);
         register(BuildingsResource.class);
@@ -37,6 +55,7 @@ public class JerseyConfig extends ResourceConfig {
         register(HuntingPlacesResource.class);
         register(ItemsResource.class);
         register(KeysResource.class);
+        register(MissilesResource.class);
         register(MountsResource.class);
         register(NPCsResource.class);
         register(ObjectsResource.class);
@@ -52,7 +71,7 @@ public class JerseyConfig extends ResourceConfig {
         BeanConfig beanConfig = new BeanConfig();
         beanConfig.setConfigId("tibiawikiapi");
         beanConfig.setTitle("TibiaWikiApi");
-        beanConfig.setVersion("1.2.0");
+        beanConfig.setVersion("1.4.0");
         beanConfig.setContact("B. Komen");
         beanConfig.setSchemes(new String[]{"http", "https"});
         beanConfig.setBasePath(this.apiPath); // location where dynamically created swagger.json is reachable

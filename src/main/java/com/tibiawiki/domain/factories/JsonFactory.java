@@ -1,5 +1,7 @@
 package com.tibiawiki.domain.factories;
 
+import com.google.common.base.Strings;
+import com.tibiawiki.domain.objects.HuntingPlaceSkills;
 import com.tibiawiki.domain.utils.TemplateUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -14,23 +16,25 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
- * Conversion from infoboxPartOfArticle to JSON.
+ * Conversion from infoboxPartOfArticle to JSON and back.
  */
 @Component
 public class JsonFactory {
 
-    private static final Logger log = LoggerFactory.getLogger(JsonFactory.class);
+    private static final Logger LOG = LoggerFactory.getLogger(JsonFactory.class);
     private static final String TEMPLATE_TYPE = "templateType";
     protected static final String TEMPLATE_TYPE_ACHIEVEMENT = "Achievement";
     protected static final String TEMPLATE_TYPE_BOOK = "Book";
     protected static final String TEMPLATE_TYPE_LOCATION = "Geography";
     private static final String TEMPLATE_TYPE_HUNTING_PLACE = "Hunt";
+    private static final String TEMPLATE_TYPE_STREET = "Street";
     protected static final String TEMPLATE_TYPE_KEY = "Key";
     private static final String SOUNDS = "sounds";
     private static final String SPAWN_TYPE = "spawntype";
@@ -42,6 +46,9 @@ public class JsonFactory {
     private static final String INFOBOX_HEADER_PATTERN = "\\{\\{Infobox[\\s|_](.*?)[\\||\\n]";
     private static final String RARITY_PATTERN = "(always|common|uncommon|semi-rare|rare|very rare|extremely rare)(|\\?)";
     private static final String UNKNOWN = "Unknown";
+    private static final String RARITY = "rarity";
+    private static final String AMOUNT = "amount";
+    private static final String ITEM_NAME = "itemName";
 
     /**
      * Convert a String which consists of key-value pairs of infobox template parameters to a JSON object, or an empty
@@ -73,6 +80,75 @@ public class JsonFactory {
         return enhanceJsonObject(new JSONObject(parametersAndValues));
     }
 
+    @NotNull
+    public String convertJsonToInfoboxPartOfArticle(@Nullable JSONObject jsonObject, List<String> fieldOrder) {
+        if (jsonObject == null || jsonObject.isEmpty()) {
+            return "";
+        }
+
+        if (!jsonObject.has(TEMPLATE_TYPE)) {
+            LOG.error("Template type unknown for given json object: {}", jsonObject);
+            return "";
+        }
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("{{Infobox ");
+        stringBuilder.append(jsonObject.get(TEMPLATE_TYPE));
+
+        // Don't add this line with Location and Street templates
+        if (!Objects.equals(jsonObject.get(TEMPLATE_TYPE), TEMPLATE_TYPE_LOCATION) &&
+                !Objects.equals(jsonObject.get(TEMPLATE_TYPE), TEMPLATE_TYPE_STREET)) {
+            stringBuilder.append("|List={{{1|}}}|GetValue={{{GetValue|}}}");
+        }
+
+        stringBuilder.append("\n");
+
+        constructKeyValuePairs(jsonObject, fieldOrder, stringBuilder);
+
+        stringBuilder.append("}}").append("\n");
+        return stringBuilder.toString();
+    }
+
+    private void constructKeyValuePairs(@NotNull JSONObject jsonObject, List<String> fieldOrder, StringBuilder sb) {
+        for (String key : fieldOrder) {
+
+            // don't add the metadata parameter templateType to the output
+            // simply skip fields we don't have, in most cases this is legit, an object doesn't need to have all fields
+            // of its class
+            if (TEMPLATE_TYPE.equals(key) || !jsonObject.has(key)) {
+                continue;
+            }
+
+            Object value = jsonObject.get(key);
+
+            if (value instanceof JSONArray) {
+
+                if (SOUNDS.equals(key)) {
+                    sb.append(makeTemplateList(jsonObject, key, (JSONArray) value, "Sound List"));
+                } else if (SPAWN_TYPE.equals(key)) {
+                    sb.append(makeCommaSeparatedStringList(jsonObject, key, (JSONArray) value));
+                } else if (LOOT.equals(key)) {
+                    sb.append(makeLootTable(jsonObject, key, (JSONArray) value));
+                } else if (DROPPED_BY.equals(key)) {
+                    sb.append(makeTemplateList(jsonObject, key, (JSONArray) value, "Dropped By"));
+                } else if (ITEM_ID.equals(key)) {
+                    sb.append(makeCommaSeparatedStringList(jsonObject, key, (JSONArray) value));
+                } else if (LOWER_LEVELS.equals(key)) {
+                    sb.append(makeSkillsTable(jsonObject, key, (JSONArray) value, HuntingPlaceSkills.fieldOrder()));
+                } else {
+                    sb.append(makeCommaSeparatedStringList(jsonObject, key, (JSONArray) value));
+                }
+            } else {
+                String paddedKey = Strings.padEnd(key, getMaxFieldLength(jsonObject), ' ');
+                sb.append("| ")
+                        .append(paddedKey)
+                        .append(" = ")
+                        .append(value)
+                        .append("\n");
+            }
+        }
+    }
+
     /**
      * Extracts template type from input. Allows cases of e.g. {{Infobox_Hunt|}} (with an underscore) or without an underscore.
      */
@@ -85,7 +161,7 @@ public class JsonFactory {
                 .map(m -> m.group(1))
                 .filter(s -> !"".equals(s))
                 .orElseGet(() -> {
-                    log.warn("Template type could not be determined from string {}", infoboxTemplatePartOfArticle);
+                    LOG.warn("Template type could not be determined from string {}", infoboxTemplatePartOfArticle);
                     return UNKNOWN;
                 });
     }
@@ -168,7 +244,7 @@ public class JsonFactory {
     @NotNull
     private JSONArray makeSoundsArray(@Nullable String soundsValue, @NotNull String articleName) {
         if (soundsValue != null && soundsValue.length() > 2 && !soundsValue.contains("{{Sound List")) {
-            log.error("soundsValue '{}' from article '{}' does not contain Template:Sound List", soundsValue, articleName);
+            LOG.error("soundsValue '{}' from article '{}' does not contain Template:Sound List", soundsValue, articleName);
             return new JSONArray();
         }
 
@@ -201,7 +277,7 @@ public class JsonFactory {
             }
             String lootItem = TemplateUtils.removeStartAndEndOfTemplate(lootItemTemplate);
             if (lootItem == null) {
-                log.error("Unable to create lootTableArray from lootValue: {}", lootValue);
+                LOG.error("Unable to create lootTableArray from lootValue: {}", lootValue);
                 return new JSONArray();
             }
             List<String> splitLootItem = Arrays.asList(Pattern.compile("\\|").split(lootItem));
@@ -217,11 +293,11 @@ public class JsonFactory {
 
         for (String lootItemPart : splitLootItem) {
             if (lootItemPart.toLowerCase().matches(RARITY_PATTERN)) {
-                lootItemMap.put("rarity", lootItemPart);
+                lootItemMap.put(RARITY, lootItemPart);
             } else if (Character.isDigit(lootItemPart.charAt(0))) {
-                lootItemMap.put("amount", lootItemPart);
+                lootItemMap.put(AMOUNT, lootItemPart);
             } else {
-                lootItemMap.put("itemName", lootItemPart);
+                lootItemMap.put(ITEM_NAME, lootItemPart);
             }
         }
         return new JSONObject(lootItemMap);
@@ -261,5 +337,93 @@ public class JsonFactory {
 
     private boolean legallyHasNoDroppedByTemplate(String name) {
         return ITEMS_WITH_NO_DROPPEDBY_LIST.contains(name);
+    }
+
+    private int getMaxFieldLength(@NotNull JSONObject jsonObject) {
+        return jsonObject.keySet().stream()
+                .mapToInt(String::length)
+                .max()
+                .orElse(0);
+    }
+
+    private int getMaxFieldLength(@NotNull Map map) {
+        return map.keySet().stream()
+                .filter(String.class::isInstance)
+                .mapToInt(s -> String.valueOf(s).length())
+                .max()
+                .orElse(0);
+    }
+
+    @NotNull
+    private String makeTemplateList(JSONObject jsonObject, String key, JSONArray jsonArray, String templateName) {
+        final String paddedKey = Strings.padEnd(key, getMaxFieldLength(jsonObject), ' ');
+        final String value = jsonArray.toList().stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining("|"));
+
+        return "| " + paddedKey + " = {{" + templateName + "|" + value + "}}\n";
+    }
+
+    private String makeCommaSeparatedStringList(JSONObject jsonObject, String key, JSONArray jsonArray) {
+        final String paddedKey = Strings.padEnd(key, getMaxFieldLength(jsonObject), ' ');
+        final String value = jsonArray.toList().stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(", "));
+
+        return "| " + paddedKey + " = " + value + "\n";
+    }
+
+    private String makeLootTable(JSONObject jsonObject, String key, JSONArray jsonArray) {
+        final String paddedKey = Strings.padEnd(key, getMaxFieldLength(jsonObject), ' ');
+        final String value = jsonArray.toList().stream()
+                .map(this::makeLootItem)
+                .collect(Collectors.joining("\n |"));
+
+        return "| " + paddedKey + " = {{Loot Table\n |" + value + "\n}}\n";
+    }
+
+    private String makeSkillsTable(JSONObject jsonObject, String key, JSONArray jsonArray, List<String> fieldOrder) {
+        final StringBuilder result = new StringBuilder("| ");
+        final String paddedKey = Strings.padEnd(key, getMaxFieldLength(jsonObject), ' ');
+        result.append(paddedKey);
+        result.append(" = \n");
+
+        for (Object huntSkillsJsonObject : jsonArray.toList()) {
+            result.append("    {{Infobox Hunt Skills\n");
+
+            Map map = (Map) huntSkillsJsonObject;
+
+            for (String huntSkillsKey : fieldOrder) {
+                String paddedHuntSkillsKey = Strings.padEnd(huntSkillsKey, getMaxFieldLength(map), ' ');
+                Object value = map.get(huntSkillsKey);
+
+                if (value != null) {
+                    result.append("    | ")
+                            .append(paddedHuntSkillsKey)
+                            .append(" = ")
+                            .append(value)
+                            .append("\n");
+                }
+            }
+
+            result.append("    }}\n");
+        }
+
+        return result.toString();
+    }
+
+    private String makeLootItem(Object obj) {
+        Map map = (Map) obj;
+        StringBuilder result = new StringBuilder("{{Loot Item");
+        if (map.containsKey(AMOUNT)) {
+            result.append("|").append(map.get(AMOUNT));
+        }
+        if (map.containsKey(ITEM_NAME)) {
+            result.append("|").append(map.get(ITEM_NAME));
+        }
+        if (map.containsKey(RARITY)) {
+            result.append("|").append(map.get(RARITY));
+        }
+        return result.append("}}").toString();
     }
 }

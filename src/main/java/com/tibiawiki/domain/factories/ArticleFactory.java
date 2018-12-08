@@ -1,6 +1,7 @@
 package com.tibiawiki.domain.factories;
 
 import com.tibiawiki.domain.utils.TemplateUtils;
+import io.vavr.Tuple2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -37,5 +38,17 @@ public class ArticleFactory {
         }
 
         return TemplateUtils.getBetweenOuterBalancedBrackets(articleContent, INFOBOX_HEADER);
+    }
+
+    /**
+     * @param originalArticleContent the original article content with the old infobox content
+     * @param newContent the new infobox content
+     * @return the full article content with the old infobox content replaced by the new infobox content
+     */
+    public String insertInfoboxPartOfArticle(String originalArticleContent, String newContent) {
+        final Tuple2<String, String> beforeAndAfterOuterBalancedBrackets =
+                TemplateUtils.getBeforeAndAfterOuterBalancedBrackets(originalArticleContent, INFOBOX_HEADER);
+
+        return beforeAndAfterOuterBalancedBrackets._1() + newContent + beforeAndAfterOuterBalancedBrackets._2();
     }
 }

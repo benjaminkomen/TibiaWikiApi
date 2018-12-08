@@ -1,11 +1,19 @@
 package com.tibiawiki.domain.utils;
 
+import io.vavr.Tuple;
+import io.vavr.Tuple2;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -20,35 +28,23 @@ public class TemplateUtils {
     private static final String LOWER_LEVELS = "lowerlevels";
 
     private TemplateUtils() {
+        // no-args constructor, only static methods
     }
 
     public static String getBetweenOuterBalancedBrackets(String text, String start) {
-        int startingCurlyBrackets = text.indexOf(start);
+        final Tuple2<Integer, Integer> startingAndEndingCurlyBrackets = getStartingAndEndingCurlyBrackets(text, start);
+        return text.substring(startingAndEndingCurlyBrackets._1(), startingAndEndingCurlyBrackets._2());
+    }
 
-        if (startingCurlyBrackets < 0) {
-            throw new IllegalArgumentException("Provided arguments text and start are not valid.");
-        }
-
-        int endingCurlyBrackets = 0;
-        int openBracketsCounter = 0;
-        char currentChar;
-
-        for (int i = startingCurlyBrackets; i < text.length(); i++) {
-            currentChar = text.charAt(i);
-            if ('{' == currentChar) {
-                openBracketsCounter++;
-            }
-
-            if ('}' == currentChar) {
-                openBracketsCounter--;
-            }
-
-            if (openBracketsCounter == 0) {
-                endingCurlyBrackets = i + 1;
-                break;
-            }
-        }
-        return text.substring(startingCurlyBrackets, endingCurlyBrackets);
+    /**
+     * @param text  to search in
+     * @param start string which denoted the start of the balanced brackets
+     * @return two strings, the first is the substring of the provided text before the start of the balanced brackets,
+     * the second is the substring after the start of the balanced brackets.
+     */
+    public static Tuple2<String, String> getBeforeAndAfterOuterBalancedBrackets(String text, String start) {
+        final Tuple2<Integer, Integer> startingAndEndingCurlyBrackets = getStartingAndEndingCurlyBrackets(text, start);
+        return Tuple.of(text.substring(0, startingAndEndingCurlyBrackets._1()), text.substring(startingAndEndingCurlyBrackets._2()));
     }
 
     /**
@@ -165,5 +161,40 @@ public class TemplateUtils {
                 .map(s -> Pattern.compile(REGEX_PARAMETER_LOWER_LEVELS_REMOVE, Pattern.DOTALL).matcher(s))
                 .map(m -> m.replaceAll(""))
                 .orElse("");
+    }
+
+    /**
+     * @param text the text to search in
+     * @param start the start String which denotes the start of the curly brackets
+     * @return a tuple of two integers: the index of the start of the curly brackets and an index of the end of
+     * the curly brackets
+     */
+    private static Tuple2<Integer, Integer> getStartingAndEndingCurlyBrackets(String text, String start) {
+        final int startingCurlyBrackets = text.indexOf(start);
+
+        if (startingCurlyBrackets < 0) {
+            throw new IllegalArgumentException("Provided arguments text and start are not valid.");
+        }
+
+        int endingCurlyBrackets = 0;
+        int openBracketsCounter = 0;
+        char currentChar;
+
+        for (int i = startingCurlyBrackets; i < text.length(); i++) {
+            currentChar = text.charAt(i);
+            if ('{' == currentChar) {
+                openBracketsCounter++;
+            }
+
+            if ('}' == currentChar) {
+                openBracketsCounter--;
+            }
+
+            if (openBracketsCounter == 0) {
+                endingCurlyBrackets = i + 1;
+                break;
+            }
+        }
+        return Tuple.of(startingCurlyBrackets, endingCurlyBrackets);
     }
 }

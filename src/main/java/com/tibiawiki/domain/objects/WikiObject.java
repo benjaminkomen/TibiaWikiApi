@@ -3,95 +3,53 @@ package com.tibiawiki.domain.objects;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tibiawiki.domain.enums.Article;
 import com.tibiawiki.domain.enums.Status;
-import com.tibiawiki.domain.interfaces.Description;
+import com.tibiawiki.domain.interfaces.Validatable;
+import com.tibiawiki.domain.objects.validation.ValidationResult;
 import lombok.Getter;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
-public abstract class WikiObject {
+public abstract class WikiObject implements Validatable {
 
-    private String name;
-    private Article article;
-    private String actualname;
-    private String plural;
-    private String implemented;
-    private String notes;
-    private String history;
-    private Status status;
+    private final String templateType;
+    private final String name;
+    private final Article article;
+    private final String actualname;
+    private final String plural;
+    private final String implemented;
+    private final String notes;
+    private final String history;
+    private final Status status;
 
     protected WikiObject() {
-        // no-args constructor
+        templateType = null;
+        name = null;
+        article = null;
+        actualname = null;
+        plural = null;
+        implemented = null;
+        notes = null;
+        history = null;
+        status = null;
+    }
+
+    public WikiObject(String name, Article article, String actualname, String plural, String implemented, String notes,
+                      String history, Status status) {
+        this.templateType = null;
+        this.name = name;
+        this.article = article;
+        this.actualname = actualname;
+        this.plural = plural;
+        this.implemented = implemented;
+        this.notes = notes;
+        this.history = history;
+        this.status = status;
     }
 
     public abstract List<String> fieldOrder();
-
-    @JsonIgnore
-    public List<String> getFieldNames() {
-        List<String> existingFieldNames = getFields().stream()
-                .map(Field::getName)
-                .collect(Collectors.toList());
-
-        return fieldOrder().stream()
-                .filter(existingFieldNames::contains)
-                .collect(Collectors.toList());
-    }
-
-    @JsonIgnore
-    public List<Field> getFields() {
-        List<Field> allFields = new ArrayList<>();
-
-        for (Class<?> c = this.getClass(); c != null; c = c.getSuperclass()) {
-            Field[] fields = c.getDeclaredFields();
-            allFields.addAll(Arrays.asList(fields));
-        }
-
-        return allFields.stream()
-                .filter(this::fieldHasValue)
-                .collect(Collectors.toList());
-    }
-
-    public int maxFieldSize() {
-        return getFieldNames().stream()
-                .mapToInt(String::length)
-                .max()
-                .orElse(0);
-    }
-
-    @JsonIgnore
-    public Object getValue(String fieldName) {
-        return getFields().stream()
-                .filter(this::fieldHasValue)
-                .filter(f -> f.getName().equals(fieldName))
-                .map(f -> {
-                    try {
-                        Object fieldValue = f.get(this);
-
-                        if (fieldValue instanceof Description) {
-                            return ((Description) fieldValue).getDescription();
-                        } else {
-                            return fieldValue;
-                        }
-                    } catch (IllegalAccessException e) {
-                        throw new FieldAccessDeniedException(e);
-                    }
-                })
-                .findAny()
-                .orElse(null);
-    }
-
-    private boolean fieldHasValue(Field f) {
-        try {
-            f.setAccessible(true);
-            return f.get(this) != null;
-        } catch (IllegalAccessException e) {
-            throw new FieldAccessDeniedException(e);
-        }
-    }
 
     @JsonIgnore
     public String getClassName() {
@@ -101,6 +59,11 @@ public abstract class WikiObject {
     @Override
     public String toString() {
         return "Class: " + getClassName() + ", name: " + getName();
+    }
+
+    @Override
+    public List<ValidationResult> validate() {
+        return Collections.emptyList();
     }
 
     public static class WikiObjectImpl extends WikiObject {
@@ -113,12 +76,10 @@ public abstract class WikiObject {
         public List<String> fieldOrder() {
             return Arrays.asList("name", "article", "actualname", "plural", "implemented", "notes", "history", "status");
         }
-    }
 
-    public static class FieldAccessDeniedException extends RuntimeException {
-
-        public FieldAccessDeniedException(Exception e) {
-            super(e);
+        @Override
+        public List<ValidationResult> validate() {
+            return Collections.emptyList();
         }
     }
 }
