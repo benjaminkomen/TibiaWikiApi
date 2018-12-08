@@ -44,7 +44,7 @@ public class HuntingPlaceSkills {
     @JsonBackReference
     private HuntingPlace huntingPlace;
 
-    public List<String> fieldOrder() {
+    public static List<String> fieldOrder() {
         return Arrays.asList("areaname", "lvlknights", "lvlpaladins", "lvlmages", "skknights", "skpaladins", "skmages",
                 "defknights", "defpaladins", "defmages");
     }

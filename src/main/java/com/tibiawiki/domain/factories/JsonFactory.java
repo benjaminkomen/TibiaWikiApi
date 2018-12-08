@@ -1,6 +1,7 @@
 package com.tibiawiki.domain.factories;
 
 import com.google.common.base.Strings;
+import com.tibiawiki.domain.objects.HuntingPlaceSkills;
 import com.tibiawiki.domain.utils.TemplateUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -133,14 +134,10 @@ public class JsonFactory {
                 } else if (ITEM_ID.equals(key)) {
                     sb.append(makeCommaSeparatedStringList(jsonObject, key, (JSONArray) value));
                 } else if (LOWER_LEVELS.equals(key)) {
-                    sb.append(makeSkillsTable(jsonObject, key, (JSONArray) value));
+                    sb.append(makeSkillsTable(jsonObject, key, (JSONArray) value, HuntingPlaceSkills.fieldOrder()));
                 } else {
                     sb.append(makeCommaSeparatedStringList(jsonObject, key, (JSONArray) value));
                 }
-
-            } else if (value instanceof JSONObject) {
-                // TODO check if this works
-                constructKeyValuePairs(((JSONObject) value), fieldOrder, sb);
             } else {
                 String paddedKey = Strings.padEnd(key, getMaxFieldLength(jsonObject), ' ');
                 sb.append("| ")
@@ -349,6 +346,13 @@ public class JsonFactory {
                 .orElse(0);
     }
 
+    private int getMaxFieldLength(@NotNull Map map) {
+        return map.keySet().stream()
+                .filter(String.class::isInstance)
+                .mapToInt(s -> String.valueOf(s).length())
+                .max()
+                .orElse(0);
+    }
 
     @NotNull
     private String makeTemplateList(JSONObject jsonObject, String key, JSONArray jsonArray, String templateName) {
@@ -378,16 +382,34 @@ public class JsonFactory {
         return "| " + paddedKey + " = {{Loot Table\n |" + value + "\n}}\n";
     }
 
-    /**
-     * TODO implement this method correctly
-     */
-    private String makeSkillsTable(JSONObject jsonObject, String key, JSONArray jsonArray) {
+    private String makeSkillsTable(JSONObject jsonObject, String key, JSONArray jsonArray, List<String> fieldOrder) {
+        final StringBuilder result = new StringBuilder("| ");
         final String paddedKey = Strings.padEnd(key, getMaxFieldLength(jsonObject), ' ');
-        final String value = jsonArray.toList().stream()
-                .map(o -> ((Map) o).get("").toString())
-                .collect(Collectors.joining("\n |"));
+        result.append(paddedKey);
+        result.append(" = \n");
 
-        return "| " + paddedKey + " = \n    {{Infobox Hunt Skills\n |" + value + "\n}}\n";
+        for (Object huntSkillsJsonObject : jsonArray.toList()) {
+            result.append("    {{Infobox Hunt Skills\n");
+
+            Map map = (Map) huntSkillsJsonObject;
+
+            for (String huntSkillsKey : fieldOrder) {
+                String paddedHuntSkillsKey = Strings.padEnd(huntSkillsKey, getMaxFieldLength(map), ' ');
+                Object value = map.get(huntSkillsKey);
+
+                if (value != null) {
+                    result.append("    | ")
+                            .append(paddedHuntSkillsKey)
+                            .append(" = ")
+                            .append(value)
+                            .append("\n");
+                }
+            }
+
+            result.append("    }}\n");
+        }
+
+        return result.toString();
     }
 
     private String makeLootItem(Object obj) {

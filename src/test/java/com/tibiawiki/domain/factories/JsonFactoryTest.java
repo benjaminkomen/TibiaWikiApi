@@ -43,7 +43,6 @@ import com.tibiawiki.domain.objects.TibiaObject;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -385,16 +384,28 @@ public class JsonFactoryTest {
             "| defmages     = 1\n" +
             "| lowerlevels  = \n" +
             "    {{Infobox Hunt Skills\n" +
-            "    | areaname        = Demons\n" +
-            "    | lvlknights      = 130\n" +
-            "    | lvlpaladins     = 130\n" +
-            "    | lvlmages        = 130\n" +
-            "    | skknights       = 1\n" +
-            "    | skpaladins      = 1\n" +
-            "    | skmages         = 1\n" +
-            "    | defknights      = 1\n" +
-            "    | defpaladins     = 1\n" +
-            "    | defmages        = 1\n" +
+            "    | areaname    = Demons\n" +
+            "    | lvlknights  = 130\n" +
+            "    | lvlpaladins = 130\n" +
+            "    | lvlmages    = 130\n" +
+            "    | skknights   = 1\n" +
+            "    | skpaladins  = 1\n" +
+            "    | skmages     = 1\n" +
+            "    | defknights  = 1\n" +
+            "    | defpaladins = 1\n" +
+            "    | defmages    = 1\n" +
+            "    }}\n" +
+            "    {{Infobox Hunt Skills\n" +
+            "    | areaname    = Another Area (Past Teleporter)\n" +
+            "    | lvlknights  = 230\n" +
+            "    | lvlpaladins = 230\n" +
+            "    | lvlmages    = 230\n" +
+            "    | skknights   = 2\n" +
+            "    | skpaladins  = 2\n" +
+            "    | skmages     = 2\n" +
+            "    | defknights  = 2\n" +
+            "    | defpaladins = 2\n" +
+            "    | defmages    = 2\n" +
             "    }}\n" +
             "| loot         = Good\n" +
             "| exp          = Good\n" +
@@ -837,10 +848,6 @@ public class JsonFactoryTest {
         return new JSONObject(objectMapper.convertValue(location, Map.class)).put("templateType", "Geography");
     }
 
-    /**
-     * FIXME enable this test when the factory is make to work
-     */
-    @Disabled
     @Test
     void testConvertJsonToInfoboxPartOfArticle_HuntingPlace() {
         final HuntingPlace huntingPlace = makeHuntingPlace();
@@ -1057,18 +1064,31 @@ public class JsonFactoryTest {
                 .defknights("75")
                 .defpaladins("1")
                 .defmages("1")
-                .lowerlevels(Collections.singletonList(HuntingPlaceSkills.builder()
-                        .areaname("Demons")
-                        .lvlknights("130")
-                        .lvlpaladins("130")
-                        .lvlmages("130")
-                        .skknights("1")
-                        .skpaladins("1")
-                        .skmages("1")
-                        .defknights("1")
-                        .defpaladins("1")
-                        .defmages("1")
-                        .build()))
+                .lowerlevels(Arrays.asList(HuntingPlaceSkills.builder()
+                                .areaname("Demons")
+                                .lvlknights("130")
+                                .lvlpaladins("130")
+                                .lvlmages("130")
+                                .skknights("1")
+                                .skpaladins("1")
+                                .skmages("1")
+                                .defknights("1")
+                                .defpaladins("1")
+                                .defmages("1")
+                                .build(),
+                        HuntingPlaceSkills.builder()
+                                .areaname("Another Area (Past Teleporter)")
+                                .lvlknights("230")
+                                .lvlpaladins("230")
+                                .lvlmages("230")
+                                .skknights("2")
+                                .skpaladins("2")
+                                .skmages("2")
+                                .defknights("2")
+                                .defpaladins("2")
+                                .defmages("2")
+                                .build())
+                )
                 .exp("Good")
                 .loot("Good")
                 .bestloot("Reins")
