@@ -39,10 +39,10 @@ public class Achievement extends WikiObject {
     }
 
     @Builder
-    public Achievement(String name, String implemented, String history, Status status, Integer grade, String description,
-                       String spoiler, YesNo premium, Integer points, YesNo secret, Integer coincideswith,
+    public Achievement(String name, String actualname, String implemented, String history, Status status, Integer grade,
+                       String description, String spoiler, YesNo premium, Integer points, YesNo secret, Integer coincideswith,
                        Integer achievementid, String relatedpages) {
-        super(name, null, null, null, implemented, null, history, status);
+        super(name, null, actualname, null, implemented, null, history, status);
         this.grade = grade;
         this.description = description;
         this.spoiler = spoiler;
