@@ -9,7 +9,6 @@ import com.tibiawiki.domain.enums.BookType;
 import com.tibiawiki.domain.enums.BuildingType;
 import com.tibiawiki.domain.enums.City;
 import com.tibiawiki.domain.enums.Gender;
-import com.tibiawiki.domain.enums.Grade;
 import com.tibiawiki.domain.enums.Hands;
 import com.tibiawiki.domain.enums.ItemClass;
 import com.tibiawiki.domain.enums.KeyType;
@@ -542,7 +541,7 @@ public class JsonFactoryTest {
 
     private Achievement makeAchievement() {
         return Achievement.builder()
-                .grade(Grade.ONE)
+                .grade(1)
                 .name("Goo Goo Dancer")
                 .description("Seeing a mucus plug makes your heart dance and you can't resist to see what it hides. Goo goo away!")
                 .spoiler("Obtainable by using 100 [[Muck Remover]]s on [[Mucus Plug]]s.")

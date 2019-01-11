@@ -1,6 +1,5 @@
 package com.tibiawiki.domain.objects;
 
-import com.tibiawiki.domain.enums.Grade;
 import com.tibiawiki.domain.enums.Status;
 import com.tibiawiki.domain.enums.YesNo;
 import com.tibiawiki.domain.objects.validation.ValidationResult;
@@ -17,7 +16,7 @@ import java.util.List;
 @Component
 public class Achievement extends WikiObject {
 
-    private final Grade grade;
+    private final Integer grade;
     private final String description;
     private final String spoiler;
     private final YesNo premium;
@@ -40,7 +39,7 @@ public class Achievement extends WikiObject {
     }
 
     @Builder
-    public Achievement(String name, String implemented, String history, Status status, Grade grade, String description,
+    public Achievement(String name, String implemented, String history, Status status, Integer grade, String description,
                        String spoiler, YesNo premium, Integer points, YesNo secret, Integer coincideswith,
                        Integer achievementid, String relatedpages) {
         super(name, null, null, null, implemented, null, history, status);
