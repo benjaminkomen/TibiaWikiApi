@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 @Component
 public abstract class RetrieveAny {
 
-    protected static final String CATEGORY_LISTS = "Lists";
+    public static final String CATEGORY_LISTS = "Lists";
 
     protected ArticleRepository articleRepository;
     protected ArticleFactory articleFactory;
