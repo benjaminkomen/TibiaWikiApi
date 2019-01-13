@@ -34,6 +34,7 @@ public class Mount extends WikiObject {
         this.artwork = null;
     }
 
+    @SuppressWarnings("squid:S00107")
     @Builder
     private Mount(String name, String implemented, String notes, String history, Status status, Integer speed,
                   String tamingMethod, YesNo bought, Integer price, String achievement, Integer lightradius,

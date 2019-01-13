@@ -168,6 +168,7 @@ public class Item extends WikiObject {
         this.sellto = null;
     }
 
+    @SuppressWarnings("squid:S00107")
     @Builder
     private Item(String name, Article article, String actualname, String plural, String implemented, String notes,
                  String history, Status status, List<Integer> itemid, YesNo marketable, YesNo usable, String sprites,

@@ -43,6 +43,7 @@ public class Key extends WikiObject {
         this.longnotes = null;
     }
 
+    @SuppressWarnings("squid:S00107")
     @Builder
     private Key(String implemented, String history, Status status, String number, String aka, KeyType primarytype,
                 KeyType secondarytype, String location, String value, Integer npcvalue, Integer npcprice, String buyfrom,

@@ -28,6 +28,7 @@ public class Missile extends WikiObject {
         this.shotby = null;
     }
 
+    @SuppressWarnings("squid:S00107")
     @Builder
     private Missile(String name, String implemented, String notes, String history, Status status, Integer missileid,
                     String primarytype, String secondarytype, Integer lightradius, Integer lightcolor, String shotby) {

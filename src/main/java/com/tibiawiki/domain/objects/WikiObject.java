@@ -36,6 +36,7 @@ public abstract class WikiObject implements Validatable {
         status = null;
     }
 
+    @SuppressWarnings("squid:S00107")
     public WikiObject(String name, Article article, String actualname, String plural, String implemented, String notes,
                       String history, Status status) {
         this.templateType = null;

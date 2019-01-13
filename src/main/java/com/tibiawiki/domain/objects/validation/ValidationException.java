@@ -1,11 +1,12 @@
 package com.tibiawiki.domain.objects.validation;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ValidationException extends RuntimeException {
 
-    private List<ValidationResult> validationResults;
+    private final List<ValidationResult> validationResults = new ArrayList<>();
 
     public ValidationException() {
         super();
@@ -21,7 +22,7 @@ public class ValidationException extends RuntimeException {
 
     public ValidationException(List<ValidationResult> validationResults) {
         this();
-        this.validationResults = validationResults;
+        this.validationResults.addAll(validationResults);
     }
 
     public static ValidationException fromResults(List<ValidationResult> validationResults) {
@@ -32,11 +33,12 @@ public class ValidationException extends RuntimeException {
         return validationResults;
     }
 
+    @SuppressWarnings("squid:S3358") // ternary operation is ok here
     @Override
     public String getMessage() {
         return super.getMessage() != null
                 ? super.getMessage()
-                : validationResults != null && !validationResults.isEmpty()
+                : !validationResults.isEmpty()
                 ? validationResults.stream().map(ValidationResult::getDescription).collect(Collectors.joining(", "))
                 : "";
     }

@@ -31,6 +31,7 @@ public class Effect extends WikiObject {
         this.effect = null;
     }
 
+    @SuppressWarnings("squid:S00107")
     @Builder
     private Effect(String name, String implemented, String notes, String history, Status status, Integer effectid,
                    String primarytype, String secondarytype, Integer lightradius, Integer lightcolor, String causes,

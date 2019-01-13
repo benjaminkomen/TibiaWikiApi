@@ -61,6 +61,7 @@ public class Building extends WikiObject {
         this.image = null;
     }
 
+    @SuppressWarnings("squid:S00107")
     @Builder
     private Building(String name, String implemented, String notes, String history, Status status, BuildingType type, String location,
                      String posx, String posy, String posz, String street, String street2, String street3, String street4,

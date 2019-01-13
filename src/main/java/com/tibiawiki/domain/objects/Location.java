@@ -39,6 +39,7 @@ public class Location extends WikiObject {
         this.links = null;
     }
 
+    @SuppressWarnings("squid:S00107")
     @Builder
     private Location(String name, String implemented, Status status, String ruler, String population, String near,
                      String organization, String map, String map2, String map3, String map4, String map5, String map6,

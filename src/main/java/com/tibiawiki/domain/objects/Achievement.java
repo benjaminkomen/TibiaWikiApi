@@ -38,6 +38,7 @@ public class Achievement extends WikiObject {
         this.relatedpages = null;
     }
 
+    @SuppressWarnings("squid:S00107")
     @Builder
     public Achievement(String name, String actualname, String implemented, String history, Status status, Integer grade,
                        String description, String spoiler, YesNo premium, Integer points, YesNo secret, Integer coincideswith,

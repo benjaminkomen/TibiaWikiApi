@@ -48,6 +48,7 @@ public class Quest extends WikiObject {
         this.legend = null;
     }
 
+    @SuppressWarnings("squid:S00107")
     @Builder
     private Quest(String name, String implemented, String history, Status status, String aka, String reward,
                   String location, YesNo rookgaardquest, QuestType type, Integer lvl, Integer lvlrec, String lvlnote,

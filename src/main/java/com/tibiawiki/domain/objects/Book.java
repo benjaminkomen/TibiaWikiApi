@@ -125,6 +125,7 @@ public class Book extends WikiObject {
         this.implemented8 = null;
     }
 
+    @SuppressWarnings("squid:S00107")
     @Builder
     public Book(String name, String implemented, String notes, String history, Status status, BookType booktype, String title,
                 String pagename, String location, String blurb, String author, String returnpage, String prevbook,

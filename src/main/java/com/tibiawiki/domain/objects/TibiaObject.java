@@ -68,6 +68,7 @@ public class TibiaObject extends WikiObject {
         this.notes2 = null;
     }
 
+    @SuppressWarnings("squid:S00107")
     @Builder
     private TibiaObject(String name, Article article, String actualname, String implemented, String notes, String history,
                         Status status, List<Integer> itemid, String objectclass, String secondarytype, String tertiarytype,

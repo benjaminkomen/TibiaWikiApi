@@ -111,6 +111,7 @@ public class Creature extends WikiObject {
         this.loot = null;
     }
 
+    @SuppressWarnings("squid:S00107")
     @Builder
     public Creature(String name, Article article, String actualname, String plural, String implemented, String notes,
                     String history, Status status, String hitPoints, String experiencePoints, String armor,

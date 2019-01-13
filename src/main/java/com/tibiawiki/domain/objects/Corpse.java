@@ -52,6 +52,7 @@ public class Corpse extends WikiObject {
         this.sellto = null;
     }
 
+    @SuppressWarnings("squid:S00107")
     @Builder
     private Corpse(String name, Article article, String actualname, String implemented, String notes, String history,
                    Status status, String flavortext, YesNo skinable, String product, String liquid, Integer stages,

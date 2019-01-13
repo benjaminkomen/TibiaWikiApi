@@ -166,6 +166,7 @@ public class Spell extends WikiObject {
         this.animation = null;
     }
 
+    @SuppressWarnings("squid:S00107")
     @Builder
     private Spell(String name, String implemented, String notes, String history, Status status, SpellType type,
                   SpellSubclass subclass, SpellSubclass runegroup, String damagetype, String words, Integer mana,

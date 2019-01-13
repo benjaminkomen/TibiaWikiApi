@@ -73,6 +73,7 @@ public class HuntingPlace extends WikiObject {
         this.map4 = null;
     }
 
+    @SuppressWarnings("squid:S00107")
     @Builder
     private HuntingPlace(String name, String implemented, String image, City city, String location, String vocation,
                          String lvlknights, String lvlpaladins, String lvlmages, String skknights, String skpaladins,
