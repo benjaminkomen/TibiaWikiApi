@@ -6,7 +6,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -85,6 +89,6 @@ public class ArticleRepositoryTest {
         doReturn("").when(wiki).getPageText(SOME_PAGE_NAME);
         String result = target.getArticle(SOME_PAGE_NAME);
 
-        assertThat(result, notNullValue());
+        assertThat(result, is(nullValue()));
     }
 }
