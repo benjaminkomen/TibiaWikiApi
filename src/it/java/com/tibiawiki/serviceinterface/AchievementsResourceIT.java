@@ -1,7 +1,10 @@
 package com.tibiawiki.serviceinterface;
 
 import com.tibiawiki.domain.enums.InfoboxTemplate;
+import com.tibiawiki.domain.enums.YesNo;
+import com.tibiawiki.domain.objects.Achievement;
 import com.tibiawiki.domain.repositories.ArticleRepository;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -21,6 +27,7 @@ import java.util.Map;
 import static com.tibiawiki.process.RetrieveAny.CATEGORY_LISTS;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(SpringExtension.class)
@@ -109,5 +116,53 @@ public class AchievementsResourceIT {
 
         final ResponseEntity<String> result = restTemplate.getForEntity("/api/achievements/Foobar", String.class);
         assertThat(result.getStatusCode(), is(HttpStatus.NOT_FOUND));
+    }
+
+    @Test
+    void givenPutAchievement_whenCorrectRequest_thenResponseIsOkAndContainsTheModifiedAchievement() {
+        final String editSummary = "[bot] editing during integration test";
+
+        doReturn(INFOBOX_ACHIEVEMENT_TEXT).when(articleRepository).getArticle("Goo Goo Dancer");
+        doReturn(true).when(articleRepository).modifyArticle(anyString(), anyString(), anyString());
+
+        final HttpHeaders httpHeaders = makeHttpHeaders(editSummary);
+
+        final ResponseEntity<Void> result = restTemplate.exchange("/api/achievements", HttpMethod.PUT, new HttpEntity<>(makeAchievement(), httpHeaders), Void.class);
+        assertThat(result.getStatusCode(), is(HttpStatus.OK));
+    }
+
+    @Test
+    void givenPutAchievement_whenCorrectRequestButUnableToEditWiki_thenResponseIsBadRequest() {
+        final String editSummary = "[bot] editing during integration test";
+
+        doReturn(INFOBOX_ACHIEVEMENT_TEXT).when(articleRepository).getArticle("Goo Goo Dancer");
+        doReturn(false).when(articleRepository).modifyArticle(anyString(), anyString(), anyString());
+
+        final HttpHeaders httpHeaders = makeHttpHeaders(editSummary);
+
+        final ResponseEntity<Void> result = restTemplate.exchange("/api/achievements", HttpMethod.PUT, new HttpEntity<>(makeAchievement(), httpHeaders), Void.class);
+        assertThat(result.getStatusCode(), is(HttpStatus.BAD_REQUEST));
+    }
+
+    private Achievement makeAchievement() {
+        return Achievement.builder()
+                .grade(1)
+                .name("Goo Goo Dancer")
+                .description("Seeing a mucus plug makes your heart dance and you can't resist to see what it hides. Goo goo away!")
+                .spoiler("Obtainable by using 100 [[Muck Remover]]s on [[Mucus Plug]]s.")
+                .premium(YesNo.YES_LOWERCASE)
+                .points(1)
+                .secret(YesNo.YES_LOWERCASE)
+                .implemented("9.6")
+                .achievementid(319)
+                .relatedpages("[[Muck Remover]], [[Mucus Plug]]")
+                .build();
+    }
+
+    @NotNull
+    private HttpHeaders makeHttpHeaders(String editSummary) {
+        final HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("X-WIKI-Edit-Summary", editSummary);
+        return httpHeaders;
     }
 }

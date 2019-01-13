@@ -75,7 +75,7 @@ public class AchievementsResource {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "the changed achievement"),
             @ApiResponse(code = 400, message = "the provided changed achievement is not valid"),
-            @ApiResponse(code = 401, message = "not authorized to edit without providing credentials")
+            @ApiResponse(code = 401, message = "not authorized to edit without providing credentials") // TODO this is not implemented yet
     })
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
