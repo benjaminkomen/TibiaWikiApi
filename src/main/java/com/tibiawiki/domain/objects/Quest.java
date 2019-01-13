@@ -1,5 +1,6 @@
 package com.tibiawiki.domain.objects;
 
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.enums.QuestType;
 import com.tibiawiki.domain.enums.Status;
 import com.tibiawiki.domain.enums.YesNo;
@@ -69,6 +70,11 @@ public class Quest extends WikiObject {
         this.transcripts = transcripts;
         this.dangers = dangers;
         this.legend = legend;
+    }
+
+    @Override
+    public String getTemplateType() {
+        return InfoboxTemplate.QUEST.getTemplateName();
     }
 
     @Override

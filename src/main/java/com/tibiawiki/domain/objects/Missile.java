@@ -1,5 +1,6 @@
 package com.tibiawiki.domain.objects;
 
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.enums.Status;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,6 +40,11 @@ public class Missile extends WikiObject {
         this.lightradius = lightradius;
         this.lightcolor = lightcolor;
         this.shotby = shotby;
+    }
+
+    @Override
+    public String getTemplateType() {
+        return InfoboxTemplate.MISSILE.getTemplateName();
     }
 
     @Override

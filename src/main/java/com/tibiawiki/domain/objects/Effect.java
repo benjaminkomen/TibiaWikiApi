@@ -1,5 +1,6 @@
 package com.tibiawiki.domain.objects;
 
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.enums.Status;
 import lombok.Builder;
 import lombok.Getter;
@@ -44,6 +45,11 @@ public class Effect extends WikiObject {
         this.lightcolor = lightcolor;
         this.causes = causes;
         this.effect = effect;
+    }
+
+    @Override
+    public String getTemplateType() {
+        return InfoboxTemplate.EFFECT.getTemplateName();
     }
 
     @Override

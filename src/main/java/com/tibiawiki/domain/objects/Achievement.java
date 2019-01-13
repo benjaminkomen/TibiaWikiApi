@@ -1,5 +1,6 @@
 package com.tibiawiki.domain.objects;
 
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.enums.Status;
 import com.tibiawiki.domain.enums.YesNo;
 import com.tibiawiki.domain.objects.validation.ValidationResult;
@@ -59,6 +60,11 @@ public class Achievement extends WikiObject {
     public List<String> fieldOrder() {
         return Arrays.asList("grade", "name", "description", "spoiler", "premium", "points", "secret", "coincideswith",
                 "implemented", "achievementid", "relatedpages", "history", "status");
+    }
+
+    @Override
+    public String getTemplateType() {
+        return InfoboxTemplate.ACHIEVEMENT.getTemplateName();
     }
 
     @Override

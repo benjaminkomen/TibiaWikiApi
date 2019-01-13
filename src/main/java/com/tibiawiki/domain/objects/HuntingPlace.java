@@ -2,6 +2,7 @@ package com.tibiawiki.domain.objects;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.tibiawiki.domain.enums.City;
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.enums.Star;
 import lombok.Builder;
 import lombok.Getter;
@@ -109,6 +110,11 @@ public class HuntingPlace extends WikiObject {
         this.map2 = map2;
         this.map3 = map3;
         this.map4 = map4;
+    }
+
+    @Override
+    public String getTemplateType() {
+        return InfoboxTemplate.HUNT.getTemplateName();
     }
 
     @Override

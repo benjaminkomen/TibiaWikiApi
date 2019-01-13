@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.tibiawiki.domain.enums.Article;
 import com.tibiawiki.domain.enums.DamageElement;
 import com.tibiawiki.domain.enums.Hands;
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.enums.ItemClass;
 import com.tibiawiki.domain.enums.Status;
 import com.tibiawiki.domain.enums.WeaponType;
@@ -320,6 +321,11 @@ public class Item extends WikiObject {
     @JsonGetter("energy_attack")
     public Integer getEnergyAttack() {
         return energyAttack;
+    }
+
+    @Override
+    public String getTemplateType() {
+        return InfoboxTemplate.ITEM.getTemplateName();
     }
 
     @Override

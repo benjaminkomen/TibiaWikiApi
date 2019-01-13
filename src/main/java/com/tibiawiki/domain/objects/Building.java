@@ -2,6 +2,7 @@ package com.tibiawiki.domain.objects;
 
 import com.tibiawiki.domain.enums.BuildingType;
 import com.tibiawiki.domain.enums.City;
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.enums.Status;
 import com.tibiawiki.domain.enums.YesNo;
 import lombok.Builder;
@@ -89,6 +90,11 @@ public class Building extends WikiObject {
         this.rooms = rooms;
         this.furnishings = furnishings;
         this.image = image;
+    }
+
+    @Override
+    public String getTemplateType() {
+        return InfoboxTemplate.BUILDING.getTemplateName();
     }
 
     @Override

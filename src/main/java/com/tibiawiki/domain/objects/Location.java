@@ -1,5 +1,6 @@
 package com.tibiawiki.domain.objects;
 
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.enums.Status;
 import com.tibiawiki.domain.enums.YesNo;
 import lombok.Builder;
@@ -56,6 +57,11 @@ public class Location extends WikiObject {
         this.map5 = map5;
         this.map6 = map6;
         this.links = links;
+    }
+
+    @Override
+    public String getTemplateType() {
+        return InfoboxTemplate.GEOGRAPHY.getTemplateName();
     }
 
     @Override

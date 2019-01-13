@@ -1,6 +1,7 @@
 package com.tibiawiki.domain.objects;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.enums.SpellSubclass;
 import com.tibiawiki.domain.enums.SpellType;
 import com.tibiawiki.domain.enums.Status;
@@ -520,6 +521,11 @@ public class Spell extends WikiObject {
     @JsonGetter("s-yal")
     public String getSorcererYalahar() {
         return sorcererYalahar;
+    }
+
+    @Override
+    public String getTemplateType() {
+        return InfoboxTemplate.SPELL.getTemplateName();
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.tibiawiki.domain.objects;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.tibiawiki.domain.enums.Article;
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.enums.Status;
 import com.tibiawiki.domain.enums.YesNo;
 import lombok.Builder;
@@ -121,6 +122,11 @@ public class Corpse extends WikiObject {
     @JsonGetter("3weight")
     public BigDecimal getThirdWeight() {
         return thirdWeight;
+    }
+
+    @Override
+    public String getTemplateType() {
+        return InfoboxTemplate.CORPSE.getTemplateName();
     }
 
     @Override

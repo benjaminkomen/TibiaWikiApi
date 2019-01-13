@@ -2,6 +2,7 @@ package com.tibiawiki.domain.objects;
 
 import com.tibiawiki.domain.enums.City;
 import com.tibiawiki.domain.enums.Gender;
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.enums.Status;
 import com.tibiawiki.domain.enums.YesNo;
 import lombok.Builder;
@@ -122,6 +123,11 @@ public class NPC extends WikiObject {
         this.buys = buys;
         this.sells = sells;
         this.sounds = sounds;
+    }
+
+    @Override
+    public String getTemplateType() {
+        return InfoboxTemplate.NPC.getTemplateName();
     }
 
     @Override

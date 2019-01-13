@@ -5,6 +5,7 @@ import com.tibiawiki.domain.enums.Article;
 import com.tibiawiki.domain.enums.BestiaryClass;
 import com.tibiawiki.domain.enums.BestiaryLevel;
 import com.tibiawiki.domain.enums.BestiaryOccurrence;
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.enums.Spawntype;
 import com.tibiawiki.domain.enums.Status;
 import com.tibiawiki.domain.enums.YesNo;
@@ -185,6 +186,11 @@ public class Creature extends WikiObject {
     @JsonGetter("healMod")
     public Percentage gethealMod() {
         return healMod;
+    }
+
+    @Override
+    public String getTemplateType() {
+        return InfoboxTemplate.CREATURE.getTemplateName();
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.tibiawiki.domain.objects;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.enums.Status;
 import com.tibiawiki.domain.enums.YesNo;
 import lombok.Builder;
@@ -53,6 +54,11 @@ public class Mount extends WikiObject {
     @JsonGetter("taming_method")
     private String getTamingMethod() {
         return tamingMethod;
+    }
+
+    @Override
+    public String getTemplateType() {
+        return InfoboxTemplate.MOUNT.getTemplateName();
     }
 
     @Override
