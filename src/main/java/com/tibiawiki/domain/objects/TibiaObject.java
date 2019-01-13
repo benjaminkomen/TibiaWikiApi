@@ -1,6 +1,7 @@
 package com.tibiawiki.domain.objects;
 
 import com.tibiawiki.domain.enums.Article;
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.enums.Status;
 import com.tibiawiki.domain.enums.YesNo;
 import lombok.Builder;
@@ -68,6 +69,7 @@ public class TibiaObject extends WikiObject {
         this.notes2 = null;
     }
 
+    @SuppressWarnings("squid:S00107")
     @Builder
     private TibiaObject(String name, Article article, String actualname, String implemented, String notes, String history,
                         Status status, List<Integer> itemid, String objectclass, String secondarytype, String tertiarytype,
@@ -102,6 +104,11 @@ public class TibiaObject extends WikiObject {
         this.mapcolor = mapcolor;
         this.location = location;
         this.notes2 = notes2;
+    }
+
+    @Override
+    public String getTemplateType() {
+        return InfoboxTemplate.OBJECT.getTemplateName();
     }
 
     @Override

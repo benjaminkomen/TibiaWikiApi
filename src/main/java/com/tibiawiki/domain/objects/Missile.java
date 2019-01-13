@@ -1,5 +1,6 @@
 package com.tibiawiki.domain.objects;
 
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.enums.Status;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,6 +29,7 @@ public class Missile extends WikiObject {
         this.shotby = null;
     }
 
+    @SuppressWarnings("squid:S00107")
     @Builder
     private Missile(String name, String implemented, String notes, String history, Status status, Integer missileid,
                     String primarytype, String secondarytype, Integer lightradius, Integer lightcolor, String shotby) {
@@ -38,6 +40,11 @@ public class Missile extends WikiObject {
         this.lightradius = lightradius;
         this.lightcolor = lightcolor;
         this.shotby = shotby;
+    }
+
+    @Override
+    public String getTemplateType() {
+        return InfoboxTemplate.MISSILE.getTemplateName();
     }
 
     @Override

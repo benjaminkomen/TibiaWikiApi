@@ -244,7 +244,9 @@ public class JsonFactory {
     @NotNull
     private JSONArray makeSoundsArray(@Nullable String soundsValue, @NotNull String articleName) {
         if (soundsValue != null && soundsValue.length() > 2 && !soundsValue.contains("{{Sound List")) {
-            LOG.error("soundsValue '{}' from article '{}' does not contain Template:Sound List", soundsValue, articleName);
+            LOG.warn("soundsValue '{}' from article '{}' does not contain Template:Sound List", soundsValue, articleName);
+            return new JSONArray();
+        } else if (soundsValue != null && !soundsValue.contains("|")) {
             return new JSONArray();
         }
 
@@ -304,14 +306,21 @@ public class JsonFactory {
     }
 
     private JSONArray makeDroppedByArray(String droppedbyValue, String articleName) {
-        if (droppedbyValue.length() < 2 || droppedbyValue.matches("(N|n)one(\\.|)") || legallyHasNoDroppedByTemplate(articleName)) {
+        if (droppedbyValue.length() < 2 || droppedbyValue.matches("[Nn]one(\\.|)") ||
+                legallyHasNoDroppedByTemplate(articleName) || !droppedbyValue.contains("|")) {
             return new JSONArray();
         }
         assert (droppedbyValue.contains("{{Dropped By")) : "droppedbyValue " +
                 droppedbyValue + "' from article '" + articleName + "' does not contain Template:Dropped By";
         String creatures = TemplateUtils.removeStartAndEndOfTemplate(droppedbyValue);
-        List<String> splitLines = Arrays.asList(Pattern.compile("\\|").split(creatures));
-        return new JSONArray(splitLines);
+
+        if (creatures != null && creatures.length() > 0) {
+            List<String> splitLines = Arrays.asList(Pattern.compile("\\|").split(creatures));
+            return new JSONArray(splitLines);
+        } else {
+            return new JSONArray();
+        }
+
     }
 
     private JSONArray makeLowerLevelsArray(String lowerLevelsValue) {

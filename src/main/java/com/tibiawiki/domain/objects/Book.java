@@ -1,6 +1,7 @@
 package com.tibiawiki.domain.objects;
 
 import com.tibiawiki.domain.enums.BookType;
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.enums.Status;
 import lombok.Builder;
 import lombok.Getter;
@@ -125,6 +126,7 @@ public class Book extends WikiObject {
         this.implemented8 = null;
     }
 
+    @SuppressWarnings("squid:S00107")
     @Builder
     public Book(String name, String implemented, String notes, String history, Status status, BookType booktype, String title,
                 String pagename, String location, String blurb, String author, String returnpage, String prevbook,
@@ -184,6 +186,11 @@ public class Book extends WikiObject {
         this.implemented6 = null;
         this.implemented7 = null;
         this.implemented8 = null;
+    }
+
+    @Override
+    public String getTemplateType() {
+        return InfoboxTemplate.BOOK.getTemplateName();
     }
 
     @Override

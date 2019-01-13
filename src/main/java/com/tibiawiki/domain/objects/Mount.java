@@ -1,6 +1,7 @@
 package com.tibiawiki.domain.objects;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.enums.Status;
 import com.tibiawiki.domain.enums.YesNo;
 import lombok.Builder;
@@ -34,6 +35,7 @@ public class Mount extends WikiObject {
         this.artwork = null;
     }
 
+    @SuppressWarnings("squid:S00107")
     @Builder
     private Mount(String name, String implemented, String notes, String history, Status status, Integer speed,
                   String tamingMethod, YesNo bought, Integer price, String achievement, Integer lightradius,
@@ -52,6 +54,11 @@ public class Mount extends WikiObject {
     @JsonGetter("taming_method")
     private String getTamingMethod() {
         return tamingMethod;
+    }
+
+    @Override
+    public String getTemplateType() {
+        return InfoboxTemplate.MOUNT.getTemplateName();
     }
 
     @Override

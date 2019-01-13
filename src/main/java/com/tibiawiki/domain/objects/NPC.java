@@ -2,6 +2,7 @@ package com.tibiawiki.domain.objects;
 
 import com.tibiawiki.domain.enums.City;
 import com.tibiawiki.domain.enums.Gender;
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.enums.Status;
 import com.tibiawiki.domain.enums.YesNo;
 import lombok.Builder;
@@ -82,6 +83,7 @@ public class NPC extends WikiObject {
         this.sounds = null;
     }
 
+    @SuppressWarnings("squid:S00107")
     @Builder
     private NPC(String name, String actualname, String implemented, String notes, String history, Status status,
                 String job, String job2, String job3, String job4, String job5, String job6, String location, City city,
@@ -121,6 +123,11 @@ public class NPC extends WikiObject {
         this.buys = buys;
         this.sells = sells;
         this.sounds = sounds;
+    }
+
+    @Override
+    public String getTemplateType() {
+        return InfoboxTemplate.NPC.getTemplateName();
     }
 
     @Override

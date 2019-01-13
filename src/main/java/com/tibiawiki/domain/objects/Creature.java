@@ -5,6 +5,7 @@ import com.tibiawiki.domain.enums.Article;
 import com.tibiawiki.domain.enums.BestiaryClass;
 import com.tibiawiki.domain.enums.BestiaryLevel;
 import com.tibiawiki.domain.enums.BestiaryOccurrence;
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.enums.Spawntype;
 import com.tibiawiki.domain.enums.Status;
 import com.tibiawiki.domain.enums.YesNo;
@@ -111,6 +112,7 @@ public class Creature extends WikiObject {
         this.loot = null;
     }
 
+    @SuppressWarnings("squid:S00107")
     @Builder
     public Creature(String name, Article article, String actualname, String plural, String implemented, String notes,
                     String history, Status status, String hitPoints, String experiencePoints, String armor,
@@ -184,6 +186,11 @@ public class Creature extends WikiObject {
     @JsonGetter("healMod")
     public Percentage gethealMod() {
         return healMod;
+    }
+
+    @Override
+    public String getTemplateType() {
+        return InfoboxTemplate.CREATURE.getTemplateName();
     }
 
     @Override

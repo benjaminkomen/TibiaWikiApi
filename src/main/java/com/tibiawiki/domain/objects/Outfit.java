@@ -1,5 +1,6 @@
 package com.tibiawiki.domain.objects;
 
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.enums.Status;
 import com.tibiawiki.domain.enums.YesNo;
 import lombok.Builder;
@@ -36,6 +37,7 @@ public class Outfit extends WikiObject {
         this.artwork = null;
     }
 
+    @SuppressWarnings("squid:S00107")
     @Builder
     private Outfit(String name, String implemented, String notes, String history, Status status, String primarytype,
                    String secondarytype, YesNo premium, String outfit, String addons, YesNo bought,
@@ -50,6 +52,11 @@ public class Outfit extends WikiObject {
         this.fulloutfitprice = fulloutfitprice;
         this.achievement = achievement;
         this.artwork = artwork;
+    }
+
+    @Override
+    public String getTemplateType() {
+        return InfoboxTemplate.OUTFIT.getTemplateName();
     }
 
     @Override

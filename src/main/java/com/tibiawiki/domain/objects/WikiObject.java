@@ -36,6 +36,7 @@ public abstract class WikiObject implements Validatable {
         status = null;
     }
 
+    @SuppressWarnings("squid:S00107")
     public WikiObject(String name, Article article, String actualname, String plural, String implemented, String notes,
                       String history, Status status) {
         this.templateType = null;
@@ -50,6 +51,8 @@ public abstract class WikiObject implements Validatable {
     }
 
     public abstract List<String> fieldOrder();
+
+    public abstract String getTemplateType();
 
     @JsonIgnore
     public String getClassName() {
@@ -75,6 +78,11 @@ public abstract class WikiObject implements Validatable {
         @Override
         public List<String> fieldOrder() {
             return Arrays.asList("name", "article", "actualname", "plural", "implemented", "notes", "history", "status");
+        }
+
+        @Override
+        public String getTemplateType() {
+            return "WikiObject";
         }
 
         @Override

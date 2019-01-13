@@ -1,6 +1,7 @@
 package com.tibiawiki.domain.objects;
 
 import com.tibiawiki.domain.enums.City;
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
@@ -31,6 +32,11 @@ public class Street extends WikiObject {
         this.city2 = city2;
         this.map = map;
         this.floor = floor;
+    }
+
+    @Override
+    public String getTemplateType() {
+        return InfoboxTemplate.STREET.getTemplateName();
     }
 
     @Override

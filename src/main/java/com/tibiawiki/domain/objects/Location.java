@@ -1,5 +1,6 @@
 package com.tibiawiki.domain.objects;
 
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.enums.Status;
 import com.tibiawiki.domain.enums.YesNo;
 import lombok.Builder;
@@ -39,6 +40,7 @@ public class Location extends WikiObject {
         this.links = null;
     }
 
+    @SuppressWarnings("squid:S00107")
     @Builder
     private Location(String name, String implemented, Status status, String ruler, String population, String near,
                      String organization, String map, String map2, String map3, String map4, String map5, String map6,
@@ -55,6 +57,11 @@ public class Location extends WikiObject {
         this.map5 = map5;
         this.map6 = map6;
         this.links = links;
+    }
+
+    @Override
+    public String getTemplateType() {
+        return InfoboxTemplate.GEOGRAPHY.getTemplateName();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.tibiawiki.domain.objects;
 
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.enums.KeyType;
 import com.tibiawiki.domain.enums.Status;
 import lombok.Builder;
@@ -43,6 +44,7 @@ public class Key extends WikiObject {
         this.longnotes = null;
     }
 
+    @SuppressWarnings("squid:S00107")
     @Builder
     private Key(String implemented, String history, Status status, String number, String aka, KeyType primarytype,
                 KeyType secondarytype, String location, String value, Integer npcvalue, Integer npcprice, String buyfrom,
@@ -61,6 +63,11 @@ public class Key extends WikiObject {
         this.origin = origin;
         this.shortnotes = shortnotes;
         this.longnotes = longnotes;
+    }
+
+    @Override
+    public String getTemplateType() {
+        return InfoboxTemplate.KEY.getTemplateName();
     }
 
     @Override

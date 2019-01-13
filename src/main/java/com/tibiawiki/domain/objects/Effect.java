@@ -1,5 +1,6 @@
 package com.tibiawiki.domain.objects;
 
+import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.enums.Status;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,6 +32,7 @@ public class Effect extends WikiObject {
         this.effect = null;
     }
 
+    @SuppressWarnings("squid:S00107")
     @Builder
     private Effect(String name, String implemented, String notes, String history, Status status, Integer effectid,
                    String primarytype, String secondarytype, Integer lightradius, Integer lightcolor, String causes,
@@ -43,6 +45,11 @@ public class Effect extends WikiObject {
         this.lightcolor = lightcolor;
         this.causes = causes;
         this.effect = effect;
+    }
+
+    @Override
+    public String getTemplateType() {
+        return InfoboxTemplate.EFFECT.getTemplateName();
     }
 
     @Override
