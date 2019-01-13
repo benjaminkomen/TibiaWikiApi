@@ -2,7 +2,6 @@ package com.tibiawiki.serviceinterface;
 
 import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.repositories.ArticleRepository;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.doReturn;
 
-@Disabled
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AchievementsResourceIT {
@@ -35,12 +33,14 @@ public class AchievementsResourceIT {
 
     @Test
     void givenGetAchievementsNotExpanded_whenCorrectRequest_thenResponseIsOkAndContainsTwoAchievements() {
-        doReturn(Collections.emptyList()).when(articleRepository).getPageNamesFromCategory(CATEGORY_LISTS);
-        doReturn(Arrays.asList("foo", "bar")).when(articleRepository).getPageNamesFromCategory(InfoboxTemplate.ACHIEVEMENT.getCategoryName());
+        doReturn(Collections.singletonList("baz")).when(articleRepository).getPageNamesFromCategory(CATEGORY_LISTS);
+        doReturn(Arrays.asList("foo", "bar", "baz")).when(articleRepository).getPageNamesFromCategory(InfoboxTemplate.ACHIEVEMENT.getCategoryName());
 
         final ResponseEntity<List> result = restTemplate.getForEntity("/api/achievements?expand=false", List.class);
 
         assertThat(result.getStatusCode(), is(HttpStatus.OK));
-//        assertThat(result.getBody(), hasSize(2));
+        assertThat(result.getBody().size(), is(2));
+        assertThat(result.getBody().get(0), is("foo"));
+        assertThat(result.getBody().get(1), is("bar"));
     }
 }
