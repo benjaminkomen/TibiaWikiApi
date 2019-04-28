@@ -277,13 +277,6 @@ public class JsonFactoryTest {
         assertThat(result, is(INFOBOX_CREATURE_TEXT));
     }
 
-    @Test
-    void testConvertJsonToInfoboxPartOfArticle_Effect() {
-        final Effect effect = makeEffect();
-        String result = target.convertJsonToInfoboxPartOfArticle(makeEffectJson(effect), effect.fieldOrder());
-        assertThat(result, is(INFOBOX_EFFECT_TEXT));
-    }
-
     private static final String INFOBOX_CREATURE_TEXT = "{{Infobox Creature|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
             "| name           = Dragon\n" +
             "| article        = a\n" +
@@ -312,14 +305,14 @@ public class JsonFactoryTest {
             "| paraimmune     = yes\n" +
             "| senseinvis     = yes\n" +
             "| physicalDmgMod = 100%\n" +
-            "| holyDmgMod     = 100%\n" +
-            "| deathDmgMod    = 100%\n" +
-            "| fireDmgMod     = 0%\n" +
-            "| energyDmgMod   = 80%\n" +
-            "| iceDmgMod      = 110%\n" +
             "| earthDmgMod    = 20%\n" +
-            "| drownDmgMod    = 100%?\n" +
+            "| fireDmgMod     = 0%\n" +
+            "| deathDmgMod    = 100%\n" +
+            "| energyDmgMod   = 80%\n" +
+            "| holyDmgMod     = 100%\n" +
+            "| iceDmgMod      = 110%\n" +
             "| hpDrainDmgMod  = 100%?\n" +
+            "| drownDmgMod    = 100%?\n" +
             "| bestiaryname   = dragon\n" +
             "| bestiarytext   = Dragons were\n" +
             "| sounds         = {{Sound List|FCHHHHH|GROOAAARRR}}\n" +
@@ -361,6 +354,41 @@ public class JsonFactoryTest {
             "}}\n" +
             "| history        = Dragons are\n" +
             "}}\n";
+
+    @Test
+    void testConvertJsonToInfoboxPartOfArticle_Effect() {
+        final Effect effect = makeEffect();
+        String result = target.convertJsonToInfoboxPartOfArticle(makeEffectJson(effect), effect.fieldOrder());
+        assertThat(result, is(INFOBOX_EFFECT_TEXT));
+    }
+
+    private static final String INFOBOX_CREATURE_EMPTY_LOOT_TEXT = "{{Infobox Creature|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
+            "| name          = Freed Soul\n" +
+            "| article       = a\n" +
+            "| actualname    = Freed Soul\n" +
+            "| plural        = Freed Soul\n" +
+            "| hp            = ?\n" +
+            "| exp           = ?\n" +
+            "| summon        = --\n" +
+            "| convince      = --\n" +
+            "| illusionable  = no\n" +
+            "| creatureclass = \n" +
+            "| primarytype   = \n" +
+            "| isboss        = no\n" +
+            "| abilities     = [[Melee]] (0-?), [[Drown Damage|Drown Bomb]] on self (4000-8000) (damages boss only)\n" +
+            "| implemented   = 11.40\n" +
+            "| behaviour     = They fight in close combat.\n" +
+            "| strategy      = Do not kill them since you need their help in order to kill the boss.\n" +
+            "| location      = [[The Souldespoiler]]'s room.\n" +
+            "| loot          = {{Loot Table}}\n" +
+            "}}\n";
+
+    @Test
+    void testConvertJsonToInfoboxPartOfArticle_CreatureWithEmptyLootTable() {
+        final Creature creature = makeCreatureWithEmptyLootTable();
+        String result = target.convertJsonToInfoboxPartOfArticle(makeCreatureJson(creature), creature.fieldOrder());
+        assertThat(result, is(INFOBOX_CREATURE_EMPTY_LOOT_TEXT));
+    }
 
     @Test
     void testConvertJsonToInfoboxPartOfArticle_Item() {
@@ -1036,6 +1064,29 @@ public class JsonFactoryTest {
                         LootItem.builder().itemName("Dragonbone Staff").rarity(Rarity.VERY_RARE).build()
                 ))
                 .history("Dragons are")
+                .build();
+    }
+
+    private Creature makeCreatureWithEmptyLootTable() {
+        return Creature.builder()
+                .name("Freed Soul")
+                .article(Article.A)
+                .actualname("Freed Soul")
+                .plural("Freed Soul")
+                .implemented("11.40")
+                .hitPoints("?")
+                .experiencePoints("?")
+                .summon("--")
+                .convince("--")
+                .illusionable(YesNo.NO_LOWERCASE)
+                .creatureclass("")
+                .primarytype("")
+                .isboss(YesNo.NO_LOWERCASE)
+                .abilities("[[Melee]] (0-?), [[Drown Damage|Drown Bomb]] on self (4000-8000) (damages boss only)")
+                .behaviour("They fight in close combat.")
+                .location("[[The Souldespoiler]]'s room.")
+                .strategy("Do not kill them since you need their help in order to kill the boss.")
+                .loot(Collections.emptyList())
                 .build();
     }
 

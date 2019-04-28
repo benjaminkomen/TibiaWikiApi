@@ -384,6 +384,11 @@ public class JsonFactory {
 
     private String makeLootTable(JSONObject jsonObject, String key, JSONArray jsonArray) {
         final String paddedKey = Strings.padEnd(key, getMaxFieldLength(jsonObject), ' ');
+
+        if (jsonArray.isEmpty()) {
+            return "| " + paddedKey + " = {{Loot Table}}\n";
+        }
+
         final String value = jsonArray.toList().stream()
                 .map(this::makeLootItem)
                 .collect(Collectors.joining("\n |"));

@@ -46,15 +46,15 @@ public class Creature extends WikiObject {
     private final YesNo paraimmune;
     private final YesNo senseinvis;
     private final Percentage physicalDmgMod;
-    private final Percentage holyDmgMod;
-    private final Percentage deathDmgMod;
-    private final Percentage fireDmgMod;
-    private final Percentage energyDmgMod;
-    private final Percentage iceDmgMod;
     private final Percentage earthDmgMod;
-    private final Percentage drownDmgMod;
-    private final Percentage hpDrainDmgMod;
+    private final Percentage fireDmgMod;
+    private final Percentage deathDmgMod;
+    private final Percentage energyDmgMod;
+    private final Percentage holyDmgMod;
+    private final Percentage iceDmgMod;
     private final Percentage healMod;
+    private final Percentage hpDrainDmgMod;
+    private final Percentage drownDmgMod;
     private final String bestiaryname;
     private final String bestiarytext;
     private final List<String> sounds;
@@ -92,15 +92,15 @@ public class Creature extends WikiObject {
         this.paraimmune = null;
         this.senseinvis = null;
         this.physicalDmgMod = null;
-        this.holyDmgMod = null;
-        this.deathDmgMod = null;
-        this.fireDmgMod = null;
-        this.energyDmgMod = null;
-        this.iceDmgMod = null;
         this.earthDmgMod = null;
-        this.drownDmgMod = null;
-        this.hpDrainDmgMod = null;
+        this.fireDmgMod = null;
+        this.deathDmgMod = null;
+        this.energyDmgMod = null;
+        this.holyDmgMod = null;
+        this.iceDmgMod = null;
         this.healMod = null;
+        this.hpDrainDmgMod = null;
+        this.drownDmgMod = null;
         this.bestiaryname = null;
         this.bestiarytext = null;
         this.sounds = null;
@@ -153,15 +153,15 @@ public class Creature extends WikiObject {
         this.paraimmune = paraimmune;
         this.senseinvis = senseinvis;
         this.physicalDmgMod = physicalDmgMod;
-        this.holyDmgMod = holyDmgMod;
-        this.deathDmgMod = deathDmgMod;
-        this.fireDmgMod = fireDmgMod;
-        this.energyDmgMod = energyDmgMod;
-        this.iceDmgMod = iceDmgMod;
         this.earthDmgMod = earthDmgMod;
-        this.drownDmgMod = drownDmgMod;
-        this.hpDrainDmgMod = hpDrainDmgMod;
+        this.fireDmgMod = fireDmgMod;
+        this.deathDmgMod = deathDmgMod;
+        this.energyDmgMod = energyDmgMod;
+        this.holyDmgMod = holyDmgMod;
+        this.iceDmgMod = iceDmgMod;
         this.healMod = healMod;
+        this.hpDrainDmgMod = hpDrainDmgMod;
+        this.drownDmgMod = drownDmgMod;
         this.bestiaryname = bestiaryname;
         this.bestiarytext = bestiarytext;
         this.sounds = sounds;
@@ -198,8 +198,8 @@ public class Creature extends WikiObject {
         return Arrays.asList("name", "article", "actualname", "plural", "hp", "exp", "armor", "summon", "convince",
                 "illusionable", "creatureclass", "primarytype", "secondarytype", "bestiaryclass", "bestiarylevel",
                 "occurrence", "spawntype", "isboss", "isarenaboss", "isevent", "abilities", "usedelements", "maxdmg", "pushable",
-                "pushobjects", "walksaround", "walksthrough", "paraimmune", "senseinvis", "physicalDmgMod", "holyDmgMod",
-                "deathDmgMod", "fireDmgMod", "energyDmgMod", "iceDmgMod", "earthDmgMod", "drownDmgMod", "hpDrainDmgMod",
+                "pushobjects", "walksaround", "walksthrough", "paraimmune", "senseinvis", "physicalDmgMod", "earthDmgMod",
+                "fireDmgMod", "deathDmgMod", "energyDmgMod", "holyDmgMod", "iceDmgMod", "hpDrainDmgMod", "drownDmgMod",
                 "healMod", "bestiaryname", "bestiarytext", "sounds", "implemented", "notes", "behaviour", "runsat",
                 "speed", "strategy", "location", "loot", "history", "status");
     }
