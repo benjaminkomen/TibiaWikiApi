@@ -58,7 +58,7 @@ public class Achievement extends WikiObject {
 
     @Override
     public List<String> fieldOrder() {
-        return Arrays.asList("grade", "name", "description", "spoiler", "premium", "points", "secret", "coincideswith",
+        return Arrays.asList("grade", "name", "actualname", "description", "spoiler", "premium", "points", "secret", "coincideswith",
                 "implemented", "achievementid", "relatedpages", "history", "status");
     }
 
