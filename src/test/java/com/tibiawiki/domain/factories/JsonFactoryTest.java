@@ -744,7 +744,7 @@ public class JsonFactoryTest {
 
     private static final String INFOBOX_EFFECT_TEXT = "{{Infobox Effect|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
             "| name         = Fireball Effect\n" +
-            "| effectid     = 7\n" +
+            "| effectid     = 7, 82\n" +
             "| primarytype  = Attack\n" +
             "| lightradius  = 6\n" +
             "| lightcolor   = 208\n" +
@@ -756,7 +756,7 @@ public class JsonFactoryTest {
     private Effect makeEffect() {
         return Effect.builder()
                 .name("Fireball Effect")
-                .effectid(7)
+                .effectid(Arrays.asList(7, 82))
                 .primarytype("Attack")
                 .lightcolor(208)
                 .lightradius(6)
