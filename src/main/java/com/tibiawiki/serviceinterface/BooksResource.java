@@ -5,6 +5,8 @@ import com.tibiawiki.domain.objects.validation.ValidationException;
 import com.tibiawiki.process.ModifyAny;
 import com.tibiawiki.process.RetrieveBooks;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.json.JSONObject;
@@ -37,8 +39,14 @@ public class BooksResource {
     }
 
     @GET
+    @ApiOperation(value = "Get a list of books")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "list of books retrieved")
+    })
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getBooks(@QueryParam("expand") Boolean expand) {
+    public Response getBooks(@ApiParam(value = "optionally expands the result to retrieve not only " +
+            "the book names but the full books", required = false)
+                             @QueryParam("expand") Boolean expand) {
         return Response.ok()
                 .entity(expand != null && expand
                         ? retrieveBooks.getBooksJSON().map(JSONObject::toMap)
@@ -49,6 +57,7 @@ public class BooksResource {
 
     @GET
     @Path("/{name}")
+    @ApiOperation(value = "Get a specific book by name")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getBooksByName(@PathParam("name") String name) {
         return retrieveBooks.getBookJSON(name)
@@ -60,6 +69,7 @@ public class BooksResource {
     }
 
     @PUT
+    @ApiOperation(value = "Modify a book")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "the changed book"),
             @ApiResponse(code = 400, message = "the provided changed book is not valid"),

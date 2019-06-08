@@ -5,6 +5,8 @@ import com.tibiawiki.domain.objects.validation.ValidationException;
 import com.tibiawiki.process.ModifyAny;
 import com.tibiawiki.process.RetrieveStreets;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.json.JSONObject;
@@ -37,8 +39,14 @@ public class StreetsResource {
     }
 
     @GET
+    @ApiOperation(value = "Get a list of streets")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "list of streets retrieved")
+    })
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getStreets(@QueryParam("expand") Boolean expand) {
+    public Response getStreets(@ApiParam(value = "optionally expands the result to retrieve not only " +
+            "the street names but the full streets", required = false)
+                               @QueryParam("expand") Boolean expand) {
         return Response.ok()
                 .entity(expand != null && expand
                         ? retrieveStreets.getStreetsJSON().map(JSONObject::toMap)
@@ -49,6 +57,7 @@ public class StreetsResource {
 
     @GET
     @Path("/{name}")
+    @ApiOperation(value = "Get a specific street by name")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getStreetsByName(@PathParam("name") String name) {
         return retrieveStreets.getStreetJSON(name)
@@ -60,6 +69,7 @@ public class StreetsResource {
     }
 
     @PUT
+    @ApiOperation(value = "Modify a street")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "the changed street"),
             @ApiResponse(code = 400, message = "the provided changed street is not valid"),

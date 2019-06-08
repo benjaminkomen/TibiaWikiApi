@@ -5,6 +5,8 @@ import com.tibiawiki.domain.objects.validation.ValidationException;
 import com.tibiawiki.process.ModifyAny;
 import com.tibiawiki.process.RetrieveBuildings;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.json.JSONObject;
@@ -37,8 +39,14 @@ public class BuildingsResource {
     }
 
     @GET
+    @ApiOperation(value = "Get a list of buildings")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "list of buildings retrieved")
+    })
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getBuildings(@QueryParam("expand") Boolean expand) {
+    public Response getBuildings(@ApiParam(value = "optionally expands the result to retrieve not only " +
+            "the building names but the full buildings", required = false)
+                                 @QueryParam("expand") Boolean expand) {
         return Response.ok()
                 .entity(expand != null && expand
                         ? retrieveBuildings.getBuildingsJSON().map(JSONObject::toMap)
@@ -49,6 +57,7 @@ public class BuildingsResource {
 
     @GET
     @Path("/{name}")
+    @ApiOperation(value = "Get a specific building by name")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getBuildingsByName(@PathParam("name") String name) {
         return retrieveBuildings.getBuildingJSON(name)
@@ -60,6 +69,7 @@ public class BuildingsResource {
     }
 
     @PUT
+    @ApiOperation(value = "Modify a building")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "the changed building"),
             @ApiResponse(code = 400, message = "the provided changed building is not valid"),

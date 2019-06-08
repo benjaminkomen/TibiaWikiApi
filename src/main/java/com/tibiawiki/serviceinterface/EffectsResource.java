@@ -5,6 +5,8 @@ import com.tibiawiki.domain.objects.validation.ValidationException;
 import com.tibiawiki.process.ModifyAny;
 import com.tibiawiki.process.RetrieveEffects;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.json.JSONObject;
@@ -37,8 +39,14 @@ public class EffectsResource {
     }
 
     @GET
+    @ApiOperation(value = "Get a list of effects")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "list of effects retrieved")
+    })
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getEffects(@QueryParam("expand") Boolean expand) {
+    public Response getEffects(@ApiParam(value = "optionally expands the result to retrieve not only " +
+            "the effect names but the full effects", required = false)
+                               @QueryParam("expand") Boolean expand) {
         return Response.ok()
                 .entity(expand != null && expand
                         ? retrieveEffects.getEffectsJSON().map(JSONObject::toMap)
@@ -49,6 +57,7 @@ public class EffectsResource {
 
     @GET
     @Path("/{name}")
+    @ApiOperation(value = "Get a specific effect by name")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getEffectsByName(@PathParam("name") String name) {
         return retrieveEffects.getEffectJSON(name)
@@ -60,6 +69,7 @@ public class EffectsResource {
     }
 
     @PUT
+    @ApiOperation(value = "Modify an effect")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "the changed effect"),
             @ApiResponse(code = 400, message = "the provided changed effect is not valid"),

@@ -5,6 +5,8 @@ import com.tibiawiki.domain.objects.validation.ValidationException;
 import com.tibiawiki.process.ModifyAny;
 import com.tibiawiki.process.RetrieveOutfits;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.json.JSONObject;
@@ -37,8 +39,14 @@ public class OutfitsResource {
     }
 
     @GET
+    @ApiOperation(value = "Get a list of outfits")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "list of outfits retrieved")
+    })
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getOutfits(@QueryParam("expand") Boolean expand) {
+    public Response getOutfits(@ApiParam(value = "optionally expands the result to retrieve not only " +
+            "the outfit names but the full outfits", required = false)
+                               @QueryParam("expand") Boolean expand) {
         return Response.ok()
                 .entity(expand != null && expand
                         ? retrieveOutfits.getOutfitsJSON().map(JSONObject::toMap)
@@ -49,6 +57,7 @@ public class OutfitsResource {
 
     @GET
     @Path("/{name}")
+    @ApiOperation(value = "Get a specific outfit by name")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getOutfitsByName(@PathParam("name") String name) {
         return retrieveOutfits.getOutfitJSON(name)
@@ -60,6 +69,7 @@ public class OutfitsResource {
     }
 
     @PUT
+    @ApiOperation(value = "Modify an outfit")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "the changed outfit"),
             @ApiResponse(code = 400, message = "the provided changed outfit is not valid"),

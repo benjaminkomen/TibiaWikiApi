@@ -5,6 +5,8 @@ import com.tibiawiki.domain.objects.validation.ValidationException;
 import com.tibiawiki.process.ModifyAny;
 import com.tibiawiki.process.RetrieveSpells;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.json.JSONObject;
@@ -37,8 +39,14 @@ public class SpellsResource {
     }
 
     @GET
+    @ApiOperation(value = "Get a list of spells")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "list of spells retrieved")
+    })
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getSpells(@QueryParam("expand") Boolean expand) {
+    public Response getSpells(@ApiParam(value = "optionally expands the result to retrieve not only " +
+            "the spell names but the full spells", required = false)
+                              @QueryParam("expand") Boolean expand) {
         return Response.ok()
                 .entity(expand != null && expand
                         ? retrieveSpells.getSpellsJSON().map(JSONObject::toMap)
@@ -49,6 +57,7 @@ public class SpellsResource {
 
     @GET
     @Path("/{name}")
+    @ApiOperation(value = "Get a specific spell by name")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getSpellsByName(@PathParam("name") String name) {
         return retrieveSpells.getSpellJSON(name)
@@ -60,6 +69,7 @@ public class SpellsResource {
     }
 
     @PUT
+    @ApiOperation(value = "Modify a spell")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "the changed spell"),
             @ApiResponse(code = 400, message = "the provided changed spell is not valid"),

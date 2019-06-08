@@ -5,6 +5,8 @@ import com.tibiawiki.domain.objects.validation.ValidationException;
 import com.tibiawiki.process.ModifyAny;
 import com.tibiawiki.process.RetrieveNPCs;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.json.JSONObject;
@@ -37,8 +39,14 @@ public class NPCsResource {
     }
 
     @GET
+    @ApiOperation(value = "Get a list of NPCs")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "list of NPCs retrieved")
+    })
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getNPCs(@QueryParam("expand") Boolean expand) {
+    public Response getNPCs(@ApiParam(value = "optionally expands the result to retrieve not only " +
+            "the NPC names but the full NPCs", required = false)
+                            @QueryParam("expand") Boolean expand) {
         return Response.ok()
                 .entity(expand != null && expand
                         ? retrieveNPCs.getNPCsJSON().map(JSONObject::toMap)
@@ -49,6 +57,7 @@ public class NPCsResource {
 
     @GET
     @Path("/{name}")
+    @ApiOperation(value = "Get a specific NPC by name")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getNPCsByName(@PathParam("name") String name) {
         return retrieveNPCs.getNPCJSON(name)
@@ -60,6 +69,7 @@ public class NPCsResource {
     }
 
     @PUT
+    @ApiOperation(value = "Modify a NPC")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "the changed npc"),
             @ApiResponse(code = 400, message = "the provided changed npc is not valid"),

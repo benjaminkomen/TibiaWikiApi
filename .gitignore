@@ -18,3 +18,4 @@ target/
 !maven-wrapper.properties
 !maven-wrapper.jar
 !system.properties
+!src/test/resources/credentials.properties
