@@ -3,7 +3,6 @@ package com.tibiawiki.domain.repositories;
 import benjaminkomen.jwiki.core.MQuery;
 import benjaminkomen.jwiki.core.NS;
 import benjaminkomen.jwiki.core.Wiki;
-import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.utils.PropertiesUtil;
 import okhttp3.HttpUrl;
 import org.jetbrains.annotations.Nullable;
@@ -21,7 +20,7 @@ import java.util.Map;
 @Repository
 public class ArticleRepository {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ArticleFactory.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ArticleRepository.class);
     private static final String DEFAULT_WIKI_URI = "https://tibia.fandom.com/api.php";
     private boolean isDebugEnabled = true;
     private Wiki wiki;

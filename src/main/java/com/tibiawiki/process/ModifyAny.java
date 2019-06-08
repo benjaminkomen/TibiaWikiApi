@@ -28,8 +28,8 @@ public class ModifyAny {
     private ArticleRepository articleRepository;
 
     @Autowired
-    private ModifyAny(WikiObjectFactory wikiObjectFactory, JsonFactory jsonFactory, ArticleFactory articleFactory,
-                      ArticleRepository articleRepository) {
+    protected ModifyAny(WikiObjectFactory wikiObjectFactory, JsonFactory jsonFactory, ArticleFactory articleFactory,
+                        ArticleRepository articleRepository) {
         this.wikiObjectFactory = wikiObjectFactory;
         this.jsonFactory = jsonFactory;
         this.articleFactory = articleFactory;
