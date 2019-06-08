@@ -5,6 +5,8 @@ import com.tibiawiki.domain.objects.validation.ValidationException;
 import com.tibiawiki.process.ModifyAny;
 import com.tibiawiki.process.RetrieveLocations;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.json.JSONObject;
@@ -37,8 +39,14 @@ public class LocationsResource {
     }
 
     @GET
+    @ApiOperation(value = "Get a list of locations")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "list of locations retrieved")
+    })
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getLocations(@QueryParam("expand") Boolean expand) {
+    public Response getLocations(@ApiParam(value = "optionally expands the result to retrieve not only " +
+            "the location names but the full locations", required = false)
+                                 @QueryParam("expand") Boolean expand) {
         return Response.ok()
                 .entity(expand != null && expand
                         ? retrieveLocations.getLocationsJSON().map(JSONObject::toMap)
@@ -49,6 +57,7 @@ public class LocationsResource {
 
     @GET
     @Path("/{name}")
+    @ApiOperation(value = "Get a specific location by name")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getLocationsByName(@PathParam("name") String name) {
         return retrieveLocations.getLocationJSON(name)
@@ -60,6 +69,7 @@ public class LocationsResource {
     }
 
     @PUT
+    @ApiOperation(value = "Modify a location")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "the changed location"),
             @ApiResponse(code = 400, message = "the provided changed location is not valid"),

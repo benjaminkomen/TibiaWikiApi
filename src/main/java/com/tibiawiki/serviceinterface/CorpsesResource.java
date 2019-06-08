@@ -5,6 +5,8 @@ import com.tibiawiki.domain.objects.validation.ValidationException;
 import com.tibiawiki.process.ModifyAny;
 import com.tibiawiki.process.RetrieveCorpses;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.json.JSONObject;
@@ -37,8 +39,14 @@ public class CorpsesResource {
     }
 
     @GET
+    @ApiOperation(value = "Get a list of corpses")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "list of corpses retrieved")
+    })
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getCorpses(@QueryParam("expand") Boolean expand) {
+    public Response getCorpses(@ApiParam(value = "optionally expands the result to retrieve not only " +
+            "the corpse names but the full corpses", required = false)
+                               @QueryParam("expand") Boolean expand) {
         return Response.ok()
                 .entity(expand != null && expand
                         ? retrieveCorpses.getCorpsesJSON().map(JSONObject::toMap)
@@ -49,6 +57,7 @@ public class CorpsesResource {
 
     @GET
     @Path("/{name}")
+    @ApiOperation(value = "Get a specific corpse by name")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCorpsesByName(@PathParam("name") String name) {
         return retrieveCorpses.getCorpseJSON(name)
@@ -60,6 +69,7 @@ public class CorpsesResource {
     }
 
     @PUT
+    @ApiOperation(value = "Modify a corpse")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "the changed corpse"),
             @ApiResponse(code = 400, message = "the provided changed corpse is not valid"),

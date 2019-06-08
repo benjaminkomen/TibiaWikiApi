@@ -41,6 +41,7 @@ public class JsonFactory {
     private static final String LOOT = "loot";
     private static final String DROPPED_BY = "droppedby";
     private static final String ITEM_ID = "itemid";
+    private static final String EFFECT_ID = "effectid";
     private static final String LOWER_LEVELS = "lowerlevels";
     private static final List ITEMS_WITH_NO_DROPPEDBY_LIST = Arrays.asList("Gold Coin", "Platinum Coin");
     private static final String INFOBOX_HEADER_PATTERN = "\\{\\{Infobox[\\s|_](.*?)[\\||\\n]";
@@ -204,6 +205,12 @@ public class JsonFactory {
             String itemIdValue = jsonObject.getString(ITEM_ID);
             JSONArray itemIdArray = new JSONArray(TemplateUtils.splitByCommaAndTrim(itemIdValue));
             jsonObject.put(ITEM_ID, itemIdArray);
+        }
+
+        if (jsonObject.has(EFFECT_ID)) {
+            String effectIdValue = jsonObject.getString(EFFECT_ID);
+            JSONArray effectIdArray = new JSONArray(TemplateUtils.splitByCommaAndTrim(effectIdValue));
+            jsonObject.put(EFFECT_ID, effectIdArray);
         }
 
         if (jsonObject.has(LOWER_LEVELS)) {
@@ -384,6 +391,11 @@ public class JsonFactory {
 
     private String makeLootTable(JSONObject jsonObject, String key, JSONArray jsonArray) {
         final String paddedKey = Strings.padEnd(key, getMaxFieldLength(jsonObject), ' ');
+
+        if (jsonArray.isEmpty()) {
+            return "| " + paddedKey + " = {{Loot Table}}\n";
+        }
+
         final String value = jsonArray.toList().stream()
                 .map(this::makeLootItem)
                 .collect(Collectors.joining("\n |"));

@@ -5,6 +5,8 @@ import com.tibiawiki.domain.objects.validation.ValidationException;
 import com.tibiawiki.process.ModifyAny;
 import com.tibiawiki.process.RetrieveKeys;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.json.JSONObject;
@@ -37,8 +39,14 @@ public class KeysResource {
     }
 
     @GET
+    @ApiOperation(value = "Get a list of keys")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "list of keys retrieved")
+    })
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getKeys(@QueryParam("expand") Boolean expand) {
+    public Response getKeys(@ApiParam(value = "optionally expands the result to retrieve not only " +
+            "the key names but the full keys", required = false)
+                            @QueryParam("expand") Boolean expand) {
         return Response.ok()
                 .entity(expand != null && expand
                         ? retrieveKeys.getKeysJSON().map(JSONObject::toMap)
@@ -49,6 +57,7 @@ public class KeysResource {
 
     @GET
     @Path("/{name}")
+    @ApiOperation(value = "Get a specific key by name")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getKeysByName(@PathParam("name") String name) {
         return retrieveKeys.getKeyJSON(name)
@@ -60,6 +69,7 @@ public class KeysResource {
     }
 
     @PUT
+    @ApiOperation(value = "Modify a key")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "the changed key"),
             @ApiResponse(code = 400, message = "the provided changed key is not valid"),

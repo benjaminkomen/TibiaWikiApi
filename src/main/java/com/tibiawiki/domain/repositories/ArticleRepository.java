@@ -3,7 +3,6 @@ package com.tibiawiki.domain.repositories;
 import benjaminkomen.jwiki.core.MQuery;
 import benjaminkomen.jwiki.core.NS;
 import benjaminkomen.jwiki.core.Wiki;
-import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.utils.PropertiesUtil;
 import okhttp3.HttpUrl;
 import org.jetbrains.annotations.Nullable;
@@ -21,9 +20,9 @@ import java.util.Map;
 @Repository
 public class ArticleRepository {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ArticleFactory.class);
-    private static final boolean IS_DEBUG_ENABLED = true;
+    private static final Logger LOG = LoggerFactory.getLogger(ArticleRepository.class);
     private static final String DEFAULT_WIKI_URI = "https://tibia.fandom.com/api.php";
+    private boolean isDebugEnabled = true;
     private Wiki wiki;
 
     public ArticleRepository() {
@@ -65,15 +64,22 @@ public class ArticleRepository {
     }
 
     public boolean modifyArticle(String pageName, String pageContent, String editSummary) {
-
         LOG.info("Attempting to publish page {} with new content {}.", pageName, pageContent);
 
-        return IS_DEBUG_ENABLED
+        return isDebugEnabled
                 ? true
                 : wiki.edit(pageName, pageContent, editSummary);
     }
 
-    private boolean login(Wiki wiki) {
+    protected void enableDebug() {
+        this.isDebugEnabled = true;
+    }
+
+    protected void disableDebug() {
+        this.isDebugEnabled = false;
+    }
+
+    protected boolean login(Wiki wiki) {
         String username = PropertiesUtil.getUsername();
         String password = PropertiesUtil.getPassword();
 
@@ -82,10 +88,5 @@ public class ArticleRepository {
         } else {
             return false;
         }
-    }
-
-    // TODO implement this method
-    private boolean isLoggedIn() {
-        return false;
     }
 }

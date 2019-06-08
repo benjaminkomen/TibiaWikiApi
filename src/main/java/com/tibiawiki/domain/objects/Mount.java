@@ -18,6 +18,7 @@ public class Mount extends WikiObject {
     private final Integer speed;
     private final String tamingMethod;
     private final YesNo bought;
+    private final YesNo tournament;
     private final Integer price; // unit is Tibia Coins
     private final String achievement; // this could link to Achievement
     private final Integer lightradius;
@@ -28,6 +29,7 @@ public class Mount extends WikiObject {
         this.speed = null;
         this.tamingMethod = null;
         this.bought = null;
+        this.tournament = null;
         this.price = null;
         this.achievement = null;
         this.lightradius = null;
@@ -38,12 +40,13 @@ public class Mount extends WikiObject {
     @SuppressWarnings("squid:S00107")
     @Builder
     private Mount(String name, String implemented, String notes, String history, Status status, Integer speed,
-                  String tamingMethod, YesNo bought, Integer price, String achievement, Integer lightradius,
+                  String tamingMethod, YesNo bought, YesNo tournament, Integer price, String achievement, Integer lightradius,
                   Integer lightcolor, String artwork) {
         super(name, null, null, null, implemented, notes, history, status);
         this.speed = speed;
         this.tamingMethod = tamingMethod;
         this.bought = bought;
+        this.tournament = tournament;
         this.price = price;
         this.achievement = achievement;
         this.lightradius = lightradius;
@@ -63,7 +66,7 @@ public class Mount extends WikiObject {
 
     @Override
     public List<String> fieldOrder() {
-        return Arrays.asList("name", "speed", "taming_method", "bought", "price", "achievement", "lightcolor",
+        return Arrays.asList("name", "speed", "taming_method", "bought", "tournament", "price", "achievement", "lightcolor",
                 "lightradius", "implemented", "artwork", "notes", "history", "status");
     }
 }

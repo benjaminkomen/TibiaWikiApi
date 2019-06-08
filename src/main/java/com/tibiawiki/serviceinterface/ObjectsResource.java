@@ -5,6 +5,8 @@ import com.tibiawiki.domain.objects.validation.ValidationException;
 import com.tibiawiki.process.ModifyAny;
 import com.tibiawiki.process.RetrieveObjects;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.json.JSONObject;
@@ -37,8 +39,14 @@ public class ObjectsResource {
     }
 
     @GET
+    @ApiOperation(value = "Get a list of objects")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "list of objects retrieved")
+    })
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getObjects(@QueryParam("expand") Boolean expand) {
+    public Response getObjects(@ApiParam(value = "optionally expands the result to retrieve not only " +
+            "the object names but the full objects", required = false)
+                               @QueryParam("expand") Boolean expand) {
         return Response.ok()
                 .entity(expand != null && expand
                         ? retrieveObjects.getObjectsJSON().map(JSONObject::toMap)
@@ -49,6 +57,7 @@ public class ObjectsResource {
 
     @GET
     @Path("/{name}")
+    @ApiOperation(value = "Get a specific object by name")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getObjectsByName(@PathParam("name") String name) {
         return retrieveObjects.getObjectJSON(name)
@@ -60,6 +69,7 @@ public class ObjectsResource {
     }
 
     @PUT
+    @ApiOperation(value = "Modify an object")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "the changed tibiaObject"),
             @ApiResponse(code = 400, message = "the provided changed tibiaObject is not valid"),

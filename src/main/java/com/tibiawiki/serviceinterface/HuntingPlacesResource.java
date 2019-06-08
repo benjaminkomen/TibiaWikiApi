@@ -5,6 +5,8 @@ import com.tibiawiki.domain.objects.validation.ValidationException;
 import com.tibiawiki.process.ModifyAny;
 import com.tibiawiki.process.RetrieveHuntingPlaces;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.json.JSONObject;
@@ -37,8 +39,14 @@ public class HuntingPlacesResource {
     }
 
     @GET
+    @ApiOperation(value = "Get a list of hunting places")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "list of hunting places retrieved")
+    })
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getHuntingPlaces(@QueryParam("expand") Boolean expand) {
+    public Response getHuntingPlaces(@ApiParam(value = "optionally expands the result to retrieve not only " +
+            "the hunting place names but the full hunting places", required = false)
+                                     @QueryParam("expand") Boolean expand) {
         return Response.ok()
                 .entity(expand != null && expand
                         ? retrieveHuntingPlaces.getHuntingPlacesJSON().map(JSONObject::toMap)
@@ -49,6 +57,7 @@ public class HuntingPlacesResource {
 
     @GET
     @Path("/{name}")
+    @ApiOperation(value = "Get a specific hunting place by name")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getHuntingPlacesByName(@PathParam("name") String name) {
         return retrieveHuntingPlaces.getHuntingPlaceJSON(name)
@@ -60,6 +69,7 @@ public class HuntingPlacesResource {
     }
 
     @PUT
+    @ApiOperation(value = "Modify a hunting place")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "the changed huntingPlace"),
             @ApiResponse(code = 400, message = "the provided changed huntingPlace is not valid"),

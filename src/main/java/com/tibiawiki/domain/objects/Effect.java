@@ -13,7 +13,7 @@ import java.util.List;
 @Component
 public class Effect extends WikiObject {
 
-    private final Integer effectid;
+    private final List<Integer> effectid;
     private final String primarytype;
     private final String secondarytype;
     private final Integer lightradius;
@@ -34,7 +34,7 @@ public class Effect extends WikiObject {
 
     @SuppressWarnings("squid:S00107")
     @Builder
-    private Effect(String name, String implemented, String notes, String history, Status status, Integer effectid,
+    private Effect(String name, String implemented, String notes, String history, Status status, List<Integer> effectid,
                    String primarytype, String secondarytype, Integer lightradius, Integer lightcolor, String causes,
                    String effect) {
         super(name, null, null, null, implemented, notes, history, status);

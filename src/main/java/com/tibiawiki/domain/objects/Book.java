@@ -194,6 +194,11 @@ public class Book extends WikiObject {
     }
 
     @Override
+    public String getName() {
+        return getPagename();
+    }
+
+    @Override
     public List<String> fieldOrder() {
         return Arrays.asList("booktype", "booktype2", "booktype3", "booktype4", "booktype5", "booktype6", "booktype7",
                 "booktype8", "title", "pagename", "location", "location2", "location3", "location4", "location5",

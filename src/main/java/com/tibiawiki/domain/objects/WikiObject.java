@@ -82,7 +82,7 @@ public abstract class WikiObject implements Validatable {
 
         @Override
         public String getTemplateType() {
-            return "WikiObject";
+            return "WikiObjectImpl";
         }
 
         @Override

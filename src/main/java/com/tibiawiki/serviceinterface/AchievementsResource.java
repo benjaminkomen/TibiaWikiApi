@@ -39,6 +39,7 @@ public class AchievementsResource {
     }
 
     @GET
+    @ApiOperation(value = "Get a list of achievements")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "list of achievements retrieved")
     })
@@ -56,7 +57,7 @@ public class AchievementsResource {
 
     @GET
     @Path("/{name}")
-    @ApiOperation(value = "achievements")
+    @ApiOperation(value = "Get a specific achievement by name")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "achievement with specified name found"),
             @ApiResponse(code = 404, message = "achievement with specified name not found")
@@ -72,6 +73,7 @@ public class AchievementsResource {
     }
 
     @PUT
+    @ApiOperation(value = "Modify an achievement")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "the changed achievement"),
             @ApiResponse(code = 400, message = "the provided changed achievement is not valid"),

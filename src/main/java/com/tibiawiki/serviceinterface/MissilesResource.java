@@ -5,6 +5,8 @@ import com.tibiawiki.domain.objects.validation.ValidationException;
 import com.tibiawiki.process.ModifyAny;
 import com.tibiawiki.process.RetrieveMissiles;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.json.JSONObject;
@@ -37,8 +39,14 @@ public class MissilesResource {
     }
 
     @GET
+    @ApiOperation(value = "Get a list of missiles")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "list of missiles retrieved")
+    })
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getMissiles(@QueryParam("expand") Boolean expand) {
+    public Response getMissiles(@ApiParam(value = "optionally expands the result to retrieve not only " +
+            "the missile names but the full missiles", required = false)
+                                @QueryParam("expand") Boolean expand) {
         return Response.ok()
                 .entity(expand != null && expand
                         ? retrieveMissiles.getMissilesJSON().map(JSONObject::toMap)
@@ -49,6 +57,7 @@ public class MissilesResource {
 
     @GET
     @Path("/{name}")
+    @ApiOperation(value = "Get a specific missile by name")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMissilesByName(@PathParam("name") String name) {
         return retrieveMissiles.getMissileJSON(name)
@@ -60,6 +69,7 @@ public class MissilesResource {
     }
 
     @PUT
+    @ApiOperation(value = "Modify a missile")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "the changed missile"),
             @ApiResponse(code = 400, message = "the provided changed missile is not valid"),
