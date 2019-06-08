@@ -19,6 +19,7 @@ import com.tibiawiki.domain.objects.Spell;
 import com.tibiawiki.domain.objects.Street;
 import com.tibiawiki.domain.objects.TibiaObject;
 import com.tibiawiki.domain.objects.WikiObject;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,7 +80,14 @@ public class WikiObjectFactory {
      */
     public WikiObject createWikiObject(JSONObject wikiObjectJson) {
         final WikiObject wikiObject;
-        final String templateType = (String) wikiObjectJson.get(TEMPLATE_TYPE);
+        String templateType;
+
+        try {
+            templateType = (String) wikiObjectJson.get(TEMPLATE_TYPE);
+        } catch (JSONException e) {
+            log.error("WikiObjectJson does not contain any templateType.");
+            return new WikiObject.WikiObjectImpl();
+        }
 
         switch (templateType) {
             case TEMPLATE_TYPE_ACHIEVEMENT:

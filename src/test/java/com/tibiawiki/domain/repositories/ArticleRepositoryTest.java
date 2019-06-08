@@ -3,14 +3,10 @@ package com.tibiawiki.domain.repositories;
 import benjaminkomen.jwiki.core.NS;
 import benjaminkomen.jwiki.core.Wiki;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -44,36 +40,6 @@ public class ArticleRepositoryTest {
         assertThat(result, notNullValue());
         assertThat(result.get(0), is("foo"));
         assertThat(result.get(1), is("bar"));
-    }
-
-    // Hard to mock a static class
-    @Disabled
-    @Test
-    public void testGetArticlesFromCategory_ByList_EmptyList() {
-        Map<String, String> result = target.getArticlesFromCategory(Collections.emptyList());
-
-        assertThat(result, notNullValue());
-        assertThat(result.entrySet(), hasSize(0));
-    }
-
-    // Hard to mock a static class
-    @Disabled
-    @Test
-    public void testGetArticlesFromCategory_ByList_Two() {
-        Map<String, String> result = target.getArticlesFromCategory(Arrays.asList(SOME_PAGE_NAME, SOME_OTHER_PAGE_NAME));
-
-        assertThat(result, notNullValue());
-        assertThat(result.entrySet(), hasSize(2));
-    }
-
-    // Hard to mock a static class
-    @Disabled
-    @Test
-    public void testGetArticlesFromCategory_ByCategory() {
-        Map<String, String> result = target.getArticlesFromCategory(SOME_CATEGORY_NAME);
-
-        assertThat(result, notNullValue());
-        assertThat(result.entrySet(), not(hasSize(0)));
     }
 
     @Test

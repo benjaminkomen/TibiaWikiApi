@@ -13,4 +13,4 @@ cache:
   - '$HOME/.sonar/cache'
 
 script:
-  - ./mvnw clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Djava.version=8
+  - ./mvnw clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
