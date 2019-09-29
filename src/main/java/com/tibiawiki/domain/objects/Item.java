@@ -94,6 +94,7 @@ public class Item extends WikiObject {
     private final String npcpricerook;
     private final String buyfrom;
     private final String sellto;
+    private final String notes2;
 
     private Item() {
         this.itemid = null;
@@ -169,11 +170,12 @@ public class Item extends WikiObject {
         this.npcpricerook = null;
         this.buyfrom = null;
         this.sellto = null;
+        this.notes2 = null;
     }
 
     @SuppressWarnings("squid:S00107")
     @Builder
-    private Item(String name, Article article, String actualname, String plural, String implemented, String notes,
+    private Item(String name, Article article, String actualname, String plural, String implemented, String notes, String notes2,
                  String history, Status status, List<Integer> itemid, YesNo marketable, YesNo usable, String sprites,
                  String flavortext, Status ingamestatus, String words, ItemClass itemclass, String primarytype,
                  String secondarytype, Integer lightcolor, Integer lightradius, Integer levelrequired,
@@ -264,6 +266,7 @@ public class Item extends WikiObject {
         this.npcpricerook = npcpricerook;
         this.buyfrom = buyfrom;
         this.sellto = sellto;
+        this.notes2 = notes2;
     }
 
     @JsonGetter("atk_mod")
@@ -347,6 +350,6 @@ public class Item extends WikiObject {
                 "stackable", "pickupable", "immobile", "walkable", "unshootable", "blockspath", "rotatable", "mapcolor",
                 "consumable", "regenseconds", "sounds", "writable", "rewritable", "writechars", "hangable", "holdsliquid",
                 "mana", "damagetype", "damage", "volume", "duration", "destructible", "droppedby", "value", "npcvalue",
-                "npcprice", "npcvaluerook", "npcpricerook", "buyfrom", "sellto", "notes", "history", "status");
+                "npcprice", "npcvaluerook", "npcpricerook", "buyfrom", "sellto", "notes", "notes2", "history", "status");
     }
 }
