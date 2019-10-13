@@ -10,6 +10,7 @@ import com.tibiawiki.serviceinterface.HuntingPlacesResource;
 import com.tibiawiki.serviceinterface.ItemsResource;
 import com.tibiawiki.serviceinterface.KeysResource;
 import com.tibiawiki.serviceinterface.LocationsResource;
+import com.tibiawiki.serviceinterface.LootStatisticsResource;
 import com.tibiawiki.serviceinterface.MissilesResource;
 import com.tibiawiki.serviceinterface.MountsResource;
 import com.tibiawiki.serviceinterface.NPCsResource;
@@ -58,6 +59,7 @@ public class JerseyConfig extends ResourceConfig {
         register(CreaturesResource.class);
         register(EffectsResource.class);
         register(LocationsResource.class);
+        register(LootStatisticsResource.class);
         register(HuntingPlacesResource.class);
         register(ItemsResource.class);
         register(KeysResource.class);

@@ -22,7 +22,8 @@ import java.util.stream.Stream;
 public class TemplateUtils {
 
     private static final Logger log = LoggerFactory.getLogger(TemplateUtils.class);
-    private static final String REGEX_PARAMETER_NEW = "\\|\\s+?([A-Za-z0-9_\\-]+)\\s*?=";
+    private static final String REGEX_PARAMETER_INFOBOX_LINE = "\\|\\s+?([A-Za-z0-9_\\-]+)\\s*?=";
+    private static final String REGEX_PARAMETER_LOOT_LINE = "\\|([A-Za-z0-9_\\-\\s]+)\\s*?(=|,)";
     private static final String REGEX_PARAMETER_LOWER_LEVELS = "\\|\\s+?lowerlevels\\s*?=((?:.*?\\{\\{.*?}})+)";
     private static final String REGEX_PARAMETER_LOWER_LEVELS_REMOVE = "\\|\\s+?lowerlevels\\s*?=((.*?\\{\\{.*?}})+)";
     private static final String LOWER_LEVELS = "lowerlevels";
@@ -76,7 +77,17 @@ public class TemplateUtils {
     }
 
     @NotNull
-    public static Map<String, String> splitByParameter(@Nullable String infoboxTemplatePartOfArticle) {
+    public static Map<String, String> splitInfoboxByParameter(@Nullable String infoboxTemplatePartOfArticle) {
+        return splitByParameter(infoboxTemplatePartOfArticle, REGEX_PARAMETER_INFOBOX_LINE);
+    }
+
+    @NotNull
+    public static Map<String, String> splitLootByParameter(@Nullable String lootTemplatePartOfArticle) {
+        return splitByParameter(lootTemplatePartOfArticle, REGEX_PARAMETER_LOOT_LINE);
+    }
+
+    @NotNull
+    public static Map<String, String> splitByParameter(@Nullable String infoboxTemplatePartOfArticle, String regex) {
         if (infoboxTemplatePartOfArticle == null || "".equals(infoboxTemplatePartOfArticle)) {
             return new HashMap<>();
         }
@@ -85,7 +96,7 @@ public class TemplateUtils {
 
         // first get keys
         List<String> keys = new LinkedList<>();
-        Pattern pattern = Pattern.compile(REGEX_PARAMETER_NEW);
+        Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(infoboxTemplatePartOfArticle);
         while (matcher.find()) {
             if (matcher.groupCount() > 0 && matcher.group(1) != null) {
@@ -106,7 +117,7 @@ public class TemplateUtils {
 
         if (keys.size() != sanitizedValues.size()) {
             if (log.isErrorEnabled()) {
-                int endLength = infoboxTemplatePartOfArticle.length() >= 200 ? 200 : infoboxTemplatePartOfArticle.length();
+                int endLength = Math.min(infoboxTemplatePartOfArticle.length(), 200);
                 log.error("Amount of keys and values don't match for article starting with: {}",
                         infoboxTemplatePartOfArticle.substring(0, endLength).replaceAll("\\n", ""));
                 return new HashMap<>();
@@ -164,7 +175,7 @@ public class TemplateUtils {
     }
 
     /**
-     * @param text the text to search in
+     * @param text  the text to search in
      * @param start the start String which denotes the start of the curly brackets
      * @return a tuple of two integers: the index of the start of the curly brackets and an index of the end of
      * the curly brackets

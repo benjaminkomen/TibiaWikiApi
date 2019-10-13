@@ -16,6 +16,7 @@ public class ArticleFactory {
 
     private static final Logger log = LoggerFactory.getLogger(ArticleFactory.class);
     private static final String INFOBOX_HEADER = "{{Infobox";
+    private static final String LOOT2_HEADER = "{{Loot2";
 
     public String extractInfoboxPartOfArticle(String articleContent) {
         return extractInfoboxPartOfArticle(Map.entry("Unknown", articleContent));
@@ -40,9 +41,32 @@ public class ArticleFactory {
         return TemplateUtils.getBetweenOuterBalancedBrackets(articleContent, INFOBOX_HEADER);
     }
 
+    public String extractLootPartOfArticle(String articleContent) {
+        return extractLootPartOfArticle(Map.entry("Unknown", articleContent));
+    }
+
+    /**
+     * Given a certain Article, extract the part from it which is the first loot statistics template, or an empty String if it does not contain
+     * an Loot2 template (which is perfectly valid in some cases).
+     */
+    public String extractLootPartOfArticle(Map.Entry<String, String> pageNameAndArticleContent) {
+        final String pageName = pageNameAndArticleContent.getKey();
+        final String articleContent = pageNameAndArticleContent.getValue();
+
+        if (!articleContent.contains(LOOT2_HEADER)) {
+            if (log.isWarnEnabled()) {
+                log.warn("Cannot extract loot statistics template from article '{}'," +
+                        " since it contains no Loot2 template.", pageName);
+            }
+            return "";
+        }
+
+        return TemplateUtils.getBetweenOuterBalancedBrackets(articleContent, LOOT2_HEADER);
+    }
+
     /**
      * @param originalArticleContent the original article content with the old infobox content
-     * @param newContent the new infobox content
+     * @param newContent             the new infobox content
      * @return the full article content with the old infobox content replaced by the new infobox content
      */
     public String insertInfoboxPartOfArticle(String originalArticleContent, String newContent) {

@@ -43,7 +43,7 @@ public class JsonFactory {
     private static final String ITEM_ID = "itemid";
     private static final String EFFECT_ID = "effectid";
     private static final String LOWER_LEVELS = "lowerlevels";
-    private static final List ITEMS_WITH_NO_DROPPEDBY_LIST = Arrays.asList("Gold Coin", "Platinum Coin");
+    private static final List<String> ITEMS_WITH_NO_DROPPEDBY_LIST = Arrays.asList("Gold Coin", "Platinum Coin");
     private static final String INFOBOX_HEADER_PATTERN = "\\{\\{Infobox[\\s|_](.*?)[\\||\\n]";
     private static final String RARITY_PATTERN = "(always|common|uncommon|semi-rare|rare|very rare|extremely rare)(|\\?)";
     private static final String UNKNOWN = "Unknown";
@@ -76,9 +76,26 @@ public class JsonFactory {
             }
         }
 
-        parametersAndValues.putAll(TemplateUtils.splitByParameter(infoboxTemplatePartOfArticleSanitized));
+        parametersAndValues.putAll(TemplateUtils.splitInfoboxByParameter(infoboxTemplatePartOfArticleSanitized));
         parametersAndValues.put(TEMPLATE_TYPE, templateType);
         return enhanceJsonObject(new JSONObject(parametersAndValues));
+    }
+
+    /**
+     * Convert a String which consists of key-value pairs of loot2 template parameters to a JSON object, or an empty
+     * JSON object if the input was empty.
+     */
+    @NotNull
+    public JSONObject convertLootPartOfArticleToJson(@Nullable final String lootPartOfArticle) {
+
+        if (lootPartOfArticle == null || "".equals(lootPartOfArticle)) {
+            return new JSONObject();
+        }
+
+        String lootTemplatePartOfArticleSanitized = TemplateUtils.removeFirstAndLastLine(lootPartOfArticle);
+
+        Map<String, String> parametersAndValues = new HashMap<>(TemplateUtils.splitLootByParameter(lootTemplatePartOfArticleSanitized));
+        return enhanceLootJsonObject(new JSONObject(parametersAndValues));
     }
 
     @NotNull
@@ -222,6 +239,12 @@ public class JsonFactory {
         return jsonObject;
     }
 
+    @NotNull
+    protected JSONObject enhanceLootJsonObject(@NotNull JSONObject jsonObject) {
+
+        return jsonObject;
+    }
+
     /**
      * Usually the articleName is the value from the key 'name', but for books, locations or keys it is different.
      */
@@ -345,7 +368,7 @@ public class JsonFactory {
         }
 
         final List<JSONObject> infoboxHuntSkillJsonObjects = infoboxHuntSkillsList.stream()
-                .map(s -> new JSONObject(new HashMap<>(TemplateUtils.splitByParameter(s))))
+                .map(s -> new JSONObject(new HashMap<>(TemplateUtils.splitInfoboxByParameter(s))))
                 .collect(Collectors.toList());
 
         return new JSONArray(infoboxHuntSkillJsonObjects);

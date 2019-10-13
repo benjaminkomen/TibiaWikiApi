@@ -118,6 +118,23 @@ public class JsonFactoryTest {
         assertThat(result.get("map2"), is("Hero Cave 6.png"));
     }
 
+    private static final String LOOT_BEAR_TEXT = "{{Loot2\n" +
+            "|version=8.6\n" +
+            "|kills=52807\n" +
+            "|name=Bear\n" +
+            "|Empty, times:24777\n" +
+            "|Meat, times:21065\n" +
+            "|Ham, times:10581\n" +
+            "|Bear Paw, times:1043, amount:1, total:1043\n" +
+            "|Honeycomb, times:250, amount:1, total:249\n" +
+            "}}";
+
+    @Test
+    public void testConvertLootPartOfArticleToJson_NullOrEmpty() {
+        assertThat(target.convertLootPartOfArticleToJson(null), instanceOf(JSONObject.class));
+        assertThat(target.convertLootPartOfArticleToJson(""), instanceOf(JSONObject.class));
+    }
+
     @Test
     public void testGetTemplateType_NullOrEmpty() {
         assertThat(target.getTemplateType(null), is("Unknown"));
@@ -566,6 +583,16 @@ public class JsonFactoryTest {
             "| achievementid = 319\n" +
             "| relatedpages  = [[Muck Remover]], [[Mucus Plug]]\n" +
             "}}\n";
+
+    @Test
+    public void testConvertLootPartOfArticleToJson_Loot2Bear() {
+        JSONObject result = target.convertLootPartOfArticleToJson(LOOT_BEAR_TEXT);
+
+        assertThat(result.get("version"), is("8.6"));
+        assertThat(result.get("kills"), is("52807"));
+        assertThat(result.get("name"), is("Bear"));
+        assertThat(result.get("loot"), is(""));
+    }
 
     private Achievement makeAchievement() {
         return Achievement.builder()
