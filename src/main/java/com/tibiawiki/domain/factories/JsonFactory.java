@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -46,6 +47,7 @@ public class JsonFactory {
     private static final List<String> ITEMS_WITH_NO_DROPPEDBY_LIST = Arrays.asList("Gold Coin", "Platinum Coin");
     private static final String INFOBOX_HEADER_PATTERN = "\\{\\{Infobox[\\s|_](.*?)[\\||\\n]";
     private static final String RARITY_PATTERN = "(always|common|uncommon|semi-rare|rare|very rare|extremely rare)(|\\?)";
+    private static final String LOOT_LINE_NAME_PATTERN = "(.*?),";
     private static final String UNKNOWN = "Unknown";
     private static final String RARITY = "rarity";
     private static final String AMOUNT = "amount";
@@ -87,7 +89,6 @@ public class JsonFactory {
      */
     @NotNull
     public JSONObject convertLootPartOfArticleToJson(@Nullable final String lootPartOfArticle) {
-
         if (lootPartOfArticle == null || "".equals(lootPartOfArticle)) {
             return new JSONObject();
         }
@@ -239,10 +240,57 @@ public class JsonFactory {
         return jsonObject;
     }
 
+    /**
+     * The input jsonObject has real key-value pairs such as version, kills and name, but also Loot lines which need to be
+     * converted.
+     */
     @NotNull
     protected JSONObject enhanceLootJsonObject(@NotNull JSONObject jsonObject) {
 
-        return jsonObject;
+        JSONObject enhancedJsonObject = new JSONObject();
+        JSONArray lootArray = new JSONArray();
+
+        final Iterator<String> keyIterator = jsonObject.keys();
+
+        // iterate over json object entries
+        while (keyIterator.hasNext()) {
+            String key = keyIterator.next();
+            Object value = jsonObject.get(key);
+
+            if (value instanceof String) {
+                String stringValue = (String) value;
+
+                // do not modify normal keys such as version, kills and name. We assume they are always lowercase
+                if (Character.isLowerCase(key.codePointAt(0))) {
+                    enhancedJsonObject.put(key, stringValue);
+                } else {
+                    lootArray.put(makeLootEntry(stringValue));
+                }
+            }
+        }
+
+        if (lootArray.length() > 0) {
+            enhancedJsonObject.put("loot", lootArray);
+        }
+
+        return enhancedJsonObject;
+    }
+
+    private JSONObject makeLootEntry(String stringValue) {
+        JSONObject lootEntry = new JSONObject();
+
+        Pattern pattern = Pattern.compile(LOOT_LINE_NAME_PATTERN);
+        Matcher matcher = pattern.matcher(stringValue);
+        while (matcher.find()) {
+            if (matcher.groupCount() > 0 && matcher.group(1) != null) {
+                String itemName = matcher.group(1);
+                lootEntry.append("itemName", itemName);
+            }
+        }
+
+        final List<String> values = Arrays.asList((pattern).split(stringValue));
+
+        return lootEntry;
     }
 
     /**
