@@ -1,0 +1,12 @@
+steps:
+  # build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/tibiawikiapi-246008/tibiawikiapi', '.']
+    # push the container image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/tibiawikiapi-246008/tibiawikiapi']
+    # Deploy container image to Cloud Run
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['beta', 'run', 'deploy', 'tibiawikiapi', '--image', 'gcr.io/tibiawikiapi-246008/tibiawikiapi', '--region', 'europe-west1','--platform', 'managed', '--memory', '1Gi', '--quiet']
+images:
+  - gcr.io/tibiawikiapi-246008/tibiawikiapi
