@@ -27,16 +27,21 @@ public class PropertiesUtil {
 
     @Nullable
     private static String getProperty(String propertyName) {
-        String output = null;
         try {
             Properties props = new Properties();
             ClassLoader classloader = Thread.currentThread().getContextClassLoader();
             InputStream is = classloader.getResourceAsStream("credentials.properties");
-            props.load(is);
-            return props.getProperty(propertyName);
+
+            if (is != null) {
+                props.load(is);
+                return props.getProperty(propertyName);
+            } else {
+                LOG.warn("Could not read requested propertyName {} from file 'credentials.properties'.", propertyName);
+                return null;
+            }
         } catch (Exception ex) {
             LOG.error(String.valueOf(ex));
         }
-        return output;
+        return null;
     }
 }
