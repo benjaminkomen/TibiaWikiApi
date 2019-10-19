@@ -6,163 +6,43 @@
 
 Gets data from http://tibia.wikia.com and exposes this data using a RESTful JSON API.
 
-## Instructions
+## View online
+Navigate to https://tibiawiki.dev to view the Swagger API of this project.
+
+## Run locally
 Clone this git project to your local computer and compile it using: `mvn clean install` from your favourite command line
-environment such as Git Bash. Now you can start the application by typing the following in your command line:
- `java -jar target/TibiaWikiApi-1.0.0-SNAPSHOT.jar` while the current directory is the home folder of the project. 
- This process was tested with Maven 3.6.1 and Java 12.
- 
- Alternatively and maybe easier, you can also execute: `mvn spring-boot:run` in your command line.
+terminal. Then execute: `mvn spring-boot:run` and open your browser on http://localhost:8080
  
  You can now access the REST resources using your browser or any REST client such as Postman or curl from your command line.
- E.g. navigating to https://tibiawikiapi.herokuapp.com/api/corpses should give you a list of corpses.
- 
-## API documentation
-Navigate to https://tibiawikiapi.herokuapp.com/ for Swagger API documentation.
- 
+ E.g. navigating to http://localhost:8080/api/corpses should give you a list of corpses.
+
 ## Query parameters
-For all resources the query parameter ?expand=true can be appended to get a full list of JSON objects at the collection resource level. For example, instead of https://tibiawikiapi.herokuapp.com/achievements the url https://tibiawikiapi.herokuapp.com/achievements?expand=true should be used.
+For all resources the query parameter `?expand=true` can be appended to get a full list of JSON objects
+ at the collection resource level. For example, instead of https://tibiawiki.dev/api/achievements the url
+ https://tibiawiki.dev/api/achievements?expand=true can be used.
 
-## Achievements
+## Resources
 
-A list of all achievements:
-https://tibiawikiapi.herokuapp.com/api/achievements
+The following resources are available:
 
-An achievement by achievement name, e.g. "Goo Goo Dancer":
-https://tibiawikiapi.herokuapp.com/api/achievements/Goo_Goo_Dancer
-
-## Books
-
-A list of all books:
-https://tibiawikiapi.herokuapp.com/api/books
-
-A book by book name, e.g. "Dungeon Survival Guide (Book)":
-https://tibiawikiapi.herokuapp.com/api/books/Dungeon_Survival_Guide_%28Book%29
-
-## Buildings
-
-A list of all buildings:
-https://tibiawikiapi.herokuapp.com/api/buildings
-
-A building by building name, e.g. "Theater Avenue 8b":
-https://tibiawikiapi.herokuapp.com/api/buildings/Theater_Avenue_8b
-
-## Corpses
-
-A list of all corpses:
-https://tibiawikiapi.herokuapp.com/api/corpses
-
-A corpse by corpse name, e.g. "Dead Rat":
-https://tibiawikiapi.herokuapp.com/api/corpses/Dead_Rat
-
-## Creatures
-
-A list of all creatures:
-https://tibiawikiapi.herokuapp.com/api/creatures
-
-A creature by creature name, e.g. "Dragon":
-https://tibiawikiapi.herokuapp.com/api/creatures/Dragon
-
-## Effects
-
-A list of all effects:
-https://tibiawikiapi.herokuapp.com/api/effects
-
-An effect by effect name, e.g. "Blue Electricity Effect":
-https://tibiawikiapi.herokuapp.com/api/effects/Blue_Electricity_Effect
-
-## Hunting Places
-
-A list of all hunting places:
-https://tibiawikiapi.herokuapp.com/api/huntingplaces
-
-A location by location name, e.g. "Hero Cave":
-https://tibiawikiapi.herokuapp.com/api/huntingplaces/Hero_Cave
-
-## Items
-
-A list of all items:
-https://tibiawikiapi.herokuapp.com/api/items
-
-An item by item name, e.g. "Carlin Sword":
-https://tibiawikiapi.herokuapp.com/api/items/Carlin_Sword
-
-## Keys
-
-A list of all keys:
-https://tibiawikiapi.herokuapp.com/api/keys
-
-A key by key name (not only the number but the full wiki pagename), e.g. "Key 4055":
-https://tibiawikiapi.herokuapp.com/api/keys/Key_4055
-
-## Locations (Geography)
-
-A list of all locations:
-https://tibiawikiapi.herokuapp.com/api/locations
-
-A location by location name, e.g. "Thais":
-https://tibiawikiapi.herokuapp.com/api/locations/Thais
-
-## Missiles
-
-A list of all missiles:
-https://tibiawikiapi.herokuapp.com/api/missiles
-
-A missile by name, e.g. "Throwing Cake Missile":
-https://tibiawikiapi.herokuapp.com/api/missiles/Throwing_Cake_Missile
-
-## Mounts
-
-A list of all mounts:
-https://tibiawikiapi.herokuapp.com/api/mounts
-
-A mount by mount name, e.g. "Donkey":
-https://tibiawikiapi.herokuapp.com/api/mounts/Donkey
-
-## NPCs
-
-A list of all NPCs:
-https://tibiawikiapi.herokuapp.com/api/npcs
-
-An NPC by NPC name, e.g. "Sam":
-https://tibiawikiapi.herokuapp.com/api/npcs/Sam
-
-## Objects
-
-A list of all objects:
-https://tibiawikiapi.herokuapp.com/api/objects
-
-An object by object name, e.g. "Blueberry Bush":
-https://tibiawikiapi.herokuapp.com/api/objects/Blueberry_Bush
-
-## Outfits
-
-A list of all outfits:
-https://tibiawikiapi.herokuapp.com/api/outfits
-
-An outfit by outfit name, e.g. "Pirate Outfits":
-https://tibiawikiapi.herokuapp.com/api/outfits/Pirate_Outfits
-
-## Quests
-
-A list of all quests:
-https://tibiawikiapi.herokuapp.com/api/quests
-
-A quest by quest name, e.g. "The Paradox Tower Quest":
-https://tibiawikiapi.herokuapp.com/api/quests/The_Paradox_Tower_Quest
-
-## Spells
-
-A list of all spells:
-https://tibiawikiapi.herokuapp.com/api/spells
-
-A spell by spell name, e.g. "Light Healing":
-https://tibiawikiapi.herokuapp.com/api/spells/Light_Healing
-
-## Streets
-
-A list of all streets:
-https://tibiawikiapi.herokuapp.com/api/streets
-
-A street by street name, e.g. "Sugar Street":
-https://tibiawikiapi.herokuapp.com/api/streets/Sugar_Street
+| Entity          | List                                                        | Example                                                                                            |
+|:-------------   |:------------------------------------------------------      |:-------------------------------------------------------------------------------------------------- |
+| Achievement     | [achievements](https://tibiawiki.dev/api/achievements)      | [Goo Goo Dancer](https://tibiawiki.dev/api/achievements/Goo_Goo_Dancer)                            |
+| Books           | [books](https://tibiawiki.dev/api/books)                    | [Dungeon Survival Guide (Book)](https://tibiawiki.dev/api/books/Dungeon_Survival_Guide_%28Book%29) |
+| Buildings       | [buildings](https://tibiawiki.dev/api/buildings)            | [Theater Avenue 8b](https://tibiawiki.dev/api/buildings/Theater_Avenue_8b)                         |
+| Corpses         | [corpses](https://tibiawiki.dev/api/corpses)                | [Dead Rat](https://tibiawiki.dev/api/corpses/Dead_Rat)                                             |
+| Creatures       | [creatures](https://tibiawiki.dev/api/creatures)            | [Dragon](https://tibiawiki.dev/api/creatures/Dragon)                                               |
+| Effects         | [effects](https://tibiawiki.dev/api/effects)                | [Blue Electricity Effect](https://tibiawiki.dev/api/effects/Blue_Electricity_Effect)               |
+| Hunting Places  | [hunting places](https://tibiawiki.dev/api/huntingplaces)   | [Hero Cave](https://tibiawiki.dev/api/huntingplaces/Hero_Cave)                                     |
+| Items           | [items](https://tibiawiki.dev/api/items)                    | [Carlin Sword](https://tibiawiki.dev/api/items/Carlin_Sword)                                       |
+| Keys            | [keys](https://tibiawiki.dev/api/keys)                      | [Key 4055](https://tibiawiki.dev/api/keys/Key_4055)                                                |
+| Locations       | [locations](https://tibiawiki.dev/api/locations)            | [Thais](https://tibiawiki.dev/api/locations/Thais)                                                 |
+| Loot Statistics | [loot statistics](https://tibiawiki.dev/api/lootstatistics) | [Ferumbras](https://tibiawiki.dev/api/lootstatistics/Ferumbras)                                    |
+| Missiles        | [missiles](https://tibiawiki.dev/api/missiles)              | [Throwing Cake Missile](https://tibiawiki.dev/api/missiles/Throwing_Cake_Missile)                  |
+| Mounts          | [mounts](https://tibiawiki.dev/api/mounts)                  | [Donkey](https://tibiawiki.dev/api/mounts/Donkey)                                                  |
+| NPCs            | [npcs](https://tibiawiki.dev/api/npcs)                      | [Sam](https://tibiawiki.dev/api/npcs/Sam)                                                          |
+| Objects         | [objects](https://tibiawiki.dev/api/objects)                | [Blueberry Bush](https://tibiawiki.dev/api/objects/Blueberry_Bush)                                 |
+| Outfits         | [outfits](https://tibiawiki.dev/api/outfits)                | [Pirate Outfits](https://tibiawiki.dev/api/outfits/Pirate_Outfits)                                 |
+| Quests          | [quests](https://tibiawiki.dev/api/quests)                  | [The Paradox Tower Quest](https://tibiawiki.dev/api/quests/The_Paradox_Tower_Quest)                |
+| Spells          | [spells](https://tibiawiki.dev/api/spells)                  | [Light Healing](https://tibiawiki.dev/api/spells/Light_Healing)                                    |
+| Streets         | [streets](https://tibiawiki.dev/api/streets)                | [Sugar Street](https://tibiawiki.dev/api/streets/Sugar_Street)                                     |

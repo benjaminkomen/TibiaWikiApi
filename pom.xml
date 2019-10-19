@@ -4,10 +4,10 @@
 
     <groupId>com.tibiawiki</groupId>
     <artifactId>TibiaWikiApi</artifactId>
-    <version>1.6.1</version>
+    <version>1.6.2</version>
     <packaging>jar</packaging>
     <name>TibiaWikiApi</name>
-    <url>https://github.com/benjaminkomen/TibiaWikiApi</url>
+    <url>https://github.com/benjaminkomen/TibiaWikiApi</url> <!-- https://tibiawiki.dev -->
 
     <parent>
         <groupId>org.springframework.boot</groupId>
