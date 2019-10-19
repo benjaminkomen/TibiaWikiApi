@@ -4,7 +4,7 @@
 
     <groupId>com.tibiawiki</groupId>
     <artifactId>TibiaWikiApi</artifactId>
-    <version>1.6.2</version>
+    <version>1.6.3</version>
     <packaging>jar</packaging>
     <name>TibiaWikiApi</name>
     <url>https://github.com/benjaminkomen/TibiaWikiApi</url> <!-- https://tibiawiki.dev -->
@@ -19,7 +19,9 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <slf4j.version>1.8.0-beta4</slf4j.version>
+        <slf4j.version>1.7.28</slf4j.version>
+        <logback.version>1.2.3</logback.version>
+        <logstash.version>6.2</logstash.version>
         <json.version>20180813</json.version>
         <lombok.version>1.18.8</lombok.version>
         <jetbrains.version>17.0.0</jetbrains.version>
@@ -90,9 +92,15 @@
         </dependency>
 
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>${slf4j.version}</version>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>${logstash.version}</version>
         </dependency>
 
         <!-- JSON -->
