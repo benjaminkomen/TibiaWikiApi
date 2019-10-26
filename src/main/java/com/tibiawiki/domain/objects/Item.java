@@ -95,6 +95,7 @@ public class Item extends WikiObject {
     private final String buyfrom;
     private final String sellto;
     private final String notes2;
+    private final String fansite;
 
     private Item() {
         this.itemid = null;
@@ -171,6 +172,7 @@ public class Item extends WikiObject {
         this.buyfrom = null;
         this.sellto = null;
         this.notes2 = null;
+        this.fansite = null;
     }
 
     @SuppressWarnings("squid:S00107")
@@ -191,7 +193,7 @@ public class Item extends WikiObject {
                  YesNo writable, YesNo rewritable, Integer writechars, YesNo hangable, YesNo holdsliquid, Integer mana,
                  DamageElement damagetype, String damage, Integer volume, String duration, YesNo destructible,
                  List<String> droppedby, String value, String npcvalue, String npcprice, String npcvaluerook,
-                 String npcpricerook, String buyfrom, String sellto) {
+                 String npcpricerook, String buyfrom, String sellto, String fansite) {
         super(name, article, actualname, plural, implemented, notes, history, status);
         this.itemid = itemid;
         this.marketable = marketable;
@@ -267,6 +269,7 @@ public class Item extends WikiObject {
         this.buyfrom = buyfrom;
         this.sellto = sellto;
         this.notes2 = notes2;
+        this.fansite = fansite;
     }
 
     @JsonGetter("atk_mod")
@@ -350,6 +353,6 @@ public class Item extends WikiObject {
                 "stackable", "pickupable", "immobile", "walkable", "unshootable", "blockspath", "rotatable", "mapcolor",
                 "consumable", "regenseconds", "sounds", "writable", "rewritable", "writechars", "hangable", "holdsliquid",
                 "mana", "damagetype", "damage", "volume", "duration", "destructible", "droppedby", "value", "npcvalue",
-                "npcprice", "npcvaluerook", "npcpricerook", "buyfrom", "sellto", "notes", "notes2", "history", "status");
+                "npcprice", "npcvaluerook", "npcpricerook", "buyfrom", "sellto", "notes", "notes2", "fansite", "history", "status");
     }
 }
