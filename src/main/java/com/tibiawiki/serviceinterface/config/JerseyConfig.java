@@ -29,7 +29,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.net.InetAddress;
 
 @Component
 public class JerseyConfig extends ResourceConfig {
@@ -74,21 +73,16 @@ public class JerseyConfig extends ResourceConfig {
     }
 
     private void configureSwagger() {
-
-        String hostname = InetAddress.getLoopbackAddress().getHostAddress();
-        String port = environment.getProperty("server.port");
-        String beanHost = String.format("%s:%s", hostname, port);
-
         this.register(ApiListingResource.class);
         this.register(SwaggerSerializers.class);
         BeanConfig beanConfig = new BeanConfig();
         beanConfig.setConfigId("tibiawikiapi");
         beanConfig.setTitle("TibiaWikiApi");
-        beanConfig.setVersion("1.6.0");
+        beanConfig.setVersion("1.6.2");
         beanConfig.setContact("B. Komen");
-        beanConfig.setSchemes(new String[]{"http", "https"});
+        beanConfig.setSchemes(new String[]{"https"});
         beanConfig.setBasePath(this.apiPath); // location where dynamically created swagger.json is reachable
-        beanConfig.setHost(beanHost);
+        beanConfig.setHost("tibiawiki.dev");
         beanConfig.setResourcePackage("com.tibiawiki");
         beanConfig.setPrettyPrint(true);
         beanConfig.setScan(true); // scan packages via setResourcePackage
