@@ -12,7 +12,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.0.RELEASE</version>
+        <version>2.2.2.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -21,13 +21,13 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <slf4j.version>1.7.28</slf4j.version>
         <logback.version>1.2.3</logback.version>
-        <logstash.version>6.2</logstash.version>
+        <logstash.version>6.3</logstash.version>
         <json.version>20190722</json.version>
         <lombok.version>1.18.10</lombok.version>
-        <jetbrains.version>17.0.0</jetbrains.version>
-        <streamex.version>0.7.0</streamex.version>
+        <jetbrains.version>18.0.0</jetbrains.version>
+        <streamex.version>0.7.2</streamex.version>
         <junit.jupiter.version>5.5.2</junit.jupiter.version>
-        <mockito.version>3.0.0</mockito.version>
+        <mockito.version>3.2.4</mockito.version>
         <hamcrest.version>2.2</hamcrest.version>
         <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
         <maven.failsafe.plugin.version>2.22.2</maven.failsafe.plugin.version>
@@ -35,7 +35,6 @@
         <build.helper.maven.plugin.version>3.0.0</build.helper.maven.plugin.version>
         <jwiki.version>2.0.1</jwiki.version>
         <guava.version>28.1-jre</guava.version>
-        <ow2.asm.version>7.1</ow2.asm.version>
         <swagger.jersey2.jaxrs.version>1.5.21</swagger.jersey2.jaxrs.version>
         <javax.activation.version>1.1.1</javax.activation.version>
         <vavr.version>0.10.2</vavr.version>
