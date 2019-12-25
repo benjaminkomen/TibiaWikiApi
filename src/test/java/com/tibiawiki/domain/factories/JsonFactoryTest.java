@@ -6,7 +6,6 @@ import com.tibiawiki.domain.objects.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -16,8 +15,7 @@ import java.util.Collections;
 import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.instanceOf;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 
 public class JsonFactoryTest {
 
@@ -549,8 +547,6 @@ public class JsonFactoryTest {
             "| relatedpages  = [[Muck Remover]], [[Mucus Plug]]\n" +
             "}}\n";
 
-    // TODO fix this test
-    @Disabled
     @Test
     public void testConvertLootPartOfArticleToJson_Loot2Bear() {
         JSONObject result = target.convertLootPartOfArticleToJson(LOOT_BEAR_TEXT);
@@ -558,7 +554,29 @@ public class JsonFactoryTest {
         assertThat(result.get("version"), is("8.6"));
         assertThat(result.get("kills"), is("52807"));
         assertThat(result.get("name"), is("Bear"));
-        assertThat(result.get("loot"), is(""));
+
+        Object loot = result.get("loot");
+        assertThat(loot, instanceOf(JSONArray.class));
+
+        var lootArray = (JSONArray) loot;
+        assertThat(((JSONObject)lootArray.get(0)).get("itemName"), is("Empty"));
+        assertThat(((JSONObject)lootArray.get(0)).get("times"), is("24777"));
+
+        assertThat(((JSONObject)lootArray.get(1)).get("itemName"), is("Ham"));
+        assertThat(((JSONObject)lootArray.get(1)).get("times"), is("10581"));
+
+        assertThat(((JSONObject)lootArray.get(2)).get("itemName"), is("Bear Paw"));
+        assertThat(((JSONObject)lootArray.get(2)).get("times"), is("1043"));
+        assertThat(((JSONObject)lootArray.get(2)).get("amount"), is("1"));
+        assertThat(((JSONObject)lootArray.get(2)).get("total"), is("1043"));
+
+        assertThat(((JSONObject)lootArray.get(3)).get("itemName"), is("Honeycomb"));
+        assertThat(((JSONObject)lootArray.get(3)).get("times"), is("250"));
+        assertThat(((JSONObject)lootArray.get(3)).get("amount"), is("1"));
+        assertThat(((JSONObject)lootArray.get(3)).get("total"), is("249"));
+
+        assertThat(((JSONObject)lootArray.get(4)).get("itemName"), is("Meat"));
+        assertThat(((JSONObject)lootArray.get(4)).get("times"), is("21065"));
     }
 
     private Achievement makeAchievement() {

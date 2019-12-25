@@ -37,7 +37,7 @@ The following resources are available:
 | Items           | [items](https://tibiawiki.dev/api/items)                    | [Carlin Sword](https://tibiawiki.dev/api/items/Carlin_Sword)                                       |
 | Keys            | [keys](https://tibiawiki.dev/api/keys)                      | [Key 4055](https://tibiawiki.dev/api/keys/Key_4055)                                                |
 | Locations       | [locations](https://tibiawiki.dev/api/locations)            | [Thais](https://tibiawiki.dev/api/locations/Thais)                                                 |
-| Loot Statistics | [loot statistics](https://tibiawiki.dev/api/lootstatistics) | [Ferumbras](https://tibiawiki.dev/api/lootstatistics/Ferumbras)                                    |
+| Loot Statistics | [loot](https://tibiawiki.dev/api/loot)                      | [Ferumbras](https://tibiawiki.dev/api/loot/Ferumbras)                                              |
 | Missiles        | [missiles](https://tibiawiki.dev/api/missiles)              | [Throwing Cake Missile](https://tibiawiki.dev/api/missiles/Throwing_Cake_Missile)                  |
 | Mounts          | [mounts](https://tibiawiki.dev/api/mounts)                  | [Donkey](https://tibiawiki.dev/api/mounts/Donkey)                                                  |
 | NPCs            | [npcs](https://tibiawiki.dev/api/npcs)                      | [Sam](https://tibiawiki.dev/api/npcs/Sam)                                                          |

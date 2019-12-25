@@ -47,7 +47,7 @@ public class JsonFactory {
     private static final List<String> ITEMS_WITH_NO_DROPPEDBY_LIST = Arrays.asList("Gold Coin", "Platinum Coin");
     private static final String INFOBOX_HEADER_PATTERN = "\\{\\{Infobox[\\s|_](.*?)[\\||\\n]";
     private static final String RARITY_PATTERN = "(always|common|uncommon|semi-rare|rare|very rare|extremely rare)(|\\?)";
-    private static final String LOOT_LINE_NAME_PATTERN = "(.*?),";
+    private static final String LOOT_LINE_NAME_PATTERN = "(\\w+:\\d+)";
     private static final String UNKNOWN = "Unknown";
     private static final String RARITY = "rarity";
     private static final String AMOUNT = "amount";
@@ -264,7 +264,7 @@ public class JsonFactory {
                 if (Character.isLowerCase(key.codePointAt(0))) {
                     enhancedJsonObject.put(key, stringValue);
                 } else {
-                    lootArray.put(makeLootEntry(stringValue));
+                    lootArray.put(makeLootEntry(key, stringValue));
                 }
             }
         }
@@ -276,19 +276,25 @@ public class JsonFactory {
         return enhancedJsonObject;
     }
 
-    private JSONObject makeLootEntry(String stringValue) {
+    /**
+     * We get a stringValue here which can be one of the following values:
+     * - "times:25"
+     * - "times:25, amount:1, total:25"
+     */
+    private JSONObject makeLootEntry(String key, String stringValue) {
         JSONObject lootEntry = new JSONObject();
+
+        lootEntry.put("itemName", key);
 
         Pattern pattern = Pattern.compile(LOOT_LINE_NAME_PATTERN);
         Matcher matcher = pattern.matcher(stringValue);
         while (matcher.find()) {
             if (matcher.groupCount() > 0 && matcher.group(1) != null) {
-                String itemName = matcher.group(1);
-                lootEntry.append("itemName", itemName);
+                String timesAmountOrTotal = matcher.group(1);
+                String[] splitToLabelAndNumber = timesAmountOrTotal.split(":");
+                lootEntry.put(splitToLabelAndNumber[0], splitToLabelAndNumber[1]);
             }
         }
-
-        final List<String> values = Arrays.asList((pattern).split(stringValue));
 
         return lootEntry;
     }

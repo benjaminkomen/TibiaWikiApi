@@ -52,7 +52,7 @@ public class LootStatisticsResource {
     @ApiOperation(value = "Get a specific loot statistics page by creature name")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getLootByName(@PathParam("name") String name) {
-        return retrieveLoot.getLootJSON(name)
+        return retrieveLoot.getLootJSON("Loot_Statistics:" + name)
                 .map(a -> Response.ok()
                         .entity(a.toString(2))
                         .build())
