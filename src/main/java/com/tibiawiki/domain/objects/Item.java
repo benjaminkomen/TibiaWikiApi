@@ -43,6 +43,7 @@ public class Item extends WikiObject {
     private final Integer earthAttack;
     private final Integer iceAttack;
     private final Integer energyAttack;
+    private final Integer deathAttack;
     private final Integer defense;
     private final String defensemod;
     private final Integer imbueslots;
@@ -93,6 +94,8 @@ public class Item extends WikiObject {
     private final String npcpricerook;
     private final String buyfrom;
     private final String sellto;
+    private final String notes2;
+    private final String fansite;
 
     private Item() {
         this.itemid = null;
@@ -117,6 +120,7 @@ public class Item extends WikiObject {
         this.earthAttack = null;
         this.iceAttack = null;
         this.energyAttack = null;
+        this.deathAttack = null;
         this.defense = null;
         this.defensemod = null;
         this.imbueslots = null;
@@ -167,17 +171,19 @@ public class Item extends WikiObject {
         this.npcpricerook = null;
         this.buyfrom = null;
         this.sellto = null;
+        this.notes2 = null;
+        this.fansite = null;
     }
 
     @SuppressWarnings("squid:S00107")
     @Builder
-    private Item(String name, Article article, String actualname, String plural, String implemented, String notes,
+    private Item(String name, Article article, String actualname, String plural, String implemented, String notes, String notes2,
                  String history, Status status, List<Integer> itemid, YesNo marketable, YesNo usable, String sprites,
                  String flavortext, Status ingamestatus, String words, ItemClass itemclass, String primarytype,
                  String secondarytype, Integer lightcolor, Integer lightradius, Integer levelrequired,
                  String vocrequired, Integer mlrequired, Hands hands, WeaponType type, String attack,
-                 Integer fireAttack, Integer earthAttack, Integer iceAttack, Integer energyAttack, Integer defense,
-                 String defensemod, Integer imbueslots, String imbuements,
+                 Integer fireAttack, Integer earthAttack, Integer iceAttack, Integer energyAttack, Integer deathAttack,
+                 Integer defense, String defensemod, Integer imbueslots, String imbuements,
                  YesNo enchantable, YesNo enchanted, String range, String attackModification, String hitpointModification,
                  Integer armor, String resist, Integer charges, Percentage criticalHitChance,
                  Percentage criticalHitExtraDamage, Percentage manaleechChance, Percentage manaleechAmount,
@@ -187,7 +193,7 @@ public class Item extends WikiObject {
                  YesNo writable, YesNo rewritable, Integer writechars, YesNo hangable, YesNo holdsliquid, Integer mana,
                  DamageElement damagetype, String damage, Integer volume, String duration, YesNo destructible,
                  List<String> droppedby, String value, String npcvalue, String npcprice, String npcvaluerook,
-                 String npcpricerook, String buyfrom, String sellto) {
+                 String npcpricerook, String buyfrom, String sellto, String fansite) {
         super(name, article, actualname, plural, implemented, notes, history, status);
         this.itemid = itemid;
         this.marketable = marketable;
@@ -211,6 +217,7 @@ public class Item extends WikiObject {
         this.earthAttack = earthAttack;
         this.iceAttack = iceAttack;
         this.energyAttack = energyAttack;
+        this.deathAttack = deathAttack;
         this.defense = defense;
         this.defensemod = defensemod;
         this.imbueslots = imbueslots;
@@ -261,6 +268,8 @@ public class Item extends WikiObject {
         this.npcpricerook = npcpricerook;
         this.buyfrom = buyfrom;
         this.sellto = sellto;
+        this.notes2 = notes2;
+        this.fansite = fansite;
     }
 
     @JsonGetter("atk_mod")
@@ -323,6 +332,11 @@ public class Item extends WikiObject {
         return energyAttack;
     }
 
+    @JsonGetter("death_attack")
+    public Integer getDeathAttack() {
+        return deathAttack;
+    }
+
     @Override
     public String getTemplateType() {
         return InfoboxTemplate.ITEM.getTemplateName();
@@ -333,12 +347,12 @@ public class Item extends WikiObject {
         return Arrays.asList("name", "article", "actualname", "plural", "itemid", "marketable", "usable", "sprites",
                 "flavortext", "implemented", "words", "itemclass", "primarytype", "secondarytype", "lightcolor",
                 "lightradius", "levelrequired", "vocrequired", "mlrequired", "hands", "type", "attack", "fire_attack",
-                "earth_attack", "ice_attack", "energy_attack", "defense", "defensemod", "imbueslots", "imbuements",
+                "earth_attack", "ice_attack", "energy_attack", "death_attack", "defense", "defensemod", "imbueslots", "imbuements",
                 "enchantable", "enchanted", "range", "atk_mod", "hit_mod", "armor", "resist", "charges", "crithit_ch",
                 "critextra_dmg", "manaleech_ch", "manaleech_am", "hpleech_ch", "hpleech_am", "attrib", "weight",
                 "stackable", "pickupable", "immobile", "walkable", "unshootable", "blockspath", "rotatable", "mapcolor",
                 "consumable", "regenseconds", "sounds", "writable", "rewritable", "writechars", "hangable", "holdsliquid",
                 "mana", "damagetype", "damage", "volume", "duration", "destructible", "droppedby", "value", "npcvalue",
-                "npcprice", "npcvaluerook", "npcpricerook", "buyfrom", "sellto", "notes", "history", "status");
+                "npcprice", "npcvaluerook", "npcpricerook", "buyfrom", "sellto", "notes", "notes2", "fansite", "history", "status");
     }
 }

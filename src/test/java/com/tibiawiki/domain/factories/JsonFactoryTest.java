@@ -1,44 +1,8 @@
 package com.tibiawiki.domain.factories;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tibiawiki.domain.enums.Article;
-import com.tibiawiki.domain.enums.BestiaryClass;
-import com.tibiawiki.domain.enums.BestiaryLevel;
-import com.tibiawiki.domain.enums.BestiaryOccurrence;
-import com.tibiawiki.domain.enums.BookType;
-import com.tibiawiki.domain.enums.BuildingType;
-import com.tibiawiki.domain.enums.City;
-import com.tibiawiki.domain.enums.Gender;
-import com.tibiawiki.domain.enums.Hands;
-import com.tibiawiki.domain.enums.ItemClass;
-import com.tibiawiki.domain.enums.KeyType;
-import com.tibiawiki.domain.enums.Rarity;
-import com.tibiawiki.domain.enums.Spawntype;
-import com.tibiawiki.domain.enums.SpellSubclass;
-import com.tibiawiki.domain.enums.SpellType;
-import com.tibiawiki.domain.enums.WeaponType;
-import com.tibiawiki.domain.enums.YesNo;
-import com.tibiawiki.domain.objects.Achievement;
-import com.tibiawiki.domain.objects.Book;
-import com.tibiawiki.domain.objects.Building;
-import com.tibiawiki.domain.objects.Corpse;
-import com.tibiawiki.domain.objects.Creature;
-import com.tibiawiki.domain.objects.Effect;
-import com.tibiawiki.domain.objects.HuntingPlace;
-import com.tibiawiki.domain.objects.HuntingPlaceSkills;
-import com.tibiawiki.domain.objects.Item;
-import com.tibiawiki.domain.objects.Key;
-import com.tibiawiki.domain.objects.Location;
-import com.tibiawiki.domain.objects.LootItem;
-import com.tibiawiki.domain.objects.Missile;
-import com.tibiawiki.domain.objects.Mount;
-import com.tibiawiki.domain.objects.NPC;
-import com.tibiawiki.domain.objects.Outfit;
-import com.tibiawiki.domain.objects.Percentage;
-import com.tibiawiki.domain.objects.Quest;
-import com.tibiawiki.domain.objects.Spell;
-import com.tibiawiki.domain.objects.Street;
-import com.tibiawiki.domain.objects.TibiaObject;
+import com.tibiawiki.domain.enums.*;
+import com.tibiawiki.domain.objects.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -51,8 +15,7 @@ import java.util.Collections;
 import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.instanceOf;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 
 public class JsonFactoryTest {
 
@@ -116,6 +79,23 @@ public class JsonFactoryTest {
         assertThat(result.get("bestloot"), is("Reins"));
         assertThat(result.get("map"), is("Hero Cave 3.png"));
         assertThat(result.get("map2"), is("Hero Cave 6.png"));
+    }
+
+    private static final String LOOT_BEAR_TEXT = "{{Loot2\n" +
+            "|version=8.6\n" +
+            "|kills=52807\n" +
+            "|name=Bear\n" +
+            "|Empty, times:24777\n" +
+            "|Meat, times:21065\n" +
+            "|Ham, times:10581\n" +
+            "|Bear Paw, times:1043, amount:1, total:1043\n" +
+            "|Honeycomb, times:250, amount:1, total:249\n" +
+            "}}";
+
+    @Test
+    public void testConvertLootPartOfArticleToJson_NullOrEmpty() {
+        assertThat(target.convertLootPartOfArticleToJson(null), instanceOf(JSONObject.class));
+        assertThat(target.convertLootPartOfArticleToJson(""), instanceOf(JSONObject.class));
     }
 
     @Test
@@ -566,6 +546,38 @@ public class JsonFactoryTest {
             "| achievementid = 319\n" +
             "| relatedpages  = [[Muck Remover]], [[Mucus Plug]]\n" +
             "}}\n";
+
+    @Test
+    public void testConvertLootPartOfArticleToJson_Loot2Bear() {
+        JSONObject result = target.convertLootPartOfArticleToJson(LOOT_BEAR_TEXT);
+
+        assertThat(result.get("version"), is("8.6"));
+        assertThat(result.get("kills"), is("52807"));
+        assertThat(result.get("name"), is("Bear"));
+
+        Object loot = result.get("loot");
+        assertThat(loot, instanceOf(JSONArray.class));
+
+        var lootArray = (JSONArray) loot;
+        assertThat(((JSONObject)lootArray.get(0)).get("itemName"), is("Empty"));
+        assertThat(((JSONObject)lootArray.get(0)).get("times"), is("24777"));
+
+        assertThat(((JSONObject)lootArray.get(1)).get("itemName"), is("Ham"));
+        assertThat(((JSONObject)lootArray.get(1)).get("times"), is("10581"));
+
+        assertThat(((JSONObject)lootArray.get(2)).get("itemName"), is("Bear Paw"));
+        assertThat(((JSONObject)lootArray.get(2)).get("times"), is("1043"));
+        assertThat(((JSONObject)lootArray.get(2)).get("amount"), is("1"));
+        assertThat(((JSONObject)lootArray.get(2)).get("total"), is("1043"));
+
+        assertThat(((JSONObject)lootArray.get(3)).get("itemName"), is("Honeycomb"));
+        assertThat(((JSONObject)lootArray.get(3)).get("times"), is("250"));
+        assertThat(((JSONObject)lootArray.get(3)).get("amount"), is("1"));
+        assertThat(((JSONObject)lootArray.get(3)).get("total"), is("249"));
+
+        assertThat(((JSONObject)lootArray.get(4)).get("itemName"), is("Meat"));
+        assertThat(((JSONObject)lootArray.get(4)).get("times"), is("21065"));
+    }
 
     private Achievement makeAchievement() {
         return Achievement.builder()

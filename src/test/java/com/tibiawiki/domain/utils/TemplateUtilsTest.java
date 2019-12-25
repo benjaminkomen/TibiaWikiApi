@@ -31,14 +31,14 @@ public class TemplateUtilsTest {
 
     @Test
     public void testSplitByParameter_EmptyOrNull() {
-        assertThat(TemplateUtils.splitByParameter(null).size(), is(0));
-        assertThat(TemplateUtils.splitByParameter("").size(), is(0));
+        assertThat(TemplateUtils.splitInfoboxByParameter(null).size(), is(0));
+        assertThat(TemplateUtils.splitInfoboxByParameter("").size(), is(0));
     }
 
     @Test
     public void testSplitByParameter_InfoboxAchievement() {
         String input = TemplateUtils.removeFirstAndLastLine(INFOBOX__ACHIEVEMENT_TEXT);
-        Map<String, String> result = TemplateUtils.splitByParameter(input);
+        Map<String, String> result = TemplateUtils.splitInfoboxByParameter(input);
 
         assertThat(result.get("grade"), is("1"));
         assertThat(result.get("name"), is("Goo Goo Dancer"));
