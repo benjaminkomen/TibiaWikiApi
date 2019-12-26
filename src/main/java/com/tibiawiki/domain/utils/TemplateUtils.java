@@ -23,7 +23,7 @@ public class TemplateUtils {
 
     private static final Logger log = LoggerFactory.getLogger(TemplateUtils.class);
     private static final String REGEX_PARAMETER_INFOBOX_LINE = "\\|\\s+?([A-Za-z0-9_\\-]+)\\s*?=";
-    private static final String REGEX_PARAMETER_LOOT_LINE = "\\|([A-Za-z0-9_\\-\\s]+)\\s*?(=|,)";
+    private static final String REGEX_PARAMETER_LOOT_LINE = "\\|(.+?)\\s*?(=|,)";
     private static final String REGEX_PARAMETER_LOWER_LEVELS = "\\|\\s+?lowerlevels\\s*?=((?:.*?\\{\\{.*?}})+)";
     private static final String REGEX_PARAMETER_LOWER_LEVELS_REMOVE = "\\|\\s+?lowerlevels\\s*?=((.*?\\{\\{.*?}})+)";
     private static final String LOWER_LEVELS = "lowerlevels";
