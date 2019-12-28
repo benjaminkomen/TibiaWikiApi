@@ -39,6 +39,10 @@ public class ArticleRepository {
         return wiki.getCategoryMembers(categoryName, NS.MAIN);
     }
 
+    public List<String> getPageNamesFromCategory(String categoryName, NS namespace) {
+        return wiki.getCategoryMembers(categoryName, namespace);
+    }
+
     /**
      * @return a map of key-value pairs of: title - pagecontent
      */
