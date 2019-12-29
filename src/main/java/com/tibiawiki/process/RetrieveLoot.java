@@ -43,16 +43,19 @@ public class RetrieveLoot extends RetrieveAny {
     private Stream<JSONObject> getArticlesFromLoot2TemplateAsJSON(List<String> pageNames) {
         return Stream.of(pageNames)
                 .flatMap(lst -> articleRepository.getArticlesFromCategory(lst).entrySet().stream())
-                .map(e -> articleFactory.extractLootPartOfArticle(e))
-                .map(jsonFactory::convertLootPartOfArticleToJson);
+                .map(e -> {
+                    var lootPartOfArticle = articleFactory.extractLootPartOfArticle(e);
+                    return jsonFactory.convertLootPartOfArticleToJson(e.getKey(), lootPartOfArticle);
+                });
     }
 
     private Optional<JSONObject> getLootArticleAsJSON(String pageName) {
         return Optional.ofNullable(articleRepository.getArticle(pageName))
-                .map(articleFactory::extractLootPartOfArticle)
-                .map(jsonFactory::convertLootPartOfArticleToJson);
+                .map(articleContent -> articleFactory.extractLootPartOfArticle(pageName, articleContent))
+                .map(lootPartOfArticle -> jsonFactory.convertLootPartOfArticleToJson(pageName, lootPartOfArticle));
     }
 
+    // TODO replace this reflection hack with functionality in jwiki to construct a custom namespace
     @NotNull
     private NS makeLootNamespace() {
         try {

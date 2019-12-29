@@ -108,28 +108,28 @@ public class ArticleFactoryTest {
 
     @Test
     public void testExtractLootPartOfArticle_EmptyText() {
-        String result = target.extractLootPartOfArticle(SOME_TEXT_EMPTY);
+        String result = target.extractLootPartOfArticle("Unknown", SOME_TEXT_EMPTY);
 
         assertThat(result, is(""));
     }
 
     @Test
     public void testExtractLootPartOfArticle_NoLoot2Template() {
-        String result = target.extractLootPartOfArticle(SOME_TEXT_NO_INFOBOX);
+        String result = target.extractLootPartOfArticle("Unknown", SOME_TEXT_NO_INFOBOX);
 
         assertThat(result, is(""));
     }
 
     @Test
     public void testExtractLootPartOfArticle_OnlyLoot2TemplateInArticleText() {
-        String result = target.extractLootPartOfArticle(SOME_TEXT_ONLY_LOOT2_TEMPLATE);
+        String result = target.extractLootPartOfArticle("Unknown", SOME_TEXT_ONLY_LOOT2_TEMPLATE);
 
         assertThat(result, is(SOME_TEXT_ONLY_LOOT2_TEMPLATE));
     }
 
     @Test
     public void testExtractLootPartOfArticle_ALotOfStuffInArticleText() {
-        String result = target.extractLootPartOfArticle(SOME_TEXT_WITH_LOOT2_TEMPLATE);
+        String result = target.extractLootPartOfArticle("Unknown", SOME_TEXT_WITH_LOOT2_TEMPLATE);
 
         assertThat(result, is(SOME_TEXT_ONLY_LOOT2_TEMPLATE));
     }
