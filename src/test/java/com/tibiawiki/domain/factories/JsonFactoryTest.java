@@ -94,8 +94,8 @@ public class JsonFactoryTest {
 
     @Test
     public void testConvertLootPartOfArticleToJson_NullOrEmpty() {
-        assertThat(target.convertLootPartOfArticleToJson(null), instanceOf(JSONObject.class));
-        assertThat(target.convertLootPartOfArticleToJson(""), instanceOf(JSONObject.class));
+        assertThat(target.convertLootPartOfArticleToJson("", null), instanceOf(JSONObject.class));
+        assertThat(target.convertLootPartOfArticleToJson("", ""), instanceOf(JSONObject.class));
     }
 
     @Test
@@ -549,7 +549,7 @@ public class JsonFactoryTest {
 
     @Test
     public void testConvertLootPartOfArticleToJson_Loot2Bear() {
-        JSONObject result = target.convertLootPartOfArticleToJson(LOOT_BEAR_TEXT);
+        JSONObject result = target.convertLootPartOfArticleToJson("Loot Statistics:Bear", LOOT_BEAR_TEXT);
 
         assertThat(result.get("version"), is("8.6"));
         assertThat(result.get("kills"), is("52807"));

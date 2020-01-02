@@ -41,8 +41,8 @@ public class ArticleFactory {
         return TemplateUtils.getBetweenOuterBalancedBrackets(articleContent, INFOBOX_HEADER);
     }
 
-    public String extractLootPartOfArticle(String articleContent) {
-        return extractLootPartOfArticle(Map.entry("Unknown", articleContent));
+    public String extractLootPartOfArticle(String pageName, String articleContent) {
+        return extractLootPartOfArticle(Map.entry(pageName, articleContent));
     }
 
     /**

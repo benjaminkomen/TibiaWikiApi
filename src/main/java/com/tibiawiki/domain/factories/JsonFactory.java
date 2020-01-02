@@ -88,7 +88,7 @@ public class JsonFactory {
      * JSON object if the input was empty.
      */
     @NotNull
-    public JSONObject convertLootPartOfArticleToJson(@Nullable final String lootPartOfArticle) {
+    public JSONObject convertLootPartOfArticleToJson(String pageName, @Nullable final String lootPartOfArticle) {
         if (lootPartOfArticle == null || "".equals(lootPartOfArticle)) {
             return new JSONObject();
         }
@@ -96,6 +96,7 @@ public class JsonFactory {
         String lootTemplatePartOfArticleSanitized = TemplateUtils.removeFirstAndLastLine(lootPartOfArticle);
 
         Map<String, String> parametersAndValues = new HashMap<>(TemplateUtils.splitLootByParameter(lootTemplatePartOfArticleSanitized));
+        parametersAndValues.put("pageName", pageName);
         return enhanceLootJsonObject(new JSONObject(parametersAndValues));
     }
 
