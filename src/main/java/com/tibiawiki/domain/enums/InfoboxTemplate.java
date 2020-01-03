@@ -17,6 +17,7 @@ public enum InfoboxTemplate implements WikiTemplate {
     HUNT("Hunt", "Hunting Places"),
     ITEM("Item", "Items"),
     KEY("Key", "Keys"),
+    LOOT("Loot2", "Loot Statistics"),
     MISSILE("Missile", "Missiles"),
     MOUNT("Mount", "Mounts"),
     NPC("NPC", "NPCs"),
