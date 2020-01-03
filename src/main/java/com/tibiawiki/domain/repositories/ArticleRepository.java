@@ -26,7 +26,7 @@ public class ArticleRepository {
     private Wiki wiki;
 
     public ArticleRepository() {
-        wiki = new Wiki(null, null, HttpUrl.parse(DEFAULT_WIKI_URI), null, null, true);
+        wiki = new Wiki.Builder().withApiEndpoint(HttpUrl.parse(DEFAULT_WIKI_URI)).build();
 
         this.login(wiki);
     }
