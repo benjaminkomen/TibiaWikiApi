@@ -7,8 +7,8 @@ COPY src ./src
 
 ARG GITHUB_TOKEN
 ENV GITHUB_TOKEN=${GITHUB_TOKEN}
-COPY .travis.settings.xml $HOME/.m2/settings.xml
-RUN cat $HOME/.m2/settings.xml
+COPY .travis.settings.xml /root/.m2/settings.xml
+RUN cat /root/.m2/settings.xml
 
 # Build a release artifact.
 RUN mvn package -DskipTests
