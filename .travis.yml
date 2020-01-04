@@ -12,11 +12,10 @@ cache:
   - '$HOME/.m2/repository'
   - '$HOME/.sonar/cache'
 
+# the dependency benjaminkomen/jwiki recides in GitHub Packages, for which you need credentials to download.
+# They are set here, with the GITHUB_TOKEN in Travis.
 install:
-  - |
-    cp .travis.settings.xml $HOME/.m2/settings.xml
-    # travis_wait ./mvnw clean verify -Dmaven.main.skip -Dmaven.test.skip --quiet --batch-mode
+  - cp .travis.settings.xml $HOME/.m2/settings.xml
 
 script:
-  - |
-    ./mvnw clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
+  - ./mvnw clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
