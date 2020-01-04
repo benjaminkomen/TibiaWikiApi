@@ -5,6 +5,10 @@ WORKDIR /app
 COPY pom.xml .
 COPY src ./src
 
+ARG GITHUB_TOKEN
+ENV GITHUB_TOKEN=${GITHUB_TOKEN}
+COPY .travis.settings.xml $HOME/.m2/settings.xml
+
 # Build a release artifact.
 RUN mvn package -DskipTests
 
