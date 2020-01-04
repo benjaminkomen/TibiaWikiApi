@@ -4,7 +4,7 @@
 
     <groupId>com.tibiawiki</groupId>
     <artifactId>TibiaWikiApi</artifactId>
-    <version>1.7.1</version>
+    <version>1.7.2</version>
     <packaging>jar</packaging>
     <name>TibiaWikiApi</name>
     <url>https://github.com/benjaminkomen/TibiaWikiApi</url> <!-- https://tibiawiki.dev -->
@@ -16,12 +16,17 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <repositories>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/benjaminkomen/jwiki</url>
+        </repository>
+    </repositories>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <slf4j.version>1.7.28</slf4j.version>
-        <logback.version>1.2.3</logback.version>
-        <logstash.version>6.3</logstash.version>
         <json.version>20190722</json.version>
         <lombok.version>1.18.10</lombok.version>
         <jetbrains.version>18.0.0</jetbrains.version>
@@ -33,20 +38,12 @@
         <maven.failsafe.plugin.version>2.22.2</maven.failsafe.plugin.version>
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
         <build.helper.maven.plugin.version>3.0.0</build.helper.maven.plugin.version>
-        <jwiki.version>2.0.1</jwiki.version>
+        <jwiki.version>2.2.0</jwiki.version>
         <guava.version>28.1-jre</guava.version>
         <swagger.jersey2.jaxrs.version>1.5.21</swagger.jersey2.jaxrs.version>
         <javax.activation.version>1.1.1</javax.activation.version>
         <vavr.version>0.10.2</vavr.version>
     </properties>
-
-    <repositories>
-        <!-- Needed for jwiki -->
-        <repository>
-            <id>jcenter</id>
-            <url>https://jcenter.bintray.com/</url>
-        </repository>
-    </repositories>
 
     <dependencies>
         <!-- Spring boot -->
@@ -91,15 +88,9 @@
         </dependency>
 
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>net.logstash.logback</groupId>
-            <artifactId>logstash-logback-encoder</artifactId>
-            <version>${logstash.version}</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
         </dependency>
 
         <!-- JSON -->

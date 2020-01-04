@@ -4,13 +4,10 @@ import benjaminkomen.jwiki.core.NS;
 import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.factories.JsonFactory;
 import com.tibiawiki.domain.repositories.ArticleRepository;
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +24,7 @@ public class RetrieveLoot extends RetrieveAny {
     }
 
     public List<String> getLootList() {
-        final List<String> lootStatisticsCategory = articleRepository.getPageNamesFromCategory(LOOT_STATISTICS_CATEGORY_NAME, makeLootNamespace());
+        final List<String> lootStatisticsCategory = articleRepository.getPageNamesFromCategory(LOOT_STATISTICS_CATEGORY_NAME, new NS(112));
 
         return new ArrayList<>(lootStatisticsCategory);
     }
@@ -53,18 +50,5 @@ public class RetrieveLoot extends RetrieveAny {
         return Optional.ofNullable(articleRepository.getArticle(pageName))
                 .map(articleContent -> articleFactory.extractLootPartOfArticle(pageName, articleContent))
                 .map(lootPartOfArticle -> jsonFactory.convertLootPartOfArticleToJson(pageName, lootPartOfArticle));
-    }
-
-    // TODO replace this reflection hack with functionality in jwiki to construct a custom namespace
-    @NotNull
-    private NS makeLootNamespace() {
-        try {
-            final Constructor<?>[] constructors = NS.class.getDeclaredConstructors();
-            constructors[0].setAccessible(true);
-            Object namespace = constructors[0].newInstance(112);
-            return (NS) namespace;
-        } catch (IllegalAccessException | InvocationTargetException | InstantiationException e) {
-            throw new RuntimeException(e);
-        }
     }
 }
