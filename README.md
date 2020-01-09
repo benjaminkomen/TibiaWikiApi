@@ -12,6 +12,9 @@ Navigate to https://tibiawiki.dev to view the Swagger API of this project.
 ## Run locally
 Clone this git project to your local computer and compile it using: `mvn clean install` from your favourite command line
 terminal. Then execute: `mvn spring-boot:run` and open your browser on http://localhost:8080
+
+Note that you need to add the [sample settings.xml](.travis.settings.xml) to your $HOME/.m2/settings.xml directory
+with a valid username and github token with read packages scope.
  
  You can now access the REST resources using your browser or any REST client such as Postman or curl from your command line.
  E.g. navigating to http://localhost:8080/api/corpses should give you a list of corpses.
