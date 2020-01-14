@@ -1,36 +1,20 @@
 package com.tibiawiki.serviceinterface.config;
 
-import com.tibiawiki.serviceinterface.AchievementsResource;
-import com.tibiawiki.serviceinterface.BooksResource;
-import com.tibiawiki.serviceinterface.BuildingsResource;
-import com.tibiawiki.serviceinterface.CorpsesResource;
-import com.tibiawiki.serviceinterface.CreaturesResource;
-import com.tibiawiki.serviceinterface.EffectsResource;
-import com.tibiawiki.serviceinterface.HuntingPlacesResource;
-import com.tibiawiki.serviceinterface.ItemsResource;
-import com.tibiawiki.serviceinterface.KeysResource;
-import com.tibiawiki.serviceinterface.LocationsResource;
-import com.tibiawiki.serviceinterface.LootStatisticsResource;
-import com.tibiawiki.serviceinterface.MissilesResource;
-import com.tibiawiki.serviceinterface.MountsResource;
-import com.tibiawiki.serviceinterface.NPCsResource;
-import com.tibiawiki.serviceinterface.ObjectsResource;
-import com.tibiawiki.serviceinterface.OutfitsResource;
-import com.tibiawiki.serviceinterface.QuestsResource;
-import com.tibiawiki.serviceinterface.SpellsResource;
-import com.tibiawiki.serviceinterface.StreetsResource;
+import com.tibiawiki.serviceinterface.*;
 import io.swagger.jaxrs.config.BeanConfig;
 import io.swagger.jaxrs.listing.ApiListingResource;
 import io.swagger.jaxrs.listing.SwaggerSerializers;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
 @Component
+@Configuration
 public class JerseyConfig extends ResourceConfig {
 
     @Value("${spring.jersey.application-path:/}")
