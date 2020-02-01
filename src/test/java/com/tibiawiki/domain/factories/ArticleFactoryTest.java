@@ -2,11 +2,9 @@ package com.tibiawiki.domain.factories;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ArticleFactoryTest {
 
@@ -136,25 +134,25 @@ public class ArticleFactoryTest {
 
     @Test
     void testInsertInfoboxPartOfArticle_Empty() {
-        Executable closure = () -> target.insertInfoboxPartOfArticle(SOME_TEXT_EMPTY, "foobar");
-        assertThrows(IllegalArgumentException.class, closure);
+        var result = target.insertInfoboxPartOfArticle(SOME_TEXT_EMPTY, "foobar");
+        assertThat("Empty result when empty input", result.isEmpty());
     }
 
     @Test
     void testInsertInfoboxPartOfArticle_NoInfobox() {
-        Executable closure = () -> target.insertInfoboxPartOfArticle(SOME_TEXT_NO_INFOBOX, "foobar");
-        assertThrows(IllegalArgumentException.class, closure);
+        var result = target.insertInfoboxPartOfArticle(SOME_TEXT_NO_INFOBOX, "foobar");
+        assertThat("Empty result when no infobox in input", result.isEmpty());
     }
 
     @Test
     void testInsertInfoboxPartOfArticle_OnlyInfoboxInArticleText() {
-        String result = target.insertInfoboxPartOfArticle(SOME_TEXT_ONLY_INFOBOX, SOME_TEXT_ONLY_INFOBOX2);
-        assertThat(result, is(SOME_TEXT_ONLY_INFOBOX2));
+        var result = target.insertInfoboxPartOfArticle(SOME_TEXT_ONLY_INFOBOX, SOME_TEXT_ONLY_INFOBOX2);
+        assertThat(result.get(), is(SOME_TEXT_ONLY_INFOBOX2));
     }
 
     @Test
     void testInsertInfoboxPartOfArticle_WithTextBeforeAndAfter() {
-        String result = target.insertInfoboxPartOfArticle(SOME_TEXT_INFOBOX_WITH_BEFORE_AND_AFTER, SOME_TEXT_ONLY_INFOBOX2);
-        assertThat(result, is(SOME_TEXT_INFOBOX_WITH_BEFORE_AND_AFTER2));
+        var result = target.insertInfoboxPartOfArticle(SOME_TEXT_INFOBOX_WITH_BEFORE_AND_AFTER, SOME_TEXT_ONLY_INFOBOX2);
+        assertThat(result.get(), is(SOME_TEXT_INFOBOX_WITH_BEFORE_AND_AFTER2));
     }
 }
