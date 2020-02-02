@@ -18,4 +18,4 @@ install:
   - cp .travis.settings.xml $HOME/.m2/settings.xml
 
 script:
-  - ./mvnw clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
+  - ./mvnw clean verify sonar:sonar -Pcoverage
