@@ -40,7 +40,7 @@ public class JsonFactory {
     private static final List<String> ITEMS_WITH_NO_DROPPEDBY_LIST = Arrays.asList("Gold Coin", "Platinum Coin");
     private static final String INFOBOX_HEADER_PATTERN = "\\{\\{Infobox[\\s|_](.*?)[\\||\\n]";
     private static final String RARITY_PATTERN = "(always|common|uncommon|semi-rare|rare|very rare|extremely rare)(|\\?)";
-    private static final String LOOT_LINE_NAME_PATTERN = "(\\w+:\\d+)";
+    private static final String LOOT_LINE_NAME_PATTERN = "(\\w+:[\\d-]+)";
     private static final String UNKNOWN = "Unknown";
     private static final String RARITY = "rarity";
     private static final String AMOUNT = "amount";
