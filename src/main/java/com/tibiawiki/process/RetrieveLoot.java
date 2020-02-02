@@ -29,15 +29,23 @@ public class RetrieveLoot extends RetrieveAny {
         return new ArrayList<>(lootStatisticsCategory);
     }
 
-    public Stream<JSONObject> getLootJSON() {
-        return getArticlesFromLoot2TemplateAsJSON(getLootList());
+    public Stream<JSONObject> getLootJSONObject() {
+        return getArticlesFromLoot2TemplateAsJSONObject(getLootList());
     }
 
-    public Optional<JSONObject> getLootJSON(String pageName) {
+    public Optional<JSONObject> getLootJSONObject(String pageName) {
         return getLootArticleAsJSON(pageName);
     }
 
-    private Stream<JSONObject> getArticlesFromLoot2TemplateAsJSON(List<String> pageNames) {
+    public Stream<JSONObject> getAllLootPartsJSON() {
+        return getArticlesFromAllLootTemplatesAsJSON(getLootList());
+    }
+
+    public Optional<JSONObject> getAllLootPartsJSON(String pageName) {
+        return getAllLootPartsAsJSON(pageName);
+    }
+
+    private Stream<JSONObject> getArticlesFromLoot2TemplateAsJSONObject(List<String> pageNames) {
         return Stream.of(pageNames)
                 .flatMap(lst -> articleRepository.getArticlesFromCategory(lst).entrySet().stream())
                 .map(e -> {
@@ -46,9 +54,24 @@ public class RetrieveLoot extends RetrieveAny {
                 });
     }
 
+    private Stream<JSONObject> getArticlesFromAllLootTemplatesAsJSON(List<String> pageNames) {
+        return Stream.of(pageNames)
+                .flatMap(lst -> articleRepository.getArticlesFromCategory(lst).entrySet().stream())
+                .map(e -> {
+                    var lootPartOfArticle = articleFactory.extractAllLootPartsOfArticle(e);
+                    return jsonFactory.convertAllLootPartsOfArticleToJson(e.getKey(), lootPartOfArticle);
+                });
+    }
+
     private Optional<JSONObject> getLootArticleAsJSON(String pageName) {
         return Optional.ofNullable(articleRepository.getArticle(pageName))
                 .map(articleContent -> articleFactory.extractLootPartOfArticle(pageName, articleContent))
                 .map(lootPartOfArticle -> jsonFactory.convertLootPartOfArticleToJson(pageName, lootPartOfArticle));
+    }
+
+    private Optional<JSONObject> getAllLootPartsAsJSON(String pageName) {
+        return Optional.ofNullable(articleRepository.getArticle(pageName))
+                .map(articleContent -> articleFactory.extractAllLootPartsOfArticle(pageName, articleContent))
+                .map(lootPartsOfArticle -> jsonFactory.convertAllLootPartsOfArticleToJson(pageName, lootPartsOfArticle));
     }
 }

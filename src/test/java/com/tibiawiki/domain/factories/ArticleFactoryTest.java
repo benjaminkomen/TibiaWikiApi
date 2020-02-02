@@ -2,11 +2,9 @@ package com.tibiawiki.domain.factories;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.hamcrest.Matchers.*;
 
 public class ArticleFactoryTest {
 
@@ -14,6 +12,39 @@ public class ArticleFactoryTest {
             "| name         = Goo Goo Dancer\n" +
             "}}";
     private static final String SOME_TEXT_ONLY_LOOT2_TEMPLATE = "{{Loot2\n" +
+            "|version=8.6\n" +
+            "|kills=52807\n" +
+            "|name=Bear\n" +
+            "|Empty, times:24777\n" +
+            "|Meat, times:21065\n" +
+            "|Ham, times:10581\n" +
+            "|Bear Paw, times:1043, amount:1, total:1043\n" +
+            "|Honeycomb, times:250, amount:1, total:249\n" +
+            "}}";
+    private static final String SOME_TEXT_ONLY_LOOT2_RC_TEMPLATE = "{{Loot2_RC\n" +
+            "|version=8.6\n" +
+            "|kills=52807\n" +
+            "|name=Bear\n" +
+            "|Empty, times:24777\n" +
+            "|Meat, times:21065\n" +
+            "|Ham, times:10581\n" +
+            "|Bear Paw, times:1043, amount:1, total:1043\n" +
+            "|Honeycomb, times:250, amount:1, total:249\n" +
+            "}}";
+    private static final String SOME_TEXT_BOTH_LOOT2_AND_LOOT2_RC_TEMPLATE = "__NOWYSIWYG__\n" +
+            "\n" +
+            "{{Loot2\n" +
+            "|version=8.6\n" +
+            "|kills=52807\n" +
+            "|name=Bear\n" +
+            "|Empty, times:24777\n" +
+            "|Meat, times:21065\n" +
+            "|Ham, times:10581\n" +
+            "|Bear Paw, times:1043, amount:1, total:1043\n" +
+            "|Honeycomb, times:250, amount:1, total:249\n" +
+            "}}\n" +
+            "\n" +
+            "{{Loot2_RC\n" +
             "|version=8.6\n" +
             "|kills=52807\n" +
             "|name=Bear\n" +
@@ -135,26 +166,63 @@ public class ArticleFactoryTest {
     }
 
     @Test
+    public void testExtractAllLootPartsOfArticle_EmptyText() {
+        var result = target.extractAllLootPartsOfArticle("Unknown", SOME_TEXT_EMPTY);
+
+        assertThat("Test: empty text results in no matches", result.isEmpty());
+    }
+
+    @Test
+    public void testExtractAllLootPartsOfArticle_NoLoot2OrLoot2RCTemplate() {
+        assertThat("Test: no Loot2 or Loot2_RC template results in no matches",
+                target.extractAllLootPartsOfArticle("Unknown", SOME_TEXT_NO_INFOBOX).isEmpty());
+    }
+
+    @Test
+    public void testExtractAllLootPartsOfArticle_OnlyLoot2TemplateInArticleText() {
+        var result = target.extractAllLootPartsOfArticle("Unknown", SOME_TEXT_ONLY_LOOT2_TEMPLATE);
+
+        assertThat(result.get("loot2"), is(SOME_TEXT_ONLY_LOOT2_TEMPLATE));
+        assertThat(result.get("loot2_rc"), nullValue());
+    }
+
+    @Test
+    public void testExtractAllLootPartsOfArticle_OnlyLoot2RCTemplateInArticleText() {
+        var result = target.extractAllLootPartsOfArticle("Unknown", SOME_TEXT_ONLY_LOOT2_RC_TEMPLATE);
+
+        assertThat(result.get("loot2_rc"), is(SOME_TEXT_ONLY_LOOT2_RC_TEMPLATE));
+        assertThat(result.get("loot2"), nullValue());
+    }
+
+    @Test
+    public void testExtractAllLootPartsOfArticle_BothLoot2AndLoot2RCTemplateInArticleText() {
+        var result = target.extractAllLootPartsOfArticle("Unknown", SOME_TEXT_BOTH_LOOT2_AND_LOOT2_RC_TEMPLATE);
+
+        assertThat(result.get("loot2_rc"), notNullValue());
+        assertThat(result.get("loot2"), notNullValue());
+    }
+
+    @Test
     void testInsertInfoboxPartOfArticle_Empty() {
-        Executable closure = () -> target.insertInfoboxPartOfArticle(SOME_TEXT_EMPTY, "foobar");
-        assertThrows(IllegalArgumentException.class, closure);
+        var result = target.insertInfoboxPartOfArticle(SOME_TEXT_EMPTY, "foobar");
+        assertThat("Empty result when empty input", result.isEmpty());
     }
 
     @Test
     void testInsertInfoboxPartOfArticle_NoInfobox() {
-        Executable closure = () -> target.insertInfoboxPartOfArticle(SOME_TEXT_NO_INFOBOX, "foobar");
-        assertThrows(IllegalArgumentException.class, closure);
+        var result = target.insertInfoboxPartOfArticle(SOME_TEXT_NO_INFOBOX, "foobar");
+        assertThat("Empty result when no infobox in input", result.isEmpty());
     }
 
     @Test
     void testInsertInfoboxPartOfArticle_OnlyInfoboxInArticleText() {
-        String result = target.insertInfoboxPartOfArticle(SOME_TEXT_ONLY_INFOBOX, SOME_TEXT_ONLY_INFOBOX2);
-        assertThat(result, is(SOME_TEXT_ONLY_INFOBOX2));
+        var result = target.insertInfoboxPartOfArticle(SOME_TEXT_ONLY_INFOBOX, SOME_TEXT_ONLY_INFOBOX2);
+        assertThat(result.get(), is(SOME_TEXT_ONLY_INFOBOX2));
     }
 
     @Test
     void testInsertInfoboxPartOfArticle_WithTextBeforeAndAfter() {
-        String result = target.insertInfoboxPartOfArticle(SOME_TEXT_INFOBOX_WITH_BEFORE_AND_AFTER, SOME_TEXT_ONLY_INFOBOX2);
-        assertThat(result, is(SOME_TEXT_INFOBOX_WITH_BEFORE_AND_AFTER2));
+        var result = target.insertInfoboxPartOfArticle(SOME_TEXT_INFOBOX_WITH_BEFORE_AND_AFTER, SOME_TEXT_ONLY_INFOBOX2);
+        assertThat(result.get(), is(SOME_TEXT_INFOBOX_WITH_BEFORE_AND_AFTER2));
     }
 }

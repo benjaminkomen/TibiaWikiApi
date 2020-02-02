@@ -11,14 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -47,7 +40,7 @@ public class JsonFactory {
     private static final List<String> ITEMS_WITH_NO_DROPPEDBY_LIST = Arrays.asList("Gold Coin", "Platinum Coin");
     private static final String INFOBOX_HEADER_PATTERN = "\\{\\{Infobox[\\s|_](.*?)[\\||\\n]";
     private static final String RARITY_PATTERN = "(always|common|uncommon|semi-rare|rare|very rare|extremely rare)(|\\?)";
-    private static final String LOOT_LINE_NAME_PATTERN = "(\\w+:\\d+)";
+    private static final String LOOT_LINE_NAME_PATTERN = "(\\w+:[\\d-]+)";
     private static final String UNKNOWN = "Unknown";
     private static final String RARITY = "rarity";
     private static final String AMOUNT = "amount";
@@ -98,6 +91,23 @@ public class JsonFactory {
         Map<String, String> parametersAndValues = new HashMap<>(TemplateUtils.splitLootByParameter(lootTemplatePartOfArticleSanitized));
         parametersAndValues.put("pageName", pageName);
         return enhanceLootJsonObject(new JSONObject(parametersAndValues));
+    }
+
+    @NotNull
+    public JSONObject convertAllLootPartsOfArticleToJson(String pageName, Map<String, String> lootPartsOfArticle) {
+
+        if (lootPartsOfArticle.isEmpty()) {
+            return new JSONObject();
+        }
+
+        var result = new JSONObject();
+
+        lootPartsOfArticle.forEach((k, v) -> {
+            var value = convertLootPartOfArticleToJson(pageName, v);
+            result.put(k, value);
+        });
+
+        return result;
     }
 
     @NotNull
@@ -349,14 +359,19 @@ public class JsonFactory {
             return new JSONArray();
         }
 
-        String lootItemsPartOfLootTable = TemplateUtils.getBetweenOuterBalancedBrackets(lootValue, "{{Loot Table");
-        lootItemsPartOfLootTable = TemplateUtils.removeFirstAndLastLine(lootItemsPartOfLootTable);
+        var lootItemsPartOfLootTable = TemplateUtils.getBetweenOuterBalancedBrackets(lootValue, "{{Loot Table");
 
-        if (lootItemsPartOfLootTable.length() < 3) {
+        if (lootItemsPartOfLootTable.isEmpty()) {
             return new JSONArray();
         }
 
-        List<String> lootItemsList = Arrays.asList(Pattern.compile("(^|\n)(\\s|)\\|").split(lootItemsPartOfLootTable));
+        var lootItemsPartOfLootTableStripped = TemplateUtils.removeFirstAndLastLine(lootItemsPartOfLootTable.get());
+
+        if (lootItemsPartOfLootTableStripped.length() < 3) {
+            return new JSONArray();
+        }
+
+        List<String> lootItemsList = Arrays.asList(Pattern.compile("(^|\n)(\\s|)\\|").split(lootItemsPartOfLootTableStripped));
 
         for (String lootItemTemplate : lootItemsList) {
             if (lootItemTemplate.length() < 1) {

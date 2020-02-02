@@ -1,24 +1,6 @@
 package com.tibiawiki.serviceinterface.config;
 
-import com.tibiawiki.serviceinterface.AchievementsResource;
-import com.tibiawiki.serviceinterface.BooksResource;
-import com.tibiawiki.serviceinterface.BuildingsResource;
-import com.tibiawiki.serviceinterface.CorpsesResource;
-import com.tibiawiki.serviceinterface.CreaturesResource;
-import com.tibiawiki.serviceinterface.EffectsResource;
-import com.tibiawiki.serviceinterface.HuntingPlacesResource;
-import com.tibiawiki.serviceinterface.ItemsResource;
-import com.tibiawiki.serviceinterface.KeysResource;
-import com.tibiawiki.serviceinterface.LocationsResource;
-import com.tibiawiki.serviceinterface.LootStatisticsResource;
-import com.tibiawiki.serviceinterface.MissilesResource;
-import com.tibiawiki.serviceinterface.MountsResource;
-import com.tibiawiki.serviceinterface.NPCsResource;
-import com.tibiawiki.serviceinterface.ObjectsResource;
-import com.tibiawiki.serviceinterface.OutfitsResource;
-import com.tibiawiki.serviceinterface.QuestsResource;
-import com.tibiawiki.serviceinterface.SpellsResource;
-import com.tibiawiki.serviceinterface.StreetsResource;
+import com.tibiawiki.serviceinterface.*;
 import io.swagger.jaxrs.config.BeanConfig;
 import io.swagger.jaxrs.listing.ApiListingResource;
 import io.swagger.jaxrs.listing.SwaggerSerializers;
@@ -59,6 +41,7 @@ public class JerseyConfig extends ResourceConfig {
         register(EffectsResource.class);
         register(LocationsResource.class);
         register(LootStatisticsResource.class);
+        register(LootStatisticsV2Resource.class);
         register(HuntingPlacesResource.class);
         register(ItemsResource.class);
         register(KeysResource.class);
@@ -78,7 +61,7 @@ public class JerseyConfig extends ResourceConfig {
         BeanConfig beanConfig = new BeanConfig();
         beanConfig.setConfigId("tibiawikiapi");
         beanConfig.setTitle("TibiaWikiApi");
-        beanConfig.setVersion("1.7.2");
+        beanConfig.setVersion("1.8.0");
         beanConfig.setContact("B. Komen");
         beanConfig.setSchemes(new String[]{"https"});
         beanConfig.setBasePath(this.apiPath); // location where dynamically created swagger.json is reachable
