@@ -43,6 +43,7 @@ public class JerseyConfig extends ResourceConfig {
         register(EffectsResource.class);
         register(LocationsResource.class);
         register(LootStatisticsResource.class);
+        register(LootStatisticsV2Resource.class);
         register(HuntingPlacesResource.class);
         register(ItemsResource.class);
         register(KeysResource.class);
@@ -62,7 +63,7 @@ public class JerseyConfig extends ResourceConfig {
         BeanConfig beanConfig = new BeanConfig();
         beanConfig.setConfigId("tibiawikiapi");
         beanConfig.setTitle("TibiaWikiApi");
-        beanConfig.setVersion("1.7.2");
+        beanConfig.setVersion("1.8.0");
         beanConfig.setContact("B. Komen");
         beanConfig.setSchemes(new String[]{"https"});
         beanConfig.setBasePath(this.apiPath); // location where dynamically created swagger.json is reachable

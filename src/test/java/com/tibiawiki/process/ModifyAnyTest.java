@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.ArgumentMatchers.*;
@@ -49,7 +50,7 @@ public class ModifyAnyTest {
         doReturn("").when(articleRepository).getArticle(anyString());
         doReturn(SOME_JSON_OBJECT).when(wikiObjectFactory).createJSONObject(eq(someAchievement), anyString());
         doReturn("").when(jsonFactory).convertJsonToInfoboxPartOfArticle(any(JSONObject.class), any(List.class));
-        doReturn("").when(articleFactory).insertInfoboxPartOfArticle(anyString(), anyString());
+        doReturn(Optional.of("")).when(articleFactory).insertInfoboxPartOfArticle(anyString(), anyString());
         doReturn(true).when(articleRepository).modifyArticle(anyString(), anyString(), anyString());
 
         Try<WikiObject> result = target.modify(someAchievement, "[test] editing the page");
@@ -63,7 +64,7 @@ public class ModifyAnyTest {
         doReturn("").when(articleRepository).getArticle(anyString());
         doReturn(SOME_JSON_OBJECT).when(wikiObjectFactory).createJSONObject(eq(someAchievement), anyString());
         doReturn("").when(jsonFactory).convertJsonToInfoboxPartOfArticle(any(JSONObject.class), any(List.class));
-        doReturn("").when(articleFactory).insertInfoboxPartOfArticle(anyString(), anyString());
+        doReturn(Optional.empty()).when(articleFactory).insertInfoboxPartOfArticle(anyString(), anyString());
         doReturn(false).when(articleRepository).modifyArticle(anyString(), anyString(), anyString());
 
         Try<WikiObject> result = target.modify(someAchievement, "[test] editing the page");

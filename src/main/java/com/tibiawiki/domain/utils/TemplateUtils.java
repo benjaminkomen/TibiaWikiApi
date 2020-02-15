@@ -7,13 +7,7 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -32,9 +26,9 @@ public class TemplateUtils {
         // no-args constructor, only static methods
     }
 
-    public static String getBetweenOuterBalancedBrackets(String text, String start) {
-        final Tuple2<Integer, Integer> startingAndEndingCurlyBrackets = getStartingAndEndingCurlyBrackets(text, start);
-        return text.substring(startingAndEndingCurlyBrackets._1(), startingAndEndingCurlyBrackets._2());
+    public static Optional<String> getBetweenOuterBalancedBrackets(String text, String start) {
+        return getStartingAndEndingCurlyBrackets(text, start)
+                .map(startingAndEndingCurlyBrackets -> text.substring(startingAndEndingCurlyBrackets._1(), startingAndEndingCurlyBrackets._2()));
     }
 
     /**
@@ -43,9 +37,11 @@ public class TemplateUtils {
      * @return two strings, the first is the substring of the provided text before the start of the balanced brackets,
      * the second is the substring after the start of the balanced brackets.
      */
-    public static Tuple2<String, String> getBeforeAndAfterOuterBalancedBrackets(String text, String start) {
-        final Tuple2<Integer, Integer> startingAndEndingCurlyBrackets = getStartingAndEndingCurlyBrackets(text, start);
-        return Tuple.of(text.substring(0, startingAndEndingCurlyBrackets._1()), text.substring(startingAndEndingCurlyBrackets._2()));
+    public static Optional<Tuple2<String, String>> getBeforeAndAfterOuterBalancedBrackets(String text, String start) {
+        return getStartingAndEndingCurlyBrackets(text, start)
+                .map(startingAndEndingCurlyBrackets -> Tuple.of(text.substring(0, startingAndEndingCurlyBrackets._1()),
+                        text.substring(startingAndEndingCurlyBrackets._2()))
+                );
     }
 
     /**
@@ -180,11 +176,11 @@ public class TemplateUtils {
      * @return a tuple of two integers: the index of the start of the curly brackets and an index of the end of
      * the curly brackets
      */
-    private static Tuple2<Integer, Integer> getStartingAndEndingCurlyBrackets(String text, String start) {
+    private static Optional<Tuple2<Integer, Integer>> getStartingAndEndingCurlyBrackets(String text, String start) {
         final int startingCurlyBrackets = text.indexOf(start);
 
         if (startingCurlyBrackets < 0) {
-            throw new IllegalArgumentException("Provided arguments text and start are not valid.");
+            return Optional.empty(); // could not find text in string
         }
 
         int endingCurlyBrackets = 0;
@@ -206,6 +202,6 @@ public class TemplateUtils {
                 break;
             }
         }
-        return Tuple.of(startingCurlyBrackets, endingCurlyBrackets);
+        return Optional.of(Tuple.of(startingCurlyBrackets, endingCurlyBrackets));
     }
 }

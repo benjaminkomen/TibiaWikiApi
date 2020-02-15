@@ -12,9 +12,9 @@ import javax.ws.rs.core.Response;
 
 @Component
 @Api(value = "Loot Statistics")
-@Path("/loot")
+@Path("/v2/loot")
 @RequiredArgsConstructor
-public class LootStatisticsResource {
+public class LootStatisticsV2Resource {
 
     private final RetrieveLoot retrieveLoot;
 
@@ -29,7 +29,7 @@ public class LootStatisticsResource {
                             @QueryParam("expand") Boolean expand) {
         return Response.ok()
                 .entity(expand != null && expand
-                        ? retrieveLoot.getLootJSONObject().map(JSONObject::toMap)
+                        ? retrieveLoot.getAllLootPartsJSON().map(JSONObject::toMap)
                         : retrieveLoot.getLootList()
                 )
                 .build();
@@ -40,7 +40,7 @@ public class LootStatisticsResource {
     @ApiOperation(value = "Get a specific loot statistics page by creature name")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getLootByName(@PathParam("name") String name) {
-        return retrieveLoot.getLootJSONObject("Loot_Statistics:" + name)
+        return retrieveLoot.getAllLootPartsJSON("Loot_Statistics:" + name)
                 .map(a -> Response.ok()
                         .entity(a.toString(2))
                         .build())
