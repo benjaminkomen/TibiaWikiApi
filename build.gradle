@@ -64,6 +64,10 @@ tasks.withType(JavaCompile) {
 tasks.withType(Test) {
     jvmArgs += "--enable-preview"
     useJUnitPlatform()
+
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
 }
 
 tasks.withType(JavaExec) {
