@@ -3,14 +3,13 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=com.tibiawiki%3ATibiaWikiApi&metric=coverage)](https://sonarcloud.io/dashboard?id=com.tibiawiki%3ATibiaWikiApi)
 
 # TibiaWikiApi
-
 Gets data from http://tibia.wikia.com and exposes this data using a RESTful JSON API.
 
 ## View online
 Navigate to https://tibiawiki.dev to view the Swagger API of this project.
 
 ## Run locally
-Clone this git project to your local computer and compile it using: `mvn clean install` from your favourite command line
+Clone this git project to your local computer and compile it using: `gradle build` from your favourite command line
 terminal. Then execute: `mvn spring-boot:run` and open your browser on http://localhost:8080
 
 Note that you need to add the [sample settings.xml](.travis.settings.xml) to your $HOME/.m2/settings.xml directory

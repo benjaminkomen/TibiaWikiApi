@@ -1,16 +1,22 @@
 language: java
 
 jdk:
-  - openjdk13
+  - openjdk14
 
 addons:
   sonarcloud:
     organization: "benjaminkomen-github"
 
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
 cache:
   directories:
   - '$HOME/.m2/repository'
   - '$HOME/.sonar/cache'
+  - '$HOME/.gradle/'
+  - '.gradle'
 
 # the dependency benjaminkomen/jwiki recides in GitHub Packages, for which you need credentials to download.
 # They are set here, with the GITHUB_TOKEN in Travis.
@@ -18,4 +24,5 @@ install:
   - cp .travis.settings.xml $HOME/.m2/settings.xml
 
 script:
-  - ./mvnw clean verify sonar:sonar -Pcoverage
+  #  - ./gradlew clean build sonarqube ## FIXME enable when the java/util/jar/Pack200 bug has been fixed
+  - ./gradlew clean build
