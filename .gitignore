@@ -1,8 +1,5 @@
 *.class
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
 # Package Files #
 *.jar
 *.war
@@ -15,7 +12,7 @@ hs_err_pid*
 .idea/
 *.properties
 target/
-!maven-wrapper.properties
-!maven-wrapper.jar
+build/
 !system.properties
+.gradle/
 !src/test/resources/credentials.properties

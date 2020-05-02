@@ -1,0 +1,112 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.6.RELEASE'
+    id 'java'
+    id 'idea'
+    id 'jacoco'
+    id "org.sonarqube" version "2.8"
+}
+
+group = 'com.tibiawiki'
+version = '1.8.1'
+description = 'TibiaWikiApi'
+sourceCompatibility = '14'
+targetCompatibility = '14'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+
+    maven {
+        url = 'https://maven.pkg.github.com/benjaminkomen/jwiki'
+        credentials {
+            username = 'benjaminkomen'
+            password = System.getenv("GITHUB_TOKEN")
+        }
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter:2.2.6.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-jersey:2.2.6.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.2.6.RELEASE'
+    implementation 'benjaminkomen:jwiki:2.2.0'
+    implementation 'org.slf4j:slf4j-api:1.7.30'
+    implementation 'org.slf4j:slf4j-log4j12:1.7.30'
+    implementation 'org.json:json:20190722'
+    implementation 'org.jetbrains:annotations:19.0.0'
+    implementation 'one.util:streamex:0.7.2'
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
+    implementation 'javax.activation:activation:1.1.1'
+    implementation 'com.google.guava:guava:29.0-jre'
+    implementation 'io.swagger:swagger-jersey2-jaxrs:1.6.1'
+    implementation 'io.vavr:vavr:0.10.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
+    testImplementation 'org.mockito:mockito-core:3.3.3'
+    testImplementation 'org.hamcrest:hamcrest:2.2'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.2.6.RELEASE'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectName", "TibiaWikiApi"
+        property "sonar.projectKey", "com.tibiawiki:TibiaWikiApi"
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    options.compilerArgs += '--enable-preview'
+}
+
+tasks.withType(Test) {
+    jvmArgs += "--enable-preview"
+    useJUnitPlatform()
+
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+tasks.withType(JavaExec) {
+    jvmArgs += '--enable-preview'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com/tibiawiki/TibiaWikiApiApplication'
+    }
+}
+
+sourceSets {
+    integrationTest {
+        compileClasspath += sourceSets.main.output + configurations.testCompile
+        runtimeClasspath += output + compileClasspath + configurations.testRuntime
+    }
+}
+
+configurations {
+    integrationTestImplementation.extendsFrom implementation
+    integrationTestImplementation.extendsFrom testImplementation
+}
+
+idea {
+    module {
+        testSourceDirs += sourceSets.integrationTest.java.srcDirs
+        testResourceDirs += sourceSets.integrationTest.resources.srcDirs
+        scopes.TEST.plus += [configurations.integrationTestCompile]
+    }
+}
+
+task integrationTest(type: Test) {
+    description = 'Runs the integration tests.'
+    group = 'verification'
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+    outputs.upToDateWhen { false }
+    mustRunAfter test
+}
+
+check.dependsOn integrationTest
