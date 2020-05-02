@@ -9,6 +9,7 @@ group = 'com.tibiawiki'
 version = '1.8.0'
 description = 'TibiaWikiApi'
 sourceCompatibility = '14'
+targetCompatibility = '14'
 
 repositories {
     mavenLocal()
@@ -74,6 +75,8 @@ jar {
 
 test {
     useJUnitPlatform()
+
+    testLogging.showStandardStreams = true
 }
 
 sourceSets {
