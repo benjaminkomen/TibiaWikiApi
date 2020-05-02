@@ -1,20 +1,19 @@
-FROM maven:3.6.2-jdk-13 as builder
+FROM gradle:6.3.0-jdk14 as builder
 
 # Copy local code to the container image.
 WORKDIR /app
-COPY pom.xml .
+COPY build.gradle .
 COPY src ./src
 
 ARG GITHUB_TOKEN
 ENV GITHUB_TOKEN=${GITHUB_TOKEN}
-COPY .travis.settings.xml /root/.m2/settings.xml
 
 # Build a release artifact.
-RUN mvn package -DskipTests
+RUN gradle build --no-daemon
 
-FROM adoptopenjdk/openjdk13:jdk-13_33-alpine-slim
+FROM adoptopenjdk/openjdk14:jdk-14.0.1_7-alpine-slim
 
-COPY --from=builder /app/target/TibiaWikiApi.jar /TibiaWikiApi.jar
+COPY --from=builder /app/build/libs/app-*.jar /TibiaWikiApi.jar
 
 # Run the web service on container startup.
-CMD ["java","-Djava.security.egd=file:/dev/./urandom","-Dserver.port=${PORT}","-jar","/TibiaWikiApi.jar"]
+CMD [ "java","-Djava.security.egd=file:/dev/./urandom","-Dserver.port=${PORT}","--enable-preview","-jar","/TibiaWikiApi.jar"]
