@@ -9,8 +9,8 @@ Gets data from http://tibia.wikia.com and exposes this data using a RESTful JSON
 Navigate to https://tibiawiki.dev to view the Swagger API of this project.
 
 ## Run locally
-Clone this git project to your local computer and compile it using: `gradle build` from your favourite command line
-terminal. Then execute: `mvn spring-boot:run` and open your browser on http://localhost:8080
+Clone this git project to your local computer and compile it using: `./gradlew build` from your favourite command line
+terminal. Then execute: `./gradlew bootRun` and open your browser on http://localhost:8080
 
 Note that you need to add the [sample settings.xml](.travis.settings.xml) to your $HOME/.m2/settings.xml directory
 with a valid username and github token with read packages scope.
