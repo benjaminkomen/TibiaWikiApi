@@ -7,7 +7,7 @@ plugins {
 }
 
 group = 'com.tibiawiki'
-version = '1.8.0'
+version = '1.8.1'
 description = 'TibiaWikiApi'
 sourceCompatibility = '14'
 targetCompatibility = '14'
