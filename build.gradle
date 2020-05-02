@@ -40,7 +40,8 @@ dependencies {
     implementation 'com.google.guava:guava:29.0-jre'
     implementation 'io.swagger:swagger-jersey2-jaxrs:1.6.1'
     implementation 'io.vavr:vavr:0.10.2'
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.6.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
     testImplementation 'org.mockito:mockito-core:3.3.3'
     testImplementation 'org.hamcrest:hamcrest:2.2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.2.6.RELEASE'
@@ -62,6 +63,7 @@ tasks.withType(JavaCompile) {
 
 tasks.withType(Test) {
     jvmArgs += "--enable-preview"
+    useJUnitPlatform()
 }
 
 tasks.withType(JavaExec) {
@@ -72,12 +74,6 @@ jar {
     manifest {
         attributes 'Main-Class': 'com/tibiawiki/TibiaWikiApiApplication'
     }
-}
-
-test {
-    useJUnitPlatform()
-
-    testLogging.showStandardStreams = true
 }
 
 sourceSets {
@@ -96,7 +92,7 @@ idea {
     module {
         testSourceDirs += sourceSets.integrationTest.java.srcDirs
         testResourceDirs += sourceSets.integrationTest.resources.srcDirs
-        scopes.TEST.plus += [ configurations.integrationTestCompile ]
+        scopes.TEST.plus += [configurations.integrationTestCompile]
     }
 }
 
