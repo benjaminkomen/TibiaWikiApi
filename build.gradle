@@ -25,28 +25,30 @@ repositories {
     }
 }
 
+ext {
+    springBootVersion = '2.2.6.RELEASE'
+    slf4jVersion = '1.7.30'
+    junitVersion = '5.6.2'
+    lombokVersion = '1.18.12'
+}
+
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter:2.2.6.RELEASE'
-    implementation 'org.springframework.boot:spring-boot-starter-jersey:2.2.6.RELEASE'
-    implementation 'org.springframework.boot:spring-boot-starter-web:2.2.6.RELEASE'
-    implementation 'benjaminkomen:jwiki:2.2.0'
-    implementation 'org.slf4j:slf4j-api:1.7.30'
-    implementation 'org.slf4j:slf4j-log4j12:1.7.30'
-    implementation 'org.json:json:20190722'
-    implementation 'org.jetbrains:annotations:19.0.0'
-    implementation 'one.util:streamex:0.7.2'
-    implementation 'javax.xml.bind:jaxb-api:2.3.1'
-    implementation 'javax.activation:activation:1.1.1'
-    implementation 'com.google.guava:guava:29.0-jre'
-    implementation 'io.swagger:swagger-jersey2-jaxrs:1.6.1'
-    implementation 'io.vavr:vavr:0.10.2'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
-    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
-    testImplementation 'org.mockito:mockito-core:3.3.3'
-    testImplementation 'org.hamcrest:hamcrest:2.2'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.2.6.RELEASE'
-    annotationProcessor 'org.projectlombok:lombok:1.18.12'
-    compileOnly 'org.projectlombok:lombok:1.18.12'
+    implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-jersey:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    implementation "benjaminkomen:jwiki:2.2.0"
+    implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    implementation "org.slf4j:slf4j-log4j12:${slf4jVersion}"
+    implementation "org.json:json:20190722"
+    implementation "io.swagger:swagger-jersey2-jaxrs:1.6.1"
+    implementation "io.vavr:vavr:0.10.2"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    testImplementation "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+    testImplementation "org.mockito:mockito-core:3.3.3"
+    testImplementation "org.hamcrest:hamcrest:2.2"
+    testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
 }
 
 sonarqube {

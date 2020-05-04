@@ -3,15 +3,21 @@ package com.tibiawiki.domain.factories;
 import com.google.common.base.Strings;
 import com.tibiawiki.domain.objects.HuntingPlaceSkills;
 import com.tibiawiki.domain.utils.TemplateUtils;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import lombok.NonNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -50,8 +56,8 @@ public class JsonFactory {
      * Convert a String which consists of key-value pairs of infobox template parameters to a JSON object, or an empty
      * JSON object if the input was empty.
      */
-    @NotNull
-    public JSONObject convertInfoboxPartOfArticleToJson(@Nullable final String infoboxPartOfArticle) {
+    @NonNull
+    public JSONObject convertInfoboxPartOfArticleToJson(final String infoboxPartOfArticle) {
         Map<String, String> parametersAndValues = new HashMap<>();
 
         if (infoboxPartOfArticle == null || "".equals(infoboxPartOfArticle)) {
@@ -80,8 +86,8 @@ public class JsonFactory {
      * Convert a String which consists of key-value pairs of loot2 template parameters to a JSON object, or an empty
      * JSON object if the input was empty.
      */
-    @NotNull
-    public JSONObject convertLootPartOfArticleToJson(String pageName, @Nullable final String lootPartOfArticle) {
+    @NonNull
+    public JSONObject convertLootPartOfArticleToJson(String pageName, final String lootPartOfArticle) {
         if (lootPartOfArticle == null || "".equals(lootPartOfArticle)) {
             return new JSONObject();
         }
@@ -93,7 +99,7 @@ public class JsonFactory {
         return enhanceLootJsonObject(new JSONObject(parametersAndValues));
     }
 
-    @NotNull
+    @NonNull
     public JSONObject convertAllLootPartsOfArticleToJson(String pageName, Map<String, String> lootPartsOfArticle) {
 
         if (lootPartsOfArticle.isEmpty()) {
@@ -110,8 +116,8 @@ public class JsonFactory {
         return result;
     }
 
-    @NotNull
-    public String convertJsonToInfoboxPartOfArticle(@Nullable JSONObject jsonObject, List<String> fieldOrder) {
+    @NonNull
+    public String convertJsonToInfoboxPartOfArticle(JSONObject jsonObject, List<String> fieldOrder) {
         if (jsonObject == null || jsonObject.isEmpty()) {
             return "";
         }
@@ -139,7 +145,7 @@ public class JsonFactory {
         return stringBuilder.toString();
     }
 
-    private void constructKeyValuePairs(@NotNull JSONObject jsonObject, List<String> fieldOrder, StringBuilder sb) {
+    private void constructKeyValuePairs(@NonNull JSONObject jsonObject, List<String> fieldOrder, StringBuilder sb) {
         for (String key : fieldOrder) {
 
             // don't add the metadata parameter templateType to the output
@@ -182,8 +188,8 @@ public class JsonFactory {
     /**
      * Extracts template type from input. Allows cases of e.g. {{Infobox_Hunt|}} (with an underscore) or without an underscore.
      */
-    @NotNull
-    protected String getTemplateType(@Nullable final String infoboxTemplatePartOfArticle) {
+    @NonNull
+    protected String getTemplateType(final String infoboxTemplatePartOfArticle) {
         return Optional.ofNullable(infoboxTemplatePartOfArticle)
                 .map(s -> Pattern.compile(INFOBOX_HEADER_PATTERN).matcher(s))
                 .filter(Matcher::find)
@@ -196,8 +202,8 @@ public class JsonFactory {
                 });
     }
 
-    @NotNull
-    protected JSONObject enhanceJsonObject(@NotNull JSONObject jsonObject) {
+    @NonNull
+    protected JSONObject enhanceJsonObject(@NonNull JSONObject jsonObject) {
 
         final String templateType = Optional.of(jsonObject)
                 .filter(j -> j.has(TEMPLATE_TYPE))
@@ -255,8 +261,8 @@ public class JsonFactory {
      * The input jsonObject has real key-value pairs such as version, kills and name, but also Loot lines which need to be
      * converted.
      */
-    @NotNull
-    protected JSONObject enhanceLootJsonObject(@NotNull JSONObject jsonObject) {
+    @NonNull
+    protected JSONObject enhanceLootJsonObject(@NonNull JSONObject jsonObject) {
 
         JSONObject enhancedJsonObject = new JSONObject();
         JSONArray lootArray = new JSONArray();
@@ -313,8 +319,8 @@ public class JsonFactory {
     /**
      * Usually the articleName is the value from the key 'name', but for books, locations or keys it is different.
      */
-    @NotNull
-    protected String determineArticleName(@Nullable JSONObject jsonObject, @Nullable String templateType) {
+    @NonNull
+    protected String determineArticleName(JSONObject jsonObject, String templateType) {
         if (jsonObject == null || templateType == null || "".equals(templateType)) {
             return UNKNOWN;
         }
@@ -336,8 +342,8 @@ public class JsonFactory {
         return articleName;
     }
 
-    @NotNull
-    private JSONArray makeSoundsArray(@Nullable String soundsValue, @NotNull String articleName) {
+    @NonNull
+    private JSONArray makeSoundsArray(String soundsValue, @NonNull String articleName) {
         if (soundsValue != null && soundsValue.length() > 2 && !soundsValue.contains("{{Sound List")) {
             LOG.warn("soundsValue '{}' from article '{}' does not contain Template:Sound List", soundsValue, articleName);
             return new JSONArray();
@@ -448,14 +454,14 @@ public class JsonFactory {
         return ITEMS_WITH_NO_DROPPEDBY_LIST.contains(name);
     }
 
-    private int getMaxFieldLength(@NotNull JSONObject jsonObject) {
+    private int getMaxFieldLength(@NonNull JSONObject jsonObject) {
         return jsonObject.keySet().stream()
                 .mapToInt(String::length)
                 .max()
                 .orElse(0);
     }
 
-    private int getMaxFieldLength(@NotNull Map map) {
+    private int getMaxFieldLength(@NonNull Map map) {
         return map.keySet().stream()
                 .filter(String.class::isInstance)
                 .mapToInt(s -> String.valueOf(s).length())
@@ -463,7 +469,7 @@ public class JsonFactory {
                 .orElse(0);
     }
 
-    @NotNull
+    @NonNull
     private String makeTemplateList(JSONObject jsonObject, String key, JSONArray jsonArray, String templateName) {
         final String paddedKey = Strings.padEnd(key, getMaxFieldLength(jsonObject), ' ');
         final String value = jsonArray.toList().stream()

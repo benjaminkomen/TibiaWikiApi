@@ -2,12 +2,17 @@ package com.tibiawiki.domain.utils;
 
 import io.vavr.Tuple;
 import io.vavr.Tuple2;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import lombok.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -51,8 +56,8 @@ public class TemplateUtils {
      * reason we are not looking for the last \n character is that some templates may end with | notes =\n}} and then
      * removing the last \n character also removes the value of the key "notes".
      */
-    @NotNull
-    public static String removeFirstAndLastLine(@Nullable String text) {
+    @NonNull
+    public static String removeFirstAndLastLine(String text) {
         return Optional.ofNullable(text)
                 .map(t -> t.substring(t.indexOf('\n') + 1)) // remove first line
                 .map(t -> t.substring(0, t.lastIndexOf('\n') > -1 ? t.lastIndexOf("}}") : 0)) // remove last line
@@ -72,18 +77,18 @@ public class TemplateUtils {
         return null;
     }
 
-    @NotNull
-    public static Map<String, String> splitInfoboxByParameter(@Nullable String infoboxTemplatePartOfArticle) {
+    @NonNull
+    public static Map<String, String> splitInfoboxByParameter(String infoboxTemplatePartOfArticle) {
         return splitByParameter(infoboxTemplatePartOfArticle, REGEX_PARAMETER_INFOBOX_LINE);
     }
 
-    @NotNull
-    public static Map<String, String> splitLootByParameter(@Nullable String lootTemplatePartOfArticle) {
+    @NonNull
+    public static Map<String, String> splitLootByParameter(String lootTemplatePartOfArticle) {
         return splitByParameter(lootTemplatePartOfArticle, REGEX_PARAMETER_LOOT_LINE);
     }
 
-    @NotNull
-    public static Map<String, String> splitByParameter(@Nullable String infoboxTemplatePartOfArticle, String regex) {
+    @NonNull
+    public static Map<String, String> splitByParameter(String infoboxTemplatePartOfArticle, String regex) {
         if (infoboxTemplatePartOfArticle == null || "".equals(infoboxTemplatePartOfArticle)) {
             return new HashMap<>();
         }
@@ -130,8 +135,8 @@ public class TemplateUtils {
         return keyValuePair;
     }
 
-    @NotNull
-    public static List<String> splitByCommaAndTrim(@Nullable String input) {
+    @NonNull
+    public static List<String> splitByCommaAndTrim(String input) {
         return Stream.of(input)
                 .filter(Objects::nonNull)
                 .filter(i -> i.trim().length() > 0)
@@ -140,8 +145,8 @@ public class TemplateUtils {
                 .collect(Collectors.toList());
     }
 
-    @NotNull
-    public static Optional<Map<String, String>> extractLowerLevels(@Nullable String infoboxTemplatePartOfArticleSanitized) {
+    @NonNull
+    public static Optional<Map<String, String>> extractLowerLevels(String infoboxTemplatePartOfArticleSanitized) {
         if (infoboxTemplatePartOfArticleSanitized == null || "".equals(infoboxTemplatePartOfArticleSanitized)) {
             return Optional.empty();
         }
@@ -162,8 +167,8 @@ public class TemplateUtils {
                 : Optional.of(keyValuePair);
     }
 
-    @NotNull
-    public static String removeLowerLevels(@Nullable String infoboxTemplatePartOfArticleSanitized) {
+    @NonNull
+    public static String removeLowerLevels(String infoboxTemplatePartOfArticleSanitized) {
         return Optional.ofNullable(infoboxTemplatePartOfArticleSanitized)
                 .map(s -> Pattern.compile(REGEX_PARAMETER_LOWER_LEVELS_REMOVE, Pattern.DOTALL).matcher(s))
                 .map(m -> m.replaceAll(""))

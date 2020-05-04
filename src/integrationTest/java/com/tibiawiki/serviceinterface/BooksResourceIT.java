@@ -4,7 +4,6 @@ import com.tibiawiki.domain.enums.BookType;
 import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.objects.Book;
 import com.tibiawiki.domain.repositories.ArticleRepository;
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,6 +23,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import static com.tibiawiki.TestUtils.makeHttpHeaders;
 import static com.tibiawiki.process.RetrieveAny.CATEGORY_LISTS;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -152,12 +152,5 @@ public class BooksResourceIT {
                 .relatedpages("[[Rope]], [[Shovel]]")
                 .text("Dungeon Survival Guide<br><br>Don't explore the dungeons before you tested your skills in the training cellars of our academy. You will find dungeons somewhere in the wilderness. Don't enter dungeons without equipment. Especially a rope and a shovel will prove valuable. Make sure you have a supply of torches with you, while wandering into the unknown. It's wise to travel the dungeons in groups and not alone. For more help read all the books of the academy before you begin exploring. Traveling in the dungeons will reward the cautious and brave, but punish the reckless.")
                 .build();
-    }
-
-    @NotNull
-    private HttpHeaders makeHttpHeaders(String editSummary) {
-        final HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("X-WIKI-Edit-Summary", editSummary);
-        return httpHeaders;
     }
 }

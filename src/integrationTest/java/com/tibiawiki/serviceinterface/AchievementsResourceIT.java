@@ -4,7 +4,6 @@ import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.enums.YesNo;
 import com.tibiawiki.domain.objects.Achievement;
 import com.tibiawiki.domain.repositories.ArticleRepository;
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,6 +23,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import static com.tibiawiki.TestUtils.makeHttpHeaders;
 import static com.tibiawiki.process.RetrieveAny.CATEGORY_LISTS;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -157,12 +157,5 @@ public class AchievementsResourceIT {
                 .achievementid(319)
                 .relatedpages("[[Muck Remover]], [[Mucus Plug]]")
                 .build();
-    }
-
-    @NotNull
-    private HttpHeaders makeHttpHeaders(String editSummary) {
-        final HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("X-WIKI-Edit-Summary", editSummary);
-        return httpHeaders;
     }
 }

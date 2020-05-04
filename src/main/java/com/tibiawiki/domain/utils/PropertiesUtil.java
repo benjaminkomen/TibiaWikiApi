@@ -1,6 +1,5 @@
 package com.tibiawiki.domain.utils;
 
-import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,17 +14,14 @@ public class PropertiesUtil {
         // don't instantiate this class, it has only static members
     }
 
-    @Nullable
     public static String getUsername() {
         return getProperty("username");
     }
 
-    @Nullable
     public static String getPassword() {
         return getProperty("password");
     }
 
-    @Nullable
     private static String getProperty(String propertyName) {
         try {
             Properties props = new Properties();
