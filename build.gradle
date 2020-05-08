@@ -27,7 +27,7 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter:2.2.6.RELEASE'
-    implementation 'org.springframework.boot:spring-boot-starter-jersey:2.2.6.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-jersey:2.2.7.RELEASE'
     implementation 'org.springframework.boot:spring-boot-starter-web:2.2.6.RELEASE'
     implementation 'benjaminkomen:jwiki:2.2.0'
     implementation 'org.slf4j:slf4j-api:1.7.30'
