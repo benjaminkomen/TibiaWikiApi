@@ -80,7 +80,7 @@ public class JerseyConfig extends ResourceConfig {
         BeanConfig beanConfig = new BeanConfig();
         beanConfig.setConfigId("tibiawikiapi");
         beanConfig.setTitle("TibiaWikiApi");
-        beanConfig.setVersion("1.8.1");
+        beanConfig.setVersion("1.8.2");
         beanConfig.setContact("B. Komen");
         beanConfig.setSchemes(new String[]{"https"});
         beanConfig.setBasePath(this.apiPath); // location where dynamically created swagger.json is reachable

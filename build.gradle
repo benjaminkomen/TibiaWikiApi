@@ -20,7 +20,7 @@ plugins {
 apply plugin: 'org.springframework.boot'
 
 group = 'com.tibiawiki'
-version = '1.8.1'
+version = '1.8.2'
 description = 'TibiaWikiApi'
 sourceCompatibility = '14'
 targetCompatibility = '14'
