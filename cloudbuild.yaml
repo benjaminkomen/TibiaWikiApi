@@ -15,7 +15,11 @@ steps:
 
     # Deploy container image to Cloud Run
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['beta', 'run', 'deploy', 'tibiawikiapi', '--image', 'gcr.io/tibiawikiapi-246008/tibiawikiapi', '--region', 'europe-west1','--platform', 'managed', '--memory', '1Gi', '--project', 'tibiawikiapi-246008', '--quiet']
+    args: ['run', 'deploy', 'tibiawikiapi', '--image', 'gcr.io/tibiawikiapi-246008/tibiawikiapi', '--region', 'europe-west1','--platform', 'managed', '--memory', '1Gi', '--project', 'tibiawikiapi-246008', '--quiet']
+
+    # Serve traffic from new revision
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['alpha', 'run', 'services', 'update-traffic', 'tibiawikiapi', '--to-latest']
 
 images:
   - gcr.io/tibiawikiapi-246008/tibiawikiapi
