@@ -29,8 +29,8 @@ import javax.ws.rs.core.Response;
 @Path("/huntingplaces")
 public class HuntingPlacesResource {
 
-    private RetrieveHuntingPlaces retrieveHuntingPlaces;
-    private ModifyAny modifyAny;
+    private final RetrieveHuntingPlaces retrieveHuntingPlaces;
+    private final ModifyAny modifyAny;
 
     @Autowired
     private HuntingPlacesResource(RetrieveHuntingPlaces retrieveHuntingPlaces, ModifyAny modifyAny) {
@@ -45,7 +45,7 @@ public class HuntingPlacesResource {
     })
     @Produces(MediaType.APPLICATION_JSON)
     public Response getHuntingPlaces(@ApiParam(value = "optionally expands the result to retrieve not only " +
-            "the hunting place names but the full hunting places", required = false)
+            "the hunting place names, but the full hunting places", required = false)
                                      @QueryParam("expand") Boolean expand) {
         return Response.ok()
                 .entity(expand != null && expand
@@ -56,7 +56,7 @@ public class HuntingPlacesResource {
     }
 
     @GET
-    @Path("/{name}")
+    @Path("/{name : (.+)?}") // accept special characters such as slashes in path
     @ApiOperation(value = "Get a specific hunting place by name")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getHuntingPlacesByName(@PathParam("name") String name) {

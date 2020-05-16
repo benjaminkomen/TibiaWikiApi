@@ -5,7 +5,6 @@ import benjaminkomen.jwiki.core.NS;
 import benjaminkomen.jwiki.core.Wiki;
 import com.tibiawiki.domain.utils.PropertiesUtil;
 import okhttp3.HttpUrl;
-import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -59,7 +58,7 @@ public class ArticleRepository {
         return wiki.whatTranscludesHere(templateName, NS.MAIN);
     }
 
-    @Nullable
+
     public String getArticle(String pageName) {
         final String pageText = wiki.getPageText(pageName);
         return "".equals(pageText)
