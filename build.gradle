@@ -67,6 +67,8 @@ sonarqube {
     properties {
         property "sonar.projectName", "TibiaWikiApi"
         property "sonar.projectKey", "com.tibiawiki:TibiaWikiApi"
+        property "sonar.java.coveragePlugin", "jacoco"
+        property "sonar.coverage.jacoco.xmlReportPaths", "./build/reports/jacocoTestReport.xml"
     }
 }
 
@@ -124,3 +126,12 @@ task integrationTest(type: Test) {
 }
 
 check.dependsOn integrationTest
+
+jacocoTestReport {
+    dependsOn check
+
+    reports {
+        xml.enabled = true
+        xml.destination = file("${buildDir}/reports/jacocoTestReport.xml")
+    }
+}
