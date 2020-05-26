@@ -51,7 +51,7 @@ dependencies {
     implementation "benjaminkomen:jwiki:2.2.0"
     implementation "org.slf4j:slf4j-api:${slf4jVersion}"
     implementation "org.slf4j:slf4j-log4j12:${slf4jVersion}"
-    implementation "org.json:json:20190722"
+    implementation "org.json:json:20200518"
     implementation "io.swagger:swagger-jersey2-jaxrs:1.6.1"
     implementation "io.vavr:vavr:0.10.3"
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
