@@ -13,6 +13,7 @@ hs_err_pid*
 *.properties
 target/
 build/
+out/
 !system.properties
 .gradle/
 !src/test/resources/credentials.properties
