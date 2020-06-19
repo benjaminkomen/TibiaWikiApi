@@ -56,6 +56,19 @@ public class CreaturesResource {
     }
 
     @GET
+    @Path("/{name}/image")
+    @ApiOperation(value = "Get the image url of a specific creature by name")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getImageUrlOfCreatureByName(@PathParam("name") String name) {
+        return retrieveCreatures.getCreatureImageUrl(name)
+                .map(str -> Response.ok()
+                        .entity(str)
+                        .build())
+                .orElseGet(() -> Response.status(Response.Status.NOT_FOUND)
+                        .build());
+    }
+
+    @GET
     @Path("/{name}")
     @ApiOperation(value = "Get a specific creature by name")
     @Produces(MediaType.APPLICATION_JSON)
