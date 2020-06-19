@@ -37,4 +37,8 @@ public class RetrieveCreatures extends RetrieveAny {
     public Optional<JSONObject> getCreatureJSON(String pageName) {
         return super.getArticleAsJSON(pageName);
     }
+
+    public Optional<String> getCreatureImageUrl(String name) {
+        return super.getFileUrl(String.format("File:%s.gif", name));
+    }
 }

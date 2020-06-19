@@ -3,12 +3,14 @@ package com.tibiawiki.domain.repositories;
 import benjaminkomen.jwiki.core.MQuery;
 import benjaminkomen.jwiki.core.NS;
 import benjaminkomen.jwiki.core.Wiki;
+import benjaminkomen.jwiki.dwrap.ImageInfo;
 import com.tibiawiki.domain.utils.PropertiesUtil;
 import okhttp3.HttpUrl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -72,6 +74,17 @@ public class ArticleRepository {
         return isDebugEnabled
                 ? true
                 : wiki.edit(pageName, pageContent, editSummary);
+    }
+
+    /**
+     * If an image has multiple revisions, a list of them is returned. The first one is the newest one, which we want.
+     */
+    public String getFile(String fileName) {
+        return wiki.getImageInfo(fileName).stream()
+                .max(Comparator.comparing(ImageInfo::getTimestamp))
+                .map(ImageInfo::getUrl)
+                .map(HttpUrl::toString)
+                .orElse(null);
     }
 
     protected void enableDebug() {

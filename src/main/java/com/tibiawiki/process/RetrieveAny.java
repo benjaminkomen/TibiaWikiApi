@@ -33,6 +33,10 @@ public abstract class RetrieveAny {
                 .map(jsonFactory::convertInfoboxPartOfArticleToJson);
     }
 
+    public Optional<String> getFileUrl(String fileName) {
+        return Optional.ofNullable(articleRepository.getFile(fileName));
+    }
+
     public Stream<JSONObject> getArticlesFromInfoboxTemplateAsJSON(List<String> pageNames) {
         return Stream.of(pageNames)
                 .flatMap(lst -> articleRepository.getArticlesFromCategory(lst).entrySet().stream())
