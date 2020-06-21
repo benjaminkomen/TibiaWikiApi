@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,7 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
     private final RetrieveBooks retrieveBooks;
     private final ModifyAny modifyAny;
 
-    @GetMapping(value = "")
+    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Get a list of books")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "list of books retrieved")
@@ -47,7 +48,7 @@ import org.springframework.web.bind.annotation.RestController;
                 );
     }
 
-    @GetMapping("/{name}")
+    @GetMapping(value = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Get a specific book by name")
     public ResponseEntity<String> getBooksByName(@PathVariable("name") String name) {
         return retrieveBooks.getBookJSON(name)
@@ -56,7 +57,7 @@ import org.springframework.web.bind.annotation.RestController;
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PutMapping(value = "")
+    @PutMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Modify a book")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "the changed book"),

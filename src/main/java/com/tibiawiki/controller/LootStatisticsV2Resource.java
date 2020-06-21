@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +24,7 @@ public class LootStatisticsV2Resource {
 
     private final RetrieveLoot retrieveLoot;
 
-    @GetMapping(value = "")
+    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Get a list of loot statistics")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "list of loot statistics retrieved")
@@ -38,7 +39,7 @@ public class LootStatisticsV2Resource {
                 );
     }
 
-    @GetMapping("/{name}")
+    @GetMapping(value = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Get a specific loot statistics page by creature name")
     public ResponseEntity<String> getLootByName(@PathVariable("name") String name) {
         return retrieveLoot.getAllLootPartsJSON("Loot_Statistics:" + name)

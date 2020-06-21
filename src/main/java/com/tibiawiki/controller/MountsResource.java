@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,7 +33,7 @@ public class MountsResource {
     private final RetrieveMounts retrieveMounts;
     private final ModifyAny modifyAny;
 
-    @GetMapping(value = "")
+    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Get a list of mounts")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "list of mounts retrieved")
@@ -47,7 +48,7 @@ public class MountsResource {
                 );
     }
 
-    @GetMapping("/{name}")
+    @GetMapping(value = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Get a specific mount by name")
     public ResponseEntity<String> getMountsByName(@PathVariable("name") String name) {
         return retrieveMounts.getMountJSON(name)
@@ -56,7 +57,7 @@ public class MountsResource {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PutMapping(value = "")
+    @PutMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Modify a mount")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "the changed mount"),
