@@ -1,3 +1,2 @@
-# Jersey dispatcher servlet
-spring.jersey.application-path: /api
+server.servlet.contextPath: /api
 spring.main.allow-bean-definition-overriding: true

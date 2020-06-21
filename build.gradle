@@ -46,7 +46,6 @@ ext {
 
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
-    implementation "org.springframework.boot:spring-boot-starter-jersey:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
     implementation "benjaminkomen:jwiki:2.2.0"
     implementation "org.slf4j:slf4j-api:${slf4jVersion}"
@@ -58,7 +57,9 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
     testImplementation "org.mockito:mockito-core:3.3.3"
     testImplementation "org.hamcrest:hamcrest:2.2"
-    testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+    testImplementation ("org.springframework.boot:spring-boot-starter-test:${springBootVersion}") {
+        exclude group: 'com.vaadin.external.google', module: 'android-json'
+    }
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
 }
