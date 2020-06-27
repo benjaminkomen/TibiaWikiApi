@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '2.2.6.RELEASE'
+        springBootVersion = '2.3.1.RELEASE'
     }
     repositories {
         jcenter()
@@ -20,7 +20,7 @@ plugins {
 apply plugin: 'org.springframework.boot'
 
 group = 'com.tibiawiki'
-version = '1.8.2'
+version = '1.9.0'
 description = 'TibiaWikiApi'
 sourceCompatibility = '14'
 targetCompatibility = '14'
@@ -46,21 +46,25 @@ ext {
 
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
-    implementation "org.springframework.boot:spring-boot-starter-jersey:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
     implementation "benjaminkomen:jwiki:2.2.0"
     implementation "org.slf4j:slf4j-api:${slf4jVersion}"
     implementation "org.slf4j:slf4j-log4j12:${slf4jVersion}"
     implementation "org.json:json:20200518"
-    implementation "io.swagger:swagger-jersey2-jaxrs:1.6.1"
+    implementation "com.google.guava:guava:29.0-jre"
     implementation "io.vavr:vavr:0.10.3"
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
     testImplementation "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
     testImplementation "org.mockito:mockito-core:3.3.3"
     testImplementation "org.hamcrest:hamcrest:2.2"
-    testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+    testImplementation("org.springframework.boot:spring-boot-starter-test:${springBootVersion}") {
+        exclude group: 'com.vaadin.external.google', module: 'android-json'
+    }
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
+
+    implementation "io.swagger.core.v3:swagger-annotations:2.1.2"
+    implementation "org.springdoc:springdoc-openapi-ui:1.4.2"
 }
 
 sonarqube {
@@ -106,6 +110,10 @@ sourceSets {
 configurations {
     integrationTestImplementation.extendsFrom implementation
     integrationTestImplementation.extendsFrom testImplementation
+}
+
+springBoot {
+    buildInfo()
 }
 
 idea {
