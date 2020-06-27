@@ -42,94 +42,90 @@ import static org.mockito.Mockito.doReturn;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CreaturesResourceIT {
 
-    private static final String INFOBOX_CREATURE_TEXT = "{{Infobox Creature|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
-            "| name           = Dragon\n" +
-            "| article        = a\n" +
-            "| actualname     = dragon\n" +
-            "| plural         = dragons\n" +
-            "| hp             = 1000\n" +
-            "| exp            = 700\n" +
-            "| armor          = 25\n" +
-            "| summon         = --\n" +
-            "| convince       = --\n" +
-            "| illusionable   = yes\n" +
-            "| creatureclass  = Reptiles\n" +
-            "| primarytype    = Dragons\n" +
-            "| bestiaryclass  = Dragon\n" +
-            "| bestiarylevel  = Medium\n" +
-            "| occurrence     = Common\n" +
-            "| spawntype      = Regular, Raid\n" +
-            "| isboss         = no\n" +
-            "| isarenaboss    = no\n" +
-            "| abilities      = [[Melee]] (0-120), [[Fire Wave]] (100-170), [[Great Fireball]] (60-140), [[Self-Healing]] (40-70)\n" +
-            "| maxdmg         = 430\n" +
-            "| pushable       = no\n" +
-            "| pushobjects    = yes\n" +
-            "| walksaround    = None\n" +
-            "| walksthrough   = Fire, Energy, Poison\n" +
-            "| paraimmune     = yes\n" +
-            "| senseinvis     = yes\n" +
-            "| physicalDmgMod = 100%\n" +
-            "| earthDmgMod    = 20%\n" +
-            "| fireDmgMod     = 0%\n" +
-            "| deathDmgMod    = 100%\n" +
-            "| energyDmgMod   = 80%\n" +
-            "| holyDmgMod     = 100%\n" +
-            "| iceDmgMod      = 110%\n" +
-            "| hpDrainDmgMod  = 100%?\n" +
-            "| drownDmgMod    = 100%?\n" +
-            "| bestiaryname   = dragon\n" +
-            "| bestiarytext   = Dragons were\n" +
-            "| sounds         = {{Sound List|FCHHHHH|GROOAAARRR}}\n" +
-            "| implemented    = Pre-6.0\n" +
-            "| notes          = Dragons are\n" +
-            "| behaviour      = Dragons are\n" +
-            "| runsat         = 300\n" +
-            "| speed          = 86\n" +
-            "| strategy       = '''All''' [[player]]s\n" +
-            "| location       = [[Thais]] [[Ancient Temple]], [[Darashia Dragon Lair]], [[Mount Sternum Dragon Cave]]," +
-            " [[Mintwallin]], deep in [[Fibula Dungeon]], [[Kazordoon Dragon Lair]] (near [[Dwarf Bridge]]), [[Plains" +
-            " of Havoc]], [[Elven Bane]] castle, [[Maze of Lost Souls]], southern cave and dragon tower in" +
-            " [[Shadowthorn]], [[Orc Fortress]], [[Venore]] [[Dragon Lair]], [[Pits of Inferno]], [[Behemoth Quest]]" +
-            " room in [[Edron]], [[Hero Cave]], deep [[Cyclopolis]], [[Edron Dragon Lair]], [[Goroma]], [[Ankrahmun" +
-            " Dragon Lair]]s, [[Draconia]], [[Dragonblaze Peaks]], some [[Ankrahmun Tombs]], underground of [[Fenrock]]" +
-            " (on the way to [[Beregar]]), [[Krailos Steppe]] and [[Crystal Lakes]].\n" +
-            "| loot           = {{Loot Table\n" +
-            " |{{Loot Item|0-105|Gold Coin}}\n" +
-            " |{{Loot Item|0-3|Dragon Ham}}\n" +
-            " |{{Loot Item|Steel Shield}}\n" +
-            " |{{Loot Item|Crossbow}}\n" +
-            " |{{Loot Item|Dragon's Tail}}\n" +
-            " |{{Loot Item|0-10|Burst Arrow}}\n" +
-            " |{{Loot Item|Longsword|semi-rare}}\n" +
-            " |{{Loot Item|Steel Helmet|semi-rare}}\n" +
-            " |{{Loot Item|Broadsword|semi-rare}}\n" +
-            " |{{Loot Item|Plate Legs|semi-rare}}\n" +
-            " |{{Loot Item|Green Dragon Leather|rare}}\n" +
-            " |{{Loot Item|Wand of Inferno|rare}}\n" +
-            " |{{Loot Item|Strong Health Potion|rare}}\n" +
-            " |{{Loot Item|Green Dragon Scale|rare}}\n" +
-            " |{{Loot Item|Double Axe|rare}}\n" +
-            " |{{Loot Item|Dragon Hammer|rare}}\n" +
-            " |{{Loot Item|Serpent Sword|rare}}\n" +
-            " |{{Loot Item|Small Diamond|very rare}}\n" +
-            " |{{Loot Item|Dragon Shield|very rare}}\n" +
-            " |{{Loot Item|Life Crystal|very rare}}\n" +
-            " |{{Loot Item|Dragonbone Staff|very rare}}\n" +
-            "}}\n" +
-            "| history        = Dragons are\n" +
-            "}}\n";
+    private static final String INFOBOX_CREATURE_TEXT = """
+            {{Infobox Creature|List={{{1|}}}|GetValue={{{GetValue|}}}
+            | name           = Dragon
+            | article        = a
+            | actualname     = dragon
+            | plural         = dragons
+            | hp             = 1000
+            | exp            = 700
+            | armor          = 25
+            | summon         = --
+            | convince       = --
+            | illusionable   = yes
+            | creatureclass  = Reptiles
+            | primarytype    = Dragons
+            | bestiaryclass  = Dragon
+            | bestiarylevel  = Medium
+            | occurrence     = Common
+            | spawntype      = Regular, Raid
+            | isboss         = no
+            | isarenaboss    = no
+            | abilities      = [[Melee]] (0-120), [[Fire Wave]] (100-170), [[Great Fireball]] (60-140), [[Self-Healing]] (40-70)
+            | maxdmg         = 430
+            | pushable       = no
+            | pushobjects    = yes
+            | walksaround    = None
+            | walksthrough   = Fire, Energy, Poison
+            | paraimmune     = yes
+            | senseinvis     = yes
+            | physicalDmgMod = 100%
+            | earthDmgMod    = 20%
+            | fireDmgMod     = 0%
+            | deathDmgMod    = 100%
+            | energyDmgMod   = 80%
+            | holyDmgMod     = 100%
+            | iceDmgMod      = 110%
+            | hpDrainDmgMod  = 100%?
+            | drownDmgMod    = 100%?
+            | bestiaryname   = dragon
+            | bestiarytext   = Dragons were
+            | sounds         = {{Sound List|FCHHHHH|GROOAAARRR}}
+            | implemented    = Pre-6.0
+            | notes          = Dragons are
+            | behaviour      = Dragons are
+            | runsat         = 300
+            | speed          = 86
+            | strategy       = '''All''' [[player]]s
+            | location       = [[Thais]] [[Ancient Temple]], [[Darashia Dragon Lair]], [[Mount Sternum Dragon Cave]], [[Mintwallin]], deep in [[Fibula Dungeon]], [[Kazordoon Dragon Lair]] (near [[Dwarf Bridge]]), [[Plains of Havoc]], [[Elven Bane]] castle, [[Maze of Lost Souls]], southern cave and dragon tower in [[Shadowthorn]], [[Orc Fortress]], [[Venore]] [[Dragon Lair]], [[Pits of Inferno]], [[Behemoth Quest]] room in [[Edron]], [[Hero Cave]], deep [[Cyclopolis]], [[Edron Dragon Lair]], [[Goroma]], [[Ankrahmun Dragon Lair]]s, [[Draconia]], [[Dragonblaze Peaks]], some [[Ankrahmun Tombs]], underground of [[Fenrock]] (on the way to [[Beregar]]), [[Krailos Steppe]] and [[Crystal Lakes]].
+            | loot           = {{Loot Table
+             |{{Loot Item|0-105|Gold Coin}}
+             |{{Loot Item|0-3|Dragon Ham}}
+             |{{Loot Item|Steel Shield}}
+             |{{Loot Item|Crossbow}}
+             |{{Loot Item|Dragon's Tail}}
+             |{{Loot Item|0-10|Burst Arrow}}
+             |{{Loot Item|Longsword|semi-rare}}
+             |{{Loot Item|Steel Helmet|semi-rare}}
+             |{{Loot Item|Broadsword|semi-rare}}
+             |{{Loot Item|Plate Legs|semi-rare}}
+             |{{Loot Item|Green Dragon Leather|rare}}
+             |{{Loot Item|Wand of Inferno|rare}}
+             |{{Loot Item|Strong Health Potion|rare}}
+             |{{Loot Item|Green Dragon Scale|rare}}
+             |{{Loot Item|Double Axe|rare}}
+             |{{Loot Item|Dragon Hammer|rare}}
+             |{{Loot Item|Serpent Sword|rare}}
+             |{{Loot Item|Small Diamond|very rare}}
+             |{{Loot Item|Dragon Shield|very rare}}
+             |{{Loot Item|Life Crystal|very rare}}
+             |{{Loot Item|Dragonbone Staff|very rare}}
+            }}
+            | history        = Dragons are
+            }}
+            """;
     @Autowired
     private TestRestTemplate restTemplate;
     @MockBean
-    private ArticleRepository articleRepository; // don't instantiate this real class, but use a mock implementation
+    private ArticleRepository articleRepository;
 
     @Test
     void givenGetCreaturesNotExpanded_whenCorrectRequest_thenResponseIsOkAndContainsTwoCreatureNames() {
         doReturn(Collections.singletonList("baz")).when(articleRepository).getPageNamesFromCategory(CATEGORY_LISTS);
         doReturn(Arrays.asList("foo", "bar", "baz")).when(articleRepository).getPageNamesFromCategory(InfoboxTemplate.CREATURE.getCategoryName());
 
-        final ResponseEntity<List> result = restTemplate.getForEntity("/creatures?expand=false", List.class);
+        final ResponseEntity<List> result = restTemplate.getForEntity("/api/creatures?expand=false", List.class);
 
         assertThat(result.getStatusCode(), is(HttpStatus.OK));
         assertThat(result.getBody().size(), is(2));
@@ -143,7 +139,7 @@ public class CreaturesResourceIT {
         doReturn(Collections.singletonList("Dragon")).when(articleRepository).getPageNamesFromCategory(InfoboxTemplate.CREATURE.getCategoryName());
         doReturn(Map.of("Dragon", INFOBOX_CREATURE_TEXT)).when(articleRepository).getArticlesFromCategory(Collections.singletonList("Dragon"));
 
-        final ResponseEntity<List> result = restTemplate.getForEntity("/creatures?expand=true", List.class);
+        final ResponseEntity<List> result = restTemplate.getForEntity("/api/creatures?expand=true", List.class);
 
         assertThat(result.getStatusCode(), is(HttpStatus.OK));
         assertThat(result.getBody().size(), is(1));
@@ -168,7 +164,7 @@ public class CreaturesResourceIT {
     void givenGetCreaturesByName_whenCorrectRequest_thenResponseIsOkAndContainsTheCreature() {
         doReturn(INFOBOX_CREATURE_TEXT).when(articleRepository).getArticle("Dragon");
 
-        final ResponseEntity<String> result = restTemplate.getForEntity("/creatures/Dragon", String.class);
+        final ResponseEntity<String> result = restTemplate.getForEntity("/api/creatures/Dragon", String.class);
         assertThat(result.getStatusCode(), is(HttpStatus.OK));
 
         final JSONObject resultAsJSON = new JSONObject(result.getBody());
@@ -193,7 +189,7 @@ public class CreaturesResourceIT {
     void givenGetCreaturesByName_whenWrongRequest_thenResponseIsNotFound() {
         doReturn(null).when(articleRepository).getArticle("Foobar");
 
-        final ResponseEntity<String> result = restTemplate.getForEntity("/creatures/Foobar", String.class);
+        final ResponseEntity<String> result = restTemplate.getForEntity("/api/creatures/Foobar", String.class);
         assertThat(result.getStatusCode(), is(HttpStatus.NOT_FOUND));
     }
 
@@ -206,7 +202,7 @@ public class CreaturesResourceIT {
 
         final HttpHeaders httpHeaders = makeHttpHeaders(editSummary);
 
-        final ResponseEntity<Void> result = restTemplate.exchange("/creatures", HttpMethod.PUT, new HttpEntity<>(makeCreature(), httpHeaders), Void.class);
+        final ResponseEntity<Void> result = restTemplate.exchange("/api/creatures", HttpMethod.PUT, new HttpEntity<>(makeCreature(), httpHeaders), Void.class);
         assertThat(result.getStatusCode(), is(HttpStatus.OK));
     }
 
@@ -219,7 +215,7 @@ public class CreaturesResourceIT {
 
         final HttpHeaders httpHeaders = makeHttpHeaders(editSummary);
 
-        final ResponseEntity<Void> result = restTemplate.exchange("/creatures", HttpMethod.PUT, new HttpEntity<>(makeCreature(), httpHeaders), Void.class);
+        final ResponseEntity<Void> result = restTemplate.exchange("/api/creatures", HttpMethod.PUT, new HttpEntity<>(makeCreature(), httpHeaders), Void.class);
         assertThat(result.getStatusCode(), is(HttpStatus.BAD_REQUEST));
     }
 

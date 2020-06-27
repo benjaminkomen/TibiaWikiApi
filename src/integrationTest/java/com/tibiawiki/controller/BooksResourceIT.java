@@ -34,32 +34,29 @@ import static org.mockito.Mockito.doReturn;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class BooksResourceIT {
 
-    private static final String INFOBOX_BOOK_TEXT = "{{Infobox Book|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
-            "| booktype     = Book (Brown)\n" +
-            "| title        = Dungeon Survival Guide\n" +
-            "| pagename     = Dungeon Survival Guide (Book)\n" +
-            "| location     = [[Rookgaard Academy]]\n" +
-            "| blurb        = Tips for exploring dungeons, and warning against being reckless.\n" +
-            "| returnpage   = Rookgaard Libraries\n" +
-            "| relatedpages = [[Rope]], [[Shovel]]\n" +
-            "| text         = Dungeon Survival Guide<br><br>Don't explore the dungeons before you tested your skills" +
-            " in the training cellars of our academy. You will find dungeons somewhere in the wilderness. Don't enter" +
-            " dungeons without equipment. Especially a rope and a shovel will prove valuable. Make sure you have a" +
-            " supply of torches with you, while wandering into the unknown. It's wise to travel the dungeons in groups" +
-            " and not alone. For more help read all the books of the academy before you begin exploring. Traveling in" +
-            " the dungeons will reward the cautious and brave, but punish the reckless.\n" +
-            "}}\n";
+    private static final String INFOBOX_BOOK_TEXT = """
+            {{Infobox Book|List={{{1|}}}|GetValue={{{GetValue|}}}
+            | booktype     = Book (Brown)
+            | title        = Dungeon Survival Guide
+            | pagename     = Dungeon Survival Guide (Book)
+            | location     = [[Rookgaard Academy]]
+            | blurb        = Tips for exploring dungeons, and warning against being reckless.
+            | returnpage   = Rookgaard Libraries
+            | relatedpages = [[Rope]], [[Shovel]]
+            | text         = Dungeon Survival Guide<br><br>Don't explore the dungeons before you tested your skills in the training cellars of our academy. You will find dungeons somewhere in the wilderness. Don't enter dungeons without equipment. Especially a rope and a shovel will prove valuable. Make sure you have a supply of torches with you, while wandering into the unknown. It's wise to travel the dungeons in groups and not alone. For more help read all the books of the academy before you begin exploring. Traveling in the dungeons will reward the cautious and brave, but punish the reckless.
+            }}
+            """;
     @Autowired
     private TestRestTemplate restTemplate;
     @MockBean
-    private ArticleRepository articleRepository; // don't instantiate this real class, but use a mock implementation
+    private ArticleRepository articleRepository;
 
     @Test
     void givenGetBooksNotExpanded_whenCorrectRequest_thenResponseIsOkAndContainsTwoBookNames() {
         doReturn(Collections.singletonList("baz")).when(articleRepository).getPageNamesFromCategory(CATEGORY_LISTS);
         doReturn(Arrays.asList("foo", "bar", "baz")).when(articleRepository).getPageNamesFromCategory(InfoboxTemplate.BOOK.getCategoryName());
 
-        final ResponseEntity<List> result = restTemplate.getForEntity("/books?expand=false", List.class);
+        final ResponseEntity<List> result = restTemplate.getForEntity("/api/books?expand=false", List.class);
 
         assertThat(result.getStatusCode(), is(HttpStatus.OK));
         assertThat(result.getBody().size(), is(2));
@@ -73,7 +70,7 @@ public class BooksResourceIT {
         doReturn(Collections.singletonList("Dungeon Survival Guide (Book)")).when(articleRepository).getPageNamesFromCategory(InfoboxTemplate.BOOK.getCategoryName());
         doReturn(Map.of("Dungeon Survival Guide (Book)", INFOBOX_BOOK_TEXT)).when(articleRepository).getArticlesFromCategory(Collections.singletonList("Dungeon Survival Guide (Book)"));
 
-        final ResponseEntity<List> result = restTemplate.getForEntity("/books?expand=true", List.class);
+        final ResponseEntity<List> result = restTemplate.getForEntity("/api/books?expand=true", List.class);
 
         assertThat(result.getStatusCode(), is(HttpStatus.OK));
         assertThat(result.getBody().size(), is(1));
@@ -92,7 +89,7 @@ public class BooksResourceIT {
     void givenGetBooksByName_whenCorrectRequest_thenResponseIsOkAndContainsTheBook() {
         doReturn(INFOBOX_BOOK_TEXT).when(articleRepository).getArticle("Dungeon Survival Guide (Book)");
 
-        final ResponseEntity<String> result = restTemplate.getForEntity("/books/Dungeon Survival Guide (Book)", String.class);
+        final ResponseEntity<String> result = restTemplate.getForEntity("/api/books/Dungeon Survival Guide (Book)", String.class);
         assertThat(result.getStatusCode(), is(HttpStatus.OK));
 
         final JSONObject resultAsJSON = new JSONObject(result.getBody());
@@ -111,7 +108,7 @@ public class BooksResourceIT {
     void givenGetBooksByName_whenWrongRequest_thenResponseIsNotFound() {
         doReturn(null).when(articleRepository).getArticle("Foobar");
 
-        final ResponseEntity<String> result = restTemplate.getForEntity("/books/Foobar", String.class);
+        final ResponseEntity<String> result = restTemplate.getForEntity("/api/books/Foobar", String.class);
         assertThat(result.getStatusCode(), is(HttpStatus.NOT_FOUND));
     }
 
@@ -124,7 +121,7 @@ public class BooksResourceIT {
 
         final HttpHeaders httpHeaders = makeHttpHeaders(editSummary);
 
-        final ResponseEntity<Void> result = restTemplate.exchange("/books", HttpMethod.PUT, new HttpEntity<>(makeBook(), httpHeaders), Void.class);
+        final ResponseEntity<Void> result = restTemplate.exchange("/api/books", HttpMethod.PUT, new HttpEntity<>(makeBook(), httpHeaders), Void.class);
         assertThat(result.getStatusCode(), is(HttpStatus.OK));
     }
 
@@ -137,7 +134,7 @@ public class BooksResourceIT {
 
         final HttpHeaders httpHeaders = makeHttpHeaders(editSummary);
 
-        final ResponseEntity<Void> result = restTemplate.exchange("/books", HttpMethod.PUT, new HttpEntity<>(makeBook(), httpHeaders), Void.class);
+        final ResponseEntity<Void> result = restTemplate.exchange("/api/books", HttpMethod.PUT, new HttpEntity<>(makeBook(), httpHeaders), Void.class);
         assertThat(result.getStatusCode(), is(HttpStatus.BAD_REQUEST));
     }
 

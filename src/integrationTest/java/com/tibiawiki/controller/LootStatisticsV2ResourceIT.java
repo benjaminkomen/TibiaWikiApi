@@ -33,70 +33,74 @@ public class LootStatisticsV2ResourceIT {
     private TestRestTemplate restTemplate;
 
     @MockBean
-    private ArticleRepository articleRepository; // don't instantiate this real class, but use a mock implementation
+    private ArticleRepository articleRepository;
 
-    private static final String LOOT_AMAZON_TEXT = "{{Loot2\n" +
-            "|version=8.6\n" +
-            "|kills=22009\n" +
-            "|name=Amazon\n" +
-            "|Empty, times:253\n" +
-            "|Dagger, times:17626, amount:1, total:17626\n" +
-            "|Skull, times:17604, amount:1-2, total:26348\n" +
-            "|Gold Coin, times:8829, amount:1-20, total:93176\n" +
-            "|Brown Bread, times:6496, amount:1, total:6496\n" +
-            "|Sabre, times:5098, amount:1, total:5098\n" +
-            "|Girlish Hair Decoration, times:2179, amount:1, total:2179\n" +
-            "|Protective Charm, times:1154, amount:1, total:1154\n" +
-            "|Torch, times:223, amount:1, total:223\n" +
-            "|Crystal Necklace, times:56, amount:1, total:56\n" +
-            "|Small Ruby, times:27, amount:1, total:27\n" +
-            "}}\n";
+    private static final String LOOT_AMAZON_TEXT = """
+            {{Loot2
+            |version=8.6
+            |kills=22009
+            |name=Amazon
+            |Empty, times:253
+            |Dagger, times:17626, amount:1, total:17626
+            |Skull, times:17604, amount:1-2, total:26348
+            |Gold Coin, times:8829, amount:1-20, total:93176
+            |Brown Bread, times:6496, amount:1, total:6496
+            |Sabre, times:5098, amount:1, total:5098
+            |Girlish Hair Decoration, times:2179, amount:1, total:2179
+            |Protective Charm, times:1154, amount:1, total:1154
+            |Torch, times:223, amount:1, total:223
+            |Crystal Necklace, times:56, amount:1, total:56
+            |Small Ruby, times:27, amount:1, total:27
+            }}
+            """;
 
-    private static final String LOOT_FERUMBRAS_TEXT = "__NOWYSIWYG__\n\n" +
-            "{{Loot2\n" +
-            "|version=8.6\n" +
-            "|kills=49\n" +
-            "|name=Ferumbras\n" +
-            "|Ferumbras' Hat, times:49, total:3\n" +
-            "|Gold Coin, times:48, amount:18-184, total:4751\n" +
-            "|Gold Ingot, times:37, amount:1-2, total:52\n" +
-            "|Great Shield, times:13, amount:1, total:13\n" +
-            "|Spellbook of Lost Souls, times:13, amount:1, total:13\n" +
-            "|Golden Armor, times:12, amount:1, total:12\n" +
-            "}}\n" +
-            "\n" +
-            "{{Loot2_RC\n" +
-            "|version=8.6\n" +
-            "|kills=1\n" +
-            "|name=Ferumbras\n" +
-            "|Blue Gem, times:1, amount:1, total:1\n" +
-            "|Giant Shimmering Pearl, times:1, amount:1, total:1\n" +
-            "|Gold Coin, times:1, amount:100, total:100\n" +
-            "|Golden Armor, times:1, amount:1, total:1\n" +
-            "|Lightning Legs, times:1\n" +
-            "|Runed Sword, times:1, amount:1, total:1\n" +
-            "|Small Emerald, times:1, amount:10, total:10\n" +
-            "}}\n" +
-            "\n" +
-            "{{Loot\n" +
-            "|version=8.54\n" +
-            "|kills=4\n" +
-            "|name=Ferumbras\n" +
-            "|[[Gold Coin]], 399\n" +
-            "|[[Small Ruby]], 126\n" +
-            "|[[Small Diamond]], 45\n" +
-            "|[[Gold Ingot]], 6\n" +
-            "|[[Ferumbras' Hat]], 4\n" +
-            "|[[Small Topaz]], 3\n" +
-            "|[[Spellbook of Lost Souls]], 3\n" +
-            "}}\n" +
-            "<br/>Average gold: 99.75";
+    private static final String LOOT_FERUMBRAS_TEXT = """
+            __NOWYSIWYG__
+
+            {{Loot2
+            |version=8.6
+            |kills=49
+            |name=Ferumbras
+            |Ferumbras' Hat, times:49, total:3
+            |Gold Coin, times:48, amount:18-184, total:4751
+            |Gold Ingot, times:37, amount:1-2, total:52
+            |Great Shield, times:13, amount:1, total:13
+            |Spellbook of Lost Souls, times:13, amount:1, total:13
+            |Golden Armor, times:12, amount:1, total:12
+            }}
+
+            {{Loot2_RC
+            |version=8.6
+            |kills=1
+            |name=Ferumbras
+            |Blue Gem, times:1, amount:1, total:1
+            |Giant Shimmering Pearl, times:1, amount:1, total:1
+            |Gold Coin, times:1, amount:100, total:100
+            |Golden Armor, times:1, amount:1, total:1
+            |Lightning Legs, times:1
+            |Runed Sword, times:1, amount:1, total:1
+            |Small Emerald, times:1, amount:10, total:10
+            }}
+
+            {{Loot
+            |version=8.54
+            |kills=4
+            |name=Ferumbras
+            |[[Gold Coin]], 399
+            |[[Small Ruby]], 126
+            |[[Small Diamond]], 45
+            |[[Gold Ingot]], 6
+            |[[Ferumbras' Hat]], 4
+            |[[Small Topaz]], 3
+            |[[Spellbook of Lost Souls]], 3
+            }}
+            <br/>Average gold: 99.75""";
 
     @Test
     void givenGetLootsNotExpanded_whenCorrectRequest_thenResponseIsOkAndContainsTwoLootNames() {
         doReturn(Arrays.asList("foo", "bar")).when(articleRepository).getPageNamesFromCategory(InfoboxTemplate.LOOT.getCategoryName(), LOOT_NAMESPACE);
 
-        final ResponseEntity<List> result = restTemplate.getForEntity("/v2/loot?expand=false", List.class);
+        final ResponseEntity<List> result = restTemplate.getForEntity("/api/v2/loot?expand=false", List.class);
 
         assertThat(result.getStatusCode(), is(HttpStatus.OK));
         assertThat(result.getBody().size(), is(2));
@@ -110,7 +114,7 @@ public class LootStatisticsV2ResourceIT {
         doReturn(Collections.singletonList("Loot:Amazon")).when(articleRepository).getPageNamesFromCategory(InfoboxTemplate.LOOT.getCategoryName(), LOOT_NAMESPACE);
         doReturn(Map.of("Loot:Amazon", LOOT_AMAZON_TEXT)).when(articleRepository).getArticlesFromCategory(Collections.singletonList("Loot:Amazon"));
 
-        final ResponseEntity<List> result = restTemplate.getForEntity("/v2/loot?expand=true", List.class);
+        final ResponseEntity<List> result = restTemplate.getForEntity("/api/v2/loot?expand=true", List.class);
 
         assertThat(result.getStatusCode(), is(HttpStatus.OK));
         assertThat(result.getBody().size(), is(1));
@@ -127,7 +131,7 @@ public class LootStatisticsV2ResourceIT {
     void givenGetLootsByName_whenCorrectRequest_thenResponseIsOkAndContainsTheLoot() {
         doReturn(LOOT_AMAZON_TEXT).when(articleRepository).getArticle("Loot_Statistics:Amazon");
 
-        final ResponseEntity<String> result = restTemplate.getForEntity("/v2/loot/Amazon", String.class);
+        final ResponseEntity<String> result = restTemplate.getForEntity("/api/v2/loot/Amazon", String.class);
         assertThat(result.getStatusCode(), is(HttpStatus.OK));
 
         final JSONObject resultAsJSON = new JSONObject(result.getBody()).getJSONObject("loot2");
@@ -141,7 +145,7 @@ public class LootStatisticsV2ResourceIT {
     void givenGetLootsByName_whenCorrectRequest_thenResponseIsOkAndContainsTwoLootEntities() {
         doReturn(LOOT_FERUMBRAS_TEXT).when(articleRepository).getArticle("Loot_Statistics:Ferumbras");
 
-        final ResponseEntity<String> result = restTemplate.getForEntity("/v2/loot/Ferumbras", String.class);
+        final ResponseEntity<String> result = restTemplate.getForEntity("/api/v2/loot/Ferumbras", String.class);
         assertThat(result.getStatusCode(), is(HttpStatus.OK));
 
         final JSONObject loot2Result = new JSONObject(result.getBody()).getJSONObject("loot2");
@@ -161,7 +165,7 @@ public class LootStatisticsV2ResourceIT {
     void givenGetLootsByName_whenWrongRequest_thenResponseIsNotFound() {
         doReturn(null).when(articleRepository).getArticle("Loot:Foobar");
 
-        final ResponseEntity<String> result = restTemplate.getForEntity("/v2/loot/Foobar", String.class);
+        final ResponseEntity<String> result = restTemplate.getForEntity("/api/v2/loot/Foobar", String.class);
         assertThat(result.getStatusCode(), is(HttpStatus.NOT_FOUND));
     }
 }

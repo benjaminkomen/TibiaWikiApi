@@ -38,27 +38,29 @@ public class AchievementsResourceIT {
     private TestRestTemplate restTemplate;
 
     @MockBean
-    private ArticleRepository articleRepository; // don't instantiate this real class, but use a mock implementation
+    private ArticleRepository articleRepository;
 
-    private static final String INFOBOX_ACHIEVEMENT_TEXT = "{{Infobox Achievement|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
-            "| grade        = 1\n" +
-            "| name         = Goo Goo Dancer\n" +
-            "| description  = Seeing a mucus plug makes your heart dance and you can't resist to see what it hides. Goo goo away!\n" +
-            "| spoiler      = Obtainable by using 100 [[Muck Remover]]s on [[Mucus Plug]]s.\n" +
-            "| premium      = yes\n" +
-            "| points       = 1\n" +
-            "| secret       = yes\n" +
-            "| implemented  = 9.6\n" +
-            "| achievementid = 319\n" +
-            "| relatedpages = [[Muck Remover]], [[Mucus Plug]]\n" +
-            "}}\n";
+    private static final String INFOBOX_ACHIEVEMENT_TEXT = """
+            {{Infobox Achievement|List={{{1|}}}|GetValue={{{GetValue|}}}
+            | grade        = 1
+            | name         = Goo Goo Dancer
+            | description  = Seeing a mucus plug makes your heart dance and you can't resist to see what it hides. Goo goo away!
+            | spoiler      = Obtainable by using 100 [[Muck Remover]]s on [[Mucus Plug]]s.
+            | premium      = yes
+            | points       = 1
+            | secret       = yes
+            | implemented  = 9.6
+            | achievementid = 319
+            | relatedpages = [[Muck Remover]], [[Mucus Plug]]
+            }}
+            """;
 
     @Test
     void givenGetAchievementsNotExpanded_whenCorrectRequest_thenResponseIsOkAndContainsTwoAchievementNames() {
         doReturn(Collections.singletonList("baz")).when(articleRepository).getPageNamesFromCategory(CATEGORY_LISTS);
         doReturn(Arrays.asList("foo", "bar", "baz")).when(articleRepository).getPageNamesFromCategory(InfoboxTemplate.ACHIEVEMENT.getCategoryName());
 
-        final ResponseEntity<List> result = restTemplate.getForEntity("/achievements?expand=false", List.class);
+        final ResponseEntity<List> result = restTemplate.getForEntity("/api/achievements?expand=false", List.class);
 
         assertThat(result.getStatusCode(), is(HttpStatus.OK));
         assertThat(result.getBody().size(), is(2));
@@ -72,7 +74,7 @@ public class AchievementsResourceIT {
         doReturn(Collections.singletonList("Goo Goo Dancer")).when(articleRepository).getPageNamesFromCategory(InfoboxTemplate.ACHIEVEMENT.getCategoryName());
         doReturn(Map.of("Goo Goo Dancer", INFOBOX_ACHIEVEMENT_TEXT)).when(articleRepository).getArticlesFromCategory(Collections.singletonList("Goo Goo Dancer"));
 
-        final ResponseEntity<List> result = restTemplate.getForEntity("/achievements?expand=true", List.class);
+        final ResponseEntity<List> result = restTemplate.getForEntity("/api/achievements?expand=true", List.class);
 
         assertThat(result.getStatusCode(), is(HttpStatus.OK));
         assertThat(result.getBody().size(), is(1));
@@ -93,7 +95,7 @@ public class AchievementsResourceIT {
     void givenGetAchievementsByName_whenCorrectRequest_thenResponseIsOkAndContainsTheAchievement() {
         doReturn(INFOBOX_ACHIEVEMENT_TEXT).when(articleRepository).getArticle("Goo Goo Dancer");
 
-        final ResponseEntity<String> result = restTemplate.getForEntity("/achievements/Goo Goo Dancer", String.class);
+        final ResponseEntity<String> result = restTemplate.getForEntity("/api/achievements/Goo Goo Dancer", String.class);
         assertThat(result.getStatusCode(), is(HttpStatus.OK));
 
         final JSONObject resultAsJSON = new JSONObject(result.getBody());
@@ -114,7 +116,7 @@ public class AchievementsResourceIT {
     void givenGetAchievementsByName_whenWrongRequest_thenResponseIsNotFound() {
         doReturn(null).when(articleRepository).getArticle("Foobar");
 
-        final ResponseEntity<String> result = restTemplate.getForEntity("/achievements/Foobar", String.class);
+        final ResponseEntity<String> result = restTemplate.getForEntity("/api/achievements/Foobar", String.class);
         assertThat(result.getStatusCode(), is(HttpStatus.NOT_FOUND));
     }
 
@@ -127,7 +129,7 @@ public class AchievementsResourceIT {
 
         final HttpHeaders httpHeaders = makeHttpHeaders(editSummary);
 
-        final ResponseEntity<Void> result = restTemplate.exchange("/achievements", HttpMethod.PUT, new HttpEntity<>(makeAchievement(), httpHeaders), Void.class);
+        final ResponseEntity<Void> result = restTemplate.exchange("/api/achievements", HttpMethod.PUT, new HttpEntity<>(makeAchievement(), httpHeaders), Void.class);
         assertThat(result.getStatusCode(), is(HttpStatus.OK));
     }
 
@@ -140,7 +142,7 @@ public class AchievementsResourceIT {
 
         final HttpHeaders httpHeaders = makeHttpHeaders(editSummary);
 
-        final ResponseEntity<Void> result = restTemplate.exchange("/achievements", HttpMethod.PUT, new HttpEntity<>(makeAchievement(), httpHeaders), Void.class);
+        final ResponseEntity<Void> result = restTemplate.exchange("/api/achievements", HttpMethod.PUT, new HttpEntity<>(makeAchievement(), httpHeaders), Void.class);
         assertThat(result.getStatusCode(), is(HttpStatus.BAD_REQUEST));
     }
 

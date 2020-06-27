@@ -40,47 +40,49 @@ import static org.mockito.Mockito.doReturn;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ItemsResourceIT {
 
-    private static final String INFOBOX_ITEM_TEXT = "{{Infobox Item|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
-            "| name          = Carlin Sword\n" +
-            "| article       = a\n" +
-            "| actualname    = carlin sword\n" +
-            "| plural        = ?\n" +
-            "| itemid        = 3283\n" +
-            "| marketable    = yes\n" +
-            "| usable        = yes\n" +
-            "| sprites       = {{Frames|{{Frame Sprite|55266}}}}\n" +
-            "| flavortext    = Foobar\n" +
-            "| itemclass     = Weapons\n" +
-            "| primarytype   = Sword Weapons\n" +
-            "| levelrequired = 0\n" +
-            "| hands         = One\n" +
-            "| type          = Sword\n" +
-            "| attack        = 15\n" +
-            "| defense       = 13\n" +
-            "| defensemod    = +1\n" +
-            "| enchantable   = no\n" +
-            "| weight        = 40.00\n" +
-            "| droppedby     = {{Dropped By|Grorlam|Stone Golem}}\n" +
-            "| value         = 118\n" +
-            "| npcvalue      = 118\n" +
-            "| npcprice      = 473\n" +
-            "| npcvaluerook  = 0\n" +
-            "| npcpricerook  = 0\n" +
-            "| buyfrom       = Baltim, Brengus, Cedrik,\n" +
-            "| sellto        = Baltim, Brengus, Cedrik, Esrik,\n" +
-            "| notes         = If you have one of these \n" +
-            "}}\n";
+    private static final String INFOBOX_ITEM_TEXT = """
+            {{Infobox Item|List={{{1|}}}|GetValue={{{GetValue|}}}
+            | name          = Carlin Sword
+            | article       = a
+            | actualname    = carlin sword
+            | plural        = ?
+            | itemid        = 3283
+            | marketable    = yes
+            | usable        = yes
+            | sprites       = {{Frames|{{Frame Sprite|55266}}}}
+            | flavortext    = Foobar
+            | itemclass     = Weapons
+            | primarytype   = Sword Weapons
+            | levelrequired = 0
+            | hands         = One
+            | type          = Sword
+            | attack        = 15
+            | defense       = 13
+            | defensemod    = +1
+            | enchantable   = no
+            | weight        = 40.00
+            | droppedby     = {{Dropped By|Grorlam|Stone Golem}}
+            | value         = 118
+            | npcvalue      = 118
+            | npcprice      = 473
+            | npcvaluerook  = 0
+            | npcpricerook  = 0
+            | buyfrom       = Baltim, Brengus, Cedrik,
+            | sellto        = Baltim, Brengus, Cedrik, Esrik,
+            | notes         = If you have one of these\s
+            }}
+            """;
     @Autowired
     private TestRestTemplate restTemplate;
     @MockBean
-    private ArticleRepository articleRepository; // don't instantiate this real class, but use a mock implementation
+    private ArticleRepository articleRepository;
 
     @Test
     void givenGetItemsNotExpanded_whenCorrectRequest_thenResponseIsOkAndContainsTwoItemNames() {
         doReturn(Collections.singletonList("baz")).when(articleRepository).getPageNamesFromCategory(CATEGORY_LISTS);
         doReturn(Arrays.asList("foo", "bar", "baz")).when(articleRepository).getPageNamesFromCategory(InfoboxTemplate.ITEM.getCategoryName());
 
-        final ResponseEntity<List> result = restTemplate.getForEntity("/items?expand=false", List.class);
+        final ResponseEntity<List> result = restTemplate.getForEntity("/api/items?expand=false", List.class);
 
         assertThat(result.getStatusCode(), is(HttpStatus.OK));
         assertThat(result.getBody().size(), is(2));
@@ -94,7 +96,7 @@ public class ItemsResourceIT {
         doReturn(Collections.singletonList("Carlin Sword")).when(articleRepository).getPageNamesFromCategory(InfoboxTemplate.ITEM.getCategoryName());
         doReturn(Map.of("Carlin Sword", INFOBOX_ITEM_TEXT)).when(articleRepository).getArticlesFromCategory(Collections.singletonList("Carlin Sword"));
 
-        final ResponseEntity<List> result = restTemplate.getForEntity("/items?expand=true", List.class);
+        final ResponseEntity<List> result = restTemplate.getForEntity("/api/items?expand=true", List.class);
 
         assertThat(result.getStatusCode(), is(HttpStatus.OK));
         assertThat(result.getBody().size(), is(1));
@@ -133,7 +135,7 @@ public class ItemsResourceIT {
     void givenGetItemsByName_whenCorrectRequest_thenResponseIsOkAndContainsTheItem() {
         doReturn(INFOBOX_ITEM_TEXT).when(articleRepository).getArticle("Carlin Sword");
 
-        final ResponseEntity<String> result = restTemplate.getForEntity("/items/Carlin Sword", String.class);
+        final ResponseEntity<String> result = restTemplate.getForEntity("/api/items/Carlin Sword", String.class);
         assertThat(result.getStatusCode(), is(HttpStatus.OK));
 
         final JSONObject resultAsJSON = new JSONObject(result.getBody());
@@ -172,7 +174,7 @@ public class ItemsResourceIT {
     void givenGetItemsByName_whenWrongRequest_thenResponseIsNotFound() {
         doReturn(null).when(articleRepository).getArticle("Foobar");
 
-        final ResponseEntity<String> result = restTemplate.getForEntity("/items/Foobar", String.class);
+        final ResponseEntity<String> result = restTemplate.getForEntity("/api/items/Foobar", String.class);
         assertThat(result.getStatusCode(), is(HttpStatus.NOT_FOUND));
     }
 
@@ -185,7 +187,7 @@ public class ItemsResourceIT {
 
         final HttpHeaders httpHeaders = makeHttpHeaders(editSummary);
 
-        final ResponseEntity<Void> result = restTemplate.exchange("/items", HttpMethod.PUT, new HttpEntity<>(makeItem(), httpHeaders), Void.class);
+        final ResponseEntity<Void> result = restTemplate.exchange("/api/items", HttpMethod.PUT, new HttpEntity<>(makeItem(), httpHeaders), Void.class);
         assertThat(result.getStatusCode(), is(HttpStatus.OK));
     }
 
@@ -198,7 +200,7 @@ public class ItemsResourceIT {
 
         final HttpHeaders httpHeaders = makeHttpHeaders(editSummary);
 
-        final ResponseEntity<Void> result = restTemplate.exchange("/items", HttpMethod.PUT, new HttpEntity<>(makeItem(), httpHeaders), Void.class);
+        final ResponseEntity<Void> result = restTemplate.exchange("/api/items", HttpMethod.PUT, new HttpEntity<>(makeItem(), httpHeaders), Void.class);
         assertThat(result.getStatusCode(), is(HttpStatus.BAD_REQUEST));
     }
 

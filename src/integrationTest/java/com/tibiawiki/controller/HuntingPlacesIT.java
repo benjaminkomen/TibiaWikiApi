@@ -31,7 +31,7 @@ public class HuntingPlacesIT {
     private TestRestTemplate restTemplate;
 
     @MockBean
-    private ArticleRepository articleRepository; // don't instantiate this real class, but use a mock implementation
+    private ArticleRepository articleRepository;
 
     private static final String INFOBOX_HUNT_TEXT = """
             {{Infobox Hunt
@@ -70,7 +70,7 @@ public class HuntingPlacesIT {
         doReturn(Collections.singletonList("baz")).when(articleRepository).getPageNamesFromCategory(CATEGORY_LISTS);
         doReturn(Arrays.asList("foo", "bar", "baz")).when(articleRepository).getPageNamesFromCategory(InfoboxTemplate.HUNT.getCategoryName());
 
-        final ResponseEntity<List> result = restTemplate.getForEntity("/huntingplaces?expand=false", List.class);
+        final ResponseEntity<List> result = restTemplate.getForEntity("/api/huntingplaces?expand=false", List.class);
 
         assertThat(result.getStatusCode(), is(HttpStatus.OK));
         assertThat(result.getBody(), is(notNullValue()));
@@ -83,7 +83,7 @@ public class HuntingPlacesIT {
     void givenGetHuntingPlaceByName_whenCorrectRequest_thenResponseIsOkAndContainsTheHuntingPlaceWithSlashInName() {
         doReturn(INFOBOX_HUNT_TEXT).when(articleRepository).getArticle("Tiquanda/Bandit Caves");
 
-        final ResponseEntity<String> result = restTemplate.getForEntity("/huntingplaces/Tiquanda/Bandit Caves", String.class);
+        final ResponseEntity<String> result = restTemplate.getForEntity("/api/huntingplaces/Tiquanda/Bandit Caves", String.class);
         assertThat(result.getStatusCode(), is(HttpStatus.OK));
 
         final JSONObject resultAsJSON = new JSONObject(result.getBody());
@@ -119,7 +119,7 @@ public class HuntingPlacesIT {
     void givenGetHuntingPlaceByName_whenWrongRequest_thenResponseIsNotFound() {
         doReturn(null).when(articleRepository).getArticle("Foobar");
 
-        final ResponseEntity<String> result = restTemplate.getForEntity("/huntingplaces/Foobar", String.class);
+        final ResponseEntity<String> result = restTemplate.getForEntity("/api/huntingplaces/Foobar", String.class);
         assertThat(result.getStatusCode(), is(HttpStatus.NOT_FOUND));
     }
 }
