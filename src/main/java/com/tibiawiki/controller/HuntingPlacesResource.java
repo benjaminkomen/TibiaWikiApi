@@ -5,11 +5,11 @@ import com.tibiawiki.domain.objects.WikiObject;
 import com.tibiawiki.domain.objects.validation.ValidationException;
 import com.tibiawiki.process.ModifyAny;
 import com.tibiawiki.process.RetrieveHuntingPlaces;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
@@ -28,8 +28,8 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
 @RestController
-@Api(value = "Hunting Places")
-@RequestMapping("/huntingplaces")
+@Tag(name = "Hunting Places")
+@RequestMapping("/api/huntingplaces")
 @RequiredArgsConstructor
 public class HuntingPlacesResource {
 
@@ -37,11 +37,11 @@ public class HuntingPlacesResource {
     private final ModifyAny modifyAny;
 
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Get a list of hunting places")
+    @Operation(summary = "Get a list of hunting places")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "list of hunting places retrieved")
+           @ApiResponse(responseCode = "200" , description = "list of hunting places retrieved")
     })
-    public ResponseEntity<Object> getHuntingPlaces(@ApiParam(value = "optionally expands the result to retrieve not only " +
+    public ResponseEntity<Object> getHuntingPlaces(@Parameter(description = "optionally expands the result to retrieve not only " +
             "the hunting place names, but the full hunting places", required = false)
                                                    @RequestParam(value = "expand", required = false) Boolean expand) {
         return ResponseEntity.ok()
@@ -52,7 +52,7 @@ public class HuntingPlacesResource {
     }
 
     @GetMapping(value = "/**", produces = MediaType.APPLICATION_JSON_VALUE) // accept special characters such as slashes in path
-    @ApiOperation(value = "Get a specific hunting place by name")
+    @Operation(summary = "Get a specific hunting place by name")
     public ResponseEntity<String> getHuntingPlacesByName(HttpServletRequest request) {
         var requestUri = request.getRequestURI();
         var name = URLDecoder.decode(requestUri.split("/huntingplaces/")[1], StandardCharsets.UTF_8);
@@ -63,11 +63,11 @@ public class HuntingPlacesResource {
     }
 
     @PutMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Modify a hunting place")
+    @Operation(summary = "Modify a hunting place")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "the changed huntingPlace"),
-            @ApiResponse(code = 400, message = "the provided changed huntingPlace is not valid"),
-            @ApiResponse(code = 401, message = "not authorized to edit without providing credentials")
+           @ApiResponse(responseCode = "200" , description = "the changed huntingPlace"),
+           @ApiResponse(responseCode = "400" , description = "the provided changed huntingPlace is not valid"),
+           @ApiResponse(responseCode = "401" , description = "not authorized to edit without providing credentials")
     })
     public ResponseEntity<WikiObject> putHuntingPlace(@RequestBody HuntingPlace huntingPlace, @RequestHeader("X-WIKI-Edit-Summary") String editSummary) {
         return modifyAny.modify(huntingPlace, editSummary)

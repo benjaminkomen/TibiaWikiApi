@@ -1,2 +1,0 @@
-# rename this file to application.properties to configure Spring settings
-server.port = 8080

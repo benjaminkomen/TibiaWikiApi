@@ -5,11 +5,11 @@ import com.tibiawiki.domain.objects.WikiObject;
 import com.tibiawiki.domain.objects.validation.ValidationException;
 import com.tibiawiki.process.ModifyAny;
 import com.tibiawiki.process.RetrieveKeys;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
@@ -25,8 +25,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@Api(value = "Keys")
-@RequestMapping("/keys")
+@Tag(name = "Keys")
+@RequestMapping("/api/keys")
 @RequiredArgsConstructor
 public class KeysResource {
 
@@ -34,11 +34,11 @@ public class KeysResource {
     private final ModifyAny modifyAny;
 
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Get a list of keys")
+    @Operation(summary = "Get a list of keys")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "list of keys retrieved")
+           @ApiResponse(responseCode = "200" , description = "list of keys retrieved")
     })
-    public ResponseEntity<Object> getKeys(@ApiParam(value = "optionally expands the result to retrieve not only " +
+    public ResponseEntity<Object> getKeys(@Parameter(description = "optionally expands the result to retrieve not only " +
             "the key names but the full keys", required = false)
                                           @RequestParam(value = "expand", required = false) Boolean expand) {
         return ResponseEntity.ok()
@@ -49,7 +49,7 @@ public class KeysResource {
     }
 
     @GetMapping(value = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Get a specific key by name")
+    @Operation(summary = "Get a specific key by name")
     public ResponseEntity<String> getKeysByName(@PathVariable("name") String name) {
         return retrieveKeys.getKeyJSON(name)
                 .map(a -> ResponseEntity.ok()
@@ -58,11 +58,11 @@ public class KeysResource {
     }
 
     @PutMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Modify a key")
+    @Operation(summary = "Modify a key")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "the changed key"),
-            @ApiResponse(code = 400, message = "the provided changed key is not valid"),
-            @ApiResponse(code = 401, message = "not authorized to edit without providing credentials")
+           @ApiResponse(responseCode = "200" , description = "the changed key"),
+           @ApiResponse(responseCode = "400" , description = "the provided changed key is not valid"),
+           @ApiResponse(responseCode = "401" , description = "not authorized to edit without providing credentials")
     })
     public ResponseEntity<WikiObject> putKey(@RequestBody Key key, @RequestHeader("X-WIKI-Edit-Summary") String editSummary) {
         return modifyAny.modify(key, editSummary)

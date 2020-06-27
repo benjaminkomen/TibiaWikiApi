@@ -5,11 +5,11 @@ import com.tibiawiki.domain.objects.WikiObject;
 import com.tibiawiki.domain.objects.validation.ValidationException;
 import com.tibiawiki.process.ModifyAny;
 import com.tibiawiki.process.RetrieveObjects;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
@@ -25,8 +25,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@Api(value = "Objects")
-@RequestMapping("/objects")
+@Tag(name = "Objects")
+@RequestMapping("/api/objects")
 @RequiredArgsConstructor
 public class ObjectsResource {
 
@@ -34,11 +34,11 @@ public class ObjectsResource {
     private final ModifyAny modifyAny;
 
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Get a list of objects")
+    @Operation(summary = "Get a list of objects")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "list of objects retrieved")
+           @ApiResponse(responseCode = "200" , description = "list of objects retrieved")
     })
-    public ResponseEntity<Object> getObjects(@ApiParam(value = "optionally expands the result to retrieve not only " +
+    public ResponseEntity<Object> getObjects(@Parameter(description = "optionally expands the result to retrieve not only " +
             "the object names but the full objects", required = false)
                                              @RequestParam(value = "expand", required = false) Boolean expand) {
         return ResponseEntity.ok()
@@ -49,7 +49,7 @@ public class ObjectsResource {
     }
 
     @GetMapping(value = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Get a specific object by name")
+    @Operation(summary = "Get a specific object by name")
     public ResponseEntity<String> getObjectsByName(@PathVariable("name") String name) {
         return retrieveObjects.getObjectJSON(name)
                 .map(a -> ResponseEntity.ok()
@@ -58,11 +58,11 @@ public class ObjectsResource {
     }
 
     @PutMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Modify an object")
+    @Operation(summary = "Modify an object")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "the changed tibiaObject"),
-            @ApiResponse(code = 400, message = "the provided changed tibiaObject is not valid"),
-            @ApiResponse(code = 401, message = "not authorized to edit without providing credentials")
+           @ApiResponse(responseCode = "200" , description = "the changed tibiaObject"),
+           @ApiResponse(responseCode = "400" , description = "the provided changed tibiaObject is not valid"),
+           @ApiResponse(responseCode = "401" , description = "not authorized to edit without providing credentials")
     })
     public ResponseEntity<WikiObject> putTibiaObject(@RequestBody TibiaObject tibiaObject, @RequestHeader("X-WIKI-Edit-Summary") String editSummary) {
         return modifyAny.modify(tibiaObject, editSummary)

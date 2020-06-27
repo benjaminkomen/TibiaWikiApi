@@ -5,11 +5,11 @@ import com.tibiawiki.domain.objects.WikiObject;
 import com.tibiawiki.domain.objects.validation.ValidationException;
 import com.tibiawiki.process.ModifyAny;
 import com.tibiawiki.process.RetrieveStreets;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
@@ -25,8 +25,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@Api(value = "Streets")
-@RequestMapping("/streets")
+@Tag(name = "Streets")
+@RequestMapping("/api/streets")
 @RequiredArgsConstructor
 public class StreetsResource {
 
@@ -34,11 +34,11 @@ public class StreetsResource {
     private final ModifyAny modifyAny;
 
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Get a list of streets")
+    @Operation(summary = "Get a list of streets")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "list of streets retrieved")
+           @ApiResponse(responseCode = "200" , description = "list of streets retrieved")
     })
-    public ResponseEntity<Object> getStreets(@ApiParam(value = "optionally expands the result to retrieve not only " +
+    public ResponseEntity<Object> getStreets(@Parameter(description = "optionally expands the result to retrieve not only " +
             "the street names but the full streets", required = false)
                                              @RequestParam(value = "expand", required = false) Boolean expand) {
         return ResponseEntity.ok()
@@ -49,7 +49,7 @@ public class StreetsResource {
     }
 
     @GetMapping(value = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Get a specific street by name")
+    @Operation(summary = "Get a specific street by name")
     public ResponseEntity<String> getStreetsByName(@PathVariable("name") String name) {
         return retrieveStreets.getStreetJSON(name)
                 .map(a -> ResponseEntity.ok()
@@ -58,11 +58,11 @@ public class StreetsResource {
     }
 
     @PutMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Modify a street")
+    @Operation(summary = "Modify a street")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "the changed street"),
-            @ApiResponse(code = 400, message = "the provided changed street is not valid"),
-            @ApiResponse(code = 401, message = "not authorized to edit without providing credentials")
+           @ApiResponse(responseCode = "200" , description = "the changed street"),
+           @ApiResponse(responseCode = "400" , description = "the provided changed street is not valid"),
+           @ApiResponse(responseCode = "401" , description = "not authorized to edit without providing credentials")
     })
     public ResponseEntity<WikiObject> putStreet(@RequestBody Street street, @RequestHeader("X-WIKI-Edit-Summary") String editSummary) {
         return modifyAny.modify(street, editSummary)

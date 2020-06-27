@@ -1,11 +1,11 @@
 package com.tibiawiki.controller;
 
 import com.tibiawiki.process.RetrieveLoot;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.http.MediaType;
@@ -17,19 +17,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@Api(value = "Loot Statistics")
-@RequestMapping("/v2/loot")
+@Tag(name = "Loot Statistics")
+@RequestMapping("/api/v2/loot")
 @RequiredArgsConstructor
 public class LootStatisticsV2Resource {
 
     private final RetrieveLoot retrieveLoot;
 
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Get a list of loot statistics")
+    @Operation(summary = "Get a list of loot statistics")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "list of loot statistics retrieved")
+           @ApiResponse(responseCode = "200" , description = "list of loot statistics retrieved")
     })
-    public ResponseEntity<Object> getLoot(@ApiParam(value = "optionally expands the result to retrieve not only " +
+    public ResponseEntity<Object> getLoot(@Parameter(description = "optionally expands the result to retrieve not only " +
             "the loot statistics page names but the full loot statistics", required = false)
                                           @RequestParam(value = "expand", required = false) Boolean expand) {
         return ResponseEntity.ok()
@@ -40,7 +40,7 @@ public class LootStatisticsV2Resource {
     }
 
     @GetMapping(value = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Get a specific loot statistics page by creature name")
+    @Operation(summary = "Get a specific loot statistics page by creature name")
     public ResponseEntity<String> getLootByName(@PathVariable("name") String name) {
         return retrieveLoot.getAllLootPartsJSON("Loot_Statistics:" + name)
                 .map(a -> ResponseEntity.ok()

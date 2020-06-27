@@ -5,11 +5,11 @@ import com.tibiawiki.domain.objects.WikiObject;
 import com.tibiawiki.domain.objects.validation.ValidationException;
 import com.tibiawiki.process.ModifyAny;
 import com.tibiawiki.process.RetrieveEffects;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
@@ -25,8 +25,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@Api(value = "Effects")
-@RequestMapping("/effects")
+@Tag(name = "Effects")
+@RequestMapping("/api/effects")
 @RequiredArgsConstructor
 public class EffectsResource {
 
@@ -34,11 +34,11 @@ public class EffectsResource {
     private final ModifyAny modifyAny;
 
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Get a list of effects")
+    @Operation(summary = "Get a list of effects")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "list of effects retrieved")
+            @ApiResponse(responseCode = "200", description = "list of effects retrieved")
     })
-    public ResponseEntity<Object> getEffects(@ApiParam(value = "optionally expands the result to retrieve not only " +
+    public ResponseEntity<Object> getEffects(@Parameter(description = "optionally expands the result to retrieve not only " +
             "the effect names but the full effects", required = false)
                                              @RequestParam(value = "expand", required = false) Boolean expand) {
         return ResponseEntity.ok()
@@ -49,7 +49,7 @@ public class EffectsResource {
     }
 
     @GetMapping(value = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Get a specific effect by name")
+    @Operation(summary = "Get a specific effect by name")
     public ResponseEntity<String> getEffectsByName(@PathVariable("name") String name) {
         return retrieveEffects.getEffectJSON(name)
                 .map(a -> ResponseEntity.ok()
@@ -58,11 +58,11 @@ public class EffectsResource {
     }
 
     @PutMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Modify an effect")
+    @Operation(summary = "Modify an effect")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "the changed effect"),
-            @ApiResponse(code = 400, message = "the provided changed effect is not valid"),
-            @ApiResponse(code = 401, message = "not authorized to edit without providing credentials")
+            @ApiResponse(responseCode = "200", description = "the changed effect"),
+            @ApiResponse(responseCode = "400", description = "the provided changed effect is not valid"),
+            @ApiResponse(responseCode = "401", description = "not authorized to edit without providing credentials")
     })
     public ResponseEntity<WikiObject> putEffect(@RequestBody Effect effect, @RequestHeader("X-WIKI-Edit-Summary") String editSummary) {
         return modifyAny.modify(effect, editSummary)

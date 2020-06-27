@@ -5,11 +5,11 @@ import com.tibiawiki.domain.objects.WikiObject;
 import com.tibiawiki.domain.objects.validation.ValidationException;
 import com.tibiawiki.process.ModifyAny;
 import com.tibiawiki.process.RetrieveAchievements;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
@@ -24,9 +24,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(value = "Achievements")
+@Tag(name = "Achievements")
 @RestController
-@RequestMapping("/achievements")
+@RequestMapping("/api/achievements")
 @RequiredArgsConstructor
  public class AchievementsResource {
 
@@ -34,11 +34,11 @@ import org.springframework.web.bind.annotation.RestController;
     private final ModifyAny modifyAny;
 
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Get a list of achievements")
+    @Operation(summary = "Get a list of achievements")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "list of achievements retrieved")
+           @ApiResponse(responseCode = "200" , description = "list of achievements retrieved")
     })
-    public ResponseEntity<Object> getAchievements(@ApiParam(value = "optionally expands the result to retrieve not only " +
+    public ResponseEntity<Object> getAchievements(@Parameter(description = "optionally expands the result to retrieve not only " +
             "the achievement names but the full achievements", required = false)
                                                   @RequestParam(value = "expand", required = false) Boolean expand) {
         return ResponseEntity.ok()
@@ -49,10 +49,10 @@ import org.springframework.web.bind.annotation.RestController;
     }
 
     @GetMapping(value = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Get a specific achievement by name")
+    @Operation(summary = "Get a specific achievement by name")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "achievement with specified name found"),
-            @ApiResponse(code = 404, message = "achievement with specified name not found")
+           @ApiResponse(responseCode = "200" , description = "achievement with specified name found"),
+           @ApiResponse(responseCode = "404" , description = "achievement with specified name not found")
     })
     public ResponseEntity<String> getAchievementsByName(@PathVariable("name") String name) {
         return retrieveAchievements.getAchievementJSON(name)
@@ -63,11 +63,11 @@ import org.springframework.web.bind.annotation.RestController;
     }
 
     @PutMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Modify an achievement")
+    @Operation(summary = "Modify an achievement")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "the changed achievement"),
-            @ApiResponse(code = 400, message = "the provided changed achievement is not valid"),
-            @ApiResponse(code = 401, message = "not authorized to edit without providing credentials") // TODO this is not implemented yet
+           @ApiResponse(responseCode = "200" , description = "the changed achievement"),
+           @ApiResponse(responseCode = "400" , description = "the provided changed achievement is not valid"),
+           @ApiResponse(responseCode = "401" , description = "not authorized to edit without providing credentials") // TODO this is not implemented yet
     })
     public ResponseEntity<WikiObject> putAchievement(@RequestBody Achievement achievement, @RequestHeader("X-WIKI-Edit-Summary") String editSummary) {
         return modifyAny.modify(achievement, editSummary)
