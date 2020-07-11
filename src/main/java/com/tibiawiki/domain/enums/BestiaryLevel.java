@@ -6,5 +6,6 @@ public enum BestiaryLevel {
     Trivial,
     Easy,
     Medium,
-    Hard;
+    Hard,
+    Challenging;
 }

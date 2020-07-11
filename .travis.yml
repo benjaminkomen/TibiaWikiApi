@@ -3,6 +3,9 @@ language: java
 jdk:
   - openjdk14
 
+git:
+  depth: false
+
 addons:
   sonarcloud:
     organization: "benjaminkomen-github"
@@ -24,5 +27,5 @@ install:
   - cp .travis.settings.xml $HOME/.m2/settings.xml
 
 script:
-  - ./gradlew clean build sonarqube
-#  - ./gradlew clean build
+  - ./gradlew jacocoTestReport
+  - ./gradlew sonarqube
