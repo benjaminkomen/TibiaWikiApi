@@ -1,4 +1,4 @@
-package com.tibiawiki.serviceinterface;
+package com.tibiawiki.controller;
 
 import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.repositories.ArticleRepository;
@@ -31,7 +31,7 @@ public class HuntingPlacesIT {
     private TestRestTemplate restTemplate;
 
     @MockBean
-    private ArticleRepository articleRepository; // don't instantiate this real class, but use a mock implementation
+    private ArticleRepository articleRepository;
 
     private static final String INFOBOX_HUNT_TEXT = """
             {{Infobox Hunt

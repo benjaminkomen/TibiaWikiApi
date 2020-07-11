@@ -19,8 +19,6 @@ plugins {
 
 apply plugin: 'org.springframework.boot'
 
-apply plugin: 'org.springframework.boot'
-
 group = 'com.tibiawiki'
 version = '1.9.0'
 description = 'TibiaWikiApi'
