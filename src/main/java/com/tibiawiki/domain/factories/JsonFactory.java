@@ -402,7 +402,7 @@ public class JsonFactory {
         for (String lootItemPart : splitLootItem) {
             if (lootItemPart.toLowerCase().matches(RARITY_PATTERN)) {
                 lootItemMap.put(RARITY, lootItemPart);
-            } else if (Character.isDigit(lootItemPart.charAt(0))) {
+            } else if (!lootItemPart.isBlank() && Character.isDigit(lootItemPart.charAt(0))) {
                 lootItemMap.put(AMOUNT, lootItemPart);
             } else {
                 lootItemMap.put(ITEM_NAME, lootItemPart);
