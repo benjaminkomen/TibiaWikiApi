@@ -1,0 +1,17 @@
+steps:
+  # build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args: [
+            '-c',
+            'docker build -t gcr.io/$PROJECT_ID/tibiawikiapi -f Dockerfile --build-arg GITHUB_TOKEN=$$GITHUB_TOKEN .'
+    ]
+    secretEnv: ['GITHUB_TOKEN']
+
+images:
+  - gcr.io/tibiawikiapi-246008/tibiawikiapi
+
+secrets:
+  - kmsKeyName: projects/tibiawikiapi-246008/locations/global/keyRings/my-secrets/cryptoKeys/github-token
+    secretEnv:
+      GITHUB_TOKEN: CiQA5BHiVau0r93/go0GclWewjQvi10erqEHGi7nG5CHJpJudLwSUgAVCO4xq1IpCWVcMlDAM8Hg87XsjBcSojA7bS8W+gMGT43KLQNAf+1aj6qnjJ+l+Z6mST8nIGQW6bONZ014xy5SlW681SdgKUo6CoyVfAeyBf4=
