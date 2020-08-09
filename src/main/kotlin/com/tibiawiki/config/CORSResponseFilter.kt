@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import org.springframework.web.filter.CorsFilter
-import java.util.*
 
 @Configuration
 class CORSResponseFilter {
@@ -16,8 +15,8 @@ class CORSResponseFilter {
         val config = CorsConfiguration()
         config.allowCredentials = true
         config.allowedOrigins = listOf("*")
-        config.allowedHeaders = Arrays.asList("X-Requested-With", "Content-Type")
-        config.allowedMethods = Arrays.asList("GET", "POST", "PUT", "DELETE")
+        config.allowedHeaders = listOf("X-Requested-With", "Content-Type")
+        config.allowedMethods = listOf("GET", "POST", "PUT", "DELETE")
         source.registerCorsConfiguration("/**", config)
         return CorsFilter(source)
     }
