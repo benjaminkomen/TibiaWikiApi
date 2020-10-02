@@ -63,7 +63,7 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
 
-    implementation "io.swagger.core.v3:swagger-annotations:2.1.4"
+    implementation "io.swagger.core.v3:swagger-annotations:2.1.5"
     implementation "org.springdoc:springdoc-openapi-ui:1.4.4"
 }
 
