@@ -1,4 +1,4 @@
-[![Build Status](https://www.travis-ci.org/benjaminkomen/TibiaWikiApi.svg?branch=master)](https://www.travis-ci.org/benjaminkomen/TibiaWikiApi)
+![Build Status](https://github.com/benjaminkomen/TibiaWikiApi/workflows/Build/badge.svg)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=com.tibiawiki%3ATibiaWikiApi&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.tibiawiki%3ATibiaWikiApi)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=com.tibiawiki%3ATibiaWikiApi&metric=coverage)](https://sonarcloud.io/dashboard?id=com.tibiawiki%3ATibiaWikiApi)
 
@@ -13,7 +13,7 @@ Clone this git project to your local computer and compile it using: `./gradlew b
 terminal. Then execute: `./gradlew bootRun` and open your browser on http://localhost:8080
 
 Note that you need to add the [sample settings.xml](.travis.settings.xml) to your $HOME/.m2/settings.xml directory
-with a valid username and github token with read packages scope.
+with a valid username and github token with read packages scope, to download all dependencies.
  
  You can now access the REST resources using your browser or any REST client such as Postman or curl from your command line.
  E.g. navigating to http://localhost:8080/api/corpses should give you a list of corpses.
