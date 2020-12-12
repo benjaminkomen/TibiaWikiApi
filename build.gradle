@@ -20,10 +20,10 @@ plugins {
 apply plugin: 'org.springframework.boot'
 
 group = 'com.tibiawiki'
-version = '1.9.0'
+version = '1.10.0'
 description = 'TibiaWikiApi'
-sourceCompatibility = '14'
-targetCompatibility = '14'
+sourceCompatibility = '15'
+targetCompatibility = '15'
 
 repositories {
     mavenLocal()
@@ -83,20 +83,14 @@ sonarqube {
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
-    options.compilerArgs += '--enable-preview'
 }
 
 tasks.withType(Test) {
-    jvmArgs += "--enable-preview"
     useJUnitPlatform()
 
     testLogging {
         events "passed", "skipped", "failed"
     }
-}
-
-tasks.withType(JavaExec) {
-    jvmArgs += '--enable-preview'
 }
 
 jar {
