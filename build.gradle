@@ -52,7 +52,7 @@ dependencies {
     implementation "org.slf4j:slf4j-api:${slf4jVersion}"
     implementation "org.slf4j:slf4j-log4j12:${slf4jVersion}"
     implementation "org.json:json:20201115"
-    implementation "com.google.guava:guava:30.0-jre"
+    implementation "com.google.guava:guava:30.1-jre"
     implementation "io.vavr:vavr:0.10.3"
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
     testImplementation "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
@@ -65,7 +65,7 @@ dependencies {
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
 
     implementation "io.swagger.core.v3:swagger-annotations:2.1.6"
-    implementation "org.springdoc:springdoc-openapi-ui:1.5.1"
+    implementation "org.springdoc:springdoc-openapi-ui:1.5.2"
 }
 
 sonarqube {
