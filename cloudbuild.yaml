@@ -4,7 +4,7 @@ steps:
     entrypoint: 'bash'
     args: [
             '-c',
-            'docker build -t gcr.io/$PROJECT_ID/tibiawikiapi -f Dockerfile --build-arg GITHUB_TOKEN=$$GITHUB_TOKEN .'
+            'docker build -t gcr.io/$PROJECT_ID/tibiawikiapi -f ./docker/Dockerfile --build-arg GITHUB_TOKEN=$$GITHUB_TOKEN .'
     ]
     secretEnv: ['GITHUB_TOKEN']
 

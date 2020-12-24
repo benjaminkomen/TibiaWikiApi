@@ -20,10 +20,10 @@ plugins {
 apply plugin: 'org.springframework.boot'
 
 group = 'com.tibiawiki'
-version = '1.9.0'
+version = '1.10.0'
 description = 'TibiaWikiApi'
-sourceCompatibility = '14'
-targetCompatibility = '14'
+sourceCompatibility = '15'
+targetCompatibility = '15'
 
 repositories {
     mavenLocal()
@@ -42,6 +42,7 @@ ext {
     slf4jVersion = '1.7.30'
     junitVersion = '5.7.0'
     lombokVersion = '1.18.16'
+    jacocoVersion = "0.8.6"
 }
 
 dependencies {
@@ -83,20 +84,14 @@ sonarqube {
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
-    options.compilerArgs += '--enable-preview'
 }
 
 tasks.withType(Test) {
-    jvmArgs += "--enable-preview"
     useJUnitPlatform()
 
     testLogging {
-        events "passed", "skipped", "failed"
+        events "passed", "skipped", "failed", "standard_error"
     }
-}
-
-tasks.withType(JavaExec) {
-    jvmArgs += '--enable-preview'
 }
 
 jar {
@@ -139,6 +134,10 @@ task integrationTest(type: Test) {
 }
 
 check.dependsOn integrationTest
+
+jacoco {
+    toolVersion = "${jacocoVersion}"
+}
 
 jacocoTestReport {
     dependsOn check
