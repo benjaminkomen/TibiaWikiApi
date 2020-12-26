@@ -1,7 +1,7 @@
 package com.tibiawiki.domain.repositories;
 
-import benjaminkomen.jwiki.core.NS;
-import benjaminkomen.jwiki.core.Wiki;
+import org.fastily.jwiki.core.NS;
+import org.fastily.jwiki.core.Wiki;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,19 +16,19 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
-public class ArticleRepositoryTest {
+public class JwikiArticleRepositoryTest {
 
     private static final String SOME_CATEGORY_NAME = "Achievements";
     private static final String SOME_PAGE_NAME = "Goo Goo Dancer";
     private static final String SOME_OTHER_PAGE_NAME = "Foobar";
     private static final String SOME_TEMPLATE_NAME = "Template:Infobox_Item";
-    private ArticleRepository target;
+    private JwikiArticleRepository target;
     private Wiki wiki;
 
     @BeforeEach
     public void setup() {
         wiki = mock(Wiki.class);
-        target = new ArticleRepository(wiki);
+        target = new JwikiArticleRepository(wiki);
     }
 
     @Test
