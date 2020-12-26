@@ -69,6 +69,12 @@ dependencies {
     implementation "org.springdoc:springdoc-openapi-ui:1.5.2"
 }
 
+configurations {
+    all*.exclude module : 'spring-boot-starter-logging'
+    all*.exclude module : 'logback-classic'
+}
+
+
 sonarqube {
     properties {
         property "sonar.projectName", "TibiaWikiApi"
