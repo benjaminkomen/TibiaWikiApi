@@ -16,11 +16,10 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
-public class JwikiArticleRepositoryTest {
+class JwikiArticleRepositoryTest {
 
     private static final String SOME_CATEGORY_NAME = "Achievements";
     private static final String SOME_PAGE_NAME = "Goo Goo Dancer";
-    private static final String SOME_OTHER_PAGE_NAME = "Foobar";
     private static final String SOME_TEMPLATE_NAME = "Template:Infobox_Item";
     private JwikiArticleRepository target;
     private Wiki wiki;
@@ -32,7 +31,7 @@ public class JwikiArticleRepositoryTest {
     }
 
     @Test
-    public void testGetPageNamesFromCategory() {
+    void testGetPageNamesFromCategory() {
         ArrayList<String> someList = new ArrayList<>();
         someList.add("foo");
         someList.add("bar");
@@ -45,7 +44,7 @@ public class JwikiArticleRepositoryTest {
     }
 
     @Test
-    public void testGetPageNamesUsingTemplate() {
+    void testGetPageNamesUsingTemplate() {
         ArrayList<String> someList = new ArrayList<>();
         someList.add("foo");
         someList.add("bar");
@@ -58,7 +57,7 @@ public class JwikiArticleRepositoryTest {
     }
 
     @Test
-    public void testGetArticle_Success() {
+    void testGetArticle_Success() {
         doReturn("Foobar").when(wiki).getPageText(SOME_PAGE_NAME);
         String result = target.getArticle(SOME_PAGE_NAME);
 
@@ -66,7 +65,7 @@ public class JwikiArticleRepositoryTest {
     }
 
     @Test
-    public void testGetArticle_NullWhenEmpty() {
+    void testGetArticle_NullWhenEmpty() {
         doReturn("").when(wiki).getPageText(SOME_PAGE_NAME);
         String result = target.getArticle(SOME_PAGE_NAME);
 

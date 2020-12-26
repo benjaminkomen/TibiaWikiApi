@@ -85,7 +85,13 @@ public class RetrieveLoot extends RetrieveAny {
             Object namespace = constructors[0].newInstance(namespaceInput);
             return (NS) namespace;
         } catch (IllegalAccessException | InvocationTargetException | InstantiationException e) {
-            throw new RuntimeException(e);
+            throw new NamespaceReflectionException(e);
+        }
+    }
+
+    public static class NamespaceReflectionException extends RuntimeException {
+        public NamespaceReflectionException(Throwable e) {
+            super(e);
         }
     }
 }
