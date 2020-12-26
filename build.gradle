@@ -29,13 +29,13 @@ repositories {
     mavenLocal()
     mavenCentral()
 
-    maven {
-        url = 'https://maven.pkg.github.com/benjaminkomen/jwiki'
-        credentials {
-            username = 'benjaminkomen'
-            password = System.getenv("GITHUB_TOKEN")
-        }
-    }
+//    maven {
+//        url = 'https://maven.pkg.github.com/benjaminkomen/jwiki'
+//        credentials {
+//            username = 'benjaminkomen'
+//            password = System.getenv("GITHUB_TOKEN")
+//        }
+//    }
 }
 
 ext {
@@ -48,7 +48,8 @@ ext {
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
-    implementation "benjaminkomen:jwiki:2.2.0"
+//    implementation "benjaminkomen:jwiki:2.2.0"
+    implementation "org.fastily:jwiki:1.8.0"
     implementation "org.slf4j:slf4j-api:${slf4jVersion}"
     implementation "org.slf4j:slf4j-log4j12:${slf4jVersion}"
     implementation "org.json:json:20201115"
@@ -67,6 +68,12 @@ dependencies {
     implementation "io.swagger.core.v3:swagger-annotations:2.1.6"
     implementation "org.springdoc:springdoc-openapi-ui:1.5.2"
 }
+
+configurations {
+    all*.exclude module : 'spring-boot-starter-logging'
+    all*.exclude module : 'logback-classic'
+}
+
 
 sonarqube {
     properties {

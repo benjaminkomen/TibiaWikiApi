@@ -1,13 +1,15 @@
 package com.tibiawiki.process;
 
-import benjaminkomen.jwiki.core.NS;
 import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.factories.JsonFactory;
 import com.tibiawiki.domain.repositories.ArticleRepository;
+import org.fastily.jwiki.core.NS;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +26,7 @@ public class RetrieveLoot extends RetrieveAny {
     }
 
     public List<String> getLootList() {
-        final List<String> lootStatisticsCategory = articleRepository.getPageNamesFromCategory(LOOT_STATISTICS_CATEGORY_NAME, new NS(112));
+        final List<String> lootStatisticsCategory = articleRepository.getPageNamesFromCategory(LOOT_STATISTICS_CATEGORY_NAME, makeLootNamespace(112));
 
         return new ArrayList<>(lootStatisticsCategory);
     }
@@ -73,5 +75,23 @@ public class RetrieveLoot extends RetrieveAny {
         return Optional.ofNullable(articleRepository.getArticle(pageName))
                 .map(articleContent -> articleFactory.extractAllLootPartsOfArticle(pageName, articleContent))
                 .map(lootPartsOfArticle -> jsonFactory.convertAllLootPartsOfArticleToJson(pageName, lootPartsOfArticle));
+    }
+
+    // TODO replace this reflection hack with functionality in jwiki to construct a custom namespace
+    public static NS makeLootNamespace(int namespaceInput) {
+        try {
+            final Constructor<?>[] constructors = NS.class.getDeclaredConstructors();
+            constructors[0].setAccessible(true);
+            Object namespace = constructors[0].newInstance(namespaceInput);
+            return (NS) namespace;
+        } catch (IllegalAccessException | InvocationTargetException | InstantiationException e) {
+            throw new NamespaceReflectionException(e);
+        }
+    }
+
+    public static class NamespaceReflectionException extends RuntimeException {
+        public NamespaceReflectionException(Throwable e) {
+            super(e);
+        }
     }
 }
