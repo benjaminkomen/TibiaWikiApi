@@ -1,6 +1,7 @@
 buildscript {
     ext {
         springBootVersion = '2.4.2'
+        kotlinVersion = '1.4.30'
     }
     repositories {
         jcenter()
@@ -15,15 +16,16 @@ plugins {
     id 'idea'
     id 'jacoco'
     id "org.sonarqube" version "3.1.1"
+    id "org.jetbrains.kotlin.jvm" version "${kotlinVersion}"
+    id "org.jetbrains.kotlin.plugin.spring" version "${kotlinVersion}"
+    id "org.jlleitschuh.gradle.ktlint" version "9.4.1"
 }
 
 apply plugin: 'org.springframework.boot'
 
 group = 'com.tibiawiki'
-version = '1.10.0'
+version = '2.0.0'
 description = 'TibiaWikiApi'
-sourceCompatibility = '15'
-targetCompatibility = '15'
 
 repositories {
     mavenLocal()
@@ -42,10 +44,14 @@ ext {
     slf4jVersion = '1.7.30'
     junitVersion = '5.7.1'
     lombokVersion = '1.18.18'
+    jacksonVersion = '2.11.2'
     jacocoVersion = "0.8.6"
 }
 
 dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    implementation "org.jetbrains.kotlin:kotlin-reflect"
+    implementation "com.fasterxml.jackson.module:jackson-module-kotlin:${jacksonVersion}"
     implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
 //    implementation "benjaminkomen:jwiki:2.2.0"
@@ -57,7 +63,7 @@ dependencies {
     implementation "io.vavr:vavr:0.10.3"
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
     testImplementation "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
-    testImplementation "org.mockito:mockito-core:3.7.0"
+    testImplementation "org.mockito:mockito-core:3.7.7"
     testImplementation "org.hamcrest:hamcrest:2.2"
     testImplementation("org.springframework.boot:spring-boot-starter-test:${springBootVersion}") {
         exclude group: 'com.vaadin.external.google', module: 'android-json'
@@ -75,6 +81,20 @@ configurations {
 }
 
 
+compileKotlin {
+    kotlinOptions {
+        freeCompilerArgs = ["-Xjsr305=strict"]
+        jvmTarget = "15"
+    }
+}
+
+compileTestKotlin {
+    kotlinOptions {
+        freeCompilerArgs = ["-Xjsr305=strict"]
+        jvmTarget = "15"
+    }
+}
+
 sonarqube {
     properties {
         property "sonar.projectName", "TibiaWikiApi"
@@ -82,8 +102,8 @@ sonarqube {
         property "sonar.organization", "benjaminkomen-github"
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.sourceEncoding", "UTF-8"
-        property "sonar.sources", "src/main/java"
-        property "sonar.tests", "src/test/java"
+        property "sonar.sources", "src/main"
+        property "sonar.tests", "src/test"
         property "sonar.java.coveragePlugin", "jacoco"
         property "sonar.coverage.jacoco.xmlReportPaths", "./build/reports/jacocoTestReport.xml"
     }
