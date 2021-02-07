@@ -1,8 +1,8 @@
 package com.tibiawiki.controller;
 
-import benjaminkomen.jwiki.core.NS;
 import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.repositories.ArticleRepository;
+import org.fastily.jwiki.core.NS;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.tibiawiki.process.RetrieveAny.CATEGORY_LISTS;
+import static com.tibiawiki.process.RetrieveLoot.makeLootNamespace;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.doReturn;
@@ -28,7 +29,7 @@ import static org.mockito.Mockito.doReturn;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class LootStatisticsResourceIT {
 
-    private static final NS LOOT_NAMESPACE = new NS(112);
+    private static final NS LOOT_NAMESPACE = makeLootNamespace(112);
     @Autowired
     private TestRestTemplate restTemplate;
 

@@ -1,7 +1,7 @@
 buildscript {
     ext {
-        springBootVersion = '2.3.3.RELEASE'
-        kotlinVersion = '1.4.10'
+        springBootVersion = '2.4.2'
+        kotlinVersion = '1.4.30'
     }
     repositories {
         jcenter()
@@ -15,7 +15,7 @@ plugins {
     id 'java'
     id 'idea'
     id 'jacoco'
-    id "org.sonarqube" version "3.0"
+    id "org.sonarqube" version "3.1.1"
     id "org.jetbrains.kotlin.jvm" version "${kotlinVersion}"
     id "org.jetbrains.kotlin.plugin.spring" version "${kotlinVersion}"
 }
@@ -30,20 +30,21 @@ repositories {
     mavenLocal()
     mavenCentral()
 
-    maven {
-        url = 'https://maven.pkg.github.com/benjaminkomen/jwiki'
-        credentials {
-            username = 'benjaminkomen'
-            password = System.getenv("GITHUB_TOKEN")
-        }
-    }
+//    maven {
+//        url = 'https://maven.pkg.github.com/benjaminkomen/jwiki'
+//        credentials {
+//            username = 'benjaminkomen'
+//            password = System.getenv("GITHUB_TOKEN")
+//        }
+//    }
 }
 
 ext {
     slf4jVersion = '1.7.30'
-    junitVersion = '5.6.2'
-    lombokVersion = '1.18.12'
+    junitVersion = '5.7.1'
+    lombokVersion = '1.18.18'
     jacksonVersion = '2.11.2'
+    jacocoVersion = "0.8.6"
 }
 
 dependencies {
@@ -52,15 +53,16 @@ dependencies {
     implementation "com.fasterxml.jackson.module:jackson-module-kotlin:${jacksonVersion}"
     implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
-    implementation "benjaminkomen:jwiki:2.2.0"
+//    implementation "benjaminkomen:jwiki:2.2.0"
+    implementation "org.fastily:jwiki:1.8.0"
     implementation "org.slf4j:slf4j-api:${slf4jVersion}"
     implementation "org.slf4j:slf4j-log4j12:${slf4jVersion}"
-    implementation "org.json:json:20200518"
-    implementation "com.google.guava:guava:29.0-jre"
+    implementation "org.json:json:20201115"
+    implementation "com.google.guava:guava:30.1-jre"
     implementation "io.vavr:vavr:0.10.3"
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
     testImplementation "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
-    testImplementation "org.mockito:mockito-core:3.4.6"
+    testImplementation "org.mockito:mockito-core:3.7.0"
     testImplementation "org.hamcrest:hamcrest:2.2"
     testImplementation("org.springframework.boot:spring-boot-starter-test:${springBootVersion}") {
         exclude group: 'com.vaadin.external.google', module: 'android-json'
@@ -68,9 +70,15 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
 
-    implementation "io.swagger.core.v3:swagger-annotations:2.1.4"
-    implementation "org.springdoc:springdoc-openapi-ui:1.4.4"
+    implementation "io.swagger.core.v3:swagger-annotations:2.1.6"
+    implementation "org.springdoc:springdoc-openapi-ui:1.5.3"
 }
+
+configurations {
+    all*.exclude module : 'spring-boot-starter-logging'
+    all*.exclude module : 'logback-classic'
+}
+
 
 compileKotlin {
     kotlinOptions {
@@ -90,6 +98,11 @@ sonarqube {
     properties {
         property "sonar.projectName", "TibiaWikiApi"
         property "sonar.projectKey", "com.tibiawiki:TibiaWikiApi"
+        property "sonar.organization", "benjaminkomen-github"
+        property "sonar.host.url", "https://sonarcloud.io"
+        property "sonar.sourceEncoding", "UTF-8"
+        property "sonar.sources", "src/main/java"
+        property "sonar.tests", "src/test/java"
         property "sonar.java.coveragePlugin", "jacoco"
         property "sonar.coverage.jacoco.xmlReportPaths", "./build/reports/jacocoTestReport.xml"
     }
@@ -97,20 +110,14 @@ sonarqube {
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
-    options.compilerArgs += '--enable-preview'
 }
 
 tasks.withType(Test) {
-    jvmArgs += "--enable-preview"
     useJUnitPlatform()
 
     testLogging {
-        events "passed", "skipped", "failed"
+        events "passed", "skipped", "failed", "standard_error"
     }
-}
-
-tasks.withType(JavaExec) {
-    jvmArgs += '--enable-preview'
 }
 
 jar {
@@ -153,6 +160,10 @@ task integrationTest(type: Test) {
 }
 
 check.dependsOn integrationTest
+
+jacoco {
+    toolVersion = "${jacocoVersion}"
+}
 
 jacocoTestReport {
     dependsOn check
