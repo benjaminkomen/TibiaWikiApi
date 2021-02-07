@@ -25,7 +25,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class AchievementsControllerIT(
-        @Autowired private val restTemplate: TestRestTemplate
+    @Autowired private val restTemplate: TestRestTemplate
 ) {
 
     @MockBean
@@ -48,9 +48,9 @@ class AchievementsControllerIT(
     fun `given get achievements expanded when correct request then response is ok and contains one achievement`() {
         doReturn(emptyList<Any>()).`when`<ArticleRepository>(articleRepository).getPageNamesFromCategory(RetrieveAny.CATEGORY_LISTS)
         doReturn(listOf(SOME_ACHIEVEMENT_NAME))
-                .`when`<ArticleRepository>(articleRepository).getPageNamesFromCategory(InfoboxTemplate.ACHIEVEMENT.categoryName)
+            .`when`<ArticleRepository>(articleRepository).getPageNamesFromCategory(InfoboxTemplate.ACHIEVEMENT.categoryName)
         doReturn(mapOf(SOME_ACHIEVEMENT_NAME to INFOBOX_ACHIEVEMENT_TEXT))
-                .`when`<ArticleRepository>(articleRepository).getArticlesFromCategory(listOf(SOME_ACHIEVEMENT_NAME))
+            .`when`<ArticleRepository>(articleRepository).getArticlesFromCategory(listOf(SOME_ACHIEVEMENT_NAME))
 
         val result = restTemplate.getForEntity<List<Map<String, Any>>>("/api/achievements?expand=true")
 
@@ -128,22 +128,23 @@ class AchievementsControllerIT(
 
     private fun makeAchievement(): Achievement {
         return Achievement.builder()
-                .grade(1)
-                .name(SOME_ACHIEVEMENT_NAME)
-                .description("Seeing a mucus plug makes your heart dance and you can't resist to see what it hides. Goo goo away!")
-                .spoiler("Obtainable by using 100 [[Muck Remover]]s on [[Mucus Plug]]s.")
-                .premium(YesNo.YES_LOWERCASE)
-                .points(1)
-                .secret(YesNo.YES_LOWERCASE)
-                .implemented("9.6")
-                .achievementid(319)
-                .relatedpages("[[Muck Remover]], [[Mucus Plug]]")
-                .build()
+            .grade(1)
+            .name(SOME_ACHIEVEMENT_NAME)
+            .description("Seeing a mucus plug makes your heart dance and you can't resist to see what it hides. Goo goo away!")
+            .spoiler("Obtainable by using 100 [[Muck Remover]]s on [[Mucus Plug]]s.")
+            .premium(YesNo.YES_LOWERCASE)
+            .points(1)
+            .secret(YesNo.YES_LOWERCASE)
+            .implemented("9.6")
+            .achievementid(319)
+            .relatedpages("[[Muck Remover]], [[Mucus Plug]]")
+            .build()
     }
 
     companion object {
         private const val SOME_ACHIEVEMENT_NAME = "Goo Goo Dancer"
-        private val INFOBOX_ACHIEVEMENT_TEXT = """
+        private val INFOBOX_ACHIEVEMENT_TEXT =
+            """
             {{Infobox Achievement|List={{{1|}}}|GetValue={{{GetValue|}}}
             | grade        = 1
             | name         = Goo Goo Dancer

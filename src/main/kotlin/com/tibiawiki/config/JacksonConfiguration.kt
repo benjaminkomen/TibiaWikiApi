@@ -11,7 +11,7 @@ import com.tibiawiki.domain.objects.WikiObject
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
-import java.util.*
+import java.util.TimeZone
 
 @Configuration
 class JacksonConfiguration {
@@ -20,15 +20,15 @@ class JacksonConfiguration {
     @Primary
     fun objectMapper(): ObjectMapper {
         return ObjectMapper()
-                .findAndRegisterModules()
-                .registerModule(KotlinModule())
-                .registerModule(JavaTimeModule())
-                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-                .disable(SerializationFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS)
-                .setSerializationInclusion(JsonInclude.Include.NON_NULL)
-                .disable(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES)
-                .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
-                .setTimeZone(TimeZone.getTimeZone("ECT"))
-                .addMixIn(WikiObjectMixin::class.java, WikiObject::class.java)
+            .findAndRegisterModules()
+            .registerModule(KotlinModule())
+            .registerModule(JavaTimeModule())
+            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+            .disable(SerializationFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS)
+            .setSerializationInclusion(JsonInclude.Include.NON_NULL)
+            .disable(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES)
+            .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+            .setTimeZone(TimeZone.getTimeZone("ECT"))
+            .addMixIn(WikiObjectMixin::class.java, WikiObject::class.java)
     }
 }

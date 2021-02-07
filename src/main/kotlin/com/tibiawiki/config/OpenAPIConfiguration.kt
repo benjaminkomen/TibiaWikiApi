@@ -16,13 +16,14 @@ class OpenAPIConfiguration {
     @Bean
     fun customOpenAPI(@Autowired buildProperties: BuildProperties): OpenAPI {
         return OpenAPI()
-                .components(Components())
-                .info(Info()
-                        .title("TibiaWikiApi")
-                        .contact(Contact().name("B. Komen"))
-                        .version(buildProperties.version)
-                        .description("Expose data (creatures, items, quests, etc.) from TibiaWiki (https://tibia.wikia.com) with a REST API")
-                        .license(License().name("MIT License").url("https://github.com/benjaminkomen/TibiaWikiApi/blob/master/LICENSE"))
-                )
+            .components(Components())
+            .info(
+                Info()
+                    .title("TibiaWikiApi")
+                    .contact(Contact().name("B. Komen"))
+                    .version(buildProperties.version)
+                    .description("Expose data (creatures, items, quests, etc.) from TibiaWiki (https://tibia.wikia.com) with a REST API")
+                    .license(License().name("MIT License").url("https://github.com/benjaminkomen/TibiaWikiApi/blob/master/LICENSE"))
+            )
     }
 }
