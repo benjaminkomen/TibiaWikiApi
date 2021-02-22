@@ -16,6 +16,7 @@ class OpenAPIConfiguration {
     @Bean
     fun customOpenAPI(@Autowired buildProperties: BuildProperties): OpenAPI {
         return OpenAPI()
+            .addServersItem(Server().url("/"))
             .components(Components())
             .info(
                 Info()
