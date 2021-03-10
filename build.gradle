@@ -58,7 +58,7 @@ dependencies {
     implementation "org.fastily:jwiki:1.8.0"
     implementation "org.slf4j:slf4j-api:${slf4jVersion}"
     implementation "org.slf4j:slf4j-log4j12:${slf4jVersion}"
-    implementation "org.json:json:20201115"
+    implementation "org.json:json:20210307"
     implementation "com.google.guava:guava:30.1-jre"
     implementation "io.vavr:vavr:0.10.3"
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
