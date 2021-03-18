@@ -20,6 +20,7 @@ import java.util.List;
 @Component
 public class Creature extends WikiObject {
 
+    private final String race_id;
     private final String hitPoints; // FIXME should be Integer
     private final String experiencePoints; // FIXME should be Integer
     private final String armor; // FIXME should be Integer
@@ -66,6 +67,7 @@ public class Creature extends WikiObject {
     private final List<LootItem> loot;
 
     private Creature() {
+        this.race_id = null;
         this.hitPoints = null;
         this.experiencePoints = null;
         this.armor = null;
@@ -115,7 +117,7 @@ public class Creature extends WikiObject {
     @SuppressWarnings("squid:S00107")
     @Builder
     public Creature(String name, Article article, String actualname, String plural, String implemented, String notes,
-                    String history, Status status, String hitPoints, String experiencePoints, String armor,
+                    String history, Status status, String race_id, String hitPoints, String experiencePoints, String armor,
                     String summon, String convince, YesNo illusionable, String creatureclass, String primarytype,
                     String secondarytype, BestiaryClass bestiaryclass, BestiaryLevel bestiarylevel,
                     BestiaryOccurrence occurrence, List<Spawntype> spawntype, YesNo isboss, YesNo isarenaboss,
@@ -127,6 +129,7 @@ public class Creature extends WikiObject {
                     List<String> sounds, String behaviour, String runsat, String speed, String strategy, String location,
                     List<LootItem> loot) {
         super(name, article, actualname, plural, implemented, notes, history, status);
+        this.race_id = race_id;
         this.hitPoints = hitPoints;
         this.experiencePoints = experiencePoints;
         this.armor = armor;
@@ -200,7 +203,7 @@ public class Creature extends WikiObject {
                 "occurrence", "spawntype", "isboss", "isarenaboss", "isevent", "abilities", "usedelements", "maxdmg", "pushable",
                 "pushobjects", "walksaround", "walksthrough", "paraimmune", "senseinvis", "physicalDmgMod", "earthDmgMod",
                 "fireDmgMod", "deathDmgMod", "energyDmgMod", "holyDmgMod", "iceDmgMod", "hpDrainDmgMod", "drownDmgMod",
-                "healMod", "bestiaryname", "bestiarytext", "sounds", "implemented", "notes", "behaviour", "runsat",
+                "healMod", "bestiaryname", "bestiarytext", "sounds", "implemented", "race_id", "notes", "behaviour", "runsat",
                 "speed", "strategy", "location", "loot", "history", "status");
     }
 }
