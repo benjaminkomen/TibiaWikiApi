@@ -24,8 +24,11 @@ class WikiPageController(
     @ApiResponses(
         value = [
             ApiResponse(responseCode = "200", description = "wiki page with specified title found"),
-            ApiResponse(responseCode = "404", description = "wiki page with specified title not found," +
-                    " or not parsable to one of the supported domain models.")
+            ApiResponse(
+                responseCode = "404",
+                description = "wiki page with specified title not found," +
+                    " or not parsable to one of the supported domain models."
+            )
         ]
     )
     fun getWikiPageByTitle(@PathVariable("title") title: String): ResponseEntity<String> {
