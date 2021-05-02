@@ -1,6 +1,6 @@
 package com.tibiawiki.controller;
 
-import com.tibiawiki.domain.ArticleRepository;
+import com.tibiawiki.domain.mediawiki.ArticleRepository;
 import com.tibiawiki.domain.enums.Article;
 import com.tibiawiki.domain.enums.BestiaryClass;
 import com.tibiawiki.domain.enums.BestiaryLevel;

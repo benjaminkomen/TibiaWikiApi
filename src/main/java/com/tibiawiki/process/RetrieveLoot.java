@@ -1,7 +1,6 @@
 package com.tibiawiki.process;
 
-import com.tibiawiki.domain.ArticleRepository;
-import com.tibiawiki.domain.factories.ArticleFactory;
+import com.tibiawiki.domain.mediawiki.ArticleRepository;
 import com.tibiawiki.domain.factories.JsonFactory;
 import org.fastily.jwiki.core.NS;
 import org.json.JSONObject;

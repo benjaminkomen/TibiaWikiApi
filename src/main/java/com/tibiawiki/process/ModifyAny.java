@@ -1,7 +1,6 @@
 package com.tibiawiki.process;
 
-import com.tibiawiki.domain.ArticleRepository;
-import com.tibiawiki.domain.factories.ArticleFactory;
+import com.tibiawiki.domain.mediawiki.ArticleRepository;
 import com.tibiawiki.domain.factories.JsonFactory;
 import com.tibiawiki.domain.factories.WikiObjectFactory;
 import com.tibiawiki.domain.objects.WikiObject;

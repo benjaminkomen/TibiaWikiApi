@@ -1,4 +1,4 @@
-package com.tibiawiki.domain
+package com.tibiawiki.domain.mediawiki
 
 import org.fastily.jwiki.core.NS
 

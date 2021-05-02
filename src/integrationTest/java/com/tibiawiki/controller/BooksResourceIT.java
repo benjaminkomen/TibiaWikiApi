@@ -1,6 +1,6 @@
 package com.tibiawiki.controller;
 
-import com.tibiawiki.domain.ArticleRepository;
+import com.tibiawiki.domain.mediawiki.ArticleRepository;
 import com.tibiawiki.domain.enums.BookType;
 import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.objects.Book;

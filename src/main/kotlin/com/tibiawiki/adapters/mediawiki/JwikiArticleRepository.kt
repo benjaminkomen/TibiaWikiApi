@@ -1,6 +1,6 @@
 package com.tibiawiki.adapters.mediawiki
 
-import com.tibiawiki.domain.ArticleRepository
+import com.tibiawiki.domain.mediawiki.ArticleRepository
 import com.tibiawiki.domain.utils.PropertiesUtil
 import org.fastily.jwiki.core.MQuery
 import org.fastily.jwiki.core.NS

@@ -2,7 +2,6 @@ package com.tibiawiki.domain.factories;
 
 import com.google.common.base.Strings;
 import com.tibiawiki.domain.objects.HuntingPlaceSkills;
-import com.tibiawiki.domain.utils.TemplateUtils;
 import lombok.NonNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
