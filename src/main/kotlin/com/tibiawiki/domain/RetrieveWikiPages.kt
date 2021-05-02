@@ -2,7 +2,6 @@ package com.tibiawiki.domain
 
 import com.tibiawiki.domain.factories.ArticleFactory
 import com.tibiawiki.domain.factories.JsonFactory
-import com.tibiawiki.domain.repositories.ArticleRepository
 import org.json.JSONObject
 import org.springframework.stereotype.Service
 

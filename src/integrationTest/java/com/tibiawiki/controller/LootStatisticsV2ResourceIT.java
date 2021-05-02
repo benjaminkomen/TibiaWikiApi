@@ -1,7 +1,7 @@
 package com.tibiawiki.controller;
 
+import com.tibiawiki.domain.ArticleRepository;
 import com.tibiawiki.domain.enums.InfoboxTemplate;
-import com.tibiawiki.domain.repositories.ArticleRepository;
 import org.fastily.jwiki.core.NS;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;

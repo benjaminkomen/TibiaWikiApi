@@ -1,10 +1,10 @@
 package com.tibiawiki.adapters.rest
 
 import com.tibiawiki.TestUtils
+import com.tibiawiki.domain.ArticleRepository
 import com.tibiawiki.domain.enums.InfoboxTemplate
 import com.tibiawiki.domain.enums.YesNo
 import com.tibiawiki.domain.objects.Achievement
-import com.tibiawiki.domain.repositories.ArticleRepository
 import com.tibiawiki.process.RetrieveAny
 import org.json.JSONObject
 import org.junit.jupiter.api.Assertions.assertEquals

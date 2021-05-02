@@ -1,12 +1,12 @@
 package com.tibiawiki.process;
 
+import com.tibiawiki.domain.ArticleRepository;
 import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.factories.JsonFactory;
 import com.tibiawiki.domain.factories.WikiObjectFactory;
 import com.tibiawiki.domain.objects.WikiObject;
 import com.tibiawiki.domain.objects.validation.ValidationException;
 import com.tibiawiki.domain.objects.validation.ValidationResult;
-import com.tibiawiki.domain.repositories.ArticleRepository;
 import io.vavr.control.Try;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

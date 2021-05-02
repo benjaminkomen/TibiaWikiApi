@@ -1,5 +1,6 @@
 package com.tibiawiki.controller;
 
+import com.tibiawiki.domain.ArticleRepository;
 import com.tibiawiki.domain.enums.Article;
 import com.tibiawiki.domain.enums.BestiaryClass;
 import com.tibiawiki.domain.enums.BestiaryLevel;
@@ -11,7 +12,6 @@ import com.tibiawiki.domain.enums.YesNo;
 import com.tibiawiki.domain.objects.Creature;
 import com.tibiawiki.domain.objects.LootItem;
 import com.tibiawiki.domain.objects.Percentage;
-import com.tibiawiki.domain.repositories.ArticleRepository;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

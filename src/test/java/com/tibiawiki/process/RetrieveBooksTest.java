@@ -1,9 +1,9 @@
 package com.tibiawiki.process;
 
+import com.tibiawiki.domain.ArticleRepository;
 import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.factories.JsonFactory;
-import com.tibiawiki.domain.repositories.ArticleRepository;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

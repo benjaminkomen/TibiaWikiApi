@@ -1,12 +1,12 @@
 package com.tibiawiki.process;
 
+import com.tibiawiki.domain.ArticleRepository;
 import com.tibiawiki.domain.enums.YesNo;
 import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.factories.JsonFactory;
 import com.tibiawiki.domain.factories.WikiObjectFactory;
 import com.tibiawiki.domain.objects.Achievement;
 import com.tibiawiki.domain.objects.WikiObject;
-import com.tibiawiki.domain.repositories.ArticleRepository;
 import io.vavr.control.Try;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;

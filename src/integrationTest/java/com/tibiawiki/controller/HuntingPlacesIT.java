@@ -1,7 +1,7 @@
 package com.tibiawiki.controller;
 
+import com.tibiawiki.domain.ArticleRepository;
 import com.tibiawiki.domain.enums.InfoboxTemplate;
-import com.tibiawiki.domain.repositories.ArticleRepository;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
