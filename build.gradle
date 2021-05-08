@@ -80,7 +80,6 @@ configurations {
     all*.exclude module : 'logback-classic'
 }
 
-
 compileKotlin {
     kotlinOptions {
         freeCompilerArgs = ["-Xjsr305=strict"]

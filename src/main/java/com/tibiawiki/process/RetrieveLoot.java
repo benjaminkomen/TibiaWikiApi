@@ -1,7 +1,8 @@
 package com.tibiawiki.process;
 
-import com.tibiawiki.domain.mediawiki.ArticleRepository;
+import com.tibiawiki.domain.RetrieveAnyService;
 import com.tibiawiki.domain.factories.JsonFactory;
+import com.tibiawiki.domain.mediawiki.ArticleRepository;
 import org.fastily.jwiki.core.NS;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +16,13 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 @Component
-public class RetrieveLoot extends RetrieveAny {
+public class RetrieveLoot extends RetrieveAnyService {
 
     private static final String LOOT_STATISTICS_CATEGORY_NAME = "Loot Statistics";
 
     @Autowired
-    public RetrieveLoot(ArticleRepository articleRepository, ArticleFactory articleFactory, JsonFactory jsonFactory) {
-        super(articleRepository, articleFactory, jsonFactory);
+    public RetrieveLoot(ArticleRepository articleRepository, JsonFactory jsonFactory) {
+        super(articleRepository, jsonFactory);
     }
 
     public List<String> getLootList() {
@@ -30,19 +31,19 @@ public class RetrieveLoot extends RetrieveAny {
         return new ArrayList<>(lootStatisticsCategory);
     }
 
-    public Stream<JSONObject> getLootJSONObject() {
+    public List<JSONObject> getLootJSONObject() {
         return getArticlesFromLoot2TemplateAsJSONObject(getLootList());
     }
 
-    public Optional<JSONObject> getLootJSONObject(String pageName) {
+    public JSONObject getLootJSONObject(String pageName) {
         return getLootArticleAsJSON(pageName);
     }
 
-    public Stream<JSONObject> getAllLootPartsJSON() {
+    public List<JSONObject> getAllLootPartsJSON() {
         return getArticlesFromAllLootTemplatesAsJSON(getLootList());
     }
 
-    public Optional<JSONObject> getAllLootPartsJSON(String pageName) {
+    public JSONObject getAllLootPartsJSON(String pageName) {
         return getAllLootPartsAsJSON(pageName);
     }
 

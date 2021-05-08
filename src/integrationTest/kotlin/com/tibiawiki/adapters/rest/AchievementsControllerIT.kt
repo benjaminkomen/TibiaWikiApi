@@ -1,9 +1,9 @@
 package com.tibiawiki.adapters.rest
 
 import com.tibiawiki.TestUtils
-import com.tibiawiki.domain.mediawiki.ArticleRepository
 import com.tibiawiki.domain.enums.InfoboxTemplate
 import com.tibiawiki.domain.enums.YesNo
+import com.tibiawiki.domain.mediawiki.ArticleRepository
 import com.tibiawiki.domain.objects.Achievement
 import org.json.JSONObject
 import org.junit.jupiter.api.Assertions.assertEquals

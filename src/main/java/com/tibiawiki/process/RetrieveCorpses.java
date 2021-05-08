@@ -1,23 +1,22 @@
 package com.tibiawiki.process;
 
-import com.tibiawiki.domain.mediawiki.ArticleRepository;
+import com.tibiawiki.domain.RetrieveAnyService;
 import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.factories.JsonFactory;
+import com.tibiawiki.domain.mediawiki.ArticleRepository;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Component
-public class RetrieveCorpses extends RetrieveAny {
+public class RetrieveCorpses extends RetrieveAnyService {
 
     @Autowired
-    public RetrieveCorpses(ArticleRepository articleRepository, ArticleFactory articleFactory, JsonFactory jsonFactory) {
-        super(articleRepository, articleFactory, jsonFactory);
+    public RetrieveCorpses(ArticleRepository articleRepository, JsonFactory jsonFactory) {
+        super(articleRepository, jsonFactory);
     }
 
     public List<String> getCorpsesList() {
@@ -29,11 +28,11 @@ public class RetrieveCorpses extends RetrieveAny {
                 .collect(Collectors.toList());
     }
 
-    public Stream<JSONObject> getCorpsesJSON() {
+    public List<JSONObject> getCorpsesJSON() {
         return getArticlesFromInfoboxTemplateAsJSON(getCorpsesList());
     }
 
-    public Optional<JSONObject> getCorpseJSON(String pageName) {
+    public JSONObject getCorpseJSON(String pageName) {
         return super.getArticleAsJSON(pageName);
     }
 }

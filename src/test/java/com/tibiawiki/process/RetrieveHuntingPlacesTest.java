@@ -36,17 +36,16 @@ public class RetrieveHuntingPlacesTest {
     private RetrieveHuntingPlaces target;
     @Mock
     private ArticleRepository articleRepository;
-    @Mock
-    private ArticleFactory articleFactory;
+
     @Mock
     private JsonFactory jsonFactory;
 
     @BeforeEach
     public void setup() {
         articleRepository = mock(ArticleRepository.class);
-        articleFactory = mock(ArticleFactory.class);
+
         jsonFactory = mock(JsonFactory.class);
-        target = new RetrieveHuntingPlaces(articleRepository, articleFactory, jsonFactory);
+        target = new RetrieveHuntingPlaces(articleRepository, jsonFactory);
 
         doReturn(SOME_ARTICLE_CONTENT).when(articleFactory).extractInfoboxPartOfArticle(any(String.class));
         doReturn(SOME_JSON_OBJECT).when(jsonFactory).convertInfoboxPartOfArticleToJson(any(String.class));
@@ -60,8 +59,7 @@ public class RetrieveHuntingPlacesTest {
         doReturn(achievements).when(articleRepository).getPageNamesFromCategory(InfoboxTemplate.HUNT.getCategoryName());
         doReturn(lists).when(articleRepository).getPageNamesFromCategory(CATEGORY_LISTS);
 
-        List<JSONObject> result = target.getHuntingPlacesJSON()
-                .collect(Collectors.toList());
+        List<JSONObject> result = target.getHuntingPlacesJSON();
 
         assertThat(result, hasSize(0));
     }
@@ -77,8 +75,7 @@ public class RetrieveHuntingPlacesTest {
         doReturn(lists).when(articleRepository).getPageNamesFromCategory(CATEGORY_LISTS);
         doReturn(pagenamesAndArticlesMap).when(articleRepository).getArticlesFromCategory(anyList());
 
-        List<JSONObject> result = target.getHuntingPlacesJSON()
-                .collect(Collectors.toList());
+        List<JSONObject> result = target.getHuntingPlacesJSON();
 
         assertThat(result, hasSize(2));
     }
@@ -87,9 +84,9 @@ public class RetrieveHuntingPlacesTest {
     public void testGetHuntingPlaceJSON() {
         doReturn("").when(articleRepository).getArticle(SOME_PAGE_NAME);
 
-        Optional<JSONObject> result = target.getHuntingPlaceJSON(SOME_PAGE_NAME);
+        var result = target.getHuntingPlaceJSON(SOME_PAGE_NAME);
 
-        assertThat(result.get(), is(SOME_JSON_OBJECT));
+        assertThat(result, is(SOME_JSON_OBJECT));
     }
 
 }

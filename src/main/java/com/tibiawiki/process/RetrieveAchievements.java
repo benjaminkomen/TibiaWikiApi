@@ -1,23 +1,23 @@
 package com.tibiawiki.process;
 
-import com.tibiawiki.domain.mediawiki.ArticleRepository;
+import com.tibiawiki.domain.RetrieveAnyService;
 import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.factories.JsonFactory;
+import com.tibiawiki.domain.mediawiki.ArticleRepository;
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Component
-public class RetrieveAchievements extends RetrieveAny {
+public class RetrieveAchievements extends RetrieveAnyService {
 
     @Autowired
-    public RetrieveAchievements(ArticleRepository articleRepository, ArticleFactory articleFactory, JsonFactory jsonFactory) {
-        super(articleRepository, articleFactory, jsonFactory);
+    public RetrieveAchievements(ArticleRepository articleRepository, JsonFactory jsonFactory) {
+        super(articleRepository, jsonFactory);
     }
 
     public List<String> getAchievementsList() {
@@ -29,11 +29,12 @@ public class RetrieveAchievements extends RetrieveAny {
                 .collect(Collectors.toList());
     }
 
-    public Stream<JSONObject> getAchievementsJSON() {
+    public List<JSONObject> getAchievementsJSON() {
         return getArticlesFromInfoboxTemplateAsJSON(getAchievementsList());
     }
 
-    public Optional<JSONObject> getAchievementJSON(String pageName) {
+    @Nullable
+    public JSONObject getAchievementJSON(String pageName) {
         return super.getArticleAsJSON(pageName);
     }
 }

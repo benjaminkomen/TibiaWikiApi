@@ -1,8 +1,8 @@
 package com.tibiawiki.process;
 
-import com.tibiawiki.domain.mediawiki.ArticleRepository;
 import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.factories.JsonFactory;
+import com.tibiawiki.domain.mediawiki.ArticleRepository;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,10 +12,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
-import static com.tibiawiki.process.RetrieveAny.CATEGORY_LISTS;
+import static com.tibiawiki.domain.RetrieveAnyService.CATEGORY_LISTS;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -36,19 +34,17 @@ public class RetrieveBooksTest {
     private RetrieveBooks target;
     @Mock
     private ArticleRepository articleRepository;
-    @Mock
-    private ArticleFactory articleFactory;
+
     @Mock
     private JsonFactory jsonFactory;
 
     @BeforeEach
     public void setup() {
         articleRepository = mock(ArticleRepository.class);
-        articleFactory = mock(ArticleFactory.class);
         jsonFactory = mock(JsonFactory.class);
-        target = new RetrieveBooks(articleRepository, articleFactory, jsonFactory);
+        target = new RetrieveBooks(articleRepository, jsonFactory);
 
-        doReturn(SOME_ARTICLE_CONTENT).when(articleFactory).extractInfoboxPartOfArticle(any(String.class));
+//        doReturn(SOME_ARTICLE_CONTENT).when(articleFactory).extractInfoboxPartOfArticle(any(String.class));
         doReturn(SOME_JSON_OBJECT).when(jsonFactory).convertInfoboxPartOfArticleToJson(any(String.class));
     }
 
@@ -60,8 +56,7 @@ public class RetrieveBooksTest {
         doReturn(achievements).when(articleRepository).getPageNamesFromCategory(InfoboxTemplate.BOOK.getCategoryName());
         doReturn(lists).when(articleRepository).getPageNamesFromCategory(CATEGORY_LISTS);
 
-        List<JSONObject> result = target.getBooksJSON()
-                .collect(Collectors.toList());
+        List<JSONObject> result = target.getBooksJSON();
 
         assertThat(result, hasSize(0));
     }
@@ -77,8 +72,7 @@ public class RetrieveBooksTest {
         doReturn(lists).when(articleRepository).getPageNamesFromCategory(CATEGORY_LISTS);
         doReturn(pagenamesAndArticlesMap).when(articleRepository).getArticlesFromCategory(anyList());
 
-        List<JSONObject> result = target.getBooksJSON()
-                .collect(Collectors.toList());
+        List<JSONObject> result = target.getBooksJSON();
 
         assertThat(result, hasSize(2));
     }
@@ -87,9 +81,9 @@ public class RetrieveBooksTest {
     public void testGetBookJSON() {
         doReturn("").when(articleRepository).getArticle(SOME_PAGE_NAME);
 
-        Optional<JSONObject> result = target.getBookJSON(SOME_PAGE_NAME);
+        var result = target.getBookJSON(SOME_PAGE_NAME);
 
-        assertThat(result.get(), is(SOME_JSON_OBJECT));
+        assertThat(result, is(SOME_JSON_OBJECT));
     }
 
 }

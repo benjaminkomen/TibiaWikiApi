@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class RetrieveAnyService(
-    private val articleRepository: ArticleRepository,
-    private val jsonFactory: JsonFactory,
+    protected val articleRepository: ArticleRepository,
+    protected val jsonFactory: JsonFactory,
 ) {
 
     fun getArticleAsJSON(pageName: String): JSONObject? {

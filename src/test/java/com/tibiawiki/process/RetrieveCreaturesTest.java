@@ -36,17 +36,16 @@ public class RetrieveCreaturesTest {
     private RetrieveCreatures target;
     @Mock
     private ArticleRepository articleRepository;
-    @Mock
-    private ArticleFactory articleFactory;
+
     @Mock
     private JsonFactory jsonFactory;
 
     @BeforeEach
     public void setup() {
         articleRepository = mock(ArticleRepository.class);
-        articleFactory = mock(ArticleFactory.class);
+
         jsonFactory = mock(JsonFactory.class);
-        target = new RetrieveCreatures(articleRepository, articleFactory, jsonFactory);
+        target = new RetrieveCreatures(articleRepository, jsonFactory);
 
         doReturn(SOME_ARTICLE_CONTENT).when(articleFactory).extractInfoboxPartOfArticle(any(String.class));
         doReturn(SOME_JSON_OBJECT).when(jsonFactory).convertInfoboxPartOfArticleToJson(any(String.class));
@@ -60,8 +59,7 @@ public class RetrieveCreaturesTest {
         doReturn(achievements).when(articleRepository).getPageNamesFromCategory(InfoboxTemplate.CREATURE.getCategoryName());
         doReturn(lists).when(articleRepository).getPageNamesFromCategory(CATEGORY_LISTS);
 
-        List<JSONObject> result = target.getCreaturesJSON()
-                .collect(Collectors.toList());
+        List<JSONObject> result = target.getCreaturesJSON();
 
         assertThat(result, hasSize(0));
     }
@@ -77,8 +75,7 @@ public class RetrieveCreaturesTest {
         doReturn(lists).when(articleRepository).getPageNamesFromCategory(CATEGORY_LISTS);
         doReturn(pagenamesAndArticlesMap).when(articleRepository).getArticlesFromCategory(anyList());
 
-        List<JSONObject> result = target.getCreaturesJSON()
-                .collect(Collectors.toList());
+        List<JSONObject> result = target.getCreaturesJSON();
 
         assertThat(result, hasSize(2));
     }
@@ -87,8 +84,8 @@ public class RetrieveCreaturesTest {
     public void testGetCreatureJSON() {
         doReturn("").when(articleRepository).getArticle(SOME_PAGE_NAME);
 
-        Optional<JSONObject> result = target.getCreatureJSON(SOME_PAGE_NAME);
+        var result = target.getCreatureJSON(SOME_PAGE_NAME);
 
-        assertThat(result.get(), is(SOME_JSON_OBJECT));
+        assertThat(result, is(SOME_JSON_OBJECT));
     }
 }

@@ -1,8 +1,9 @@
 package com.tibiawiki.process;
 
-import com.tibiawiki.domain.mediawiki.ArticleRepository;
 import com.tibiawiki.domain.factories.JsonFactory;
 import com.tibiawiki.domain.factories.WikiObjectFactory;
+import com.tibiawiki.domain.infobox.ArticleMapper;
+import com.tibiawiki.domain.mediawiki.ArticleRepository;
 import com.tibiawiki.domain.objects.WikiObject;
 import com.tibiawiki.domain.objects.validation.ValidationException;
 import com.tibiawiki.domain.objects.validation.ValidationResult;
@@ -24,7 +25,6 @@ public class ModifyAny {
 
     private final WikiObjectFactory wikiObjectFactory;
     private final JsonFactory jsonFactory;
-    private final ArticleFactory articleFactory;
     private final ArticleRepository articleRepository;
 
     public Try<WikiObject> modify(WikiObject wikiObject, String editSummary) {
@@ -33,7 +33,7 @@ public class ModifyAny {
         return validate(wikiObject)
                 .map(wikiObj -> wikiObjectFactory.createJSONObject(wikiObj, wikiObj.getTemplateType()))
                 .map(json -> jsonFactory.convertJsonToInfoboxPartOfArticle(json, wikiObject.fieldOrder()))
-                .map(s -> articleFactory.insertInfoboxPartOfArticle(originalWikiObject, s))
+                .map(s -> ArticleMapper.insertInfoboxPartOfArticle(originalWikiObject, s))
                 .flatMap(s -> s.isEmpty()
                         ? Try.failure(new IllegalArgumentException("Could not find required text in article"))
                         : Try.success(s.get())

@@ -1,23 +1,22 @@
 package com.tibiawiki.process;
 
-import com.tibiawiki.domain.mediawiki.ArticleRepository;
+import com.tibiawiki.domain.RetrieveAnyService;
 import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.factories.JsonFactory;
+import com.tibiawiki.domain.mediawiki.ArticleRepository;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Component
-public class RetrieveEffects extends RetrieveAny {
+public class RetrieveEffects extends RetrieveAnyService {
 
     @Autowired
-    public RetrieveEffects(ArticleRepository articleRepository, ArticleFactory articleFactory, JsonFactory jsonFactory) {
-        super(articleRepository, articleFactory, jsonFactory);
+    public RetrieveEffects(ArticleRepository articleRepository, JsonFactory jsonFactory) {
+        super(articleRepository, jsonFactory);
     }
 
     public List<String> getEffectsList() {
@@ -29,11 +28,11 @@ public class RetrieveEffects extends RetrieveAny {
                 .collect(Collectors.toList());
     }
 
-    public Stream<JSONObject> getEffectsJSON() {
+    public List<JSONObject> getEffectsJSON() {
         return getArticlesFromInfoboxTemplateAsJSON(getEffectsList());
     }
 
-    public Optional<JSONObject> getEffectJSON(String pageName) {
+    public JSONObject getEffectJSON(String pageName) {
         return super.getArticleAsJSON(pageName);
     }
 }

@@ -24,7 +24,7 @@ import static org.mockito.Mockito.anyList;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
-public class RetrieveAchievementsTest {
+class RetrieveAchievementsTest {
 
     private static final String SOME_PAGE_NAME = "Foobar";
     private static final String SOME_ARTICLE_CONTENT = "";
@@ -37,37 +37,33 @@ public class RetrieveAchievementsTest {
     @Mock
     private ArticleRepository articleRepository;
     @Mock
-    private ArticleFactory articleFactory;
-    @Mock
     private JsonFactory jsonFactory;
 
     @BeforeEach
     public void setup() {
         articleRepository = mock(ArticleRepository.class);
-        articleFactory = mock(ArticleFactory.class);
         jsonFactory = mock(JsonFactory.class);
-        target = new RetrieveAchievements(articleRepository, articleFactory, jsonFactory);
+        target = new RetrieveAchievements(articleRepository, jsonFactory);
 
-        doReturn(SOME_ARTICLE_CONTENT).when(articleFactory).extractInfoboxPartOfArticle(any(String.class));
+//        doReturn(SOME_ARTICLE_CONTENT).when(articleFactory).extractInfoboxPartOfArticle(any(String.class));
         doReturn(SOME_JSON_OBJECT).when(jsonFactory).convertInfoboxPartOfArticleToJson(any(String.class));
     }
 
     @Test
-    public void testGetAchievementsJSON_ZeroResults() {
+    void testGetAchievementsJSON_ZeroResults() {
         final List<String> lists = Collections.emptyList();
         final List<String> achievements = Collections.emptyList();
 
         doReturn(achievements).when(articleRepository).getPageNamesFromCategory(InfoboxTemplate.ACHIEVEMENT.getCategoryName());
         doReturn(lists).when(articleRepository).getPageNamesFromCategory(CATEGORY_LISTS);
 
-        List<JSONObject> result = target.getAchievementsJSON()
-                .collect(Collectors.toList());
+       var result = target.getAchievementsJSON();
 
         assertThat(result, hasSize(0));
     }
 
     @Test
-    public void testGetAchievementsJSON_TwoResults() {
+    void testGetAchievementsJSON_TwoResults() {
         final List<String> lists = Collections.singletonList(SOME_LIST_NAME);
         final List<String> achievements = Arrays.asList(SOME_ACHIEVEMENT_NAME, SOME_OTHER_ACHIEVEMENT_NAME);
         final Map<String, String> pagenamesAndArticlesMap = Map.of(SOME_ACHIEVEMENT_NAME, SOME_ARTICLE_CONTENT,
@@ -77,18 +73,17 @@ public class RetrieveAchievementsTest {
         doReturn(lists).when(articleRepository).getPageNamesFromCategory(CATEGORY_LISTS);
         doReturn(pagenamesAndArticlesMap).when(articleRepository).getArticlesFromCategory(anyList());
 
-        List<JSONObject> result = target.getAchievementsJSON()
-                .collect(Collectors.toList());
+        var result = target.getAchievementsJSON();
 
         assertThat(result, hasSize(2));
     }
 
     @Test
-    public void testGetAchievementJSON() {
+    void testGetAchievementJSON() {
         doReturn("").when(articleRepository).getArticle(SOME_PAGE_NAME);
 
-        Optional<JSONObject> result = target.getAchievementJSON(SOME_PAGE_NAME);
+        var result = target.getAchievementJSON(SOME_PAGE_NAME);
 
-        assertThat(result.get(), is(SOME_JSON_OBJECT));
+        assertThat(result, is(SOME_JSON_OBJECT));
     }
 }

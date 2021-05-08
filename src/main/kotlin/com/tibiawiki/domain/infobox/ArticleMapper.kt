@@ -29,7 +29,7 @@ object ArticleMapper {
         if (articleContent.contains(INFOBOX_HEADER).not()) {
             logger.warn(
                 "Cannot extract infobox template from article '$pageName'," +
-                        " since it contains no Infobox template."
+                    " since it contains no Infobox template."
             )
             return ""
         }
@@ -53,7 +53,7 @@ object ArticleMapper {
         if (!LOOT2_HEADER_PATTERN.matcher(articleContent).find()) {
             logger.warn(
                 "Cannot extract loot statistics template from article '$pageName'," +
-                        " since it contains no Loot2 template."
+                    " since it contains no Loot2 template."
             )
             return ""
         }
@@ -70,7 +70,7 @@ object ArticleMapper {
         ) {
             logger.warn(
                 "Cannot extract loot statistics template from article '$pageName'," +
-                        " since it contains no Loot2 or Loot2_RC template."
+                    " since it contains no Loot2 or Loot2_RC template."
             )
             return emptyMap()
         }
