@@ -8,6 +8,7 @@ public enum InfoboxTemplate implements WikiTemplate {
     ACHIEVEMENT("Achievement", "Achievements"),
     BOOK("Book", "Book Texts"),
     BUILDING("Building", "Buildings"),
+    CHARM("Charm", "Charms"),
     CIPSOFT_MEMBER("Cipsoft_Member", "CipSoft_Members"),
     CORPSE("Corpse", "Corpses"),
     CREATURE("Creature", "Creatures"),

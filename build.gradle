@@ -1,10 +1,7 @@
 buildscript {
     ext {
-        springBootVersion = '2.4.5'
-        kotlinVersion = '1.4.32'
-    }
-    repositories {
-        jcenter()
+        springBootVersion = '2.5.0'
+        kotlinVersion = '1.5.0'
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -42,10 +39,10 @@ repositories {
 
 ext {
     slf4jVersion = '1.7.30'
-    junitVersion = '5.7.1'
+    junitVersion = '5.7.2'
     lombokVersion = '1.18.20'
     jacksonVersion = '2.12.3'
-    jacocoVersion = "0.8.6"
+    jacocoVersion = "0.8.7"
 }
 
 dependencies {
@@ -63,7 +60,7 @@ dependencies {
     implementation "io.vavr:vavr:0.10.3"
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
     testImplementation "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
-    testImplementation "org.mockito:mockito-core:3.9.0"
+    testImplementation "org.mockito:mockito-core:3.10.0"
     testImplementation "org.hamcrest:hamcrest:2.2"
     testImplementation("org.springframework.boot:spring-boot-starter-test:${springBootVersion}") {
         exclude group: 'com.vaadin.external.google', module: 'android-json'
@@ -76,8 +73,8 @@ dependencies {
 }
 
 configurations {
-    all*.exclude module : 'spring-boot-starter-logging'
-    all*.exclude module : 'logback-classic'
+    all*.exclude module: 'spring-boot-starter-logging'
+    all*.exclude module: 'logback-classic'
 }
 
 
@@ -129,8 +126,8 @@ jar {
 
 sourceSets {
     integrationTest {
-        compileClasspath += sourceSets.main.output + configurations.testCompile
-        runtimeClasspath += output + compileClasspath + configurations.testRuntime
+        compileClasspath += sourceSets.main.output + configurations.testRuntimeClasspath
+        runtimeClasspath += output + compileClasspath
     }
 }
 
@@ -147,7 +144,7 @@ idea {
     module {
         testSourceDirs += sourceSets.integrationTest.java.srcDirs
         testResourceDirs += sourceSets.integrationTest.resources.srcDirs
-        scopes.TEST.plus += [configurations.integrationTestCompile]
+//        scopes.TEST.plus += [configurations.integrationTestCompile]
     }
 }
 
