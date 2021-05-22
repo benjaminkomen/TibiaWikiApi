@@ -17,4 +17,4 @@ COPY --from=builder /app/build/libs/app-2.0.0.jar /project/TibiaWikiApi.jar
 WORKDIR /project
 
 # Run the web service on container startup.
-CMD java -Djava.security.egd=file:/dev/./urandom -Dserver.port=${PORT} -jar /TibiaWikiApi.jar
+CMD java -Djava.security.egd=file:/dev/./urandom -Dserver.port=${PORT} -jar /project/TibiaWikiApi.jar
