@@ -32,6 +32,7 @@ The following resources are available:
 | Achievement     | [achievements](https://tibiawiki.dev/api/achievements)      | [Goo Goo Dancer](https://tibiawiki.dev/api/achievements/Goo_Goo_Dancer)                            |
 | Books           | [books](https://tibiawiki.dev/api/books)                    | [Dungeon Survival Guide (Book)](https://tibiawiki.dev/api/books/Dungeon_Survival_Guide_%28Book%29) |
 | Buildings       | [buildings](https://tibiawiki.dev/api/buildings)            | [Theater Avenue 8b](https://tibiawiki.dev/api/buildings/Theater_Avenue_8b)                         |
+| Charms          | [charms](https://tibiawiki.dev/api/charms)                  | [Adrenaline Burst](https://tibiawiki.dev/api/charms/Adrenaline_Burst)                              |
 | Corpses         | [corpses](https://tibiawiki.dev/api/corpses)                | [Dead Rat](https://tibiawiki.dev/api/corpses/Dead_Rat)                                             |
 | Creatures       | [creatures](https://tibiawiki.dev/api/creatures)            | [Dragon](https://tibiawiki.dev/api/creatures/Dragon)                                               |
 | Effects         | [effects](https://tibiawiki.dev/api/effects)                | [Blue Electricity Effect](https://tibiawiki.dev/api/effects/Blue_Electricity_Effect)               |
