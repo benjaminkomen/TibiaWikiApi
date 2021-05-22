@@ -10,13 +10,11 @@ ENV GITHUB_TOKEN=${GITHUB_TOKEN}
 
 # Build a release artifact.
 RUN gradle build --no-daemon
-RUN ls -la /app/build/libs
 
 FROM adoptopenjdk/openjdk16:jre16u-alpine-nightly
 RUN mkdir /project
-COPY --from=builder /app/build/libs/app-*.jar /project/TibiaWikiApi.jar
+COPY --from=builder /app/build/libs/app-2.0.0.jar /project/TibiaWikiApi.jar
 WORKDIR /project
-RUN ls -la /project
 
 # Run the web service on container startup.
 CMD java -Djava.security.egd=file:/dev/./urandom -Dserver.port=${PORT} -jar /TibiaWikiApi.jar
