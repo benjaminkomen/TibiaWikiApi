@@ -42,7 +42,7 @@ ext {
     junitVersion = '5.7.2'
     lombokVersion = '1.18.20'
     jacksonVersion = '2.12.3'
-    jacocoVersion = "0.8.6"
+    jacocoVersion = "0.8.7"
 }
 
 dependencies {

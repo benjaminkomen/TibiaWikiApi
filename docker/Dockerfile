@@ -1,4 +1,4 @@
-FROM gradle:6.7.1-jdk15 as builder
+FROM gradle:7.0.2-jdk16 as builder
 
 # Copy local code to the container image.
 WORKDIR /app
@@ -11,7 +11,7 @@ ENV GITHUB_TOKEN=${GITHUB_TOKEN}
 # Build a release artifact.
 RUN gradle build --no-daemon
 
-FROM adoptopenjdk/openjdk15:jdk15u-alpine-nightly-slim
+FROM adoptopenjdk/openjdk16:jdk16u-alpine-nightly-slim
 
 COPY --from=builder /app/build/libs/app-*.jar /TibiaWikiApi.jar
 
