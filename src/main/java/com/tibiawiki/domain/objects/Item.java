@@ -88,6 +88,7 @@ public class Item extends WikiObject {
     private final YesNo destructible;
     private final List<String> droppedby;
     private final String value;
+    private final String storevalue;
     private final String npcvalue;
     private final String npcprice;
     private final String npcvaluerook;
@@ -165,6 +166,7 @@ public class Item extends WikiObject {
         this.destructible = null;
         this.droppedby = null;
         this.value = null;
+        this.storevalue = null;
         this.npcvalue = null;
         this.npcprice = null;
         this.npcvaluerook = null;
@@ -192,7 +194,7 @@ public class Item extends WikiObject {
                  YesNo rotatable, Integer mapcolor, YesNo consumable, Integer regenseconds, List<String> sounds,
                  YesNo writable, YesNo rewritable, Integer writechars, YesNo hangable, YesNo holdsliquid, Integer mana,
                  DamageElement damagetype, String damage, Integer volume, String duration, YesNo destructible,
-                 List<String> droppedby, String value, String npcvalue, String npcprice, String npcvaluerook,
+                 List<String> droppedby, String value, String storevalue, String npcvalue, String npcprice, String npcvaluerook,
                  String npcpricerook, String buyfrom, String sellto, String fansite) {
         super(name, article, actualname, plural, implemented, notes, history, status);
         this.itemid = itemid;
@@ -262,6 +264,7 @@ public class Item extends WikiObject {
         this.destructible = destructible;
         this.droppedby = droppedby;
         this.value = value;
+        this.storevalue = storevalue;
         this.npcvalue = npcvalue;
         this.npcprice = npcprice;
         this.npcvaluerook = npcvaluerook;
@@ -352,7 +355,7 @@ public class Item extends WikiObject {
                 "critextra_dmg", "manaleech_ch", "manaleech_am", "hpleech_ch", "hpleech_am", "attrib", "weight",
                 "stackable", "pickupable", "immobile", "walkable", "unshootable", "blockspath", "rotatable", "mapcolor",
                 "consumable", "regenseconds", "sounds", "writable", "rewritable", "writechars", "hangable", "holdsliquid",
-                "mana", "damagetype", "damage", "volume", "duration", "destructible", "droppedby", "value", "npcvalue",
+                "mana", "damagetype", "damage", "volume", "duration", "destructible", "droppedby", "value", "storevalue", "npcvalue",
                 "npcprice", "npcvaluerook", "npcpricerook", "buyfrom", "sellto", "notes", "notes2", "fansite", "history", "status");
     }
 }
