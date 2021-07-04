@@ -1,12 +1,11 @@
 package com.tibiawiki.process;
 
+import com.tibiawiki.domain.mediawiki.ArticleRepository;
 import com.tibiawiki.domain.enums.YesNo;
-import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.factories.JsonFactory;
 import com.tibiawiki.domain.factories.WikiObjectFactory;
 import com.tibiawiki.domain.objects.Achievement;
 import com.tibiawiki.domain.objects.WikiObject;
-import com.tibiawiki.domain.repositories.ArticleRepository;
 import io.vavr.control.Try;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,8 +31,7 @@ public class ModifyAnyTest {
     private WikiObjectFactory wikiObjectFactory;
     @Mock
     private JsonFactory jsonFactory;
-    @Mock
-    private ArticleFactory articleFactory;
+
     @Mock
     private ArticleRepository articleRepository;
 
@@ -41,9 +39,9 @@ public class ModifyAnyTest {
     public void setup() {
         wikiObjectFactory = mock(WikiObjectFactory.class);
         jsonFactory = mock(JsonFactory.class);
-        articleFactory = mock(ArticleFactory.class);
+
         articleRepository = mock(ArticleRepository.class);
-        target = new ModifyAny(wikiObjectFactory, jsonFactory, articleFactory, articleRepository);
+        target = new ModifyAny(wikiObjectFactory, jsonFactory, articleRepository);
     }
 
     @Test
@@ -52,7 +50,7 @@ public class ModifyAnyTest {
         doReturn("").when(articleRepository).getArticle(anyString());
         doReturn(SOME_JSON_OBJECT).when(wikiObjectFactory).createJSONObject(eq(someAchievement), anyString());
         doReturn("").when(jsonFactory).convertJsonToInfoboxPartOfArticle(any(JSONObject.class), any(List.class));
-        doReturn(Optional.of("")).when(articleFactory).insertInfoboxPartOfArticle(anyString(), anyString());
+//        doReturn(Optional.of("")).when(articleFactory).insertInfoboxPartOfArticle(anyString(), anyString());
         doReturn(true).when(articleRepository).modifyArticle(anyString(), anyString(), anyString());
 
         Try<WikiObject> result = target.modify(someAchievement, "[test] editing the page");

@@ -1,9 +1,8 @@
 package com.tibiawiki.process;
 
+import com.tibiawiki.domain.mediawiki.ArticleRepository;
 import com.tibiawiki.domain.enums.InfoboxTemplate;
-import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.factories.JsonFactory;
-import com.tibiawiki.domain.repositories.ArticleRepository;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,17 +36,16 @@ public class RetrieveCorpsesTest {
     private RetrieveCorpses target;
     @Mock
     private ArticleRepository articleRepository;
-    @Mock
-    private ArticleFactory articleFactory;
+
     @Mock
     private JsonFactory jsonFactory;
 
     @BeforeEach
     public void setup() {
         articleRepository = mock(ArticleRepository.class);
-        articleFactory = mock(ArticleFactory.class);
+
         jsonFactory = mock(JsonFactory.class);
-        target = new RetrieveCorpses(articleRepository, articleFactory, jsonFactory);
+        target = new RetrieveCorpses(articleRepository, jsonFactory);
 
         doReturn(SOME_ARTICLE_CONTENT).when(articleFactory).extractInfoboxPartOfArticle(any(String.class));
         doReturn(SOME_JSON_OBJECT).when(jsonFactory).convertInfoboxPartOfArticleToJson(any(String.class));
@@ -61,8 +59,7 @@ public class RetrieveCorpsesTest {
         doReturn(achievements).when(articleRepository).getPageNamesFromCategory(InfoboxTemplate.CORPSE.getCategoryName());
         doReturn(lists).when(articleRepository).getPageNamesFromCategory(CATEGORY_LISTS);
 
-        List<JSONObject> result = target.getCorpsesJSON()
-                .collect(Collectors.toList());
+        List<JSONObject> result = target.getCorpsesJSON();
 
         assertThat(result, hasSize(0));
     }
@@ -78,8 +75,7 @@ public class RetrieveCorpsesTest {
         doReturn(lists).when(articleRepository).getPageNamesFromCategory(CATEGORY_LISTS);
         doReturn(pagenamesAndArticlesMap).when(articleRepository).getArticlesFromCategory(anyList());
 
-        List<JSONObject> result = target.getCorpsesJSON()
-                .collect(Collectors.toList());
+        List<JSONObject> result = target.getCorpsesJSON();
 
         assertThat(result, hasSize(2));
     }
@@ -88,9 +84,9 @@ public class RetrieveCorpsesTest {
     public void testGetCorpseJSON() {
         doReturn("").when(articleRepository).getArticle(SOME_PAGE_NAME);
 
-        Optional<JSONObject> result = target.getCorpseJSON(SOME_PAGE_NAME);
+        var result = target.getCorpseJSON(SOME_PAGE_NAME);
 
-        assertThat(result.get(), is(SOME_JSON_OBJECT));
+        assertThat(result, is(SOME_JSON_OBJECT));
     }
 
 }

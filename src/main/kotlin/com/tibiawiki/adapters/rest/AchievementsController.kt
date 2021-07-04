@@ -45,7 +45,7 @@ class AchievementsController(
         return ResponseEntity.ok()
             .body(
                 if (expand != null && expand) {
-                    retrieveAchievements.achievementsJSON.map<Any>(JSONObject::toMap)
+                    retrieveAchievements.achievementsJSON.map(JSONObject::toMap)
                 } else {
                     retrieveAchievements.achievementsList
                 }
@@ -62,11 +62,11 @@ class AchievementsController(
     )
     fun getAchievementsByName(@PathVariable("name") name: String): ResponseEntity<String> {
         return retrieveAchievements.getAchievementJSON(name)
-            .map { a: JSONObject ->
+            ?.let { a: JSONObject ->
                 ResponseEntity.ok()
                     .body(a.toString(2))
             }
-            .orElseGet { ResponseEntity.notFound().build() }
+            ?: ResponseEntity.notFound().build()
     }
 
     @PutMapping(value = [""], consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
@@ -84,7 +84,7 @@ class AchievementsController(
                 ResponseEntity.ok()
                     .body(a)
             }
-            .recover<ValidationException>(ValidationException::class.java) { ResponseEntity.badRequest().build() }
+            .recover(ValidationException::class.java) { ResponseEntity.badRequest().build() }
 //                .recover(ValidationException.class, e -> ResponseEntity.badRequest().body(e.getMessage()))
             .recover { ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build() }
             .get()
