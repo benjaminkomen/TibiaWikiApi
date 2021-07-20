@@ -3,7 +3,7 @@ package com.tibiawiki.domain.enums;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.tibiawiki.domain.interfaces.Description;
 
-public enum ItemClass implements Description {
+public enum ObjectClass implements Description {
     BODY_EQUIPMENT("Body Equipment"),
     WEAPONS("Weapons"),
     RUNES("Runes"),
@@ -14,7 +14,7 @@ public enum ItemClass implements Description {
 
     private String description;
 
-    ItemClass(String description) {
+    ObjectClass(String description) {
         this.description = description;
     }
 

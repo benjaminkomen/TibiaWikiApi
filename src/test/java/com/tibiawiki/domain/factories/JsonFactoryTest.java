@@ -10,7 +10,7 @@ import com.tibiawiki.domain.enums.BuildingType;
 import com.tibiawiki.domain.enums.City;
 import com.tibiawiki.domain.enums.Gender;
 import com.tibiawiki.domain.enums.Hands;
-import com.tibiawiki.domain.enums.ItemClass;
+import com.tibiawiki.domain.enums.ObjectClass;
 import com.tibiawiki.domain.enums.KeyType;
 import com.tibiawiki.domain.enums.Rarity;
 import com.tibiawiki.domain.enums.Spawntype;
@@ -497,11 +497,11 @@ public class JsonFactoryTest {
             "| usable        = yes\n" +
             "| sprites       = {{Frames|{{Frame Sprite|55266}}}}\n" +
             "| flavortext    = Foobar\n" +
-            "| itemclass     = Weapons\n" +
+            "| objectclass   = Weapons\n" +
             "| primarytype   = Sword Weapons\n" +
             "| levelrequired = 0\n" +
             "| hands         = One\n" +
-            "| type          = Sword\n" +
+            "| weapontype    = Sword\n" +
             "| attack        = 15\n" +
             "| defense       = 13\n" +
             "| defensemod    = +1\n" +
@@ -1222,11 +1222,11 @@ public class JsonFactoryTest {
                 .plural("?")
                 .itemid(Collections.singletonList(3283))
                 .flavortext("Foobar")
-                .itemclass(ItemClass.WEAPONS)
+                .objectclass(ObjectClass.WEAPONS)
                 .primarytype("Sword Weapons")
                 .levelrequired(0)
                 .hands(Hands.One)
-                .type(WeaponType.Sword)
+                .weapontype(WeaponType.Sword)
                 .attack("15")
                 .defense(13)
                 .defensemod("+1")

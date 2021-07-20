@@ -3,7 +3,7 @@ package com.tibiawiki.controller;
 import com.tibiawiki.domain.enums.Article;
 import com.tibiawiki.domain.enums.Hands;
 import com.tibiawiki.domain.enums.InfoboxTemplate;
-import com.tibiawiki.domain.enums.ItemClass;
+import com.tibiawiki.domain.enums.ObjectClass;
 import com.tibiawiki.domain.enums.WeaponType;
 import com.tibiawiki.domain.enums.YesNo;
 import com.tibiawiki.domain.objects.Item;
@@ -215,11 +215,11 @@ public class ItemsResourceIT {
                 .plural("?")
                 .itemid(Collections.singletonList(3283))
                 .flavortext("Foobar")
-                .itemclass(ItemClass.WEAPONS)
+                .objectclass(ObjectClass.WEAPONS)
                 .primarytype("Sword Weapons")
                 .levelrequired(0)
                 .hands(Hands.One)
-                .type(WeaponType.Sword)
+                .weapontype(WeaponType.Sword)
                 .attack("15")
                 .defense(13)
                 .defensemod("+1")

@@ -21,7 +21,7 @@ public class JwikiArticleRepository implements ArticleRepository {
 
     private static final Logger LOG = LoggerFactory.getLogger(JwikiArticleRepository.class);
     private static final String DEFAULT_WIKI_URI = "https://tibia.fandom.com/api.php";
-    private boolean isDebugEnabled = true;
+    private boolean isDebugEnabled = false;
     private final Wiki wiki;
 
     public JwikiArticleRepository() {

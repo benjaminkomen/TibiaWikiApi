@@ -5,7 +5,7 @@ import com.tibiawiki.domain.enums.Article;
 import com.tibiawiki.domain.enums.DamageElement;
 import com.tibiawiki.domain.enums.Hands;
 import com.tibiawiki.domain.enums.InfoboxTemplate;
-import com.tibiawiki.domain.enums.ItemClass;
+import com.tibiawiki.domain.enums.ObjectClass;
 import com.tibiawiki.domain.enums.Status;
 import com.tibiawiki.domain.enums.WeaponType;
 import com.tibiawiki.domain.enums.YesNo;
@@ -28,7 +28,7 @@ public class Item extends WikiObject {
     private final String flavortext;
     private final Status ingamestatus;
     private final String words;
-    private final ItemClass itemclass;
+    private final ObjectClass objectclass;
     private final String primarytype;
     private final String secondarytype;
     private final Integer lightcolor;
@@ -37,7 +37,7 @@ public class Item extends WikiObject {
     private final String vocrequired;
     private final Integer mlrequired;
     private final Hands hands;
-    private final WeaponType type;
+    private final WeaponType weapontype;
     private final String attack; // FIXME should be Integer
     private final Integer fireAttack;
     private final Integer earthAttack;
@@ -80,9 +80,9 @@ public class Item extends WikiObject {
     private final Integer writechars;
     private final YesNo hangable;
     private final YesNo holdsliquid;
-    private final Integer mana;
+    private final Integer manacost;
     private final DamageElement damagetype;
-    private final String damage; // FIXME should be Integer
+    private final String damageranage; // FIXME should be Integer
     private final Integer volume;
     private final String duration; // FIXME should be Integer
     private final YesNo destructible;
@@ -106,7 +106,7 @@ public class Item extends WikiObject {
         this.flavortext = null;
         this.ingamestatus = null;
         this.words = null;
-        this.itemclass = null;
+        this.objectclass = null;
         this.primarytype = null;
         this.secondarytype = null;
         this.lightcolor = null;
@@ -115,7 +115,7 @@ public class Item extends WikiObject {
         this.vocrequired = null;
         this.mlrequired = null;
         this.hands = null;
-        this.type = null;
+        this.weapontype = null;
         this.attack = null;
         this.fireAttack = null;
         this.earthAttack = null;
@@ -158,9 +158,9 @@ public class Item extends WikiObject {
         this.writechars = null;
         this.hangable = null;
         this.holdsliquid = null;
-        this.mana = null;
+        this.manacost = null;
         this.damagetype = null;
-        this.damage = null;
+        this.damageranage = null;
         this.volume = null;
         this.duration = null;
         this.destructible = null;
@@ -181,9 +181,9 @@ public class Item extends WikiObject {
     @Builder
     private Item(String name, Article article, String actualname, String plural, String implemented, String notes, String notes2,
                  String history, Status status, List<Integer> itemid, YesNo marketable, YesNo usable, String sprites,
-                 String flavortext, Status ingamestatus, String words, ItemClass itemclass, String primarytype,
+                 String flavortext, Status ingamestatus, String words, ObjectClass objectclass, String primarytype,
                  String secondarytype, Integer lightcolor, Integer lightradius, Integer levelrequired,
-                 String vocrequired, Integer mlrequired, Hands hands, WeaponType type, String attack,
+                 String vocrequired, Integer mlrequired, Hands hands, WeaponType weapontype, String attack,
                  Integer fireAttack, Integer earthAttack, Integer iceAttack, Integer energyAttack, Integer deathAttack,
                  Integer defense, String defensemod, Integer imbueslots, String imbuements,
                  YesNo enchantable, YesNo enchanted, String range, String attackModification, String hitpointModification,
@@ -192,8 +192,8 @@ public class Item extends WikiObject {
                  Percentage hitpointLeechChance, Percentage hitpointLeechAmount, String attrib, BigDecimal weight,
                  YesNo stackable, YesNo pickupable, YesNo immobile, YesNo walkable, YesNo unshootable, YesNo blockspath,
                  YesNo rotatable, Integer mapcolor, YesNo consumable, Integer regenseconds, List<String> sounds,
-                 YesNo writable, YesNo rewritable, Integer writechars, YesNo hangable, YesNo holdsliquid, Integer mana,
-                 DamageElement damagetype, String damage, Integer volume, String duration, YesNo destructible,
+                 YesNo writable, YesNo rewritable, Integer writechars, YesNo hangable, YesNo holdsliquid, Integer manacost,
+                 DamageElement damagetype, String damageranage, Integer volume, String duration, YesNo destructible,
                  List<String> droppedby, String value, String storevalue, String npcvalue, String npcprice, String npcvaluerook,
                  String npcpricerook, String buyfrom, String sellto, String fansite) {
         super(name, article, actualname, plural, implemented, notes, history, status);
@@ -204,7 +204,7 @@ public class Item extends WikiObject {
         this.flavortext = flavortext;
         this.ingamestatus = ingamestatus;
         this.words = words;
-        this.itemclass = itemclass;
+        this.objectclass = objectclass;
         this.primarytype = primarytype;
         this.secondarytype = secondarytype;
         this.lightcolor = lightcolor;
@@ -213,7 +213,7 @@ public class Item extends WikiObject {
         this.vocrequired = vocrequired;
         this.mlrequired = mlrequired;
         this.hands = hands;
-        this.type = type;
+        this.weapontype = weapontype;
         this.attack = attack;
         this.fireAttack = fireAttack;
         this.earthAttack = earthAttack;
@@ -256,9 +256,9 @@ public class Item extends WikiObject {
         this.writechars = writechars;
         this.hangable = hangable;
         this.holdsliquid = holdsliquid;
-        this.mana = mana;
+        this.manacost = manacost;
         this.damagetype = damagetype;
-        this.damage = damage;
+        this.damageranage = damageranage;
         this.volume = volume;
         this.duration = duration;
         this.destructible = destructible;
@@ -348,14 +348,14 @@ public class Item extends WikiObject {
     @Override
     public List<String> fieldOrder() {
         return Arrays.asList("name", "article", "actualname", "plural", "itemid", "marketable", "usable", "sprites",
-                "flavortext", "implemented", "words", "itemclass", "primarytype", "secondarytype", "lightcolor",
-                "lightradius", "levelrequired", "vocrequired", "mlrequired", "hands", "type", "attack", "fire_attack",
+                "flavortext", "implemented", "words", "objectclass", "primarytype", "secondarytype", "lightcolor",
+                "lightradius", "levelrequired", "vocrequired", "mlrequired", "hands", "weapontype", "attack", "fire_attack",
                 "earth_attack", "ice_attack", "energy_attack", "death_attack", "defense", "defensemod", "imbueslots", "imbuements",
                 "enchantable", "enchanted", "range", "atk_mod", "hit_mod", "armor", "resist", "charges", "crithit_ch",
                 "critextra_dmg", "manaleech_ch", "manaleech_am", "hpleech_ch", "hpleech_am", "attrib", "weight",
                 "stackable", "pickupable", "immobile", "walkable", "unshootable", "blockspath", "rotatable", "mapcolor",
                 "consumable", "regenseconds", "sounds", "writable", "rewritable", "writechars", "hangable", "holdsliquid",
-                "mana", "damagetype", "damage", "volume", "duration", "destructible", "droppedby", "value", "storevalue", "npcvalue",
+                "manacost", "damagetype", "damagerange", "volume", "duration", "destructible", "droppedby", "value", "storevalue", "npcvalue",
                 "npcprice", "npcvaluerook", "npcpricerook", "buyfrom", "sellto", "notes", "notes2", "fansite", "history", "status");
     }
 }
