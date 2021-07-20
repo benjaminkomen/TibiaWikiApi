@@ -82,7 +82,7 @@ public class Item extends WikiObject {
     private final YesNo holdsliquid;
     private final Integer manacost;
     private final DamageElement damagetype;
-    private final String damageranage; // FIXME should be Integer
+    private final String damagerange; // FIXME should be Integer
     private final Integer volume;
     private final String duration; // FIXME should be Integer
     private final YesNo destructible;
@@ -160,7 +160,7 @@ public class Item extends WikiObject {
         this.holdsliquid = null;
         this.manacost = null;
         this.damagetype = null;
-        this.damageranage = null;
+        this.damagerange = null;
         this.volume = null;
         this.duration = null;
         this.destructible = null;
@@ -193,7 +193,7 @@ public class Item extends WikiObject {
                  YesNo stackable, YesNo pickupable, YesNo immobile, YesNo walkable, YesNo unshootable, YesNo blockspath,
                  YesNo rotatable, Integer mapcolor, YesNo consumable, Integer regenseconds, List<String> sounds,
                  YesNo writable, YesNo rewritable, Integer writechars, YesNo hangable, YesNo holdsliquid, Integer manacost,
-                 DamageElement damagetype, String damageranage, Integer volume, String duration, YesNo destructible,
+                 DamageElement damagetype, String damagerange, Integer volume, String duration, YesNo destructible,
                  List<String> droppedby, String value, String storevalue, String npcvalue, String npcprice, String npcvaluerook,
                  String npcpricerook, String buyfrom, String sellto, String fansite) {
         super(name, article, actualname, plural, implemented, notes, history, status);
@@ -258,7 +258,7 @@ public class Item extends WikiObject {
         this.holdsliquid = holdsliquid;
         this.manacost = manacost;
         this.damagetype = damagetype;
-        this.damageranage = damageranage;
+        this.damagerange = damagerange;
         this.volume = volume;
         this.duration = duration;
         this.destructible = destructible;
