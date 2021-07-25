@@ -54,7 +54,8 @@ dependencies {
 //    implementation "benjaminkomen:jwiki:2.2.0"
     implementation "org.fastily:jwiki:1.8.0"
     implementation "org.slf4j:slf4j-api:${slf4jVersion}"
-    implementation "org.slf4j:slf4j-log4j12:${slf4jVersion}"
+    implementation "net.logstash.logback:logstash-logback-encoder:6.4"
+    implementation "org.codehaus.janino:janino:3.1.2"
     implementation "org.json:json:20210307"
     implementation "com.google.guava:guava:30.1.1-jre"
     implementation "io.vavr:vavr:0.10.3"
@@ -71,12 +72,6 @@ dependencies {
     implementation "io.swagger.core.v3:swagger-annotations:2.1.9"
     implementation "org.springdoc:springdoc-openapi-ui:1.5.8"
 }
-
-configurations {
-    all*.exclude module: 'spring-boot-starter-logging'
-    all*.exclude module: 'logback-classic'
-}
-
 
 compileKotlin {
     kotlinOptions {

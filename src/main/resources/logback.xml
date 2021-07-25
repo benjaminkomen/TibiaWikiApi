@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- For assistance related to logback-translator or configuration  -->
+<!-- files in general, please contact the logback user mailing list -->
+<!-- at http://www.qos.ch/mailman/listinfo/logback-user             -->
+<!--                                                                -->
+<!-- For professional support please see                            -->
+<!--    http://www.qos.ch/shop/products/professionalSupport         -->
+<!--                                                                -->
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+
+    <logger name="org.springframework.cloud.config" level="WARN"/>
+    <logger name="com.netflix.discovery" level="WARN"/>
+
+    <if condition='isDefined("LOGGING_JSON")'>
+        <then>
+
+            <appender name="jsonAppender" class="ch.qos.logback.core.ConsoleAppender">
+                <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+                    <providers>
+                        <!-- These eight fields are identical to those exported by the standard LogStashEncoder. The
+                             duplicate <pattern> nesting is intentional. Configuration reference:
+                             https://github.com/logstash/logstash-logback-encoder/tree/logstash-logback-encoder-4.11#composite-encoderlayout -->
+                        <timestamp/>
+                        <version/>
+                        <message/>
+                        <loggerName/>
+                        <threadName/>
+                        <logLevel/>
+                        <logLevelValue/>
+                        <pattern>
+                            <pattern>
+                                { "profile": "${APP_PROFILE}" }
+                            </pattern>
+                        </pattern>
+                        <!-- The MDC can be used to carry tracing information on a ThreadLocal (use org.slf4j.MDC) -->
+                        <mdc/>
+                        <!-- Any arguments you put into {}-placeholders of the log message get their own key in the
+                             JSON if you wrap them with `net.logstash.logback.argument.StructuredArguments.keyValue` -->
+                        <arguments/>
+                        <!-- This is the same ThrowableConverter as used by the standard LogStashEncoder. -->
+                        <stackTrace>
+                            <throwableConverter class="ch.qos.logback.classic.pattern.ExtendedThrowableProxyConverter"/>
+                        </stackTrace>
+                    </providers>
+                </encoder>
+            </appender>
+
+            <logger name="jsonLogger" additivity="false" level="INFO">
+                <appender-ref ref="jsonAppender"/>
+            </logger>
+
+            <root level="info">
+                <appender-ref ref="jsonAppender"/>
+            </root>
+
+        </then>
+        <else>
+            <root level="info">
+                <appender-ref ref="CONSOLE"/>
+            </root>
+        </else>
+    </if>
+
+</configuration>
