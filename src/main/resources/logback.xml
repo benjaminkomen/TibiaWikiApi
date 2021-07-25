@@ -10,6 +10,10 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+    <include resource="org/springframework/cloud/gcp/logging/logback-json-appender.xml"/>
+<!--    <root level="INFO">-->
+<!--        <appender-ref ref="CONSOLE_JSON"/>-->
+<!--    </root>-->
 
     <logger name="org.springframework.cloud.config" level="WARN"/>
     <logger name="com.netflix.discovery" level="WARN"/>
