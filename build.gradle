@@ -57,7 +57,7 @@ dependencies {
     implementation "net.logstash.logback:logstash-logback-encoder:6.4"
     implementation "ch.qos.logback:logback-classic:1.2.3"
     implementation "org.springframework.cloud:spring-cloud-gcp-starter-logging:1.2.8.RELEASE"
-    implementation "org.codehaus.janino:janino:3.1.2"
+    implementation "org.codehaus.janino:janino:3.1.6"
     implementation "org.json:json:20210307"
     implementation "com.google.guava:guava:30.1.1-jre"
     implementation "io.vavr:vavr:0.10.4"
