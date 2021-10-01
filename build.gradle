@@ -41,7 +41,7 @@ ext {
     slf4jVersion = '1.7.31'
     junitVersion = '5.7.2'
     lombokVersion = '1.18.20'
-    jacksonVersion = '2.12.4'
+    jacksonVersion = '2.13.0'
     jacocoVersion = "0.8.7"
 }
 
