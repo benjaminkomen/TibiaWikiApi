@@ -76,6 +76,11 @@ dependencies {
     implementation "org.springdoc:springdoc-openapi-ui:1.5.10"
 }
 
+//java {
+//    sourceCompatibility = JavaVersion.VERSION_16
+//    targetCompatibility = JavaVersion.VERSION_16
+//}
+
 compileKotlin {
     kotlinOptions {
         freeCompilerArgs = ["-Xjsr305=strict"]
@@ -149,6 +154,7 @@ idea {
 task integrationTest(type: Test) {
     description = 'Runs the integration tests.'
     group = 'verification'
+    sourceCompatibility = 16
     testClassesDirs = sourceSets.integrationTest.output.classesDirs
     classpath = sourceSets.integrationTest.runtimeClasspath
     outputs.upToDateWhen { false }
