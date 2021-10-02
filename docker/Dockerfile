@@ -1,4 +1,4 @@
-FROM gradle:7.0.2-jdk16 as builder
+FROM gradle:7.2-jdk16 as builder
 
 # Copy local code to the container image.
 WORKDIR /app
