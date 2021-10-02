@@ -1,7 +1,7 @@
 buildscript {
     ext {
-        springBootVersion = '2.5.2'
-        kotlinVersion = '1.5.21'
+        springBootVersion = '2.5.5'
+        kotlinVersion = '1.5.31'
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -15,7 +15,7 @@ plugins {
     id "org.sonarqube" version "3.3"
     id "org.jetbrains.kotlin.jvm" version "${kotlinVersion}"
     id "org.jetbrains.kotlin.plugin.spring" version "${kotlinVersion}"
-    id "org.jlleitschuh.gradle.ktlint" version "10.1.0"
+    id "org.jlleitschuh.gradle.ktlint" version "10.2.0"
 }
 
 apply plugin: 'org.springframework.boot'
@@ -23,6 +23,7 @@ apply plugin: 'org.springframework.boot'
 group = 'com.tibiawiki'
 version = '2.0.0'
 description = 'TibiaWikiApi'
+//sourceCompatibility = '16'
 
 repositories {
     mavenLocal()
@@ -38,32 +39,32 @@ repositories {
 }
 
 ext {
-    slf4jVersion = '1.7.31'
-    junitVersion = '5.7.2'
+    slf4jVersion = '1.7.32'
+    junitVersion = '5.8.1'
     lombokVersion = '1.18.20'
-    jacksonVersion = '2.12.4'
+    jacksonVersion = '2.13.0'
     jacocoVersion = "0.8.7"
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib"
-    implementation "org.jetbrains.kotlin:kotlin-reflect"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}"
     implementation "com.fasterxml.jackson.module:jackson-module-kotlin:${jacksonVersion}"
     implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
 //    implementation "benjaminkomen:jwiki:2.2.0"
     implementation "org.fastily:jwiki:1.8.0"
     implementation "org.slf4j:slf4j-api:${slf4jVersion}"
-    implementation "net.logstash.logback:logstash-logback-encoder:6.4"
-    implementation "ch.qos.logback:logback-classic:1.2.3"
+    implementation "net.logstash.logback:logstash-logback-encoder:6.6"
+    implementation "ch.qos.logback:logback-classic:1.2.6"
     implementation "org.springframework.cloud:spring-cloud-gcp-starter-logging:1.2.8.RELEASE"
-    implementation "org.codehaus.janino:janino:3.1.2"
+    implementation "org.codehaus.janino:janino:3.1.6"
     implementation "org.json:json:20210307"
-    implementation "com.google.guava:guava:30.1.1-jre"
+    implementation "com.google.guava:guava:31.0.1-jre"
     implementation "io.vavr:vavr:0.10.4"
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
     testImplementation "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
-    testImplementation "org.mockito:mockito-core:3.11.2"
+    testImplementation "org.mockito:mockito-core:3.12.4"
     testImplementation "org.hamcrest:hamcrest:2.2"
     testImplementation("org.springframework.boot:spring-boot-starter-test:${springBootVersion}") {
         exclude group: 'com.vaadin.external.google', module: 'android-json'
@@ -71,8 +72,8 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
 
-    implementation "io.swagger.core.v3:swagger-annotations:2.1.10"
-    implementation "org.springdoc:springdoc-openapi-ui:1.5.9"
+    implementation "io.swagger.core.v3:swagger-annotations:2.1.11"
+    implementation "org.springdoc:springdoc-openapi-ui:1.5.10"
 }
 
 compileKotlin {
