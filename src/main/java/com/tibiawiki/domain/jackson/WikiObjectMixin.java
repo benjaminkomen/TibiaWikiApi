@@ -9,7 +9,6 @@ import com.tibiawiki.domain.objects.Corpse;
 import com.tibiawiki.domain.objects.Creature;
 import com.tibiawiki.domain.objects.Effect;
 import com.tibiawiki.domain.objects.HuntingPlace;
-import com.tibiawiki.domain.objects.Item;
 import com.tibiawiki.domain.objects.Key;
 import com.tibiawiki.domain.objects.Location;
 import com.tibiawiki.domain.objects.Mount;
@@ -21,7 +20,7 @@ import com.tibiawiki.domain.objects.Street;
 import com.tibiawiki.domain.objects.TibiaObject;
 import com.tibiawiki.domain.objects.WikiObject;
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "templateType", visible = true)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "templateType", visible = true)
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Achievement.class, name = "Achievement"),
         @JsonSubTypes.Type(value = Book.class, name = "Book"),
@@ -30,7 +29,7 @@ import com.tibiawiki.domain.objects.WikiObject;
         @JsonSubTypes.Type(value = Creature.class, name = "Creature"),
         @JsonSubTypes.Type(value = Effect.class, name = "Effect"),
         @JsonSubTypes.Type(value = HuntingPlace.class, name = "Hunt"),
-        @JsonSubTypes.Type(value = Item.class, name = "Item"),
+        @JsonSubTypes.Type(value = TibiaObject.class, name = "Item"),
         @JsonSubTypes.Type(value = Key.class, name = "Key"),
         @JsonSubTypes.Type(value = Location.class, name = "Geography"),
         @JsonSubTypes.Type(value = Mount.class, name = "Mount"),

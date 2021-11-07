@@ -1,6 +1,6 @@
 package com.tibiawiki.controller;
 
-import com.tibiawiki.domain.objects.Item;
+import com.tibiawiki.domain.objects.TibiaObject;
 import com.tibiawiki.domain.objects.WikiObject;
 import com.tibiawiki.domain.objects.validation.ValidationException;
 import com.tibiawiki.process.ModifyAny;
@@ -39,7 +39,7 @@ public class ItemsResource {
            @ApiResponse(responseCode = "200" , description = "list of items retrieved")
     })
     public ResponseEntity<Object> getItems(@Parameter(description = "optionally expands the result to retrieve not only " +
-            "the item names but the full items", required = false)
+            "the item names but the full items")
                                            @RequestParam(value = "expand", required = false) Boolean expand) {
         return ResponseEntity.ok()
                 .body(expand != null && expand
@@ -64,7 +64,7 @@ public class ItemsResource {
            @ApiResponse(responseCode = "400" , description = "the provided changed item is not valid"),
            @ApiResponse(responseCode = "401" , description = "not authorized to edit without providing credentials")
     })
-    public ResponseEntity<WikiObject> putItem(@RequestBody Item item, @RequestHeader("X-WIKI-Edit-Summary") String editSummary) {
+    public ResponseEntity<WikiObject> putItem(@RequestBody TibiaObject item, @RequestHeader("X-WIKI-Edit-Summary") String editSummary) {
         return modifyAny.modify(item, editSummary)
                 .map(a -> ResponseEntity.ok()
                         .body(a))

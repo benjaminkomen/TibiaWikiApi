@@ -6,7 +6,7 @@ import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.enums.ObjectClass;
 import com.tibiawiki.domain.enums.WeaponType;
 import com.tibiawiki.domain.enums.YesNo;
-import com.tibiawiki.domain.objects.Item;
+import com.tibiawiki.domain.objects.TibiaObject;
 import com.tibiawiki.domain.repositories.ArticleRepository;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
@@ -21,6 +21,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -204,36 +205,90 @@ public class ItemsResourceIT {
         assertThat(result.getStatusCode(), is(HttpStatus.BAD_REQUEST));
     }
 
-    private Item makeItem() {
-        return Item.builder()
-                .name("Carlin Sword")
-                .marketable(YesNo.YES_LOWERCASE)
-                .usable(YesNo.YES_LOWERCASE)
-                .sprites("{{Frames|{{Frame Sprite|55266}}}}")
-                .article(Article.A)
-                .actualname("carlin sword")
-                .plural("?")
-                .itemid(Collections.singletonList(3283))
-                .flavortext("Foobar")
-                .objectclass(ObjectClass.WEAPONS)
-                .primarytype("Sword Weapons")
-                .levelrequired(0)
-                .hands(Hands.One)
-                .weapontype(WeaponType.Sword)
-                .attack("15")
-                .defense(13)
-                .defensemod("+1")
-                .enchantable(YesNo.NO_LOWERCASE)
-                .weight(BigDecimal.valueOf(40.00).setScale(2, RoundingMode.HALF_UP))
-                .droppedby(Arrays.asList("Grorlam", "Stone Golem"))
-                .value("118")
-                .npcvalue("118")
-                .npcprice("473")
-                .npcvaluerook("0")
-                .npcpricerook("0")
-                .buyfrom("Baltim, Brengus, Cedrik,")
-                .sellto("Baltim, Brengus, Cedrik, Esrik,")
-                .notes("If you have one of these ")
-                .build();
+    private TibiaObject makeItem() {
+        var result = new TibiaObject(
+                Collections.singletonList(3283),
+                ObjectClass.WEAPONS.getDescription(),
+                null,
+                null,
+                "Foobar",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                YesNo.YES_LOWERCASE,
+                null,
+                YesNo.YES_LOWERCASE,
+                null,
+                null,
+                null,
+                0,
+                null,
+                null,
+                Hands.One,
+                WeaponType.Sword,
+                "15",
+                null,
+                null,
+                null,
+                null,
+                null,
+                13,
+                "+1",
+                null,
+                null,
+                YesNo.NO_LOWERCASE,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                BigDecimal.valueOf(40.00).setScale(2, RoundingMode.HALF_UP),
+                null,
+                YesNo.YES_LOWERCASE,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                List.of("Grorlam", "Stone Golem"),
+                "118",
+                null,
+                "118",
+                "473",
+                "0",
+                "0",
+                "Baltim, Brengus, Cedrik,",
+                "Baltim, Brengus, Cedrik, Esrik,",
+                null,
+                null,
+                null);
+        ReflectionTestUtils.setField(result, "name", "Carlin Sword");
+        ReflectionTestUtils.setField(result, "article", Article.A);
+        ReflectionTestUtils.setField(result, "actualname", "carlin sword");
+        ReflectionTestUtils.setField(result, "plural", "?");
+        ReflectionTestUtils.setField(result, "notes", "If you have one of these ");
+        return result;
     }
 }
