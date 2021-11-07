@@ -11,12 +11,9 @@ Navigate to https://tibiawiki.dev to view the Swagger API of this project.
 ## Run locally
 Clone this git project to your local computer and compile it using: `./gradlew build` from your favourite command line
 terminal. Then execute: `./gradlew bootRun` and open your browser on http://localhost:8080
-
-Note that you need to add the [sample settings.xml](.travis.settings.xml) to your $HOME/.m2/settings.xml directory
-with a valid username and github token with read packages scope, to download all dependencies.
  
- You can now access the REST resources using your browser or any REST client such as Postman or curl from your command line.
- E.g. navigating to http://localhost:8080/api/corpses should give you a list of corpses.
+You can now access the REST resources using your browser or any REST client such as Postman or curl from your command line.
+E.g. navigating to http://localhost:8080/api/corpses should give you a list of corpses.
 
 ## Query parameters
 For all resources the query parameter `?expand=true` can be appended to get a full list of JSON objects
@@ -37,15 +34,19 @@ The following resources are available:
 | Creatures       | [creatures](https://tibiawiki.dev/api/creatures)            | [Dragon](https://tibiawiki.dev/api/creatures/Dragon)                                               |
 | Effects         | [effects](https://tibiawiki.dev/api/effects)                | [Blue Electricity Effect](https://tibiawiki.dev/api/effects/Blue_Electricity_Effect)               |
 | Hunting Places  | [hunting places](https://tibiawiki.dev/api/huntingplaces)   | [Hero Cave](https://tibiawiki.dev/api/huntingplaces/Hero_Cave)                                     |
-| Items           | [items](https://tibiawiki.dev/api/items)                    | [Carlin Sword](https://tibiawiki.dev/api/items/Carlin_Sword)                                       |
+| Items<sup>1</sup> | [items](https://tibiawiki.dev/api/items)                  | [Carlin Sword](https://tibiawiki.dev/api/items/Carlin_Sword)                                       |
 | Keys            | [keys](https://tibiawiki.dev/api/keys)                      | [Key 4055](https://tibiawiki.dev/api/keys/Key_4055)                                                |
 | Locations       | [locations](https://tibiawiki.dev/api/locations)            | [Thais](https://tibiawiki.dev/api/locations/Thais)                                                 |
 | Loot Statistics | [loot](https://tibiawiki.dev/api/loot)                      | [Ferumbras](https://tibiawiki.dev/api/loot/Ferumbras)                                              |
 | Missiles        | [missiles](https://tibiawiki.dev/api/missiles)              | [Throwing Cake Missile](https://tibiawiki.dev/api/missiles/Throwing_Cake_Missile)                  |
 | Mounts          | [mounts](https://tibiawiki.dev/api/mounts)                  | [Donkey](https://tibiawiki.dev/api/mounts/Donkey)                                                  |
 | NPCs            | [npcs](https://tibiawiki.dev/api/npcs)                      | [Sam](https://tibiawiki.dev/api/npcs/Sam)                                                          |
-| Objects         | [objects](https://tibiawiki.dev/api/objects)                | [Blueberry Bush](https://tibiawiki.dev/api/objects/Blueberry_Bush)                                 |
+| Objects<sup>1</sup> | [objects](https://tibiawiki.dev/api/objects)            | [Blueberry Bush](https://tibiawiki.dev/api/objects/Blueberry_Bush)                                 |
 | Outfits         | [outfits](https://tibiawiki.dev/api/outfits)                | [Pirate Outfits](https://tibiawiki.dev/api/outfits/Pirate_Outfits)                                 |
 | Quests          | [quests](https://tibiawiki.dev/api/quests)                  | [The Paradox Tower Quest](https://tibiawiki.dev/api/quests/The_Paradox_Tower_Quest)                |
 | Spells          | [spells](https://tibiawiki.dev/api/spells)                  | [Light Healing](https://tibiawiki.dev/api/spells/Light_Healing)                                    |
 | Streets         | [streets](https://tibiawiki.dev/api/streets)                | [Sugar Street](https://tibiawiki.dev/api/streets/Sugar_Street)                                     |
+
+<sup>1</sup> as of 2021 the categories Items and Objects were merged on the wiki. To be backwards compatible with systems
+relying on an accurate list of Items, this API now returns a list of 'Pickupable Items' from the Items endpoint, but which
+have the Object templateType.

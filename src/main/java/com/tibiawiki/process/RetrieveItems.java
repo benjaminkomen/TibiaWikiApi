@@ -27,7 +27,7 @@ public class RetrieveItems extends RetrieveAny {
 
         return itemsCategory.stream()
                 .filter(page -> !listsCategory.contains(page))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public Stream<JSONObject> getItemsJSON() {
