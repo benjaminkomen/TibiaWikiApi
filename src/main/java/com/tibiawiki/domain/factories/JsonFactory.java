@@ -157,22 +157,16 @@ public class JsonFactory {
 
             Object value = jsonObject.get(key);
 
-            if (value instanceof JSONArray) {
+            if (value instanceof JSONArray jsonArray) {
 
-                if (SOUNDS.equals(key)) {
-                    sb.append(makeTemplateList(jsonObject, key, (JSONArray) value, "Sound List"));
-                } else if (SPAWN_TYPE.equals(key)) {
-                    sb.append(makeCommaSeparatedStringList(jsonObject, key, (JSONArray) value));
-                } else if (LOOT.equals(key)) {
-                    sb.append(makeLootTable(jsonObject, key, (JSONArray) value));
-                } else if (DROPPED_BY.equals(key)) {
-                    sb.append(makeTemplateList(jsonObject, key, (JSONArray) value, "Dropped By"));
-                } else if (ITEM_ID.equals(key)) {
-                    sb.append(makeCommaSeparatedStringList(jsonObject, key, (JSONArray) value));
-                } else if (LOWER_LEVELS.equals(key)) {
-                    sb.append(makeSkillsTable(jsonObject, key, (JSONArray) value, HuntingPlaceSkills.fieldOrder()));
-                } else {
-                    sb.append(makeCommaSeparatedStringList(jsonObject, key, (JSONArray) value));
+                switch (key) {
+                    case SOUNDS -> sb.append(makeTemplateList(jsonObject, key, jsonArray, "Sound List"));
+                    case SPAWN_TYPE -> sb.append(makeCommaSeparatedStringList(jsonObject, key, jsonArray));
+                    case LOOT -> sb.append(makeLootTable(jsonObject, key, jsonArray));
+                    case DROPPED_BY -> sb.append(makeTemplateList(jsonObject, key, jsonArray, "Dropped By"));
+                    case ITEM_ID -> sb.append(makeCommaSeparatedStringList(jsonObject, key, jsonArray));
+                    case LOWER_LEVELS -> sb.append(makeSkillsTable(jsonObject, key, jsonArray, HuntingPlaceSkills.fieldOrder()));
+                    default -> sb.append(makeCommaSeparatedStringList(jsonObject, key, jsonArray));
                 }
             } else {
                 String paddedKey = Strings.padEnd(key, getMaxFieldLength(jsonObject), ' ');
@@ -274,8 +268,7 @@ public class JsonFactory {
             String key = keyIterator.next();
             Object value = jsonObject.get(key);
 
-            if (value instanceof String) {
-                String stringValue = (String) value;
+            if (value instanceof String stringValue) {
 
                 // do not modify normal keys such as version, kills and name. We assume they are always lowercase
                 if (Character.isLowerCase(key.codePointAt(0))) {
@@ -301,7 +294,7 @@ public class JsonFactory {
     private JSONObject makeLootEntry(String key, String stringValue) {
         JSONObject lootEntry = new JSONObject();
 
-        lootEntry.put("itemName", key);
+        lootEntry.put(ITEM_NAME, key);
 
         Pattern pattern = Pattern.compile(LOOT_LINE_NAME_PATTERN);
         Matcher matcher = pattern.matcher(stringValue);
@@ -325,21 +318,12 @@ public class JsonFactory {
             return UNKNOWN;
         }
 
-        String articleName;
-        switch (templateType) {
-            case TEMPLATE_TYPE_BOOK:
-                articleName = jsonObject.has("pagename") ? jsonObject.getString("pagename") : UNKNOWN;
-                break;
-            case TEMPLATE_TYPE_LOCATION:
-                articleName = UNKNOWN;
-                break;
-            case TEMPLATE_TYPE_KEY:
-                articleName = jsonObject.has("number") ? "Key " + jsonObject.getString("number") : UNKNOWN;
-                break;
-            default:
-                articleName = jsonObject.has("name") ? jsonObject.getString("name") : UNKNOWN;
-        }
-        return articleName;
+        return switch (templateType) {
+            case TEMPLATE_TYPE_BOOK -> jsonObject.has("pagename") ? jsonObject.getString("pagename") : UNKNOWN;
+            case TEMPLATE_TYPE_LOCATION -> UNKNOWN;
+            case TEMPLATE_TYPE_KEY -> jsonObject.has("number") ? "Key " + jsonObject.getString("number") : UNKNOWN;
+            default -> jsonObject.has("name") ? jsonObject.getString("name") : UNKNOWN;
+        };
     }
 
     @NonNull
@@ -377,7 +361,7 @@ public class JsonFactory {
             return new JSONArray();
         }
 
-        List<String> lootItemsList = Arrays.asList(Pattern.compile("(^|\n)(\\s|)\\|").split(lootItemsPartOfLootTableStripped));
+        String[] lootItemsList = Pattern.compile("(^|\n)(\\s|)\\|").split(lootItemsPartOfLootTableStripped);
 
         for (String lootItemTemplate : lootItemsList) {
             if (lootItemTemplate.length() < 1) {
@@ -445,7 +429,7 @@ public class JsonFactory {
 
         final List<JSONObject> infoboxHuntSkillJsonObjects = infoboxHuntSkillsList.stream()
                 .map(s -> new JSONObject(new HashMap<>(TemplateUtils.splitInfoboxByParameter(s))))
-                .collect(Collectors.toList());
+                .toList();
 
         return new JSONArray(infoboxHuntSkillJsonObjects);
     }

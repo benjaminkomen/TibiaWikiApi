@@ -41,7 +41,7 @@ import static org.mockito.Mockito.doReturn;
 public class ItemsResourceIT {
 
     private static final String INFOBOX_ITEM_TEXT = """
-            {{Infobox Item|List={{{1|}}}|GetValue={{{GetValue|}}}
+            {{Infobox Object|List={{{1|}}}|GetValue={{{GetValue|}}}
             | name          = Carlin Sword
             | article       = a
             | actualname    = carlin sword
@@ -100,7 +100,7 @@ public class ItemsResourceIT {
 
         assertThat(result.getStatusCode(), is(HttpStatus.OK));
         assertThat(result.getBody().size(), is(1));
-        assertThat(((Map) result.getBody().get(0)).get("templateType"), is("Item"));
+        assertThat(((Map) result.getBody().get(0)).get("templateType"), is("Object"));
         assertThat(((Map) result.getBody().get(0)).get("name"), is("Carlin Sword"));
         assertThat(((Map) result.getBody().get(0)).get("article"), is("a"));
         assertThat(((Map) result.getBody().get(0)).get("actualname"), is("carlin sword"));
@@ -139,7 +139,7 @@ public class ItemsResourceIT {
         assertThat(result.getStatusCode(), is(HttpStatus.OK));
 
         final JSONObject resultAsJSON = new JSONObject(result.getBody());
-        assertThat(resultAsJSON.get("templateType"), is("Item"));
+        assertThat(resultAsJSON.get("templateType"), is("Object"));
         assertThat(resultAsJSON.get("name"), is("Carlin Sword"));
         assertThat(resultAsJSON.get("article"), is("a"));
         assertThat(resultAsJSON.get("actualname"), is("carlin sword"));
