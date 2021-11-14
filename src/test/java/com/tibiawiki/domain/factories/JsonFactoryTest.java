@@ -1245,6 +1245,8 @@ class JsonFactoryTest {
     private TibiaObject makeItem() {
         var result = new TibiaObject(
                 Collections.singletonList(3283),
+                null,
+                null,
                 ObjectClass.WEAPONS.getDescription(),
                 null,
                 null,
