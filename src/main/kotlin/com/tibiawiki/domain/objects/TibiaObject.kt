@@ -10,6 +10,10 @@ import java.math.BigDecimal
 
 data class TibiaObject(
     val itemid: List<Int>? = emptyList(),
+    @Deprecated("replaced by objectclass")
+    val primarytype: String? = null,
+    @Deprecated(message = "never used")
+    val sprites: String? = null,
     val objectclass: String,
     val secondarytype: String? = null,
     val tertiarytype: String? = null,
@@ -95,6 +99,7 @@ data class TibiaObject(
             "plural",
             "itemid",
             "objectclass",
+            "primarytype",
             "secondarytype",
             "tertiarytype",
             "flavortext",
