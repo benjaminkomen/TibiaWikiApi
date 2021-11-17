@@ -11,7 +11,7 @@ ENV GITHUB_TOKEN=${GITHUB_TOKEN}
 # Build a release artifact.
 RUN gradle build --no-daemon
 
-FROM adoptopenjdk/openjdk17:jre17u-alpine-nightly
+FROM openjdk:17-slim-buster
 RUN mkdir /project
 COPY --from=builder /app/build/libs/app-2.0.0.jar /project/TibiaWikiApi.jar
 WORKDIR /project
