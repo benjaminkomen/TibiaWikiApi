@@ -1,7 +1,7 @@
 buildscript {
     ext {
-        springBootVersion = '2.5.5'
-        kotlinVersion = '1.5.31'
+        springBootVersion = '2.5.6'
+        kotlinVersion = '1.6.0'
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -41,7 +41,7 @@ repositories {
 ext {
     slf4jVersion = '1.7.32'
     junitVersion = '5.8.1'
-    lombokVersion = '1.18.20'
+    lombokVersion = '1.18.22'
     jacksonVersion = '2.13.0'
     jacocoVersion = "0.8.7"
 }
@@ -55,8 +55,8 @@ dependencies {
 //    implementation "benjaminkomen:jwiki:2.2.0"
     implementation "org.fastily:jwiki:1.8.0"
     implementation "org.slf4j:slf4j-api:${slf4jVersion}"
-    implementation "net.logstash.logback:logstash-logback-encoder:6.6"
-    implementation "ch.qos.logback:logback-classic:1.2.6"
+    implementation "net.logstash.logback:logstash-logback-encoder:7.0"
+    implementation "ch.qos.logback:logback-classic:1.2.7"
     implementation "org.springframework.cloud:spring-cloud-gcp-starter-logging:1.2.8.RELEASE"
     implementation "org.codehaus.janino:janino:3.1.6"
     implementation "org.json:json:20210307"
@@ -64,8 +64,8 @@ dependencies {
     implementation "io.vavr:vavr:0.10.4"
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
     testImplementation "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
-    testImplementation "org.mockito:mockito-core:3.12.4"
-    testImplementation "org.mockito:mockito-inline:2.8.47"
+    testImplementation 'org.mockito:mockito-core:4.0.0'
+    testImplementation "org.mockito:mockito-inline:4.0.0"
     testImplementation "org.hamcrest:hamcrest:2.2"
     testImplementation("org.springframework.boot:spring-boot-starter-test:${springBootVersion}") {
         exclude group: 'com.vaadin.external.google', module: 'android-json'
@@ -74,7 +74,7 @@ dependencies {
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
 
     implementation "io.swagger.core.v3:swagger-annotations:2.1.11"
-    implementation "org.springdoc:springdoc-openapi-ui:1.5.10"
+    implementation "org.springdoc:springdoc-openapi-ui:1.5.12"
 }
 
 //java {
@@ -85,14 +85,14 @@ dependencies {
 compileKotlin {
     kotlinOptions {
         freeCompilerArgs = ["-Xjsr305=strict"]
-        jvmTarget = "16"
+        jvmTarget = "17"
     }
 }
 
 compileTestKotlin {
     kotlinOptions {
         freeCompilerArgs = ["-Xjsr305=strict"]
-        jvmTarget = "16"
+        jvmTarget = "17"
     }
 }
 
@@ -155,7 +155,7 @@ idea {
 task integrationTest(type: Test) {
     description = 'Runs the integration tests.'
     group = 'verification'
-    sourceCompatibility = 16
+    sourceCompatibility = 17
     testClassesDirs = sourceSets.integrationTest.output.classesDirs
     classpath = sourceSets.integrationTest.runtimeClasspath
     outputs.upToDateWhen { false }
