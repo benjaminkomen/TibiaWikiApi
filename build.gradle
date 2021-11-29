@@ -40,7 +40,7 @@ repositories {
 
 ext {
     slf4jVersion = '1.7.32'
-    junitVersion = '5.8.1'
+    junitVersion = '5.8.2'
     lombokVersion = '1.18.22'
     jacksonVersion = '2.13.0'
     jacocoVersion = "0.8.7"
