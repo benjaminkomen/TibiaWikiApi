@@ -4,7 +4,6 @@ import com.tibiawiki.domain.enums.InfoboxTemplate;
 import com.tibiawiki.domain.enums.Status;
 import com.tibiawiki.domain.enums.YesNo;
 import com.tibiawiki.domain.objects.validation.ValidationResult;
-import com.tibiawiki.domain.utils.ListUtil;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
@@ -12,6 +11,8 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import static com.tibiawiki.domain.utils.ListUtilKt.concatenate;
 
 @Getter
 @Component
@@ -69,6 +70,6 @@ public class Achievement extends WikiObject {
 
     @Override
     public List<ValidationResult> validate() {
-        return ListUtil.concatenate(super.validate(), Collections.emptyList());
+        return concatenate(super.validate(), Collections.emptyList());
     }
 }
