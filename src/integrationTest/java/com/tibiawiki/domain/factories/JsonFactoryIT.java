@@ -35,18 +35,20 @@ public class JsonFactoryIT {
         assertThat(result, is(INFOBOX_ACHIEVEMENT_TEXT));
     }
 
-    private static final String INFOBOX_ACHIEVEMENT_TEXT = "{{Infobox Achievement|List={{{1|}}}|GetValue={{{GetValue|}}}\n" +
-            "| grade         = 1\n" +
-            "| name          = Goo Goo Dancer\n" +
-            "| description   = Seeing a mucus plug makes your heart dance and you can't resist to see what it hides. Goo goo away!\n" +
-            "| spoiler       = Obtainable by using 100 [[Muck Remover]]s on [[Mucus Plug]]s.\n" +
-            "| premium       = yes\n" +
-            "| points        = 1\n" +
-            "| secret        = yes\n" +
-            "| implemented   = 9.6\n" +
-            "| achievementid = 319\n" +
-            "| relatedpages  = [[Muck Remover]], [[Mucus Plug]]\n" +
-            "}}\n";
+    private static final String INFOBOX_ACHIEVEMENT_TEXT = """
+            {{Infobox Achievement|List={{{1|}}}|GetValue={{{GetValue|}}}
+            | grade         = 1
+            | name          = Goo Goo Dancer
+            | description   = Seeing a mucus plug makes your heart dance and you can't resist to see what it hides. Goo goo away!
+            | spoiler       = Obtainable by using 100 [[Muck Remover]]s on [[Mucus Plug]]s.
+            | premium       = yes
+            | points        = 1
+            | secret        = yes
+            | implemented   = 9.6
+            | achievementid = 319
+            | relatedpages  = [[Muck Remover]], [[Mucus Plug]]
+            }}
+            """;
 
     private Achievement makeAchievement() {
         return Achievement.builder()

@@ -23,7 +23,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
-public class ModifyAnyTest {
+class ModifyAnyTest {
 
     private static final JSONObject SOME_JSON_OBJECT = new JSONObject();
 
@@ -38,7 +38,7 @@ public class ModifyAnyTest {
     private ArticleRepository articleRepository;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         wikiObjectFactory = mock(WikiObjectFactory.class);
         jsonFactory = mock(JsonFactory.class);
         articleFactory = mock(ArticleFactory.class);
@@ -47,7 +47,7 @@ public class ModifyAnyTest {
     }
 
     @Test
-    public void testModify_Success() {
+    void testModify_Success() {
         WikiObject someAchievement = makeAchievement();
         doReturn("").when(articleRepository).getArticle(anyString());
         doReturn(SOME_JSON_OBJECT).when(wikiObjectFactory).createJSONObject(eq(someAchievement), anyString());
@@ -61,7 +61,7 @@ public class ModifyAnyTest {
     }
 
     @Test
-    public void testModify_Failure() {
+    void testModify_Failure() {
         WikiObject someAchievement = makeAchievement();
         doReturn("").when(articleRepository).getArticle(anyString());
         doReturn(SOME_JSON_OBJECT).when(wikiObjectFactory).createJSONObject(eq(someAchievement), anyString());

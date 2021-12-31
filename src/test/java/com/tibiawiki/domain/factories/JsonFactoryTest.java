@@ -44,7 +44,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
-import org.springframework.util.ReflectionUtils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -1284,6 +1283,7 @@ class JsonFactoryTest {
                 null,
                 null,
                 YesNo.NO_LOWERCASE,
+                null,
                 null,
                 null,
                 null,

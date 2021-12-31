@@ -25,7 +25,7 @@ import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
-public class RetrieveCreaturesTest {
+class RetrieveCreaturesTest {
 
     private static final String SOME_PAGE_NAME = "Foobar";
     private static final String SOME_ARTICLE_CONTENT = "";
@@ -43,7 +43,7 @@ public class RetrieveCreaturesTest {
     private JsonFactory jsonFactory;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         articleRepository = mock(ArticleRepository.class);
         articleFactory = mock(ArticleFactory.class);
         jsonFactory = mock(JsonFactory.class);
@@ -54,7 +54,7 @@ public class RetrieveCreaturesTest {
     }
 
     @Test
-    public void testGetCreaturesJSON_ZeroResults() {
+    void testGetCreaturesJSON_ZeroResults() {
         final List<String> lists = Collections.emptyList();
         final List<String> achievements = Collections.emptyList();
 
@@ -68,7 +68,7 @@ public class RetrieveCreaturesTest {
     }
 
     @Test
-    public void testGetCreaturesJSON_TwoResults() {
+    void testGetCreaturesJSON_TwoResults() {
         final List<String> lists = Collections.singletonList(SOME_LIST_NAME);
         final List<String> achievements = Arrays.asList(SOME_CREATURE_NAME, SOME_OTHER_CREATURE_NAME);
         final Map<String, String> pagenamesAndArticlesMap = Map.of(SOME_CREATURE_NAME, SOME_ARTICLE_CONTENT,
@@ -85,11 +85,11 @@ public class RetrieveCreaturesTest {
     }
 
     @Test
-    public void testGetCreatureJSON() {
+    void testGetCreatureJSON() {
         doReturn("").when(articleRepository).getArticle(SOME_PAGE_NAME);
 
         Optional<JSONObject> result = target.getCreatureJSON(SOME_PAGE_NAME);
 
-        assertThat(result.get(), is(SOME_JSON_OBJECT));
+        assertThat(result.orElseThrow(), is(SOME_JSON_OBJECT));
     }
 }

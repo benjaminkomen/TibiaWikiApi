@@ -17,20 +17,20 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
-public class WikiObjectFactoryTest {
+class WikiObjectFactoryTest {
 
     private static final String SOME_TEMPLATE_TYPE = "Achievement";
     private WikiObjectFactory target;
     private ObjectMapper objectMapper;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         objectMapper = mock(ObjectMapper.class);
         target = new WikiObjectFactory(objectMapper);
     }
 
     @Test
-    public void testCreateWikiObject_MissingTemplateType() {
+    void testCreateWikiObject_MissingTemplateType() {
         var someJSONObject = makeJSONObject();
         WikiObject result = target.createWikiObject(someJSONObject);
 
@@ -39,7 +39,7 @@ public class WikiObjectFactoryTest {
     }
 
     @Test
-    public void testCreateWikiObject_Achievement() throws Exception {
+    void testCreateWikiObject_Achievement() throws Exception {
         doReturn(makeAchievement()).when(objectMapper).readValue(anyString(), org.mockito.ArgumentMatchers.any(Class.class));
 
         var someJSONObject = makeJSONObject();
@@ -52,7 +52,7 @@ public class WikiObjectFactoryTest {
     }
 
     @Test
-    public void testCreateJSONObject_Success() {
+    void testCreateJSONObject_Success() {
         var someWikiObject = makeAchievement();
         Map<String, Object> someMap = new HashMap<>();
         doReturn(someMap).when(objectMapper).convertValue(org.mockito.ArgumentMatchers.any(WikiObject.class), org.mockito.ArgumentMatchers.any(Class.class));

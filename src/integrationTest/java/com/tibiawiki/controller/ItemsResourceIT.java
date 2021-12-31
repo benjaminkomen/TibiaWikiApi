@@ -264,6 +264,7 @@ public class ItemsResourceIT {
                 null,
                 null,
                 null,
+                null,
                 BigDecimal.valueOf(40.00).setScale(2, RoundingMode.HALF_UP),
                 null,
                 YesNo.YES_LOWERCASE,

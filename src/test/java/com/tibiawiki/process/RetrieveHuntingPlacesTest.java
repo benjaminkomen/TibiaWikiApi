@@ -25,7 +25,7 @@ import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
-public class RetrieveHuntingPlacesTest {
+class RetrieveHuntingPlacesTest {
 
     private static final String SOME_PAGE_NAME = "Foobar";
     private static final String SOME_ARTICLE_CONTENT = "";
@@ -43,7 +43,7 @@ public class RetrieveHuntingPlacesTest {
     private JsonFactory jsonFactory;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         articleRepository = mock(ArticleRepository.class);
         articleFactory = mock(ArticleFactory.class);
         jsonFactory = mock(JsonFactory.class);
@@ -54,7 +54,7 @@ public class RetrieveHuntingPlacesTest {
     }
 
     @Test
-    public void testGetHuntingPlacesJSON_ZeroResults() {
+    void testGetHuntingPlacesJSON_ZeroResults() {
         final List<String> lists = Collections.emptyList();
         final List<String> achievements = Collections.emptyList();
 
@@ -68,7 +68,7 @@ public class RetrieveHuntingPlacesTest {
     }
 
     @Test
-    public void testGetHuntingPlacesJSON_TwoResults() {
+    void testGetHuntingPlacesJSON_TwoResults() {
         final List<String> lists = Collections.singletonList(SOME_LIST_NAME);
         final List<String> achievements = Arrays.asList(SOME_HUNTING_PLACE_NAME, SOME_OTHER_HUNTING_PLACE_NAME);
         final Map<String, String> pagenamesAndArticlesMap = Map.of(SOME_HUNTING_PLACE_NAME, SOME_ARTICLE_CONTENT,
@@ -85,12 +85,12 @@ public class RetrieveHuntingPlacesTest {
     }
 
     @Test
-    public void testGetHuntingPlaceJSON() {
+    void testGetHuntingPlaceJSON() {
         doReturn("").when(articleRepository).getArticle(SOME_PAGE_NAME);
 
         Optional<JSONObject> result = target.getHuntingPlaceJSON(SOME_PAGE_NAME);
 
-        assertThat(result.get(), is(SOME_JSON_OBJECT));
+        assertThat(result.orElseThrow(), is(SOME_JSON_OBJECT));
     }
 
 }
