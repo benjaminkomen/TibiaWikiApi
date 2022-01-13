@@ -47,6 +47,7 @@ public class JsonFactory {
     private static final String INFOBOX_HEADER_PATTERN = "\\{\\{Infobox[\\s|_](.*?)[\\||\\n]";
     private static final String RARITY_PATTERN = "(always|common|uncommon|semi-rare|rare|very rare|extremely rare)(|\\?)";
     private static final String LOOT_LINE_NAME_PATTERN = "(\\w+:[\\d-]+)";
+    private static final Pattern TEXT_PATTERN = Pattern.compile("[a-zA-Z]");
     private static final String UNKNOWN = "Unknown";
     private static final String RARITY = "rarity";
     private static final String AMOUNT = "amount";
@@ -386,10 +387,12 @@ public class JsonFactory {
         for (String lootItemPart : splitLootItem) {
             if (lootItemPart.toLowerCase().matches(RARITY_PATTERN)) {
                 lootItemMap.put(RARITY, lootItemPart);
-            } else if (!lootItemPart.isBlank() && Character.isDigit(lootItemPart.charAt(0))) {
-                lootItemMap.put(AMOUNT, lootItemPart);
             } else {
-                lootItemMap.put(ITEM_NAME, lootItemPart);
+                if (!lootItemPart.isBlank() && Character.isDigit(lootItemPart.charAt(0)) && !TEXT_PATTERN.matcher(lootItemPart).find()) {
+                    lootItemMap.put(AMOUNT, lootItemPart);
+                } else {
+                    lootItemMap.put(ITEM_NAME, lootItemPart);
+                }
             }
         }
         return new JSONObject(lootItemMap);

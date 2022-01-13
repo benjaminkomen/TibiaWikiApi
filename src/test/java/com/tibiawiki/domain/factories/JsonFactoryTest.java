@@ -55,6 +55,7 @@ import java.util.Map;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -218,6 +219,32 @@ class JsonFactoryTest {
         JSONObject result = target.enhanceJsonObject(inputJsonObject);
         assertThat(((JSONArray) result.get("spawntype")).get(0), is("Regular"));
         assertThat(((JSONArray) result.get("spawntype")).get(1), is("Raid"));
+    }
+
+    @Test
+    void testEnhanceJsonObject_Loot_ItemNameWithNumbers() {
+        final JSONObject inputJsonObject = new JSONObject(Map.of(
+                "loot", """
+                        {{Loot Table
+                        |{{Loot Item|7197 Theons|common}}
+                        |{{Loot Item|60|Platinum Coin|common}}
+                        |{{Loot Item|Amber with a Bug|common}}
+                        |{{Loot Item|Brass Button}}
+                        }}
+                        """
+        ));
+        JSONObject result = target.enhanceJsonObject(inputJsonObject);
+        assertEquals("7197 Theons", ((JSONArray) result.get("loot")).getJSONObject(0).get("itemName"));
+        assertEquals("common", ((JSONArray) result.get("loot")).getJSONObject(0).get("rarity"));
+
+        assertEquals("Platinum Coin", ((JSONArray) result.get("loot")).getJSONObject(1).get("itemName"));
+        assertEquals("60", ((JSONArray) result.get("loot")).getJSONObject(1).get("amount"));
+        assertEquals("common", ((JSONArray) result.get("loot")).getJSONObject(1).get("rarity"));
+
+        assertEquals("Amber with a Bug", ((JSONArray) result.get("loot")).getJSONObject(2).get("itemName"));
+        assertEquals("common", ((JSONArray) result.get("loot")).getJSONObject(2).get("rarity"));
+
+        assertEquals("Brass Button", ((JSONArray) result.get("loot")).getJSONObject(3).get("itemName"));
     }
 
     @Test
