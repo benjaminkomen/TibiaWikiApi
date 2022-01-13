@@ -2,6 +2,7 @@ package com.tibiawiki.domain.objects;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.tibiawiki.domain.enums.Article;
+import com.tibiawiki.domain.enums.AttackType;
 import com.tibiawiki.domain.enums.BestiaryClass;
 import com.tibiawiki.domain.enums.BestiaryLevel;
 import com.tibiawiki.domain.enums.BestiaryOccurrence;
@@ -33,6 +34,8 @@ public class Creature extends WikiObject {
     private final BestiaryClass bestiaryclass;
     private final BestiaryLevel bestiarylevel;
     private final BestiaryOccurrence occurrence;
+    private final AttackType attacktype;
+    private final YesNo usespells;
     private final List<Spawntype> spawntype;
     private final YesNo isboss;
     private final YesNo isarenaboss;
@@ -80,6 +83,8 @@ public class Creature extends WikiObject {
         this.bestiaryclass = null;
         this.bestiarylevel = null;
         this.occurrence = null;
+        this.attacktype = null;
+        this.usespells = null;
         this.spawntype = null;
         this.isboss = null;
         this.isarenaboss = null;
@@ -120,7 +125,8 @@ public class Creature extends WikiObject {
                     String history, Status status, String race_id, String hitPoints, String experiencePoints, String armor,
                     String summon, String convince, YesNo illusionable, String creatureclass, String primarytype,
                     String secondarytype, BestiaryClass bestiaryclass, BestiaryLevel bestiarylevel,
-                    BestiaryOccurrence occurrence, List<Spawntype> spawntype, YesNo isboss, YesNo isarenaboss,
+                    BestiaryOccurrence occurrence, AttackType attacktype, YesNo usespells, List<Spawntype> spawntype,
+                    YesNo isboss, YesNo isarenaboss,
                     YesNo isevent, String abilities, String usedelements, String maxdmg, YesNo pushable,
                     YesNo pushobjects, String walksaround, String walksthrough, YesNo paraimmune, YesNo senseinvis,
                     Percentage physicalDmgMod, Percentage holyDmgMod, Percentage deathDmgMod, Percentage fireDmgMod,
@@ -142,6 +148,8 @@ public class Creature extends WikiObject {
         this.bestiaryclass = bestiaryclass;
         this.bestiarylevel = bestiarylevel;
         this.occurrence = occurrence;
+        this.attacktype = attacktype;
+        this.usespells = usespells;
         this.spawntype = spawntype;
         this.isboss = isboss;
         this.isarenaboss = isarenaboss;
@@ -200,7 +208,8 @@ public class Creature extends WikiObject {
     public List<String> fieldOrder() {
         return Arrays.asList("name", "article", "actualname", "plural", "hp", "exp", "armor", "summon", "convince",
                 "illusionable", "creatureclass", "primarytype", "secondarytype", "bestiaryclass", "bestiarylevel",
-                "occurrence", "spawntype", "isboss", "isarenaboss", "isevent", "abilities", "usedelements", "maxdmg", "pushable",
+                "occurrence", "attacktype", "usespells", "spawntype", "isboss", "isarenaboss", "isevent", "abilities",
+                "usedelements", "maxdmg", "pushable",
                 "pushobjects", "walksaround", "walksthrough", "paraimmune", "senseinvis", "physicalDmgMod", "earthDmgMod",
                 "fireDmgMod", "deathDmgMod", "energyDmgMod", "holyDmgMod", "iceDmgMod", "hpDrainDmgMod", "drownDmgMod",
                 "healMod", "bestiaryname", "bestiarytext", "sounds", "implemented", "race_id", "notes", "behaviour", "runsat",
