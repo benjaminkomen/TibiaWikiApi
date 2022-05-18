@@ -1,6 +1,6 @@
 package com.tibiawiki.domain.repositories;
 
-import org.fastily.jwiki.core.NS;
+import io.github.fastily.jwiki.core.NS;
 
 import java.util.List;
 import java.util.Map;

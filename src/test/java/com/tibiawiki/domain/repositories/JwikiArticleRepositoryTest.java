@@ -1,7 +1,7 @@
 package com.tibiawiki.domain.repositories;
 
-import org.fastily.jwiki.core.NS;
-import org.fastily.jwiki.core.Wiki;
+import io.github.fastily.jwiki.core.NS;
+import io.github.fastily.jwiki.core.Wiki;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

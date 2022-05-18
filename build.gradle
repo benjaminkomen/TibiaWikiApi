@@ -54,7 +54,7 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
 //    implementation "benjaminkomen:jwiki:2.2.0"
-    implementation "org.fastily:jwiki:1.9.0"
+    implementation "io.github.fastily:jwiki:1.10.0"
     implementation "org.slf4j:slf4j-api:${slf4jVersion}"
     implementation "net.logstash.logback:logstash-logback-encoder:7.1.1"
     implementation "ch.qos.logback:logback-classic:1.2.11"

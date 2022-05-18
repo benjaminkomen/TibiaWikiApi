@@ -2,9 +2,9 @@ package com.tibiawiki.domain.repositories;
 
 import com.tibiawiki.domain.utils.PropertiesUtil;
 import okhttp3.HttpUrl;
-import org.fastily.jwiki.core.MQuery;
-import org.fastily.jwiki.core.NS;
-import org.fastily.jwiki.core.Wiki;
+import io.github.fastily.jwiki.core.MQuery;
+import io.github.fastily.jwiki.core.NS;
+import io.github.fastily.jwiki.core.Wiki;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
