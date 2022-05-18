@@ -8,6 +8,7 @@ public enum Status implements Description {
     ACTIVE("Active"),
     DEPRECATED("deprecated"),
     UNOBTAINABLE("unobtainable"),
+    UNAVAILABLE("unavailable"),
     TS_ONLY_LOWERCASE("ts-only"),
     TS_ONLY_UPPERCASE("TS-only"),
     EVENT("event"),
