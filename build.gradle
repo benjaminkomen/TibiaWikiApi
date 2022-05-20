@@ -56,7 +56,7 @@ dependencies {
 //    implementation "benjaminkomen:jwiki:2.2.0"
     implementation "io.github.fastily:jwiki:1.10.0"
     implementation "org.slf4j:slf4j-api:${slf4jVersion}"
-    implementation "net.logstash.logback:logstash-logback-encoder:7.1.1"
+    implementation "net.logstash.logback:logstash-logback-encoder:7.2"
     implementation "ch.qos.logback:logback-classic:1.2.11"
     implementation "org.springframework.cloud:spring-cloud-gcp-starter-logging:1.2.8.RELEASE"
     implementation "org.codehaus.janino:janino:3.1.7"
