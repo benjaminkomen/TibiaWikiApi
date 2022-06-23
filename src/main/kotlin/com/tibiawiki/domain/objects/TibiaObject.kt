@@ -1,7 +1,11 @@
 package com.tibiawiki.domain.objects
 
 import com.fasterxml.jackson.annotation.JsonGetter
-import com.tibiawiki.domain.enums.*
+import com.tibiawiki.domain.enums.DamageElement
+import com.tibiawiki.domain.enums.Hands
+import com.tibiawiki.domain.enums.InfoboxTemplate
+import com.tibiawiki.domain.enums.WeaponType
+import com.tibiawiki.domain.enums.YesNo
 import java.math.BigDecimal
 
 data class TibiaObject(
