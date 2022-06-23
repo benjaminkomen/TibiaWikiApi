@@ -16,7 +16,7 @@ public enum InfoboxTemplate implements WikiTemplate {
     FANSITE("Fansite", "Tibia_Fansites"),
     GEOGRAPHY("Geography", "Locations"),
     HUNT("Hunt", "Hunting Places"),
-    ITEM("Item", "Pickupable Items"),
+    ITEM("Item", "Pickupable Objects"),
     KEY("Key", "Keys"),
     LOOT("Loot2", "Loot Statistics"),
     MISSILE("Missile", "Missiles"),
