@@ -1,11 +1,7 @@
 package com.tibiawiki.domain.objects
 
 import com.fasterxml.jackson.annotation.JsonGetter
-import com.tibiawiki.domain.enums.DamageElement
-import com.tibiawiki.domain.enums.Hands
-import com.tibiawiki.domain.enums.InfoboxTemplate
-import com.tibiawiki.domain.enums.WeaponType
-import com.tibiawiki.domain.enums.YesNo
+import com.tibiawiki.domain.enums.*
 import java.math.BigDecimal
 
 data class TibiaObject(
@@ -88,6 +84,7 @@ data class TibiaObject(
     val npcpricerook: String? = null,
     val buyfrom: String? = null,
     val sellto: String? = null,
+    val pricecurrency: String? = null,
     val fansite: String? = null,
     val location: String? = null,
     val notes2: String? = null,
@@ -175,6 +172,7 @@ data class TibiaObject(
             "npcpricerook",
             "buyfrom",
             "sellto",
+            "pricecurrency",
             "fansite",
             "location",
             "notes",
