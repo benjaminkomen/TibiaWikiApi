@@ -1349,6 +1349,7 @@ class JsonFactoryTest {
                 "Baltim, Brengus, Cedrik, Esrik,",
                 null,
                 null,
+                null,
                 null);
         ReflectionTestUtils.setField(result, "name", "Carlin Sword");
         ReflectionTestUtils.setField(result, "article", Article.A);

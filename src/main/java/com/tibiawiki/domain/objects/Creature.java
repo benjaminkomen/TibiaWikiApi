@@ -38,11 +38,14 @@ public class Creature extends WikiObject {
     private final YesNo usespells;
     private final List<Spawntype> spawntype;
     private final YesNo isboss;
+    private final String bosstiaryclass;
     private final YesNo isarenaboss;
     private final YesNo isevent;
     private final String abilities;
     private final String usedelements; // FIXME should be List<DamageElement>
     private final String maxdmg; // FIXME should be Integer
+    private final Integer lightradius;
+    private final Integer lightcolor;
     private final YesNo pushable;
     private final YesNo pushobjects;
     private final String walksaround; // FIXME should be List<Field>
@@ -87,11 +90,14 @@ public class Creature extends WikiObject {
         this.usespells = null;
         this.spawntype = null;
         this.isboss = null;
+        this.bosstiaryclass = null;
         this.isarenaboss = null;
         this.isevent = null;
         this.abilities = null;
         this.usedelements = null;
         this.maxdmg = null;
+        this.lightradius = null;
+        this.lightcolor = null;
         this.pushable = null;
         this.pushobjects = null;
         this.walksaround = null;
@@ -126,8 +132,8 @@ public class Creature extends WikiObject {
                     String summon, String convince, YesNo illusionable, String creatureclass, String primarytype,
                     String secondarytype, BestiaryClass bestiaryclass, BestiaryLevel bestiarylevel,
                     BestiaryOccurrence occurrence, AttackType attacktype, YesNo usespells, List<Spawntype> spawntype,
-                    YesNo isboss, YesNo isarenaboss,
-                    YesNo isevent, String abilities, String usedelements, String maxdmg, YesNo pushable,
+                    YesNo isboss, String bosstiaryclass, YesNo isarenaboss,
+                    YesNo isevent, String abilities, String usedelements, String maxdmg, Integer lightradius, Integer lightcolor, YesNo pushable,
                     YesNo pushobjects, String walksaround, String walksthrough, YesNo paraimmune, YesNo senseinvis,
                     Percentage physicalDmgMod, Percentage holyDmgMod, Percentage deathDmgMod, Percentage fireDmgMod,
                     Percentage energyDmgMod, Percentage iceDmgMod, Percentage earthDmgMod, Percentage drownDmgMod,
@@ -152,11 +158,14 @@ public class Creature extends WikiObject {
         this.usespells = usespells;
         this.spawntype = spawntype;
         this.isboss = isboss;
+        this.bosstiaryclass = bosstiaryclass;
         this.isarenaboss = isarenaboss;
         this.isevent = isevent;
         this.abilities = abilities;
         this.usedelements = usedelements;
         this.maxdmg = maxdmg;
+        this.lightradius = lightradius;
+        this.lightcolor = lightcolor;
         this.pushable = pushable;
         this.pushobjects = pushobjects;
         this.walksaround = walksaround;
@@ -208,8 +217,8 @@ public class Creature extends WikiObject {
     public List<String> fieldOrder() {
         return Arrays.asList("name", "article", "actualname", "plural", "hp", "exp", "armor", "summon", "convince",
                 "illusionable", "creatureclass", "primarytype", "secondarytype", "bestiaryclass", "bestiarylevel",
-                "occurrence", "attacktype", "usespells", "spawntype", "isboss", "isarenaboss", "isevent", "abilities",
-                "usedelements", "maxdmg", "pushable",
+                "occurrence", "attacktype", "usespells", "spawntype", "isboss", "bosstiaryclass", "isarenaboss", "isevent", "abilities",
+                "usedelements", "maxdmg", "lightradius", "lightcolor", "pushable",
                 "pushobjects", "walksaround", "walksthrough", "paraimmune", "senseinvis", "physicalDmgMod", "earthDmgMod",
                 "fireDmgMod", "deathDmgMod", "energyDmgMod", "holyDmgMod", "iceDmgMod", "hpDrainDmgMod", "drownDmgMod",
                 "healMod", "bestiaryname", "bestiarytext", "sounds", "implemented", "race_id", "notes", "behaviour", "runsat",
