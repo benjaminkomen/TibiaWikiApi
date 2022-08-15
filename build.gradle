@@ -44,7 +44,7 @@ ext {
     lombokVersion = '1.18.24'
     jacksonVersion = '2.13.2'
     jacocoVersion = "0.8.7"
-    mockitoVersion = "4.5.1"
+    mockitoVersion = "4.7.0"
 }
 
 dependencies {
