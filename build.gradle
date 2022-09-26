@@ -60,7 +60,7 @@ dependencies {
     implementation "ch.qos.logback:logback-classic:1.2.11"
     implementation "org.springframework.cloud:spring-cloud-gcp-starter-logging:1.2.8.RELEASE"
     implementation "org.codehaus.janino:janino:3.1.7"
-    implementation "org.json:json:20220320"
+    implementation "org.json:json:20220924"
     implementation "com.google.guava:guava:31.1-jre"
     implementation "io.vavr:vavr:0.10.4"
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
