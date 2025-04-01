@@ -1,0 +1,581 @@
+syntax = "proto3";
+
+package tibiawiki;
+
+import "google/api/annotations.proto";
+
+service Book {
+  // Service for managing books
+  rpc GetBook(GetBookRequest) returns (Book) {
+    // Get a specific book by name
+    option (google.api.http) = {
+      get: "/api/books/{name}"
+    };
+  }
+
+  rpc ListBooks(ListBooksRequest) returns (ListBooksResponse) {
+    // Get a list of books
+    option (google.api.http) = {
+      get: "/api/books"
+    };
+  }
+}
+
+service Building {
+  // Service for managing buildings
+  rpc GetBuilding(GetBuildingRequest) returns (Building) {
+    // Get a specific building by name
+    option (google.api.http) = {
+      get: "/api/buildings/{name}"
+    };
+  }
+
+  rpc ListBuildings(ListBuildingsRequest) returns (ListBuildingsResponse) {
+    // Get a list of buildings
+    option (google.api.http) = {
+      get: "/api/buildings"
+    };
+  }
+}
+
+service Corpse {
+  // Service for managing corpses
+  rpc GetCorpse(GetCorpseRequest) returns (Corpse) {
+    // Get a specific corpse by name
+    option (google.api.http) = {
+      get: "/api/corpses/{name}"
+    };
+  }
+
+  rpc ListCorpses(ListCorpsesRequest) returns (ListCorpsesResponse) {
+    // Get a list of corpses
+    option (google.api.http) = {
+      get: "/api/corpses"
+    };
+  }
+}
+
+service Creature {
+  // Service for managing creatures
+  rpc GetCreature(GetCreatureRequest) returns (Creature) {
+    // Get a specific creature by name
+    option (google.api.http) = {
+      get: "/api/creatures/{name}"
+    };
+  }
+
+  rpc ListCreatures(ListCreaturesRequest) returns (ListCreaturesResponse) {
+    // Get a list of creatures
+    option (google.api.http) = {
+      get: "/api/creatures"
+    };
+  }
+}
+
+service Effect {
+  // Service for managing effects
+  rpc GetEffect(GetEffectRequest) returns (Effect) {
+    // Get a specific effect by name
+    option (google.api.http) = {
+      get: "/api/effects/{name}"
+    };
+  }
+
+  rpc ListEffects(ListEffectsRequest) returns (ListEffectsResponse) {
+    // Get a list of effects
+    option (google.api.http) = {
+      get: "/api/effects"
+    };
+  }
+}
+
+service HuntingPlace {
+  // Service for managing hunting places
+  rpc GetHuntingPlace(GetHuntingPlaceRequest) returns (HuntingPlace) {
+    // Get a specific hunting place by name
+    option (google.api.http) = {
+      get: "/api/huntingplaces/{name}"
+    };
+  }
+
+  rpc ListHuntingPlaces(ListHuntingPlacesRequest) returns (ListHuntingPlacesResponse) {
+    // Get a list of hunting places
+    option (google.api.http) = {
+      get: "/api/huntingplaces"
+    };
+  }
+}
+
+service Item {
+  // Service for managing items
+  rpc GetItem(GetItemRequest) returns (Item) {
+    // Get a specific item by name
+    option (google.api.http) = {
+      get: "/api/items/{name}"
+    };
+  }
+
+  rpc ListItems(ListItemsRequest) returns (ListItemsResponse) {
+    // Get a list of items
+    option (google.api.http) = {
+      get: "/api/items"
+    };
+  }
+}
+
+service Key {
+  // Service for managing keys
+  rpc GetKey(GetKeyRequest) returns (Key) {
+    // Get a specific key by name
+    option (google.api.http) = {
+      get: "/api/keys/{name}"
+    };
+  }
+
+  rpc ListKeys(ListKeysRequest) returns (ListKeysResponse) {
+    // Get a list of keys
+    option (google.api.http) = {
+      get: "/api/keys"
+    };
+  }
+}
+
+service Location {
+  // Service for managing locations
+  rpc GetLocation(GetLocationRequest) returns (Location) {
+    // Get a specific location by name
+    option (google.api.http) = {
+      get: "/api/locations/{name}"
+    };
+  }
+
+  rpc ListLocations(ListLocationsRequest) returns (ListLocationsResponse) {
+    // Get a list of locations
+    option (google.api.http) = {
+      get: "/api/locations"
+    };
+  }
+}
+
+service LootStatistic {
+  // Service for managing loot statistics
+  rpc GetLootStatistic(GetLootStatisticRequest) returns (LootStatistic) {
+    // Get a specific loot statistic by name
+    option (google.api.http) = {
+      get: "/api/loot/{name}"
+    };
+  }
+
+  rpc ListLootStatistics(ListLootStatisticsRequest) returns (ListLootStatisticsResponse) {
+    // Get a list of loot statistics
+    option (google.api.http) = {
+      get: "/api/loot"
+    };
+  }
+}
+
+service Missile {
+  // Service for managing missiles
+  rpc GetMissile(GetMissileRequest) returns (Missile) {
+    // Get a specific missile by name
+    option (google.api.http) = {
+      get: "/api/missiles/{name}"
+    };
+  }
+
+  rpc ListMissiles(ListMissilesRequest) returns (ListMissilesResponse) {
+    // Get a list of missiles
+    option (google.api.http) = {
+      get: "/api/missiles"
+    };
+  }
+}
+
+service Mount {
+  // Service for managing mounts
+  rpc GetMount(GetMountRequest) returns (Mount) {
+    // Get a specific mount by name
+    option (google.api.http) = {
+      get: "/api/mounts/{name}"
+    };
+  }
+
+  rpc ListMounts(ListMountsRequest) returns (ListMountsResponse) {
+    // Get a list of mounts
+    option (google.api.http) = {
+      get: "/api/mounts"
+    };
+  }
+}
+
+service NPC {
+  // Service for managing NPCs
+  rpc GetNPC(GetNPCRequest) returns (NPC) {
+    // Get a specific NPC by name
+    option (google.api.http) = {
+      get: "/api/npcs/{name}"
+    };
+  }
+
+  rpc ListNPCs(ListNPCsRequest) returns (ListNPCsResponse) {
+    // Get a list of NPCs
+    option (google.api.http) = {
+      get: "/api/npcs"
+    };
+  }
+}
+
+service Object {
+  // Service for managing objects
+  rpc GetObject(GetObjectRequest) returns (Object) {
+    // Get a specific object by name
+    option (google.api.http) = {
+      get: "/api/objects/{name}"
+    };
+  }
+
+  rpc ListObjects(ListObjectsRequest) returns (ListObjectsResponse) {
+    // Get a list of objects
+    option (google.api.http) = {
+      get: "/api/objects"
+    };
+  }
+}
+
+service Outfit {
+  // Service for managing outfits
+  rpc GetOutfit(GetOutfitRequest) returns (Outfit) {
+    // Get a specific outfit by name
+    option (google.api.http) = {
+      get: "/api/outfits/{name}"
+    };
+  }
+
+  rpc ListOutfits(ListOutfitsRequest) returns (ListOutfitsResponse) {
+    // Get a list of outfits
+    option (google.api.http) = {
+      get: "/api/outfits"
+    };
+  }
+}
+
+service Quest {
+  // Service for managing quests
+  rpc GetQuest(GetQuestRequest) returns (Quest) {
+    // Get a specific quest by name
+    option (google.api.http) = {
+      get: "/api/quests/{name}"
+    };
+  }
+
+  rpc ListQuests(ListQuestsRequest) returns (ListQuestsResponse) {
+    // Get a list of quests
+    option (google.api.http) = {
+      get: "/api/quests"
+    };
+  }
+}
+
+service Spell {
+  // Service for managing spells
+  rpc GetSpell(GetSpellRequest) returns (Spell) {
+    // Get a specific spell by name
+    option (google.api.http) = {
+      get: "/api/spells/{name}"
+    };
+  }
+
+  rpc ListSpells(ListSpellsRequest) returns (ListSpellsResponse) {
+    // Get a list of spells
+    option (google.api.http) = {
+      get: "/api/spells"
+    };
+  }
+}
+
+service Street {
+  // Service for managing streets
+  rpc GetStreet(GetStreetRequest) returns (Street) {
+    // Get a specific street by name
+    option (google.api.http) = {
+      get: "/api/streets/{name}"
+    };
+  }
+
+  rpc ListStreets(ListStreetsRequest) returns (ListStreetsResponse) {
+    // Get a list of streets
+    option (google.api.http) = {
+      get: "/api/streets"
+    };
+  }
+}
+
+message GetBookRequest {
+  string name = 1;
+}
+
+message ListBooksRequest {}
+
+message ListBooksResponse {
+  repeated Book books = 1;
+}
+
+message Book {
+  string name = 1;
+  string content = 2;
+}
+
+message GetBuildingRequest {
+  string name = 1;
+}
+
+message ListBuildingsRequest {}
+
+message ListBuildingsResponse {
+  repeated Building buildings = 1;
+}
+
+message Building {
+  string name = 1;
+  string content = 2;
+}
+
+message GetCorpseRequest {
+  string name = 1;
+}
+
+message ListCorpsesRequest {}
+
+message ListCorpsesResponse {
+  repeated Corpse corpses = 1;
+}
+
+message Corpse {
+  string name = 1;
+  string content = 2;
+}
+
+message GetCreatureRequest {
+  string name = 1;
+}
+
+message ListCreaturesRequest {}
+
+message ListCreaturesResponse {
+  repeated Creature creatures = 1;
+}
+
+message Creature {
+  string name = 1;
+  string content = 2;
+}
+
+message GetEffectRequest {
+  string name = 1;
+}
+
+message ListEffectsRequest {}
+
+message ListEffectsResponse {
+  repeated Effect effects = 1;
+}
+
+message Effect {
+  string name = 1;
+  string content = 2;
+}
+
+message GetHuntingPlaceRequest {
+  string name = 1;
+}
+
+message ListHuntingPlacesRequest {}
+
+message ListHuntingPlacesResponse {
+  repeated HuntingPlace huntingPlaces = 1;
+}
+
+message HuntingPlace {
+  string name = 1;
+  string content = 2;
+}
+
+message GetItemRequest {
+  string name = 1;
+}
+
+message ListItemsRequest {}
+
+message ListItemsResponse {
+  repeated Item items = 1;
+}
+
+message Item {
+  string name = 1;
+  string content = 2;
+}
+
+message GetKeyRequest {
+  string name = 1;
+}
+
+message ListKeysRequest {}
+
+message ListKeysResponse {
+  repeated Key keys = 1;
+}
+
+message Key {
+  string name = 1;
+  string content = 2;
+}
+
+message GetLocationRequest {
+  string name = 1;
+}
+
+message ListLocationsRequest {}
+
+message ListLocationsResponse {
+  repeated Location locations = 1;
+}
+
+message Location {
+  string name = 1;
+  string content = 2;
+}
+
+message GetLootStatisticRequest {
+  string name = 1;
+}
+
+message ListLootStatisticsRequest {}
+
+message ListLootStatisticsResponse {
+  repeated LootStatistic lootStatistics = 1;
+}
+
+message LootStatistic {
+  string name = 1;
+  string content = 2;
+}
+
+message GetMissileRequest {
+  string name = 1;
+}
+
+message ListMissilesRequest {}
+
+message ListMissilesResponse {
+  repeated Missile missiles = 1;
+}
+
+message Missile {
+  string name = 1;
+  string content = 2;
+}
+
+message GetMountRequest {
+  string name = 1;
+}
+
+message ListMountsRequest {}
+
+message ListMountsResponse {
+  repeated Mount mounts = 1;
+}
+
+message Mount {
+  string name = 1;
+  string content = 2;
+}
+
+message GetNPCRequest {
+  string name = 1;
+}
+
+message ListNPCsRequest {}
+
+message ListNPCsResponse {
+  repeated NPC npcs = 1;
+}
+
+message NPC {
+  string name = 1;
+  string content = 2;
+}
+
+message GetObjectRequest {
+  string name = 1;
+}
+
+message ListObjectsRequest {}
+
+message ListObjectsResponse {
+  repeated Object objects = 1;
+}
+
+message Object {
+  string name = 1;
+  string content = 2;
+}
+
+message GetOutfitRequest {
+  string name = 1;
+}
+
+message ListOutfitsRequest {}
+
+message ListOutfitsResponse {
+  repeated Outfit outfits = 1;
+}
+
+message Outfit {
+  string name = 1;
+  string content = 2;
+}
+
+message GetQuestRequest {
+  string name = 1;
+}
+
+message ListQuestsRequest {}
+
+message ListQuestsResponse {
+  repeated Quest quests = 1;
+}
+
+message Quest {
+  string name = 1;
+  string content = 2;
+}
+
+message GetSpellRequest {
+  string name = 1;
+}
+
+message ListSpellsRequest {}
+
+message ListSpellsResponse {
+  repeated Spell spells = 1;
+}
+
+message Spell {
+  string name = 1;
+  string content = 2;
+}
+
+message GetStreetRequest {
+  string name = 1;
+}
+
+message ListStreetsRequest {}
+
+message ListStreetsResponse {
+  repeated Street streets = 1;
+}
+
+message Street {
+  string name = 1;
+  string content = 2;
+}
