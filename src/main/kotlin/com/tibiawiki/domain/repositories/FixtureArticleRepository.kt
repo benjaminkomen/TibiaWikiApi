@@ -89,9 +89,7 @@ class FixtureArticleRepository(
         private val CATEGORIES_TYPE = object : TypeReference<Map<String, List<String>>>() {}
 
         private fun readCategories(file: Path): Map<String, List<String>> {
-            if (!Files.isRegularFile(file)) {
-                throw IllegalStateException("Missing fixture file: ${file.toAbsolutePath()}")
-            }
+            check(Files.isRegularFile(file)) { "Missing fixture file: ${file.toAbsolutePath()}" }
             return try {
                 JsonMapper.builder().build().readValue(file.toFile(), CATEGORIES_TYPE)
             } catch (e: RuntimeException) {
@@ -100,9 +98,7 @@ class FixtureArticleRepository(
         }
 
         private fun readArticles(articlesDir: Path): Map<String, String> {
-            if (!Files.isDirectory(articlesDir)) {
-                throw IllegalStateException("Missing fixture articles dir: ${articlesDir.toAbsolutePath()}")
-            }
+            check(Files.isDirectory(articlesDir)) { "Missing fixture articles dir: ${articlesDir.toAbsolutePath()}" }
             val loaded = LinkedHashMap<String, String>()
             Files.list(articlesDir).use { paths ->
                 paths.filter { it.fileName.toString().endsWith(".wiki") }

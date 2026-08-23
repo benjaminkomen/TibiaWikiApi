@@ -6,7 +6,6 @@ import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.tags.Tag
-import org.json.JSONObject
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -37,24 +36,12 @@ class LootStatisticsV2Controller(
         )
         @RequestParam(value = "expand", required = false) expand: Boolean?
     ): ResponseEntity<Any> {
-        return ResponseEntity.ok()
-            .body(
-                if (expand != null && expand) {
-                    retrieveLoot.getAllLootPartsJSON().map { obj: JSONObject -> obj.toMap() }
-                } else {
-                    retrieveLoot.getLootList()
-                }
-            )
+        return WikiObjectResponses.list(expand, retrieveLoot.getAllLootPartsJSON(), retrieveLoot.getLootList())
     }
 
     @GetMapping(value = ["/{name}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(summary = "Get a specific loot statistics page by creature name")
     fun getLootByName(@PathVariable("name") name: String): ResponseEntity<String> {
-        return retrieveLoot.getAllLootPartsJSON("Loot_Statistics:$name")
-            .map { a ->
-                ResponseEntity.ok()
-                    .body(a.toString(2))
-            }
-            .orElseGet { ResponseEntity.notFound().build() }
+        return WikiObjectResponses.byName(retrieveLoot.getAllLootPartsJSON("Loot_Statistics:$name"))
     }
 }

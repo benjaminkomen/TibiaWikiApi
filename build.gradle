@@ -109,9 +109,13 @@ sonar {
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.sourceEncoding", "UTF-8"
         property "sonar.sources", "src/main"
-        property "sonar.tests", "src/test"
+        property "sonar.tests", "src/test,src/integrationTest"
         property "sonar.java.coveragePlugin", "jacoco"
         property "sonar.coverage.jacoco.xmlReportPaths", "./build/reports/jacocoTestReport.xml"
+        // kotlin:S6474 wants gradle/verification-metadata.xml. Generating and
+        // committing it is too heavy here: Dependabot bumps libraries frequently
+        // and every checksum drift would fail CI until metadata is regenerated.
+        // No sonar.coverage.exclusions — coverage gaps are closed with tests.
     }
 }
 
@@ -189,6 +193,12 @@ jacoco {
 
 jacocoTestReport {
     dependsOn check
+    // Default jacocoTestReport only consumes the unit `test` exec file.
+    // Integration tests under src/integrationTest write a second exec; include
+    // both so Sonar sees controller / Retrieve* hits from ITs.
+    executionData.setFrom(
+        fileTree(layout.buildDirectory.dir("jacoco")).include("*.exec")
+    )
 
     reports {
         xml.required = true

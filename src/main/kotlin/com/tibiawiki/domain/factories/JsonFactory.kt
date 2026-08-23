@@ -253,7 +253,7 @@ class JsonFactory {
     private fun makeLootTableArray(lootValue: String): JSONArray {
         val lootItemJsonObjects = ArrayList<JSONObject>()
 
-        if (lootValue.matches(Regex("(\\{\\{Loot Table(\\||\\s|[\\n\\s]+|)}}|)"))) {
+        if (lootValue.matches(Regex("(\\{\\{Loot Table[|\\s]*}}|)"))) {
             return JSONArray()
         }
 
@@ -309,7 +309,7 @@ class JsonFactory {
             "droppedbyValue $droppedbyValue' from article '$articleName' does not contain Template:Dropped By"
         }
         val creatures = TemplateUtils.removeStartAndEndOfTemplate(droppedbyValue)
-        return if (creatures != null && creatures.isNotEmpty()) {
+        return if (!creatures.isNullOrEmpty()) {
             JSONArray(Pattern.compile("\\|").split(creatures).toList())
         } else {
             JSONArray()
@@ -422,7 +422,7 @@ class JsonFactory {
         private const val EFFECT_ID = "effectid"
         private const val LOWER_LEVELS = "lowerlevels"
         private val ITEMS_WITH_NO_DROPPEDBY_LIST = listOf("Gold Coin", "Platinum Coin")
-        private const val INFOBOX_HEADER_PATTERN = "\\{\\{Infobox[\\s|_](.*?)[\\||\\n]"
+        private const val INFOBOX_HEADER_PATTERN = "\\{\\{Infobox[\\s|_](.*?)[|\\n]"
         private const val RARITY_PATTERN = "(always|common|uncommon|semi-rare|rare|very rare|extremely rare)(|\\?)"
         private const val LOOT_LINE_NAME_PATTERN = "(\\w+:[\\d-]+)"
         private val TEXT_PATTERN: Pattern = Pattern.compile("[a-zA-Z]")
