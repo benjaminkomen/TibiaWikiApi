@@ -2,19 +2,12 @@
   "path": "/api/quests/The_Paradox_Tower_Quest",
   "status": 200,
   "body": {
-    "aka": "Riddler Quest, Mathemagics Quest",
-    "dangers": "[[Wyvern]]s<br /> ([[Mintwallin]]): [[Minotaur]]s, [[Minotaur Archer]]s, [[Minotaur Guard]]s, [[Minotaur Mage]]s<br>([[Hellgate]]): [[Skeleton]]s, [[Ghoul]]s, [[Bonelord]]s, maybe [[Elder Bonelord]]<br />\n([[Plains of Havoc]]): [[Skeleton]]s, [[Ghoul]]s, [[Demon Skeleton]]s, [[Orc Berserker]], [[Orc Spearman]], maybe [[Cyclops]] and [[Giant Spider]]",
-    "history": "It was originally implemented with the [[Updates/6.61-6.97|Darashia Update]], before the quest system existed. Back then, the possible rewards were a [[Red Spell Wand]], a [[Time Ring]], a [[Magician Hat]] and a [[Violet Gem]]. With [[Updates/7.24|Update 7.24]], almost 2 years after the quest had been implemented, its rewards were changed to 10k gp, a [[Wooden Wand]], 32 [[Talons]] and a [[Phoenix Egg]]. Lastly, one and a half years later, the wooden wand was replaced by a [[Wand of Cosmic Energy]] on [[Updates/7.6|Christmas Update 2005]].",
+    "aka": "Riddler Quest",
     "implemented": "6.61-6.97",
-    "legend": "Surpass the wrath of a madman and subject yourself to his twisted taunting.",
-    "location": "[[Paradox Tower]] near [[Kazordoon]].",
-    "log": "yes",
+    "location": "[[Paradox Tower]] near [[Kazordoon]]",
     "lvl": "30",
-    "lvlrec": "50+",
     "name": "The Paradox Tower Quest",
     "premium": "yes",
-    "reward": "Up to two of the following: 10k [[gp]], [[Wand of Cosmic Energy]], 32 [[Talon]]s and [[Phoenix Egg]]. You will also get the [[achievement]] [[Mathemagician]].",
-    "templateType": "Quest",
-    "transcripts": "yes"
+    "templateType": "Quest"
   }
 }

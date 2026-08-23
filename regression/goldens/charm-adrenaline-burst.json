@@ -2,13 +2,12 @@
   "path": "/api/charms/Adrenaline_Burst",
   "status": 200,
   "body": {
-    "cost": "100 / 150 / 225",
-    "effect": "Bursts of adrenaline enhance your reflexes with a 6% / 9% / 12% chance after getting hit and lets you move faster for 10 seconds.",
+    "cost": "100",
+    "effect": "Boosts damage for a short time.",
     "implemented": "11.50.6055",
     "name": "Adrenaline Burst",
-    "notes": "While the [[Speed]] boost of Adrenaline Burst is considerable - it multiplies character speed by 2.5 -, its unpredictability makes it hard to be used very efficiently. Also, since this bonus removes and is removed by [[Haste (Condition)|haste spells]], it will not stack with other temporary bonuses, reducing its usefulness.",
     "status": "active",
     "templateType": "Charm",
-    "type": "Minor"
+    "type": "Offensive"
   }
 }

@@ -4,28 +4,15 @@
   "body": {
     "bestloot": "Reins",
     "city": "Edron",
-    "defknights": "75",
     "exp": "Good",
     "image": "Hero",
     "implemented": "6.4",
-    "location": "North of [[Edron]], {{Mapper Coords|129.140|123.150|7|3|text=here}}.",
+    "location": "North of [[Edron]].",
     "loot": "Good",
-    "lowerlevels": [
-      {
-        "areaname": "Demons",
-        "lvlknights": "130",
-        "lvlmages": "130",
-        "lvlpaladins": "130"
-      }
-    ],
     "lvlknights": "70",
     "lvlmages": "50",
     "lvlpaladins": "60",
-    "map": "Hero Cave 3.png",
-    "map2": "Hero Cave 6.png",
     "name": "Hero Cave",
-    "skknights": "75",
-    "skpaladins": "80",
     "templateType": "Hunt",
     "vocation": "All vocations."
   }

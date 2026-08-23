@@ -2,23 +2,15 @@
   "path": "/api/spells/Light_Healing",
   "status": 200,
   "body": {
-    "basepower": "40",
     "cooldown": "1",
-    "cooldowngroup": "1",
-    "effect": "Restores a small amount of [[HP|health]] and cures [[paralysis]].",
-    "history": "* It was the only healing spell available for [[knight]]s for many years until [[Wound Cleansing]] was introduced in the [[Winter Update 2007]].\n* Knights can not use it since the [[Winter Update 2010]].\n* Learning Light Healing used to cost 170 [[gp]], but since the [[Winter Update 2012]], it is free.",
+    "effect": "Restores a small amount of [[HP|health]].",
     "levelrequired": "8",
-    "libraryname": "lighthealing",
-    "librarytext": "This spell is awarded free to all newly chosen paladins, druids, sorcerers and monks. Although its salutary effect is limited, its development represented a major breakthrough in spell research. For the first time, adventurers could quickly heal their own wounds and injuries, significantly increasing their chances to survive the dangers they are daily confronted with. Even today, Light Healing is still a very popular spell because of its reasonable mana cost.",
     "mana": "20",
     "name": "Light Healing",
-    "notes": "A rather weak, but popular and efficient healing spell. Cast by a high level mage, it has about 25% of the power of [[Ultimate Healing]].",
     "premium": "no",
-    "spellid": "1",
     "subclass": "Healing",
     "templateType": "Spell",
     "type": "Instant",
-    "voc": "[[Paladin]]s, [[Druid]]s, [[Sorcerer]]s, [[Monk]]s",
     "words": "exura"
   }
 }

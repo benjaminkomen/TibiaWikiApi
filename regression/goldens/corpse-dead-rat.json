@@ -11,12 +11,9 @@
     "3weight": "30.00",
     "article": "a",
     "corpseof": "[[Rat]], [[Cave Rat]], [[Munster]]",
-    "implemented": "3.0",
+    "implemented": "Pre-6.0",
     "liquid": "[[Blood]]",
     "name": "Dead Rat",
-    "notes": "These corpses are commonly used by low level players on [[Rookgaard]] to earn some gold for better [[equipment]]. Only fresh corpses are accepted, rotted corpses are ignored.",
-    "sellto": "[[Tom]] ([[Rookgaard]]) '''2''' [[gp]]<br>[[Seymour]] ([[Rookgaard]]) '''2''' [[gp]]<br>[[Billy]] ([[Rookgaard]]) '''2''' [[gp]]<br>[[Humgolf]] ([[Kazordoon]]) '''2''' [[gp]]<br>\n[[Baxter]] ([[Thais]]) '''1''' [[gp]]<br>",
-    "skinable": "?",
     "templateType": "Corpse"
   }
 }

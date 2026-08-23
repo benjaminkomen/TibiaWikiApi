@@ -2,30 +2,6 @@
   "path": "/api/charms",
   "status": 200,
   "body": [
-    "Adrenaline Burst",
-    "Bless",
-    "Carnage",
-    "Cleanse",
-    "Cripple",
-    "Curse (Charm)",
-    "Divine Wrath",
-    "Dodge",
-    "Enflame",
-    "Fatal Hold",
-    "Freeze",
-    "Gut",
-    "Low Blow",
-    "Numb",
-    "Overflux",
-    "Overpower",
-    "Parry",
-    "Poison",
-    "Savage Blow",
-    "Scavenge",
-    "Vampiric Embrace",
-    "Void Inversion",
-    "Void's Call",
-    "Wound",
-    "Zap"
+    "Adrenaline Burst"
   ]
 }
