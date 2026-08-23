@@ -1,6 +1,7 @@
 package com.tibiawiki.adapters.rest
 
 import com.tibiawiki.config.WikiWriteApiDocs
+import com.tibiawiki.domain.WikiJson
 import com.tibiawiki.domain.objects.Spell
 import com.tibiawiki.domain.objects.WikiObject
 import com.tibiawiki.process.ModifyAny
@@ -51,7 +52,7 @@ class SpellsController(
             ApiResponse(responseCode = "404", description = "spell with specified name not found")
         ]
     )
-    fun getSpellsByName(@PathVariable("name") name: String): ResponseEntity<String> {
+    fun getSpellsByName(@PathVariable("name") name: String): ResponseEntity<WikiJson> {
         return WikiResourceResponses.jsonOrNotFound(retrieveSpells.getSpellJSON(name))
     }
 

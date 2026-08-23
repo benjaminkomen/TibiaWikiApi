@@ -6,7 +6,6 @@ import com.tibiawiki.domain.objects.validation.ValidationException
 import io.vavr.control.Try
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
-import org.json.JSONObject
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.http.HttpStatus
@@ -19,8 +18,8 @@ class WikiResourceResponsesTest {
     fun listReturnsNamesWhenExpandIsNullOrFalse() {
         val names = listOf("foo", "bar")
 
-        val withoutExpand = WikiResourceResponses.list(null, { Stream.of(JSONObject()) }, { names })
-        val collapsed = WikiResourceResponses.list(false, { Stream.of(JSONObject()) }, { names })
+        val withoutExpand = WikiResourceResponses.list(null, { Stream.of(emptyMap()) }, { names })
+        val collapsed = WikiResourceResponses.list(false, { Stream.of(emptyMap()) }, { names })
 
         assertThat(withoutExpand.statusCode, `is`(HttpStatus.OK))
         assertThat(withoutExpand.body, `is`(names))
@@ -29,7 +28,7 @@ class WikiResourceResponsesTest {
 
     @Test
     fun listReturnsMappedJsonWhenExpandIsTrue() {
-        val json = JSONObject().put("name", "Dragon")
+        val json = mapOf("name" to "Dragon")
 
         val result = WikiResourceResponses.list(true, { Stream.of(json) }, { listOf("unused") })
 
@@ -40,11 +39,11 @@ class WikiResourceResponsesTest {
     }
 
     @Test
-    fun jsonOrNotFoundReturnsPrettyJson() {
-        val found = WikiResourceResponses.jsonOrNotFound(Optional.of(JSONObject().put("name", "Book")))
+    fun jsonOrNotFoundReturnsWikiJson() {
+        val found = WikiResourceResponses.jsonOrNotFound(Optional.of(mapOf("name" to "Book")))
 
         assertThat(found.statusCode, `is`(HttpStatus.OK))
-        assertThat(found.body!!.contains("Book"), `is`(true))
+        assertThat(found.body!!["name"], `is`("Book"))
     }
 
     @Test
@@ -53,7 +52,7 @@ class WikiResourceResponsesTest {
             WikiResourceResponses.jsonOrNotFound(Optional.empty())
         }
         assertThrows<ArticleNotFoundException> {
-            WikiResourceResponses.jsonOrNotFound(JSONObject())
+            WikiResourceResponses.jsonOrNotFound(emptyMap())
         }
     }
 

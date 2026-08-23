@@ -12,7 +12,6 @@ import io.vavr.control.Try
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.instanceOf
 import org.hamcrest.Matchers.`is`
-import org.json.JSONObject
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.anyString
@@ -108,6 +107,6 @@ class ModifyAnyTest {
     private fun makeAchievement(): WikiObject = WikiObjectFixtures.achievement()
 
     companion object {
-        private val SOME_JSON_OBJECT = JSONObject()
+        private val SOME_JSON_OBJECT = emptyMap<String, Any>()
     }
 }

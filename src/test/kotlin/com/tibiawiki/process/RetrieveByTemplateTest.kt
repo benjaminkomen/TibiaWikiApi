@@ -7,7 +7,6 @@ import com.tibiawiki.domain.repositories.ArticleRepository
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.hasSize
 import org.hamcrest.Matchers.`is`
-import org.json.JSONObject
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.anyList
@@ -85,7 +84,7 @@ class RetrieveByTemplateTest {
     fun getJson() {
         doReturn("").`when`(articleRepository).getArticle(SOME_PAGE_NAME)
 
-        val result: Optional<JSONObject> = target.getJson(SOME_PAGE_NAME)
+        val result: Optional<Map<String, Any>> = target.getJson(SOME_PAGE_NAME)
 
         assertThat(result.orElseThrow(), `is`(SOME_JSON_OBJECT))
     }
@@ -93,7 +92,7 @@ class RetrieveByTemplateTest {
     companion object {
         private const val SOME_PAGE_NAME = "Foobar"
         private const val SOME_ARTICLE_CONTENT = ""
-        private val SOME_JSON_OBJECT = JSONObject()
+        private val SOME_JSON_OBJECT = emptyMap<String, Any>()
         private const val SOME_NAME = "Powerful Strike"
         private const val SOME_OTHER_NAME = "Intricate Strike"
         private const val SOME_LIST_NAME = "ImbuementList"

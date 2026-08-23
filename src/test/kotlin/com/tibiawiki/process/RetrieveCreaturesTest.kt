@@ -7,7 +7,6 @@ import com.tibiawiki.domain.repositories.ArticleRepository
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.hasSize
 import org.hamcrest.Matchers.`is`
-import org.json.JSONObject
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.anyList
@@ -60,7 +59,7 @@ class RetrieveCreaturesTest {
     fun testGetCreatureJSON() {
         doReturn("").`when`(articleRepository).getArticle(SOME_PAGE_NAME)
 
-        val result: Optional<JSONObject> = target.getCreatureJSON(SOME_PAGE_NAME)
+        val result: Optional<Map<String, Any>> = target.getCreatureJSON(SOME_PAGE_NAME)
 
         assertThat(result.orElseThrow(), `is`(SOME_JSON_OBJECT))
     }
@@ -68,7 +67,7 @@ class RetrieveCreaturesTest {
     companion object {
         private const val SOME_PAGE_NAME = "Foobar"
         private const val SOME_ARTICLE_CONTENT = ""
-        private val SOME_JSON_OBJECT = JSONObject()
+        private val SOME_JSON_OBJECT = emptyMap<String, Any>()
         private const val SOME_CREATURE_NAME = "Drillworm"
         private const val SOME_OTHER_CREATURE_NAME = "Ghost of a Planegazer"
         private const val SOME_LIST_NAME = "CreatureList"

@@ -1,6 +1,7 @@
 package com.tibiawiki.adapters.rest
 
 import com.tibiawiki.config.WikiWriteApiDocs
+import com.tibiawiki.domain.WikiJson
 import com.tibiawiki.domain.objects.HuntingPlace
 import com.tibiawiki.domain.objects.WikiObject
 import com.tibiawiki.process.ModifyAny
@@ -57,7 +58,7 @@ class HuntingPlacesController(
             ApiResponse(responseCode = "404", description = "huntingPlace with specified name not found")
         ]
     )
-    fun getHuntingPlacesByName(request: HttpServletRequest): ResponseEntity<String> {
+    fun getHuntingPlacesByName(request: HttpServletRequest): ResponseEntity<WikiJson> {
         val requestUri = request.requestURI
         val name = URLDecoder.decode(requestUri.split("/huntingplaces/")[1], StandardCharsets.UTF_8)
         return WikiResourceResponses.jsonOrNotFound(retrieveHuntingPlaces.getHuntingPlaceJSON(name))

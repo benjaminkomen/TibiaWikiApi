@@ -1,6 +1,7 @@
 package com.tibiawiki.adapters.rest
 
 import com.tibiawiki.config.WikiWriteApiDocs
+import com.tibiawiki.domain.WikiJson
 import com.tibiawiki.domain.objects.Mount
 import com.tibiawiki.domain.objects.WikiObject
 import com.tibiawiki.process.ModifyAny
@@ -51,7 +52,7 @@ class MountsController(
             ApiResponse(responseCode = "404", description = "mount with specified name not found")
         ]
     )
-    fun getMountsByName(@PathVariable("name") name: String): ResponseEntity<String> {
+    fun getMountsByName(@PathVariable("name") name: String): ResponseEntity<WikiJson> {
         return WikiResourceResponses.jsonOrNotFound(retrieveMounts.getMountJSON(name))
     }
 

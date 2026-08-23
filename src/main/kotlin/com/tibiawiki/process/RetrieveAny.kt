@@ -1,9 +1,9 @@
 package com.tibiawiki.process
 
+import com.tibiawiki.domain.WikiJson
 import com.tibiawiki.domain.factories.ArticleFactory
 import com.tibiawiki.domain.factories.JsonFactory
 import com.tibiawiki.domain.repositories.ArticleRepository
-import org.json.JSONObject
 import org.springframework.stereotype.Component
 import java.util.Optional
 import java.util.stream.Stream
@@ -15,13 +15,13 @@ abstract class RetrieveAny(
     protected val jsonFactory: JsonFactory
 ) {
 
-    fun getArticleAsJSON(pageName: String): Optional<JSONObject> {
+    fun getArticleAsJSON(pageName: String): Optional<WikiJson> {
         return Optional.ofNullable(articleRepository.getArticle(pageName))
             .map { articleFactory.extractInfoboxPartOfArticle(it) }
             .map { jsonFactory.convertInfoboxPartOfArticleToJson(it) }
     }
 
-    fun getArticlesFromInfoboxTemplateAsJSON(pageNames: List<String>): Stream<JSONObject> {
+    fun getArticlesFromInfoboxTemplateAsJSON(pageNames: List<String>): Stream<WikiJson> {
         return Stream.of(pageNames)
             .flatMap { lst -> articleRepository.getArticlesFromCategory(lst).entries.stream() }
             .map { articleFactory.extractInfoboxPartOfArticle(it) }

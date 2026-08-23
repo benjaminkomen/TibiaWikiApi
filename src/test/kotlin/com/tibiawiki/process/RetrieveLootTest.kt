@@ -7,13 +7,11 @@ import com.tibiawiki.domain.repositories.ArticleRepository
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.hasSize
 import org.hamcrest.Matchers.`is`
-import org.json.JSONObject
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.anyList
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
-import java.util.Optional
 
 class RetrieveLootTest {
 
@@ -45,16 +43,16 @@ class RetrieveLootTest {
         val result = target.getLootJSONObject().toList()
 
         assertThat(result, hasSize(2))
-        assertThat(result[0].getString("name"), `is`("Amazon"))
+        assertThat(result[0]["name"], `is`("Amazon"))
     }
 
     @Test
     fun testGetLootJSONObjectByName() {
         doReturn(SOME_ARTICLE_CONTENT).`when`(articleRepository).getArticle(SOME_PAGE_NAME)
 
-        val result: Optional<JSONObject> = target.getLootJSONObject(SOME_PAGE_NAME)
+        val result = target.getLootJSONObject(SOME_PAGE_NAME)
 
-        assertThat(result.orElseThrow().getString("name"), `is`("Amazon"))
+        assertThat(result.orElseThrow()["name"], `is`("Amazon"))
     }
 
     @Test
@@ -67,16 +65,16 @@ class RetrieveLootTest {
         val result = target.getAllLootPartsJSON().toList()
 
         assertThat(result, hasSize(2))
-        assertThat(result[0].has("loot2"), `is`(true))
+        assertThat(result[0].containsKey("loot2"), `is`(true))
     }
 
     @Test
     fun testGetAllLootPartsJSONByName() {
         doReturn(SOME_ARTICLE_CONTENT).`when`(articleRepository).getArticle(SOME_PAGE_NAME)
 
-        val result: Optional<JSONObject> = target.getAllLootPartsJSON(SOME_PAGE_NAME)
+        val result = target.getAllLootPartsJSON(SOME_PAGE_NAME)
 
-        assertThat(result.orElseThrow().has("loot2"), `is`(true))
+        assertThat(result.orElseThrow().containsKey("loot2"), `is`(true))
     }
 
     @Test

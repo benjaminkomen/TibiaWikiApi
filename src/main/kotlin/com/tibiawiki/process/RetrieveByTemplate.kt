@@ -1,10 +1,10 @@
 package com.tibiawiki.process
 
+import com.tibiawiki.domain.WikiJson
 import com.tibiawiki.domain.enums.InfoboxTemplate
 import com.tibiawiki.domain.factories.ArticleFactory
 import com.tibiawiki.domain.factories.JsonFactory
 import com.tibiawiki.domain.repositories.ArticleRepository
-import org.json.JSONObject
 import org.springframework.stereotype.Component
 import java.util.Optional
 import java.util.stream.Stream
@@ -28,11 +28,11 @@ class RetrieveByTemplate(
         return category.filter { page -> page !in listsCategory }
     }
 
-    fun asJson(template: InfoboxTemplate): Stream<JSONObject> {
+    fun asJson(template: InfoboxTemplate): Stream<WikiJson> {
         return getArticlesFromInfoboxTemplateAsJSON(names(template))
     }
 
-    fun getJson(pageName: String): Optional<JSONObject> {
+    fun getJson(pageName: String): Optional<WikiJson> {
         return getArticleAsJSON(pageName)
     }
 }

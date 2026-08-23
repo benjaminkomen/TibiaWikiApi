@@ -1,6 +1,7 @@
 package com.tibiawiki.adapters.rest
 
 import com.tibiawiki.config.WikiWriteApiDocs
+import com.tibiawiki.domain.WikiJson
 import com.tibiawiki.domain.objects.Building
 import com.tibiawiki.domain.objects.WikiObject
 import com.tibiawiki.process.ModifyAny
@@ -51,7 +52,7 @@ class BuildingsController(
             ApiResponse(responseCode = "404", description = "building with specified name not found")
         ]
     )
-    fun getBuildingsByName(@PathVariable("name") name: String): ResponseEntity<String> {
+    fun getBuildingsByName(@PathVariable("name") name: String): ResponseEntity<WikiJson> {
         return WikiResourceResponses.jsonOrNotFound(retrieveBuildings.getBuildingJSON(name))
     }
 

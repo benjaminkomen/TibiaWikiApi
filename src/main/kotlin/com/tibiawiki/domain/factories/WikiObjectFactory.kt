@@ -1,5 +1,6 @@
 package com.tibiawiki.domain.factories
 
+import com.tibiawiki.domain.WikiJson
 import com.tibiawiki.domain.objects.Achievement
 import com.tibiawiki.domain.objects.Book
 import com.tibiawiki.domain.objects.Building
@@ -19,37 +20,34 @@ import com.tibiawiki.domain.objects.Spell
 import com.tibiawiki.domain.objects.Street
 import com.tibiawiki.domain.objects.TibiaObject
 import com.tibiawiki.domain.objects.WikiObject
-import org.json.JSONException
-import org.json.JSONObject
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import tools.jackson.databind.ObjectMapper
 import java.util.stream.Stream
 
 /**
- * Create a WikiObject from a previously constructed JSONObject, and back.
+ * Create a WikiObject from wiki-key JSON, and back.
  */
 @Component
 class WikiObjectFactory(
     private val objectMapper: ObjectMapper
 ) {
 
-    fun createWikiObjects(jsonObjects: List<JSONObject>): Stream<WikiObject> {
+    fun createWikiObjects(jsonObjects: List<WikiJson>): Stream<WikiObject> {
         return createWikiObjects(jsonObjects.toTypedArray())
     }
 
-    fun createWikiObjects(jsonObjects: Array<JSONObject>): Stream<WikiObject> {
+    fun createWikiObjects(jsonObjects: Array<WikiJson>): Stream<WikiObject> {
         return jsonObjects.asList().stream().map { createWikiObject(it) }
     }
 
     /**
-     * Creates a WikiObject from a JSONObject.
+     * Creates a WikiObject from wiki-key JSON.
      * The reverse is achieved by [createJSONObject] when saving the JSON back to the wiki.
      */
-    fun createWikiObject(wikiObjectJson: JSONObject): WikiObject? {
-        val templateType = try {
-            wikiObjectJson.get(TEMPLATE_TYPE) as String
-        } catch (_: JSONException) {
+    fun createWikiObject(wikiObjectJson: WikiJson): WikiObject? {
+        val templateType = wikiObjectJson[TEMPLATE_TYPE] as? String
+        if (templateType == null) {
             log.error("WikiObjectJson does not contain any templateType.")
             return WikiObject.WikiObjectImpl()
         }
@@ -85,15 +83,15 @@ class WikiObjectFactory(
      * The reverse is achieved by [createWikiObject] when reading from the wiki.
      */
     @Suppress("UNCHECKED_CAST")
-    fun createJSONObject(wikiObject: WikiObject, templateType: String): JSONObject {
+    fun createJSONObject(wikiObject: WikiObject, templateType: String): WikiJson {
         val wikiObjectAsMap = objectMapper.convertValue(wikiObject, Map::class.java) as MutableMap<String, Any>
         wikiObjectAsMap[TEMPLATE_TYPE] = templateType
-        return JSONObject(wikiObjectAsMap)
+        return wikiObjectAsMap
     }
 
-    private fun <T> mapJsonToObject(wikiObjectJson: JSONObject, clazz: Class<T>): T? {
+    private fun <T> mapJsonToObject(wikiObjectJson: WikiJson, clazz: Class<T>): T? {
         return try {
-            objectMapper.readValue(wikiObjectJson.toString(), clazz)
+            objectMapper.convertValue(wikiObjectJson, clazz)
         } catch (e: RuntimeException) {
             log.error("Unable to convert json to {} object.", clazz.toString(), e)
             null

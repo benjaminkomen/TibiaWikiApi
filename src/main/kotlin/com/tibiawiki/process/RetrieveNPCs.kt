@@ -1,10 +1,10 @@
 package com.tibiawiki.process
 
+import com.tibiawiki.domain.WikiJson
 import com.tibiawiki.domain.enums.InfoboxTemplate
 import com.tibiawiki.domain.factories.ArticleFactory
 import com.tibiawiki.domain.factories.JsonFactory
 import com.tibiawiki.domain.repositories.ArticleRepository
-import org.json.JSONObject
 import org.springframework.stereotype.Component
 import java.util.Optional
 import java.util.stream.Stream
@@ -22,11 +22,11 @@ class RetrieveNPCs(
         return category.filter { page -> page !in listsCategory }
     }
 
-    fun getNPCsJSON(): Stream<JSONObject> {
+    fun getNPCsJSON(): Stream<WikiJson> {
         return getArticlesFromInfoboxTemplateAsJSON(getNPCsList())
     }
 
-    fun getNPCJSON(pageName: String): Optional<JSONObject> {
+    fun getNPCJSON(pageName: String): Optional<WikiJson> {
         return getArticleAsJSON(pageName)
     }
 }

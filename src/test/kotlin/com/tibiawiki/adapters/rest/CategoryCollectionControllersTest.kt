@@ -1,13 +1,13 @@
 package com.tibiawiki.adapters.rest
 
 import com.tibiawiki.domain.ArticleNotFoundException
+import com.tibiawiki.domain.WikiJson
 import com.tibiawiki.domain.enums.InfoboxTemplate
 import com.tibiawiki.process.ModifyAny
 import com.tibiawiki.process.RetrieveByTemplate
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.hasSize
 import org.hamcrest.Matchers.`is`
-import org.json.JSONObject
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -21,7 +21,7 @@ import java.util.stream.Stream
 class CategoryCollectionControllersTest {
 
     private lateinit var retrieve: RetrieveByTemplate
-    private val json = JSONObject().put("name", "Foo")
+    private val json = mapOf("name" to "Foo")
     private val names = listOf("Foo")
 
     @BeforeEach
@@ -40,7 +40,7 @@ class CategoryCollectionControllersTest {
         doReturn(Stream.of(json)).`when`(retrieve).asJson(InfoboxTemplate.FANSITE)
         doReturn(Stream.of(json)).`when`(retrieve).asJson(InfoboxTemplate.CIPSOFT_MEMBER)
         doReturn(Optional.of(json)).`when`(retrieve).getJson("Foo")
-        doReturn(Optional.empty<JSONObject>()).`when`(retrieve).getJson("Missing")
+        doReturn(Optional.empty<WikiJson>()).`when`(retrieve).getJson("Missing")
     }
 
     @Test
@@ -94,8 +94,8 @@ class CategoryCollectionControllersTest {
     private fun assertListAndDetail(
         list: ResponseEntity<Any>,
         expanded: ResponseEntity<Any>,
-        found: ResponseEntity<String>,
-        missing: () -> ResponseEntity<String>
+        found: ResponseEntity<WikiJson>,
+        missing: () -> ResponseEntity<WikiJson>
     ) {
         assertThat(list.statusCode, `is`(HttpStatus.OK))
         assertThat(list.body, `is`(names))

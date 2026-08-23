@@ -1,6 +1,7 @@
 package com.tibiawiki.domain.factories
 
 import com.google.common.base.Strings
+import com.tibiawiki.domain.WikiJson
 import com.tibiawiki.domain.enums.Vocation
 import com.tibiawiki.domain.objects.HuntingPlaceSkills
 import com.tibiawiki.domain.utils.TemplateUtils
@@ -21,11 +22,11 @@ class JsonFactory {
      * Convert a String which consists of key-value pairs of infobox template parameters to a JSON object, or an empty
      * JSON object if the input was empty.
      */
-    fun convertInfoboxPartOfArticleToJson(infoboxPartOfArticle: String?): JSONObject {
+    fun convertInfoboxPartOfArticleToJson(infoboxPartOfArticle: String?): WikiJson {
         val parametersAndValues = HashMap<String, String?>()
 
         if (infoboxPartOfArticle.isNullOrEmpty()) {
-            return JSONObject()
+            return emptyMap()
         }
 
         val templateType = getTemplateType(infoboxPartOfArticle)
@@ -41,34 +42,39 @@ class JsonFactory {
 
         parametersAndValues.putAll(TemplateUtils.splitInfoboxByParameter(infoboxTemplatePartOfArticleSanitized))
         parametersAndValues[TEMPLATE_TYPE] = templateType
-        return enhanceJsonObject(JSONObject(parametersAndValues))
+        return enhanceJsonObject(JSONObject(parametersAndValues)).toWikiJson()
     }
 
     /**
      * Convert a String which consists of key-value pairs of loot2 template parameters to a JSON object, or an empty
      * JSON object if the input was empty.
      */
-    fun convertLootPartOfArticleToJson(pageName: String, lootPartOfArticle: String?): JSONObject {
+    fun convertLootPartOfArticleToJson(pageName: String, lootPartOfArticle: String?): WikiJson {
         if (lootPartOfArticle.isNullOrEmpty()) {
-            return JSONObject()
+            return emptyMap()
         }
 
         val lootTemplatePartOfArticleSanitized = TemplateUtils.removeFirstAndLastLine(lootPartOfArticle)
         val parametersAndValues = HashMap(TemplateUtils.splitLootByParameter(lootTemplatePartOfArticleSanitized))
         parametersAndValues["pageName"] = pageName
-        return enhanceLootJsonObject(JSONObject(parametersAndValues))
+        return enhanceLootJsonObject(JSONObject(parametersAndValues)).toWikiJson()
     }
 
-    fun convertAllLootPartsOfArticleToJson(pageName: String, lootPartsOfArticle: Map<String, String>): JSONObject {
+    fun convertAllLootPartsOfArticleToJson(pageName: String, lootPartsOfArticle: Map<String, String>): WikiJson {
         if (lootPartsOfArticle.isEmpty()) {
-            return JSONObject()
+            return emptyMap()
         }
 
-        val result = JSONObject()
-        lootPartsOfArticle.forEach { (key, value) ->
-            result.put(key, convertLootPartOfArticleToJson(pageName, value))
+        return lootPartsOfArticle.mapValues { (_, value) ->
+            convertLootPartOfArticleToJson(pageName, value)
         }
-        return result
+    }
+
+    fun convertJsonToInfoboxPartOfArticle(json: Map<String, *>?, fieldOrder: List<String>): String {
+        if (json.isNullOrEmpty()) {
+            return ""
+        }
+        return convertJsonToInfoboxPartOfArticle(JSONObject(json), fieldOrder)
     }
 
     fun convertJsonToInfoboxPartOfArticle(jsonObject: JSONObject?, fieldOrder: List<String>): String {
@@ -441,3 +447,6 @@ class JsonFactory {
         private const val ITEM_NAME = "itemName"
     }
 }
+
+@Suppress("UNCHECKED_CAST")
+internal fun JSONObject.toWikiJson(): WikiJson = toMap() as WikiJson

@@ -1,6 +1,7 @@
 package com.tibiawiki.adapters.rest
 
 import com.tibiawiki.config.WikiWriteApiDocs
+import com.tibiawiki.domain.WikiJson
 import com.tibiawiki.domain.objects.Creature
 import com.tibiawiki.domain.objects.WikiObject
 import com.tibiawiki.process.ModifyAny
@@ -51,7 +52,7 @@ class CreaturesController(
             ApiResponse(responseCode = "404", description = "creature with specified name not found")
         ]
     )
-    fun getCreaturesByName(@PathVariable("name") name: String): ResponseEntity<String> {
+    fun getCreaturesByName(@PathVariable("name") name: String): ResponseEntity<WikiJson> {
         return WikiResourceResponses.jsonOrNotFound(retrieveCreatures.getCreatureJSON(name))
     }
 

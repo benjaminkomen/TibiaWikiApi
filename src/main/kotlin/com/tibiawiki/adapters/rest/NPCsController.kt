@@ -1,6 +1,7 @@
 package com.tibiawiki.adapters.rest
 
 import com.tibiawiki.config.WikiWriteApiDocs
+import com.tibiawiki.domain.WikiJson
 import com.tibiawiki.domain.objects.NPC
 import com.tibiawiki.domain.objects.WikiObject
 import com.tibiawiki.process.ModifyAny
@@ -51,7 +52,7 @@ class NPCsController(
             ApiResponse(responseCode = "404", description = "NPC with specified name not found")
         ]
     )
-    fun getNPCsByName(@PathVariable("name") name: String): ResponseEntity<String> {
+    fun getNPCsByName(@PathVariable("name") name: String): ResponseEntity<WikiJson> {
         return WikiResourceResponses.jsonOrNotFound(retrieveNPCs.getNPCJSON(name))
     }
 

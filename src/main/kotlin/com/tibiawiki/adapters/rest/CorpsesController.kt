@@ -1,6 +1,7 @@
 package com.tibiawiki.adapters.rest
 
 import com.tibiawiki.config.WikiWriteApiDocs
+import com.tibiawiki.domain.WikiJson
 import com.tibiawiki.domain.objects.Corpse
 import com.tibiawiki.domain.objects.WikiObject
 import com.tibiawiki.process.ModifyAny
@@ -51,7 +52,7 @@ class CorpsesController(
             ApiResponse(responseCode = "404", description = "corpse with specified name not found")
         ]
     )
-    fun getCorpsesByName(@PathVariable("name") name: String): ResponseEntity<String> {
+    fun getCorpsesByName(@PathVariable("name") name: String): ResponseEntity<WikiJson> {
         return WikiResourceResponses.jsonOrNotFound(retrieveCorpses.getCorpseJSON(name))
     }
 

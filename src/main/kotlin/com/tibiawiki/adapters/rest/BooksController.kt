@@ -1,6 +1,7 @@
 package com.tibiawiki.adapters.rest
 
 import com.tibiawiki.config.WikiWriteApiDocs
+import com.tibiawiki.domain.WikiJson
 import com.tibiawiki.domain.objects.Book
 import com.tibiawiki.domain.objects.WikiObject
 import com.tibiawiki.process.ModifyAny
@@ -51,7 +52,7 @@ class BooksController(
             ApiResponse(responseCode = "404", description = "book with specified name not found")
         ]
     )
-    fun getBooksByName(@PathVariable("name") name: String): ResponseEntity<String> {
+    fun getBooksByName(@PathVariable("name") name: String): ResponseEntity<WikiJson> {
         return WikiResourceResponses.jsonOrNotFound(retrieveBooks.getBookJSON(name))
     }
 

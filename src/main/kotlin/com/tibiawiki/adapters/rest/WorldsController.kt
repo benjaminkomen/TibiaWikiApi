@@ -1,5 +1,6 @@
 package com.tibiawiki.adapters.rest
 
+import com.tibiawiki.domain.WikiJson
 import com.tibiawiki.domain.enums.InfoboxTemplate
 import com.tibiawiki.process.RetrieveByTemplate
 import io.swagger.v3.oas.annotations.Operation
@@ -48,7 +49,7 @@ class WorldsController(
             ApiResponse(responseCode = "404", description = "world with specified name not found")
         ]
     )
-    fun getWorldsByName(@PathVariable("name") name: String): ResponseEntity<String> {
+    fun getWorldsByName(@PathVariable("name") name: String): ResponseEntity<WikiJson> {
         return WikiResourceResponses.jsonOrNotFound(retrieveByTemplate.getJson(name))
     }
 }

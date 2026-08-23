@@ -48,8 +48,8 @@ class JsonFactoryTest {
 
     @Test
     fun testConvertInfoboxPartOfArticleToJson_NullOrEmpty() {
-        assertThat(target.convertInfoboxPartOfArticleToJson(null), instanceOf(JSONObject::class.java))
-        assertThat(target.convertInfoboxPartOfArticleToJson(""), instanceOf(JSONObject::class.java))
+        assertThat(target.convertInfoboxPartOfArticleToJson(null), instanceOf(Map::class.java))
+        assertThat(target.convertInfoboxPartOfArticleToJson(""), instanceOf(Map::class.java))
     }
 
     @Test
@@ -86,11 +86,13 @@ class JsonFactoryTest {
         assertThat(result.get("skknights"), `is`("75"))
         assertThat(result.get("skpaladins"), `is`("80"))
         assertThat(result.get("defknights"), `is`("75"))
-        assertThat(result.get("lowerlevels"), instanceOf(JSONArray::class.java))
-        assertThat(((result.get("lowerlevels") as JSONArray).get(0) as JSONObject).get("areaname"), `is`("Demons"))
-        assertThat(((result.get("lowerlevels") as JSONArray).get(0) as JSONObject).get("lvlknights"), `is`("130"))
-        assertThat(((result.get("lowerlevels") as JSONArray).get(0) as JSONObject).get("lvlpaladins"), `is`("130"))
-        assertThat(((result.get("lowerlevels") as JSONArray).get(0) as JSONObject).get("lvlmages"), `is`("130"))
+        assertThat(result.get("lowerlevels"), instanceOf(List::class.java))
+        @Suppress("UNCHECKED_CAST")
+        val lowerLevels = result.get("lowerlevels") as List<Map<String, Any>>
+        assertThat(lowerLevels[0]["areaname"], `is`("Demons"))
+        assertThat(lowerLevels[0]["lvlknights"], `is`("130"))
+        assertThat(lowerLevels[0]["lvlpaladins"], `is`("130"))
+        assertThat(lowerLevels[0]["lvlmages"], `is`("130"))
         assertThat(result.get("exp"), `is`("Good"))
         assertThat(result.get("loot"), `is`("Good"))
         assertThat(result.get("bestloot"), `is`("Reins"))
@@ -100,8 +102,8 @@ class JsonFactoryTest {
 
     @Test
     fun testConvertLootPartOfArticleToJson_NullOrEmpty() {
-        assertThat(target.convertLootPartOfArticleToJson("", null), instanceOf(JSONObject::class.java))
-        assertThat(target.convertLootPartOfArticleToJson("", ""), instanceOf(JSONObject::class.java))
+        assertThat(target.convertLootPartOfArticleToJson("", null), instanceOf(Map::class.java))
+        assertThat(target.convertLootPartOfArticleToJson("", ""), instanceOf(Map::class.java))
     }
 
     @Test
@@ -497,27 +499,28 @@ class JsonFactoryTest {
         assertThat(result.get("name"), `is`("Bear"))
 
         val loot = result.get("loot")
-        assertThat(loot, instanceOf(JSONArray::class.java))
+        assertThat(loot, instanceOf(List::class.java))
 
-        val lootArray = loot as JSONArray
-        assertThat((lootArray.get(0) as JSONObject).get("itemName"), `is`("Empty"))
-        assertThat((lootArray.get(0) as JSONObject).get("times"), `is`("24777"))
+        @Suppress("UNCHECKED_CAST")
+        val lootArray = loot as List<Map<String, Any>>
+        assertThat(lootArray[0]["itemName"], `is`("Empty"))
+        assertThat(lootArray[0]["times"], `is`("24777"))
 
-        assertThat((lootArray.get(1) as JSONObject).get("itemName"), `is`("Ham"))
-        assertThat((lootArray.get(1) as JSONObject).get("times"), `is`("10581"))
+        assertThat(lootArray[1]["itemName"], `is`("Ham"))
+        assertThat(lootArray[1]["times"], `is`("10581"))
 
-        assertThat((lootArray.get(2) as JSONObject).get("itemName"), `is`("Bear Paw"))
-        assertThat((lootArray.get(2) as JSONObject).get("times"), `is`("1043"))
-        assertThat((lootArray.get(2) as JSONObject).get("amount"), `is`("1"))
-        assertThat((lootArray.get(2) as JSONObject).get("total"), `is`("1043"))
+        assertThat(lootArray[2]["itemName"], `is`("Bear Paw"))
+        assertThat(lootArray[2]["times"], `is`("1043"))
+        assertThat(lootArray[2]["amount"], `is`("1"))
+        assertThat(lootArray[2]["total"], `is`("1043"))
 
-        assertThat((lootArray.get(3) as JSONObject).get("itemName"), `is`("Honeycomb"))
-        assertThat((lootArray.get(3) as JSONObject).get("times"), `is`("250"))
-        assertThat((lootArray.get(3) as JSONObject).get("amount"), `is`("1"))
-        assertThat((lootArray.get(3) as JSONObject).get("total"), `is`("249"))
+        assertThat(lootArray[3]["itemName"], `is`("Honeycomb"))
+        assertThat(lootArray[3]["times"], `is`("250"))
+        assertThat(lootArray[3]["amount"], `is`("1"))
+        assertThat(lootArray[3]["total"], `is`("249"))
 
-        assertThat((lootArray.get(4) as JSONObject).get("itemName"), `is`("Meat"))
-        assertThat((lootArray.get(4) as JSONObject).get("times"), `is`("21065"))
+        assertThat(lootArray[4]["itemName"], `is`("Meat"))
+        assertThat(lootArray[4]["times"], `is`("21065"))
     }
 
     private fun makeAchievement(): Achievement {

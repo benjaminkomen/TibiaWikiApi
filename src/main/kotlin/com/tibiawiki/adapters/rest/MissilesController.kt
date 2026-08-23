@@ -1,6 +1,7 @@
 package com.tibiawiki.adapters.rest
 
 import com.tibiawiki.config.WikiWriteApiDocs
+import com.tibiawiki.domain.WikiJson
 import com.tibiawiki.domain.objects.Missile
 import com.tibiawiki.domain.objects.WikiObject
 import com.tibiawiki.process.ModifyAny
@@ -51,7 +52,7 @@ class MissilesController(
             ApiResponse(responseCode = "404", description = "missile with specified name not found")
         ]
     )
-    fun getMissilesByName(@PathVariable("name") name: String): ResponseEntity<String> {
+    fun getMissilesByName(@PathVariable("name") name: String): ResponseEntity<WikiJson> {
         return WikiResourceResponses.jsonOrNotFound(retrieveMissiles.getMissileJSON(name))
     }
 

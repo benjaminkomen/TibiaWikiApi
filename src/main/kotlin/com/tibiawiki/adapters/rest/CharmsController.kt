@@ -1,6 +1,7 @@
 package com.tibiawiki.adapters.rest
 
 import com.tibiawiki.config.WikiWriteApiDocs
+import com.tibiawiki.domain.WikiJson
 import com.tibiawiki.domain.objects.Charm
 import com.tibiawiki.domain.objects.WikiObject
 import com.tibiawiki.process.ModifyAny
@@ -51,7 +52,7 @@ class CharmsController(
             ApiResponse(responseCode = "404", description = "charm with specified name not found")
         ]
     )
-    fun getCharmsByName(@PathVariable("name") name: String): ResponseEntity<String> {
+    fun getCharmsByName(@PathVariable("name") name: String): ResponseEntity<WikiJson> {
         return WikiResourceResponses.jsonOrNotFound(retrieveCharms.getCharmJSON(name))
     }
 

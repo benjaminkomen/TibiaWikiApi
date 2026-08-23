@@ -1,6 +1,7 @@
 package com.tibiawiki.adapters.rest
 
 import com.tibiawiki.config.WikiWriteApiDocs
+import com.tibiawiki.domain.WikiJson
 import com.tibiawiki.domain.objects.Outfit
 import com.tibiawiki.domain.objects.WikiObject
 import com.tibiawiki.process.ModifyAny
@@ -51,7 +52,7 @@ class OutfitsController(
             ApiResponse(responseCode = "404", description = "outfit with specified name not found")
         ]
     )
-    fun getOutfitsByName(@PathVariable("name") name: String): ResponseEntity<String> {
+    fun getOutfitsByName(@PathVariable("name") name: String): ResponseEntity<WikiJson> {
         return WikiResourceResponses.jsonOrNotFound(retrieveOutfits.getOutfitJSON(name))
     }
 
