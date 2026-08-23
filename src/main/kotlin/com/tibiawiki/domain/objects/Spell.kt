@@ -17,11 +17,16 @@ data class Spell(
     val subclass: SpellSubclass? = null,
     val runegroup: SpellSubclass? = null,
     val damagetype: String? = null,
+    val wheelspell: YesNo? = null,
+    val passivespell: YesNo? = null,
     val words: String? = null,
     val mana: Int? = null,
     val cooldown: Int? = null,
+    val cooldown2: Int? = null,
+    val cooldown3: Int? = null,
     val cooldowngroup: Int? = null,
     val cooldowngroup2: Int? = null,
+    val secondarygroup: SpellSubclass? = null,
     val levelrequired: Int? = null,
     val premium: YesNo? = null,
     val promotion: YesNo? = null,
@@ -84,6 +89,10 @@ data class Spell(
     @JsonProperty("s-ven") val sorcererVenore: String? = null,
     @JsonProperty("s-yal") val sorcererYalahar: String? = null,
     val spellcost: Int? = null,
+    val spellid: Int? = null,
+    val libraryname: String? = null,
+    val librarytext: String? = null,
+    val basepower: Int? = null,
     val effect: String? = null,
     val animation: String? = null
 ) : WikiObject(
@@ -99,15 +108,16 @@ data class Spell(
 
     override fun fieldOrder(): List<String> {
         return listOf(
-            "name", "type", "subclass", "runegroup", "damagetype", "words", "mana", "cooldown",
-            "cooldowngroup", "cooldowngroup2", "levelrequired", "premium", "promotion", "soul", "zoltanonly",
-            "partyspell", "specialspell", "conjurespell", "voc", "d-abd", "d-ank", "d-car", "d-dar", "d-edr",
-            "d-kaz", "d-lib", "d-por", "d-rat", "d-sva", "d-tha", "d-ven", "d-yal", "k-abd", "k-ank", "k-car",
-            "k-dar", "k-edr", "k-kaz", "k-lib", "k-por", "k-rat", "k-sva", "k-tha", "k-ven", "k-yal", "p-abd",
-            "p-ank", "p-car", "p-dar", "p-edr", "p-kaz", "p-lib", "p-por", "p-rat", "p-sva", "p-tha", "p-ven",
-            "p-yal", "s-abd", "s-ank", "s-car", "s-dar", "s-edr", "s-kaz", "s-lib", "s-por", "s-rat", "s-sva",
-            "s-tha", "s-ven", "s-yal", "spellcost", "implemented", "effect", "notes", "animation", "history",
-            "status"
+            "name", "type", "subclass", "runegroup", "damagetype", "wheelspell", "passivespell", "words",
+            "mana", "cooldown", "cooldown2", "cooldown3", "cooldowngroup", "cooldowngroup2", "secondarygroup",
+            "levelrequired", "premium", "promotion", "soul", "zoltanonly", "partyspell", "specialspell",
+            "conjurespell", "voc", "d-abd", "d-ank", "d-car", "d-dar", "d-edr", "d-kaz", "d-lib", "d-por",
+            "d-rat", "d-sva", "d-tha", "d-ven", "d-yal", "k-abd", "k-ank", "k-car", "k-dar", "k-edr",
+            "k-kaz", "k-lib", "k-por", "k-rat", "k-sva", "k-tha", "k-ven", "k-yal", "p-abd", "p-ank",
+            "p-car", "p-dar", "p-edr", "p-kaz", "p-lib", "p-por", "p-rat", "p-sva", "p-tha", "p-ven",
+            "p-yal", "s-abd", "s-ank", "s-car", "s-dar", "s-edr", "s-kaz", "s-lib", "s-por", "s-rat",
+            "s-sva", "s-tha", "s-ven", "s-yal", "spellcost", "spellid", "libraryname", "librarytext",
+            "basepower", "implemented", "effect", "notes", "animation", "history", "status"
         )
     }
 }

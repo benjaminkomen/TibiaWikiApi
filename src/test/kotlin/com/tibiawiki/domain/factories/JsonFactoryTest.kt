@@ -17,6 +17,9 @@ import com.tibiawiki.domain.objects.Mount
 import com.tibiawiki.domain.objects.NPC
 import com.tibiawiki.domain.objects.Outfit
 import com.tibiawiki.domain.objects.Quest
+import com.tibiawiki.domain.enums.SpellSubclass
+import com.tibiawiki.domain.enums.SpellType
+import com.tibiawiki.domain.enums.YesNo
 import com.tibiawiki.domain.objects.Spell
 import com.tibiawiki.domain.objects.Street
 import com.tibiawiki.domain.objects.TibiaObject
@@ -341,6 +344,88 @@ class JsonFactoryTest {
         val spell = makeSpell()
         val result = target.convertJsonToInfoboxPartOfArticle(makeSpellJson(spell), spell.fieldOrder())
         assertThat(result, `is`(INFOBOX_SPELL_TEXT))
+    }
+
+    @Test
+    fun testConvertJsonToInfoboxPartOfArticle_SpellOmitsRetiredKeysWhenAbsent() {
+        val spell = Spell(
+            name = "Light Healing",
+            type = SpellType.Instant,
+            subclass = SpellSubclass.Healing,
+            words = "exura",
+            mana = 20,
+            cooldown = 1,
+            cooldown2 = 1,
+            cooldown3 = 1,
+            cooldowngroup = 1,
+            secondarygroup = SpellSubclass.Support,
+            levelrequired = 8,
+            premium = YesNo.NO_LOWERCASE,
+            voc = "[[Monk]]s, [[Paladin]]s, [[Druid]]s and [[Sorcerer]]s",
+            spellid = 1,
+            libraryname = "Light Healing",
+            librarytext = "A weak healing spell.",
+            basepower = 40,
+            wheelspell = YesNo.NO_LOWERCASE,
+            passivespell = YesNo.NO_LOWERCASE,
+            effect = "Restores a small amount of [[HP|health]]."
+        )
+        val result = target.convertJsonToInfoboxPartOfArticle(makeSpellJson(spell), spell.fieldOrder())
+
+        assertThat(result.contains("| spellid"), `is`(true))
+        assertThat(result.contains("| libraryname"), `is`(true))
+        assertThat(result.contains("| librarytext"), `is`(true))
+        assertThat(result.contains("| basepower"), `is`(true))
+        assertThat(result.contains("| wheelspell"), `is`(true))
+        assertThat(result.contains("| passivespell"), `is`(true))
+        assertThat(result.contains("| cooldown2"), `is`(true))
+        assertThat(result.contains("| cooldown3"), `is`(true))
+        assertThat(result.contains("| secondarygroup"), `is`(true))
+        assertThat(result.contains("zoltanonly"), `is`(false))
+        assertThat(result.contains("specialspell"), `is`(false))
+        assertThat(result.contains("conjurespell"), `is`(false))
+        assertThat(result.contains("d-abd"), `is`(false))
+        assertThat(result.contains("d-tha"), `is`(false))
+        assertThat(result.contains("p-abd"), `is`(false))
+        assertThat(result.contains("s-yal"), `is`(false))
+    }
+
+    @Test
+    fun testConvertInfoboxPartOfArticleToJson_SpellSurfacesCurrentWikiKeys() {
+        val result = target.convertInfoboxPartOfArticleToJson(INFOBOX_SPELL_CURRENT_TEXT)
+
+        assertThat(result.get("templateType"), `is`("Spell"))
+        assertThat(result.get("name"), `is`("Light Healing"))
+        assertThat(result.get("spellid"), `is`("1"))
+        assertThat(result.get("libraryname"), `is`("Light Healing"))
+        assertThat(result.get("librarytext"), `is`("A weak healing spell."))
+        assertThat(result.get("basepower"), `is`("40"))
+        assertThat(result.get("wheelspell"), `is`("no"))
+        assertThat(result.get("passivespell"), `is`("no"))
+        assertThat(result.get("cooldown2"), `is`("1"))
+        assertThat(result.get("cooldown3"), `is`("1"))
+        assertThat(result.get("secondarygroup"), `is`("Support"))
+        assertThat(result.has("zoltanonly"), `is`(false))
+        assertThat(result.has("d-tha"), `is`(false))
+    }
+
+    @Test
+    fun testConvertJsonToInfoboxPartOfArticle_SpellKeepsRetiredKeysWhenPresent() {
+        val spell = Spell(
+            name = "Light Healing",
+            zoltanonly = YesNo.YES_LOWERCASE,
+            specialspell = YesNo.NO_LOWERCASE,
+            conjurespell = YesNo.NO_LOWERCASE,
+            druidAbDendriel = "[[Maealil]]",
+            paladinAbDendriel = "[[Maealil]]"
+        )
+        val result = target.convertJsonToInfoboxPartOfArticle(makeSpellJson(spell), spell.fieldOrder())
+
+        assertThat(result.contains("| zoltanonly"), `is`(true))
+        assertThat(result.contains("| specialspell"), `is`(true))
+        assertThat(result.contains("| conjurespell"), `is`(true))
+        assertThat(result.contains("| d-abd"), `is`(true))
+        assertThat(result.contains("| p-abd"), `is`(true))
     }
 
     @Test
@@ -1045,6 +1130,30 @@ class JsonFactoryTest {
             | spellcost     = 0
             | effect        = Restores a small amount of [[HP|health]]. (Cures [[paralysis]].)
             | notes         = A weak, but popular healing spell.
+            }}
+        """.trimIndent().trimStart() + "\n"
+        private val INFOBOX_SPELL_CURRENT_TEXT = """
+            {{Infobox Spell|List={{{1|}}}|GetValue={{{GetValue|}}}
+            | name           = Light Healing
+            | type           = Instant
+            | subclass       = Healing
+            | words          = exura
+            | mana           = 20
+            | cooldown       = 1
+            | cooldown2      = 1
+            | cooldown3      = 1
+            | cooldowngroup  = 1
+            | secondarygroup = Support
+            | levelrequired  = 8
+            | premium        = no
+            | voc            = [[Monk]]s, [[Paladin]]s, [[Druid]]s and [[Sorcerer]]s
+            | spellid        = 1
+            | libraryname    = Light Healing
+            | librarytext    = A weak healing spell.
+            | basepower      = 40
+            | wheelspell     = no
+            | passivespell   = no
+            | effect         = Restores a small amount of [[HP|health]].
             }}
         """.trimIndent().trimStart() + "\n"
     }
