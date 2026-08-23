@@ -1,5 +1,6 @@
 package com.tibiawiki.adapters.rest
 
+import com.tibiawiki.config.WikiWriteApiDocs
 import com.tibiawiki.domain.objects.Effect
 import com.tibiawiki.domain.objects.WikiObject
 import com.tibiawiki.process.ModifyAny
@@ -60,7 +61,8 @@ class EffectsController(
         value = [
             ApiResponse(responseCode = "200", description = "the changed effect"),
             ApiResponse(responseCode = "400", description = "the provided changed effect is not valid"),
-            ApiResponse(responseCode = "401", description = "not authorized to edit without providing credentials")
+            ApiResponse(responseCode = "401", description = WikiWriteApiDocs.UNAUTHORIZED),
+            ApiResponse(responseCode = "403", description = WikiWriteApiDocs.FORBIDDEN)
         ]
     )
     fun putEffect(@RequestBody effect: Effect, @RequestHeader("X-WIKI-Edit-Summary") editSummary: String?): ResponseEntity<WikiObject> {

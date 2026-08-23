@@ -37,6 +37,27 @@ cd regression && bun run test
 Use `bun run capture` against the fixture-backed server to refresh goldens.
 See [`regression/README.md`](regression/README.md).
 
+## Wiki writes (PUT)
+
+Public Cloud Run leaves `WIKI_WRITE_ENABLED` unset (false). Unauthenticated
+clients cannot mutate TibiaWiki through tibiawiki.dev. `ModifyAny` stays in
+the codebase for a future bot.
+
+To enable PUT locally or for a bot:
+
+```bash
+export WIKI_WRITE_ENABLED=true
+export WIKI_WRITE_TOKEN=optional-shared-secret   # optional; if set, required on PUT
+```
+
+When a token is configured, send `Authorization: Bearer <token>` or
+`X-WIKI-Write-Token`. Missing or wrong tokens return HTTP 401. When writes
+are disabled, PUT returns HTTP 403.
+
+CORS allows GET (plus HEAD/OPTIONS) from `https://tibiawiki.dev` and local
+`bootRun` origins. Credentials are not enabled. Override origins with
+`WIKI_CORS_ALLOWED_ORIGINS` (`*` for any GET origin).
+
 ## Query parameters
 For all resources the query parameter `?expand=true` can be appended to get a full list of JSON objects
  at the collection resource level. For example, instead of https://tibiawiki.dev/api/achievements the url
