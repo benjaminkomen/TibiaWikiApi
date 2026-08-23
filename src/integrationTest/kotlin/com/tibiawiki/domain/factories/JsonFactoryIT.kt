@@ -48,6 +48,6 @@ class JsonFactoryIT {
             | achievementid = 319
             | relatedpages  = [[Muck Remover]], [[Mucus Plug]]
             }}
-            """.trimIndent()
+            """.trimIndent() + "\n"
     }
 }

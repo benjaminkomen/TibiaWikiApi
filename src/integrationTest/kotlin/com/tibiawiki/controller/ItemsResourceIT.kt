@@ -189,7 +189,7 @@ class ItemsResourceIT {
             | npcpricerook  = 0
             | buyfrom       = Baltim, Brengus, Cedrik,
             | sellto        = Baltim, Brengus, Cedrik, Esrik,
-            | notes         = If you have one of these\s
+            | notes         = If you have one of these
             }}
             """.trimIndent()
     }
