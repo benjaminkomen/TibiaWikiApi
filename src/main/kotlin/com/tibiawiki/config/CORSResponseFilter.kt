@@ -14,7 +14,8 @@ class CORSResponseFilter {
         val source = UrlBasedCorsConfigurationSource()
         val config = CorsConfiguration()
         config.allowCredentials = true
-        config.allowedOrigins = listOf("*")
+        // Spring Framework 6 rejects allowCredentials + allowedOrigins=["*"]
+        config.allowedOriginPatterns = listOf("*")
         config.allowedHeaders = listOf("X-Requested-With", "Content-Type")
         config.allowedMethods = listOf("GET", "POST", "PUT", "DELETE")
         source.registerCorsConfiguration("/**", config)
