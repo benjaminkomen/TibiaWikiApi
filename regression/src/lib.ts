@@ -78,17 +78,45 @@ export function normalizeSnapshot(snapshot: Snapshot): Snapshot {
   };
 }
 
+export const REQUEST_GAP_MS = Number(process.env.REQUEST_GAP_MS ?? 400);
+export const FETCH_RETRIES = Number(process.env.FETCH_RETRIES ?? 6);
+
+export function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export async function fetchSnapshot(path: string): Promise<Snapshot> {
   const url = `${BASE_URL}${path}`;
-  const response = await fetch(url, {
-    headers: { Accept: "application/json" },
-  });
-  const text = await response.text();
-  return {
-    path,
-    status: response.status,
-    body: normalizeJson(parseBody(text)),
-  };
+  const attempts = Math.max(1, FETCH_RETRIES);
+  let lastError: unknown;
+
+  for (let attempt = 1; attempt <= attempts; attempt++) {
+    try {
+      const response = await fetch(url, {
+        headers: { Accept: "application/json" },
+      });
+      const text = await response.text();
+      const snapshot: Snapshot = {
+        path,
+        status: response.status,
+        body: normalizeJson(parseBody(text)),
+      };
+      if (response.status < 500 || attempt === attempts) {
+        return snapshot;
+      }
+      console.error(`  retry ${attempt}/${attempts}  ${path}  HTTP ${response.status}`);
+    } catch (error) {
+      lastError = error;
+      if (attempt === attempts) {
+        throw error;
+      }
+      const message = error instanceof Error ? error.message : String(error);
+      console.error(`  retry ${attempt}/${attempts}  ${path}  ${message}`);
+    }
+    await sleep(1000 * attempt);
+  }
+
+  throw lastError instanceof Error ? lastError : new Error(`Failed to fetch ${url}`);
 }
 
 /** Isolated region around the first/last mismatch, capped for readability. */

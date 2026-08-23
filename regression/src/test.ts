@@ -8,6 +8,8 @@ import {
   loadGolden,
   normalizeSnapshot,
   prettyPrint,
+  REQUEST_GAP_MS,
+  sleep,
 } from "./lib.ts";
 
 async function main(): Promise<void> {
@@ -15,7 +17,10 @@ async function main(): Promise<void> {
   console.log(`Comparing ${endpoints.length} endpoints against ${BASE_URL}`);
 
   let failed = 0;
-  for (const endpoint of endpoints) {
+  for (const [index, endpoint] of endpoints.entries()) {
+    if (index > 0) {
+      await sleep(REQUEST_GAP_MS);
+    }
     const file = goldenPath(endpoint.id);
     if (!existsSync(file)) {
       failed += 1;

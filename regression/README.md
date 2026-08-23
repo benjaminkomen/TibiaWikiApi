@@ -31,6 +31,10 @@ BASE_URL=https://tibiawiki.dev bun run test
 JSON bodies are normalized with a recursive stable key sort and pretty-printed
 before they are saved or compared, so key order alone is not a failure.
 
+Requests are spaced (`REQUEST_GAP_MS`, default 400) and transient HTTP 5xx /
+network errors are retried (`FETCH_RETRIES`, default 6) so a brief production
+blip does not fail the whole run.
+
 ## Current goldens
 
 The committed files in `goldens/` were captured from **`https://tibiawiki.dev`**
