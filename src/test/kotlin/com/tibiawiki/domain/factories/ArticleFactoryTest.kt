@@ -132,7 +132,8 @@ class ArticleFactoryTest {
         private val SOME_TEXT_ONLY_INFOBOX = """
             {{Infobox Achievement|List={{{1|}}}|GetValue={{{GetValue|}}}
             | name         = Goo Goo Dancer
-            }}""".trimIndent().trimStart()
+            }}
+        """.trimIndent().trimStart()
         private val SOME_TEXT_ONLY_LOOT2_TEMPLATE = """
             {{Loot2
             |version=8.6
@@ -143,7 +144,8 @@ class ArticleFactoryTest {
             |Ham, times:10581
             |Bear Paw, times:1043, amount:1, total:1043
             |Honeycomb, times:250, amount:1, total:249
-            }}""".trimIndent().trimStart()
+            }}
+        """.trimIndent().trimStart()
         private val SOME_TEXT_ONLY_LOOT2_RC_TEMPLATE = """
             {{Loot2_RC
             |version=8.6
@@ -154,7 +156,8 @@ class ArticleFactoryTest {
             |Ham, times:10581
             |Bear Paw, times:1043, amount:1, total:1043
             |Honeycomb, times:250, amount:1, total:249
-            }}""".trimIndent().trimStart()
+            }}
+        """.trimIndent().trimStart()
         private val SOME_TEXT_BOTH_LOOT2_AND_LOOT2_RC_TEMPLATE = """
             __NOWYSIWYG__
 
@@ -178,25 +181,29 @@ class ArticleFactoryTest {
             |Ham, times:10581
             |Bear Paw, times:1043, amount:1, total:1043
             |Honeycomb, times:250, amount:1, total:249
-            }}""".trimIndent().trimStart()
+            }}
+        """.trimIndent().trimStart()
         private val SOME_TEXT_INFOBOX_WITH_BEFORE_AND_AFTER = """
             <noinclude>{{merge|blabla}}</noinclude><!--
             -->{{Infobox Achievement|List={{{1|}}}|GetValue={{{GetValue|}}}
             | name         = Goo Goo Dancer
             }}
-            [[Category:Achievements Made By Aliens]]""".trimIndent().trimStart()
+            [[Category:Achievements Made By Aliens]]
+        """.trimIndent().trimStart()
         private val SOME_TEXT_ONLY_INFOBOX2 = """
             {{Infobox Achievement|List={{{1|}}}|GetValue={{{GetValue|}}}
             | name         = Goo Goo Dancer
             | points       = 5
-            }}""".trimIndent().trimStart()
+            }}
+        """.trimIndent().trimStart()
         private val SOME_TEXT_INFOBOX_WITH_BEFORE_AND_AFTER2 = """
             <noinclude>{{merge|blabla}}</noinclude><!--
             -->{{Infobox Achievement|List={{{1|}}}|GetValue={{{GetValue|}}}
             | name         = Goo Goo Dancer
             | points       = 5
             }}
-            [[Category:Achievements Made By Aliens]]""".trimIndent().trimStart()
+            [[Category:Achievements Made By Aliens]]
+        """.trimIndent().trimStart()
         private val SOME_TEXT_WITH_LOOT2_TEMPLATE = """
             __NOWYSIWYG__
 
@@ -234,7 +241,7 @@ class ArticleFactoryTest {
             |[[Honeycomb]], 1
             |Empty, 6
             }}
-            """.trimIndent().trimStart()
+        """.trimIndent().trimStart()
         private val SOME_TEXT_NO_INFOBOX = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. {{}}}}}{"
         private val SOME_TEXT_EMPTY = ""
     }

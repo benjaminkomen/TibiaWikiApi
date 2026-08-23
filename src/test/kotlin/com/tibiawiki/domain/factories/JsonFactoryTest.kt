@@ -168,13 +168,13 @@ class JsonFactoryTest {
         val inputJsonObject = JSONObject(
             mapOf(
                 "loot" to """
-                        {{Loot Table
-                        |{{Loot Item|7197 Theons|common}}
-                        |{{Loot Item|60|Platinum Coin|common}}
-                        |{{Loot Item|Amber with a Bug|common}}
-                        |{{Loot Item|Brass Button}}
-                        }}
-                        """.trimIndent().trimStart()
+                    {{Loot Table
+                    |{{Loot Item|7197 Theons|common}}
+                    |{{Loot Item|60|Platinum Coin|common}}
+                    |{{Loot Item|Amber with a Bug|common}}
+                    |{{Loot Item|Brass Button}}
+                    }}
+                """.trimIndent().trimStart()
             )
         )
         val result = target.enhanceJsonObject(inputJsonObject)
