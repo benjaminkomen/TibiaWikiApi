@@ -57,7 +57,7 @@ class RemainingWikiControllersTest {
         val body = WikiObjectFixtures.fansite()
         stubModify(body)
         val c = FansitesController(retrieve, modifyAny)
-        assertStandard(c.getFansites(false), c.getFansites(true), c.getFansitesByName("Foo"), c.getFansitesByName("Missing"), c.putFansite(body, "edit"))
+        assertStandard(c.getFansites(false), c.getFansites(true), c.getFansitesByName("Foo"), { c.getFansitesByName("Missing") }, c.putFansite(body, "edit"))
     }
 
     @Test
@@ -74,7 +74,7 @@ class RemainingWikiControllersTest {
             c.getCipsoftMembers(false),
             c.getCipsoftMembers(true),
             c.getCipsoftMembersByName("Foo"),
-            c.getCipsoftMembersByName("Missing"),
+            { c.getCipsoftMembersByName("Missing") },
             c.putCipsoftMember(body, "edit")
         )
     }
