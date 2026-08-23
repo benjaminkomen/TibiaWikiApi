@@ -3,7 +3,7 @@ buildscript {
         // Latest OSS-supported Boot line as of Aug 2026 (Spring Framework 7 / Jakarta EE 11)
         springBootVersion = '4.1.1'
         // Boot 4.1.1 BOM manages Kotlin 2.3.21 (Boot 4 requires Kotlin 2.2+)
-        kotlinVersion = '2.3.21'
+        kotlinVersion = '2.4.10'
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
