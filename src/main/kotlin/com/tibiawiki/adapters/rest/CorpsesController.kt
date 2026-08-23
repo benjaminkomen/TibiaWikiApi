@@ -2,7 +2,6 @@ package com.tibiawiki.adapters.rest
 
 import com.tibiawiki.domain.objects.Corpse
 import com.tibiawiki.domain.objects.WikiObject
-import com.tibiawiki.domain.objects.validation.ValidationException
 import com.tibiawiki.process.ModifyAny
 import com.tibiawiki.process.RetrieveCorpses
 import io.swagger.v3.oas.annotations.Operation
@@ -10,8 +9,6 @@ import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.tags.Tag
-import org.json.JSONObject
-import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -42,14 +39,7 @@ class CorpsesController(
         )
         @RequestParam(value = "expand", required = false) expand: Boolean?
     ): ResponseEntity<Any> {
-        return ResponseEntity.ok()
-            .body(
-                if (expand != null && expand) {
-                    retrieveCorpses.corpsesJSON.map<Any>(JSONObject::toMap)
-                } else {
-                    retrieveCorpses.corpsesList
-                }
-            )
+        return WikiResourceResponses.list(expand, { retrieveCorpses.corpsesJSON }, { retrieveCorpses.corpsesList })
     }
 
     @GetMapping(value = ["/{name}"], produces = [MediaType.APPLICATION_JSON_VALUE])
@@ -61,12 +51,7 @@ class CorpsesController(
         ]
     )
     fun getCorpsesByName(@PathVariable("name") name: String): ResponseEntity<String> {
-        return retrieveCorpses.getCorpseJSON(name)
-            .map { a: JSONObject ->
-                ResponseEntity.ok()
-                    .body(a.toString(2))
-            }
-            .orElseGet { ResponseEntity.notFound().build() }
+        return WikiResourceResponses.jsonOrNotFound(retrieveCorpses.getCorpseJSON(name))
     }
 
     @PutMapping(value = [""], consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
@@ -79,13 +64,6 @@ class CorpsesController(
         ]
     )
     fun putCorpse(@RequestBody corpse: Corpse, @RequestHeader("X-WIKI-Edit-Summary") editSummary: String?): ResponseEntity<WikiObject> {
-        return modifyAny.modify(corpse, editSummary)
-            .map { a: WikiObject ->
-                ResponseEntity.ok()
-                    .body(a)
-            }
-            .recover<ValidationException>(ValidationException::class.java) { ResponseEntity.badRequest().build() }
-            .recover { ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build() }
-            .get()
+        return WikiResourceResponses.modify(modifyAny.modify(corpse, editSummary))
     }
 }

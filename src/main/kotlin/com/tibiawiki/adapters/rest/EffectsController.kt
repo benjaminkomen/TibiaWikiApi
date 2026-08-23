@@ -2,7 +2,6 @@ package com.tibiawiki.adapters.rest
 
 import com.tibiawiki.domain.objects.Effect
 import com.tibiawiki.domain.objects.WikiObject
-import com.tibiawiki.domain.objects.validation.ValidationException
 import com.tibiawiki.process.ModifyAny
 import com.tibiawiki.process.RetrieveEffects
 import io.swagger.v3.oas.annotations.Operation
@@ -10,8 +9,6 @@ import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.tags.Tag
-import org.json.JSONObject
-import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -42,14 +39,7 @@ class EffectsController(
         )
         @RequestParam(value = "expand", required = false) expand: Boolean?
     ): ResponseEntity<Any> {
-        return ResponseEntity.ok()
-            .body(
-                if (expand != null && expand) {
-                    retrieveEffects.effectsJSON.map<Any>(JSONObject::toMap)
-                } else {
-                    retrieveEffects.effectsList
-                }
-            )
+        return WikiResourceResponses.list(expand, { retrieveEffects.effectsJSON }, { retrieveEffects.effectsList })
     }
 
     @GetMapping(value = ["/{name}"], produces = [MediaType.APPLICATION_JSON_VALUE])
@@ -61,12 +51,7 @@ class EffectsController(
         ]
     )
     fun getEffectsByName(@PathVariable("name") name: String): ResponseEntity<String> {
-        return retrieveEffects.getEffectJSON(name)
-            .map { a: JSONObject ->
-                ResponseEntity.ok()
-                    .body(a.toString(2))
-            }
-            .orElseGet { ResponseEntity.notFound().build() }
+        return WikiResourceResponses.jsonOrNotFound(retrieveEffects.getEffectJSON(name))
     }
 
     @PutMapping(value = [""], consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
@@ -79,13 +64,6 @@ class EffectsController(
         ]
     )
     fun putEffect(@RequestBody effect: Effect, @RequestHeader("X-WIKI-Edit-Summary") editSummary: String?): ResponseEntity<WikiObject> {
-        return modifyAny.modify(effect, editSummary)
-            .map { a: WikiObject ->
-                ResponseEntity.ok()
-                    .body(a)
-            }
-            .recover<ValidationException>(ValidationException::class.java) { ResponseEntity.badRequest().build() }
-            .recover { ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build() }
-            .get()
+        return WikiResourceResponses.modify(modifyAny.modify(effect, editSummary))
     }
 }
