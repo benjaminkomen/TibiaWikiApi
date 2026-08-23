@@ -23,5 +23,6 @@ class JacksonConfigurationTest {
 
         assertThat(wikiObject, instanceOf(Achievement::class.java))
         assertThat((wikiObject as Achievement).name, `is`("Goo Goo Dancer"))
+        assertThat(mapper.serializationConfig().timeZone.id, `is`("Europe/Paris"))
     }
 }

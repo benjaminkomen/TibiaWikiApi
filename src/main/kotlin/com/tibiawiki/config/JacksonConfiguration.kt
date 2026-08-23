@@ -25,7 +25,7 @@ class JacksonConfiguration {
                 .changeDefaultPropertyInclusion { incl -> incl.withValueInclusion(JsonInclude.Include.NON_NULL) }
                 .disable(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES)
                 .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
-                .defaultTimeZone(TimeZone.getTimeZone("ECT"))
+                .defaultTimeZone(TimeZone.getTimeZone("Europe/Paris"))
                 // Jackson: addMixIn(target, mixinSource) — apply mixin annotations onto WikiObject
                 .addMixIn(WikiObject::class.java, WikiObjectMixin::class.java)
         }

@@ -30,14 +30,6 @@ description = 'TibiaWikiApi'
 repositories {
     mavenLocal()
     mavenCentral()
-
-//    maven {
-//        url = 'https://maven.pkg.github.com/benjaminkomen/jwiki'
-//        credentials {
-//            username = 'benjaminkomen'
-//            password = System.getenv("GITHUB_TOKEN")
-//        }
-//    }
 }
 
 ext {
@@ -56,7 +48,6 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-webmvc:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-jackson:${springBootVersion}"
-//    implementation "benjaminkomen:jwiki:2.2.0"
     implementation "io.github.fastily:jwiki:1.11.0"
     implementation "org.slf4j:slf4j-api:${slf4jVersion}"
     implementation "net.logstash.logback:logstash-logback-encoder:9.0"

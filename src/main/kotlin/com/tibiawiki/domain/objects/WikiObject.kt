@@ -6,7 +6,7 @@ import com.tibiawiki.domain.enums.Status
 import com.tibiawiki.domain.interfaces.Validatable
 import com.tibiawiki.domain.objects.validation.ValidationResult
 
-abstract class WikiObject @JvmOverloads constructor(
+abstract class WikiObject(
     open val name: String? = null,
     open val article: Article? = null,
     open val actualname: String? = null,

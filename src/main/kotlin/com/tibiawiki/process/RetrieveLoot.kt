@@ -75,7 +75,6 @@ class RetrieveLoot(
         private const val LOOT_STATISTICS_CATEGORY_NAME = "Loot Statistics"
 
         // jwiki's NS has no public constructor for custom numeric namespaces (loot is 112).
-        @JvmStatic
         fun makeLootNamespace(namespaceInput: Int): NS {
             return try {
                 val constructors = NS::class.java.declaredConstructors

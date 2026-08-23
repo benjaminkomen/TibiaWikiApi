@@ -3,7 +3,7 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=com.tibiawiki%3ATibiaWikiApi&metric=coverage)](https://sonarcloud.io/dashboard?id=com.tibiawiki%3ATibiaWikiApi)
 
 # TibiaWikiApi
-Gets data from http://tibia.wikia.com and exposes this data using a RESTful JSON API.
+Gets data from https://tibia.fandom.com and exposes this data using a RESTful JSON API.
 
 ## View online
 Navigate to https://tibiawiki.dev to view the Swagger API of this project.

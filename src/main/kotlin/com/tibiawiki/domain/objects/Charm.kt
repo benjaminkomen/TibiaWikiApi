@@ -11,8 +11,8 @@ data class Charm(
         Offensive, Defensive, Passive
     }
 
-    override fun fieldOrder(): MutableList<String> {
-        return mutableListOf(
+    override fun fieldOrder(): List<String> {
+        return listOf(
             "name",
             "actualname",
             "type",

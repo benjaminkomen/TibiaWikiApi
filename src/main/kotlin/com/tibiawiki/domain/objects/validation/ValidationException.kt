@@ -28,7 +28,6 @@ class ValidationException : RuntimeException {
             }
 
     companion object {
-        @JvmStatic
         fun fromResults(validationResults: List<ValidationResult>): ValidationException {
             return ValidationException(validationResults)
         }

@@ -24,7 +24,7 @@ class OpenAPIConfiguration {
                     .title("TibiaWikiApi")
                     .contact(Contact().name("B. Komen"))
                     .version(buildProperties.version)
-                    .description("Expose data (creatures, items, quests, etc.) from TibiaWiki (https://tibia.wikia.com) with a REST API")
+                    .description("Expose data (creatures, items, quests, etc.) from TibiaWiki (https://tibia.fandom.com) with a REST API")
                     .license(License().name("MIT License").url("https://github.com/benjaminkomen/TibiaWikiApi/blob/master/LICENSE"))
             )
     }

@@ -112,7 +112,6 @@ class FixtureArticleRepository(
             return loaded.toMap()
         }
 
-        @JvmStatic
         fun resolveFixturesDir(configured: String): Path {
             val given = Path.of(configured)
             if (isFixturesDir(given)) {

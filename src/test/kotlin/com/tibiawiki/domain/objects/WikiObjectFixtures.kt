@@ -26,8 +26,6 @@ import java.math.RoundingMode
  */
 object WikiObjectFixtures {
 
-    @JvmStatic
-    @JvmOverloads
     fun achievement(
         name: String? = "Goo Goo Dancer",
         description: String? = "Seeing a mucus plug makes your heart dance and you can't resist to see what it hides. Goo goo away!",
@@ -52,10 +50,8 @@ object WikiObjectFixtures {
         relatedpages = relatedpages
     )
 
-    @JvmStatic
     fun namedAchievement(name: String): Achievement = Achievement(name = name)
 
-    @JvmStatic
     fun book(): Book = Book(
         booktype = BookType.BOOK_BROWN,
         title = "Dungeon Survival Guide",
@@ -72,7 +68,6 @@ object WikiObjectFixtures {
             " the dungeons will reward the cautious and brave, but punish the reckless."
     )
 
-    @JvmStatic
     fun building(): Building = Building(
         name = "Theater Avenue 8b",
         implemented = "Pre-6.0",
@@ -95,7 +90,6 @@ object WikiObjectFixtures {
         image = "[[File:Theater Avenue 8b.png]]"
     )
 
-    @JvmStatic
     fun corpse(): Corpse = Corpse(
         name = "Dead Rat",
         article = Article.A,
@@ -116,7 +110,6 @@ object WikiObjectFixtures {
             " for better [[equipment]]. Only fresh corpses are accepted, rotted corpses are ignored."
     )
 
-    @JvmStatic
     fun effect(): Effect = Effect(
         name = "Fireball Effect",
         effectid = listOf(7, 82),
@@ -127,7 +120,6 @@ object WikiObjectFixtures {
         effect = "[[Fire Damage]] on target or nothing."
     )
 
-    @JvmStatic
     fun key(): Key = Key(
         number = "4055",
         aka = "Panpipe Quest Key",
@@ -143,7 +135,6 @@ object WikiObjectFixtures {
         longnotes = "Allows you to open the door ([https://tibia.wikia.com/wiki/Mapper?coords=127.131,125.129,8,3,1,1 here]) to the [[Panpipe Quest]]."
     )
 
-    @JvmStatic
     fun location(): Location = Location(
         ruler = "[[King Tibianus]]",
         implemented = "Pre-6.0",
@@ -154,7 +145,6 @@ object WikiObjectFixtures {
         map2 = "[[File:Thais.PNG]]"
     )
 
-    @JvmStatic
     fun missile(): Missile = Missile(
         name = "Throwing Cake Missile",
         implemented = "7.9",
@@ -164,7 +154,6 @@ object WikiObjectFixtures {
         notes = "This missile is followed by the [[Cream Cake Effect]]: [[File:Cream Cake Effect.gif]]"
     )
 
-    @JvmStatic
     fun mount(): Mount = Mount(
         name = "Donkey",
         speed = 10,
@@ -174,7 +163,6 @@ object WikiObjectFixtures {
         notes = "Go to [[Incredibly Old Witch]]'s house,"
     )
 
-    @JvmStatic
     fun npc(): NPC = NPC(
         name = "Sam",
         implemented = "Pre-6.0",
@@ -195,10 +183,8 @@ object WikiObjectFixtures {
         notes = "Sam is the Blacksmith of [[Thais]]."
     )
 
-    @JvmStatic
     fun creature(): Creature = creatureWithLoot(dragonLoot())
 
-    @JvmStatic
     fun creatureWithEmptyLoot(): Creature = Creature(
         name = "Freed Soul",
         article = Article.A,
@@ -220,7 +206,6 @@ object WikiObjectFixtures {
         loot = emptyList()
     )
 
-    @JvmStatic
     fun creatureWithLoot(loot: List<LootItem>): Creature = Creature(
         name = "Dragon",
         article = Article.A,
@@ -277,7 +262,6 @@ object WikiObjectFixtures {
         history = "Dragons are"
     )
 
-    @JvmStatic
     fun dragonLoot(): List<LootItem> = listOf(
         LootItem(itemName = "Gold Coin", amount = "0-105"),
         LootItem(itemName = "Dragon Ham", amount = "0-3"),
@@ -302,7 +286,6 @@ object WikiObjectFixtures {
         LootItem(itemName = "Dragonbone Staff", rarity = Rarity.VERY_RARE)
     )
 
-    @JvmStatic
     fun outfit(): Outfit = Outfit(
         name = "Pirate",
         primarytype = "Quest",
@@ -315,7 +298,6 @@ object WikiObjectFixtures {
         notes = "Pirate outfits are perfect for swabbing the deck or walking the plank. Quite dashing and great for sailing."
     )
 
-    @JvmStatic
     fun huntingPlace(): HuntingPlace = HuntingPlace(
         name = "Hero Cave",
         image = "Hero",
@@ -369,7 +351,6 @@ object WikiObjectFixtures {
         map2 = "Hero Cave 6.png"
     )
 
-    @JvmStatic
     fun item(): TibiaObject {
         val result = TibiaObject(
             itemid = listOf(3283),
@@ -403,7 +384,6 @@ object WikiObjectFixtures {
         return result
     }
 
-    @JvmStatic
     fun tibiaObject(): TibiaObject {
         val result = TibiaObject(
             itemid = null,
@@ -421,7 +401,6 @@ object WikiObjectFixtures {
         return result
     }
 
-    @JvmStatic
     fun spell(): Spell = Spell(
         name = "Light Healing",
         type = SpellType.Instant,
@@ -440,7 +419,6 @@ object WikiObjectFixtures {
         notes = "A weak, but popular healing spell."
     )
 
-    @JvmStatic
     fun quest(): Quest = Quest(
         name = "The Paradox Tower Quest",
         aka = "Riddler Quest, Mathemagics Quest",
@@ -456,7 +434,6 @@ object WikiObjectFixtures {
         implemented = "6.61-6.97"
     )
 
-    @JvmStatic
     fun street(): Street = Street(
         name = "Sugar Street",
         implemented = "7.8",

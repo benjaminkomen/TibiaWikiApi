@@ -17,7 +17,6 @@ data class HuntingPlaceSkills(
     val huntingPlace: HuntingPlace? = null
 ) {
     companion object {
-        @JvmStatic
         fun fieldOrder(): List<String> {
             return listOf(
                 "areaname",
