@@ -1,0 +1,7 @@
+{
+  "path": "/api/v2/loot",
+  "status": 200,
+  "body": [
+    "Ferumbras"
+  ]
+}

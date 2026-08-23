@@ -1,0 +1,26 @@
+{
+  "path": "/api/v2/loot/Ferumbras",
+  "status": 200,
+  "body": {
+    "loot2": {
+      "kills": "143",
+      "loot": [
+        {
+          "amount": "1-105",
+          "itemName": "Gold Coin",
+          "times": "100",
+          "total": "5000"
+        },
+        {
+          "amount": "7-34",
+          "itemName": "Platinum Coin",
+          "times": "10",
+          "total": "178"
+        }
+      ],
+      "name": "Ferumbras",
+      "pageName": "Loot_Statistics:Ferumbras",
+      "version": "8.6"
+    }
+  }
+}
