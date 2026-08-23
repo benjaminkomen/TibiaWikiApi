@@ -74,7 +74,10 @@ class RetrieveLoot(
     companion object {
         private const val LOOT_STATISTICS_CATEGORY_NAME = "Loot Statistics"
 
-        // TODO replace this reflection hack with functionality in jwiki to construct a custom namespace
+        /**
+         * Loot statistics live in custom MediaWiki NS 112. jwiki's [NS] only exposes
+         * built-in namespaces, so construct via the package-private constructor.
+         */
         @JvmStatic
         fun makeLootNamespace(namespaceInput: Int): NS {
             return try {

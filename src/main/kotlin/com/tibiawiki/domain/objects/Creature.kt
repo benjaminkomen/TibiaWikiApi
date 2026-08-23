@@ -20,7 +20,9 @@ data class Creature(
     override val notes: String? = null,
     override val history: String? = null,
     override val status: Status? = null,
-    val race_id: String? = null,
+    @param:JsonProperty("race_id")
+    @get:JsonProperty("race_id")
+    val raceId: String? = null,
     @JsonProperty("hp") val hitPoints: String? = null,
     @JsonProperty("exp") val experiencePoints: String? = null,
     val armor: String? = null,

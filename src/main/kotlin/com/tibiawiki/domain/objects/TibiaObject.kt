@@ -10,9 +10,12 @@ import java.math.BigDecimal
 
 data class TibiaObject(
     val itemid: List<Int>? = emptyList(),
+    // Legacy wiki infobox keys still appear on live item pages and in API JSON.
+    @Suppress("kotlin:S1133")
     @Deprecated("replaced by objectclass")
     val primarytype: String? = null,
-    @Deprecated(message = "never used")
+    @Suppress("kotlin:S1133")
+    @Deprecated("legacy wiki field still serialized on item pages")
     val sprites: String? = null,
     val objectclass: String,
     val secondarytype: String? = null,

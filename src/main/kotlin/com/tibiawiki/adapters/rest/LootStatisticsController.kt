@@ -6,7 +6,6 @@ import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.tags.Tag
-import org.json.JSONObject
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -23,38 +22,26 @@ class LootStatisticsController(
 ) {
 
     @GetMapping(value = [""], produces = [MediaType.APPLICATION_JSON_VALUE])
-    @Operation(summary = "Get a list of loot statistics")
+    @Operation(summary = "Get a list of loot statistics from the Loot2 template")
     @ApiResponses(
         value = [
-            ApiResponse(responseCode = "200", description = "list of loot statistics retrieved")
+            ApiResponse(responseCode = "200", description = "list of Loot2 statistics retrieved")
         ]
     )
     fun getLoot(
         @Parameter(
             description = "optionally expands the result to retrieve not only " +
-                "the loot statistics page names but the full loot statistics",
+                "the loot statistics page names but the full Loot2 statistics",
             required = false
         )
         @RequestParam(value = "expand", required = false) expand: Boolean?
     ): ResponseEntity<Any> {
-        return ResponseEntity.ok()
-            .body(
-                if (expand != null && expand) {
-                    retrieveLoot.getLootJSONObject().map { obj: JSONObject -> obj.toMap() }
-                } else {
-                    retrieveLoot.getLootList()
-                }
-            )
+        return WikiResourceResponses.list(expand, retrieveLoot.getLootJSONObject(), retrieveLoot.getLootList())
     }
 
     @GetMapping(value = ["/{name}"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    @Operation(summary = "Get a specific loot statistics page by creature name")
+    @Operation(summary = "Get Loot2 statistics for a creature")
     fun getLootByName(@PathVariable("name") name: String): ResponseEntity<String> {
-        return retrieveLoot.getLootJSONObject("Loot_Statistics:$name")
-            .map { a ->
-                ResponseEntity.ok()
-                    .body(a.toString(2))
-            }
-            .orElseGet { ResponseEntity.notFound().build() }
+        return WikiResourceResponses.json(retrieveLoot.getLootJSONObject("Loot_Statistics:$name"))
     }
 }
