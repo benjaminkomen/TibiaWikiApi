@@ -11,10 +11,6 @@ import org.hamcrest.Matchers.notNullValue
 import org.json.JSONObject
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.mockito.ArgumentMatchers.any
-import org.mockito.ArgumentMatchers.anyList
-import org.mockito.ArgumentMatchers.anyString
-import org.mockito.ArgumentMatchers.eq
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
 import java.util.Optional
@@ -23,25 +19,19 @@ class RetrieveLootTest {
 
     private lateinit var target: RetrieveLoot
     private lateinit var articleRepository: ArticleRepository
-    private lateinit var articleFactory: ArticleFactory
-    private lateinit var jsonFactory: JsonFactory
+    private val lootNamespace: NS = RetrieveLoot.makeLootNamespace(112)
 
     @BeforeEach
     fun setup() {
         articleRepository = mock(ArticleRepository::class.java)
-        articleFactory = ArticleFactory()
-        jsonFactory = mock(JsonFactory::class.java)
-        target = RetrieveLoot(articleRepository, articleFactory, jsonFactory)
-
-        doReturn(SOME_JSON_OBJECT).`when`(jsonFactory).convertLootPartOfArticleToJson(anyString(), anyString())
-        doReturn(SOME_JSON_OBJECT).`when`(jsonFactory).convertAllLootPartsOfArticleToJson(anyString(), any())
+        target = RetrieveLoot(articleRepository, ArticleFactory(), JsonFactory())
     }
 
     @Test
     fun testGetLootList() {
         doReturn(listOf(SOME_LOOT_NAME, SOME_OTHER_LOOT_NAME))
             .`when`(articleRepository)
-            .getPageNamesFromCategory(eq("Loot Statistics"), any(NS::class.java))
+            .getPageNamesFromCategory("Loot Statistics", lootNamespace)
 
         val result = target.getLootList()
 
@@ -53,7 +43,7 @@ class RetrieveLootTest {
     fun testGetLootJSONObject_ZeroResults() {
         doReturn(emptyList<String>())
             .`when`(articleRepository)
-            .getPageNamesFromCategory(eq("Loot Statistics"), any(NS::class.java))
+            .getPageNamesFromCategory("Loot Statistics", lootNamespace)
 
         val result = target.getLootJSONObject().toList()
 
@@ -67,6 +57,8 @@ class RetrieveLootTest {
         val result = target.getLootJSONObject().toList()
 
         assertThat(result, hasSize(2))
+        assertThat(result[0].getString("name"), `is`("Amazon"))
+        assertThat(result[0].getString("kills"), `is`("22009"))
     }
 
     @Test
@@ -75,7 +67,8 @@ class RetrieveLootTest {
 
         val result: Optional<JSONObject> = target.getLootJSONObject(SOME_PAGE_NAME)
 
-        assertThat(result.orElseThrow(), `is`(SOME_JSON_OBJECT))
+        assertThat(result.orElseThrow().getString("name"), `is`("Amazon"))
+        assertThat(result.get().getString("pageName"), `is`(SOME_PAGE_NAME))
     }
 
     @Test
@@ -94,6 +87,7 @@ class RetrieveLootTest {
         val result = target.getAllLootPartsJSON().toList()
 
         assertThat(result, hasSize(2))
+        assertThat(result[0].getJSONObject("loot2").getString("name"), `is`("Amazon"))
     }
 
     @Test
@@ -102,7 +96,8 @@ class RetrieveLootTest {
 
         val result: Optional<JSONObject> = target.getAllLootPartsJSON(SOME_PAGE_NAME)
 
-        assertThat(result.orElseThrow(), `is`(SOME_JSON_OBJECT))
+        assertThat(result.orElseThrow().getJSONObject("loot2").getString("name"), `is`("Amazon"))
+        assertThat(result.get().getJSONObject("loot2").getString("pageName"), `is`(SOME_PAGE_NAME))
     }
 
     @Test
@@ -129,15 +124,14 @@ class RetrieveLootTest {
         )
         doReturn(names)
             .`when`(articleRepository)
-            .getPageNamesFromCategory(eq("Loot Statistics"), any(NS::class.java))
-        doReturn(pages).`when`(articleRepository).getArticlesFromCategory(anyList())
+            .getPageNamesFromCategory("Loot Statistics", lootNamespace)
+        doReturn(pages).`when`(articleRepository).getArticlesFromCategory(names)
     }
 
     companion object {
         private const val SOME_PAGE_NAME = "Loot_Statistics:Amazon"
         private const val SOME_LOOT_NAME = "Loot:Amazon"
         private const val SOME_OTHER_LOOT_NAME = "Loot:Dragon"
-        private val SOME_JSON_OBJECT = JSONObject().put("name", "Amazon")
         private val LOOT_AMAZON_TEXT =
             """
             {{Loot2
