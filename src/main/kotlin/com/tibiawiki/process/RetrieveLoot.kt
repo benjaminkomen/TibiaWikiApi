@@ -2,8 +2,8 @@ package com.tibiawiki.process
 
 import com.tibiawiki.domain.factories.ArticleFactory
 import com.tibiawiki.domain.factories.JsonFactory
+import com.tibiawiki.domain.objects.WikiNamespace
 import com.tibiawiki.domain.repositories.ArticleRepository
-import io.github.fastily.jwiki.core.NS
 import org.json.JSONObject
 import org.springframework.stereotype.Component
 import java.util.Optional
@@ -19,8 +19,8 @@ class RetrieveLoot(
     fun getLootList(): List<String> {
         return articleRepository.getPageNamesFromCategory(
             LOOT_STATISTICS_CATEGORY_NAME,
-            makeLootNamespace(112)
-        ).toList()
+            WikiNamespace.LOOT_STATISTICS
+        )
     }
 
     fun getLootJSONObject(): Stream<JSONObject> {
@@ -69,20 +69,7 @@ class RetrieveLoot(
             .map { lootPartsOfArticle -> jsonFactory.convertAllLootPartsOfArticleToJson(pageName, lootPartsOfArticle) }
     }
 
-    class NamespaceReflectionException(e: Throwable) : RuntimeException(e)
-
     companion object {
         private const val LOOT_STATISTICS_CATEGORY_NAME = "Loot Statistics"
-
-        // jwiki's NS has no public constructor for custom numeric namespaces (loot is 112).
-        fun makeLootNamespace(namespaceInput: Int): NS {
-            return try {
-                val constructors = NS::class.java.declaredConstructors
-                constructors[0].isAccessible = true
-                constructors[0].newInstance(namespaceInput) as NS
-            } catch (e: ReflectiveOperationException) {
-                throw NamespaceReflectionException(e)
-            }
-        }
     }
 }

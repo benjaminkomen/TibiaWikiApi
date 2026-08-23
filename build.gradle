@@ -49,6 +49,8 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-webmvc:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-jackson:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
+    // Stay on Central jwiki 1.11.0: Wiki.getNS already resolves custom namespaces
+    // (TibiaWiki loot is 112) from siteinfo, so the Packages fork is not needed.
     implementation "io.github.fastily:jwiki:1.11.0"
     implementation "org.slf4j:slf4j-api:${slf4jVersion}"
     implementation "net.logstash.logback:logstash-logback-encoder:9.0"

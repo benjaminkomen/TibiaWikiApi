@@ -1,5 +1,6 @@
 package com.tibiawiki.domain.repositories
 
+import com.tibiawiki.domain.objects.WikiNamespace
 import io.github.fastily.jwiki.core.NS
 import io.github.fastily.jwiki.core.Wiki
 import org.hamcrest.MatcherAssert.assertThat
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.Test
 import org.mockito.Mockito.anyString
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.verify
 
 class JwikiArticleRepositoryTest {
 
@@ -31,6 +33,19 @@ class JwikiArticleRepositoryTest {
         assertThat(result, notNullValue())
         assertThat(result[0], `is`("foo"))
         assertThat(result[1], `is`("bar"))
+    }
+
+    @Test
+    fun testGetPageNamesFromCategoryWithLootNamespace() {
+        doReturn(NS.CATEGORY).`when`(wiki).getNS("Loot Statistics")
+        doReturn(arrayListOf("Loot Statistics:Amazon")).`when`(wiki)
+            .getCategoryMembers(SOME_LOOT_CATEGORY_NAME, NS.CATEGORY)
+
+        val result = target.getPageNamesFromCategory(SOME_LOOT_CATEGORY_NAME, WikiNamespace.LOOT_STATISTICS)
+
+        assertThat(result, `is`(listOf("Loot Statistics:Amazon")))
+        verify(wiki).getNS("Loot Statistics")
+        verify(wiki).getCategoryMembers(SOME_LOOT_CATEGORY_NAME, NS.CATEGORY)
     }
 
     @Test
@@ -89,6 +104,7 @@ class JwikiArticleRepositoryTest {
 
     companion object {
         private const val SOME_CATEGORY_NAME = "Achievements"
+        private const val SOME_LOOT_CATEGORY_NAME = "Loot Statistics"
         private const val SOME_PAGE_NAME = "Goo Goo Dancer"
         private const val SOME_TEMPLATE_NAME = "Template:Infobox_Item"
     }

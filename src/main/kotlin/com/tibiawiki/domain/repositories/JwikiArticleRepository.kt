@@ -1,5 +1,6 @@
 package com.tibiawiki.domain.repositories
 
+import com.tibiawiki.domain.objects.WikiNamespace
 import com.tibiawiki.domain.utils.PropertiesUtil
 import io.github.fastily.jwiki.core.MQuery
 import io.github.fastily.jwiki.core.NS
@@ -33,8 +34,8 @@ class JwikiArticleRepository : ArticleRepository {
         return wiki.getCategoryMembers(categoryName, NS.MAIN)
     }
 
-    override fun getPageNamesFromCategory(categoryName: String, namespace: NS): List<String> {
-        return wiki.getCategoryMembers(categoryName, namespace)
+    override fun getPageNamesFromCategory(categoryName: String, namespace: WikiNamespace): List<String> {
+        return wiki.getCategoryMembers(categoryName, JwikiNamespaceResolver.resolve(wiki, namespace))
     }
 
     /**

@@ -1,10 +1,9 @@
 package com.tibiawiki.controller
 
 import com.tibiawiki.domain.enums.InfoboxTemplate
+import com.tibiawiki.domain.objects.WikiNamespace
 import com.tibiawiki.domain.repositories.ArticleRepository
 import com.tibiawiki.process.RetrieveAny
-import com.tibiawiki.process.RetrieveLoot
-import io.github.fastily.jwiki.core.NS
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
 import org.json.JSONObject
@@ -32,7 +31,7 @@ class LootStatisticsResourceIT {
 
     @Test
     fun givenGetLootsNotExpanded_whenCorrectRequest_thenResponseIsOkAndContainsTwoLootNames() {
-        doReturn(listOf("foo", "bar")).`when`(articleRepository).getPageNamesFromCategory(InfoboxTemplate.LOOT.categoryName, LOOT_NAMESPACE)
+        doReturn(listOf("foo", "bar")).`when`(articleRepository).getPageNamesFromCategory(InfoboxTemplate.LOOT.categoryName, WikiNamespace.LOOT_STATISTICS)
 
         val result = restTemplate.getForEntity("/api/loot?expand=false", List::class.java)
 
@@ -45,7 +44,7 @@ class LootStatisticsResourceIT {
     @Test
     fun givenGetLootsExpanded_whenCorrectRequest_thenResponseIsOkAndContainsOneLoot() {
         doReturn(emptyList<String>()).`when`(articleRepository).getPageNamesFromCategory(RetrieveAny.CATEGORY_LISTS)
-        doReturn(listOf("Loot:Amazon")).`when`(articleRepository).getPageNamesFromCategory(InfoboxTemplate.LOOT.categoryName, LOOT_NAMESPACE)
+        doReturn(listOf("Loot:Amazon")).`when`(articleRepository).getPageNamesFromCategory(InfoboxTemplate.LOOT.categoryName, WikiNamespace.LOOT_STATISTICS)
         doReturn(mapOf("Loot:Amazon" to LOOT_AMAZON_TEXT)).`when`(articleRepository).getArticlesFromCategory(listOf("Loot:Amazon"))
 
         val result = restTemplate.getForEntity("/api/loot?expand=true", List::class.java)
@@ -82,7 +81,6 @@ class LootStatisticsResourceIT {
     }
 
     companion object {
-        private val LOOT_NAMESPACE: NS = RetrieveLoot.makeLootNamespace(112)
         private val LOOT_AMAZON_TEXT =
             """
             {{Loot2

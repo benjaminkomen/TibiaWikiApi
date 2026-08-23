@@ -2,18 +2,15 @@ package com.tibiawiki.process
 
 import com.tibiawiki.domain.factories.ArticleFactory
 import com.tibiawiki.domain.factories.JsonFactory
+import com.tibiawiki.domain.objects.WikiNamespace
 import com.tibiawiki.domain.repositories.ArticleRepository
-import io.github.fastily.jwiki.core.NS
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.hasSize
 import org.hamcrest.Matchers.`is`
-import org.hamcrest.Matchers.notNullValue
 import org.json.JSONObject
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.mockito.ArgumentMatchers.any
 import org.mockito.ArgumentMatchers.anyList
-import org.mockito.ArgumentMatchers.eq
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
 import java.util.Optional
@@ -89,16 +86,9 @@ class RetrieveLootTest {
         assertThat(target.getLootList(), `is`(listOf(SOME_NAME)))
     }
 
-    @Test
-    fun testMakeLootNamespace() {
-        val namespace = RetrieveLoot.makeLootNamespace(112)
-
-        assertThat(namespace, notNullValue())
-    }
-
     private fun stubLootCategory(names: List<String>) {
         doReturn(names).`when`(articleRepository)
-            .getPageNamesFromCategory(eqValue("Loot Statistics"), anyValue(NS::class.java))
+            .getPageNamesFromCategory("Loot Statistics", WikiNamespace.LOOT_STATISTICS)
     }
 
     companion object {
@@ -106,16 +96,5 @@ class RetrieveLootTest {
         private const val SOME_ARTICLE_CONTENT = "{{Loot2\n|version=8.6\n|kills=1\n|name=Amazon\n}}"
         private const val SOME_NAME = "Loot_Statistics:Amazon"
         private const val SOME_OTHER_NAME = "Loot_Statistics:Dragon"
-
-        private fun eqValue(value: String): String {
-            eq(value)
-            return value
-        }
-
-        @Suppress("UNCHECKED_CAST")
-        private fun <T> anyValue(type: Class<T>): T {
-            any(type)
-            return null as T
-        }
     }
 }
