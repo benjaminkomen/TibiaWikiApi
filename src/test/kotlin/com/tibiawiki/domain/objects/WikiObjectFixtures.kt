@@ -406,6 +406,7 @@ object WikiObjectFixtures {
 
     fun item(): TibiaObject {
         val result = TibiaObject(
+            name = "Carlin Sword",
             itemid = listOf(3283),
             objectclass = ObjectClass.WEAPONS.description,
             flavortext = "Foobar",
@@ -429,7 +430,6 @@ object WikiObjectFixtures {
             buyfrom = "Baltim, Brengus, Cedrik,",
             sellto = "Baltim, Brengus, Cedrik, Esrik,"
         )
-        ReflectionTestUtils.setField(result, "name", "Carlin Sword")
         ReflectionTestUtils.setField(result, "article", Article.A)
         ReflectionTestUtils.setField(result, "actualname", "carlin sword")
         ReflectionTestUtils.setField(result, "plural", "?")

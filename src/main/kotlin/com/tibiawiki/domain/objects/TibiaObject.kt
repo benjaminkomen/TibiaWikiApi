@@ -10,6 +10,7 @@ import com.tibiawiki.domain.enums.YesNo
 import java.math.BigDecimal
 
 data class TibiaObject(
+    override val name: String? = null,
     val itemid: List<Int>? = emptyList(),
     // Wiki infobox still serializes these keys; dropping them would break GET/PUT JSON.
     @Suppress("kotlin:S1133")
@@ -102,7 +103,7 @@ data class TibiaObject(
     val fansite: String? = null,
     val location: String? = null,
     val notes2: String? = null,
-) : WikiObject() {
+) : WikiObject(name = name) {
     override fun fieldOrder(): MutableList<String> {
         return mutableListOf(
             "name",
