@@ -2,15 +2,24 @@ package com.tibiawiki.domain.objects
 
 import com.fasterxml.jackson.annotation.JsonGetter
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.tibiawiki.domain.enums.Article
 import com.tibiawiki.domain.enums.DamageElement
 import com.tibiawiki.domain.enums.Hands
 import com.tibiawiki.domain.enums.InfoboxTemplate
+import com.tibiawiki.domain.enums.Status
 import com.tibiawiki.domain.enums.WeaponType
 import com.tibiawiki.domain.enums.YesNo
 import java.math.BigDecimal
 
 data class TibiaObject(
     override val name: String? = null,
+    override val article: Article? = null,
+    override val actualname: String? = null,
+    override val plural: String? = null,
+    override val implemented: String? = null,
+    override val notes: String? = null,
+    override val history: String? = null,
+    override val status: Status? = null,
     val itemid: List<Int>? = emptyList(),
     // Wiki infobox still serializes these keys; dropping them would break GET/PUT JSON.
     @Suppress("kotlin:S1133")
@@ -103,7 +112,16 @@ data class TibiaObject(
     val fansite: String? = null,
     val location: String? = null,
     val notes2: String? = null,
-) : WikiObject(name = name) {
+) : WikiObject(
+    name = name,
+    article = article,
+    actualname = actualname,
+    plural = plural,
+    implemented = implemented,
+    notes = notes,
+    history = history,
+    status = status
+) {
     override fun fieldOrder(): MutableList<String> {
         return mutableListOf(
             "name",

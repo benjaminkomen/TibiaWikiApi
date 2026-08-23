@@ -118,7 +118,7 @@ class WikiWriteOpenApiAndCorsIT {
 
     @Test
     fun openApiDocumentsRealPutAuthInsteadOfFakeCredentials401() {
-        val spec = restTemplate.getForEntity("/api-docs", String::class.java)
+        val spec = openApiSpec()
         assertThat(spec.statusCode, `is`(HttpStatus.OK))
         val body = spec.body!!
         assertThat(body.contains("not authorized to edit without providing credentials"), `is`(false))
@@ -171,5 +171,13 @@ class WikiWriteOpenApiAndCorsIT {
         val result = restTemplate.getForEntity("/api/corpses", String::class.java)
         assertThat(result.statusCode, `is`(HttpStatus.OK))
         assertThat(result.body, `is`(not(nullValue())))
+    }
+
+    private fun openApiSpec(): org.springframework.http.ResponseEntity<String> {
+        val configured = restTemplate.getForEntity("/api-docs", String::class.java)
+        if (configured.statusCode == HttpStatus.OK) {
+            return configured
+        }
+        return restTemplate.getForEntity("/v3/api-docs", String::class.java)
     }
 }

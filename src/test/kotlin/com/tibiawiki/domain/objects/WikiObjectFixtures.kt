@@ -17,7 +17,6 @@ import com.tibiawiki.domain.enums.Hands
 import com.tibiawiki.domain.enums.ObjectClass
 import com.tibiawiki.domain.enums.WeaponType
 import com.tibiawiki.domain.enums.YesNo
-import org.springframework.test.util.ReflectionTestUtils
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -405,8 +404,12 @@ object WikiObjectFixtures {
     )
 
     fun item(): TibiaObject {
-        val result = TibiaObject(
+        return TibiaObject(
             name = "Carlin Sword",
+            article = Article.A,
+            actualname = "carlin sword",
+            plural = "?",
+            notes = "If you have one of these ",
             itemid = listOf(3283),
             objectclass = ObjectClass.WEAPONS.description,
             flavortext = "Foobar",
@@ -430,15 +433,14 @@ object WikiObjectFixtures {
             buyfrom = "Baltim, Brengus, Cedrik,",
             sellto = "Baltim, Brengus, Cedrik, Esrik,"
         )
-        ReflectionTestUtils.setField(result, "article", Article.A)
-        ReflectionTestUtils.setField(result, "actualname", "carlin sword")
-        ReflectionTestUtils.setField(result, "plural", "?")
-        ReflectionTestUtils.setField(result, "notes", "If you have one of these ")
-        return result
     }
 
     fun tibiaObject(): TibiaObject {
-        val result = TibiaObject(
+        return TibiaObject(
+            name = "Blueberry Bush",
+            article = Article.A,
+            implemented = "7.1",
+            notes = "They are the source of the [[blueberry|blueberries]].",
             itemid = null,
             sounds = null,
             droppedby = null,
@@ -447,11 +449,6 @@ object WikiObjectFixtures {
             location = "Can be found all around [[Tibia]].",
             notes2 = "<br />{{JSpoiler|After using [[Blueberry]] Bushes 500 times,"
         )
-        ReflectionTestUtils.setField(result, "name", "Blueberry Bush")
-        ReflectionTestUtils.setField(result, "article", Article.A)
-        ReflectionTestUtils.setField(result, "implemented", "7.1")
-        ReflectionTestUtils.setField(result, "notes", "They are the source of the [[blueberry|blueberries]].")
-        return result
     }
 
     fun spell(): Spell = Spell(
