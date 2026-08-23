@@ -24,7 +24,7 @@ class WikiExceptionHandler {
 
     @ExceptionHandler(ExpandTooLargeException::class)
     fun expandTooLarge(e: ExpandTooLargeException): ResponseEntity<Map<String, Any>> {
-        return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE)
+        return ResponseEntity.status(HttpStatus.CONTENT_TOO_LARGE)
             .body(
                 mapOf(
                     "error" to "expand_too_large",

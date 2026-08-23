@@ -67,7 +67,7 @@ class WikiCallSupportTest {
         }
         WikiCallSupport(properties).use { calls ->
             val thrown = assertThrows<WikiUnavailableException> {
-                calls.call("slow") {
+                calls.call<String>("slow") {
                     Thread.sleep(2_000)
                     "never"
                 }

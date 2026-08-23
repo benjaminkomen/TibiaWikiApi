@@ -23,7 +23,7 @@ class WikiExceptionHandlerTest {
     @Test
     fun mapsExpandCapTo413() {
         val result = handler.expandTooLarge(ExpandTooLargeException(9000, 5000))
-        assertThat(result.statusCode, `is`(HttpStatus.PAYLOAD_TOO_LARGE))
+        assertThat(result.statusCode, `is`(HttpStatus.CONTENT_TOO_LARGE))
         assertThat(result.body!!["error"], `is`("expand_too_large"))
         assertThat(result.body!!["requested"], `is`(9000))
         assertThat(result.body!!["maxPages"], `is`(5000))

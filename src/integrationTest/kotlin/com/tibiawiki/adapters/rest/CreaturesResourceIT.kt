@@ -139,7 +139,7 @@ class CreaturesResourceIT {
         doThrow(ExpandTooLargeException(9000, 5000)).`when`(articleRepository).getArticlesFromCategory(listOf("Dragon"))
 
         val result = restTemplate.getForEntity("/api/creatures?expand=true", String::class.java)
-        assertThat(result.statusCode, `is`(HttpStatus.PAYLOAD_TOO_LARGE))
+        assertThat(result.statusCode, `is`(HttpStatus.CONTENT_TOO_LARGE))
     }
 
     @Test
