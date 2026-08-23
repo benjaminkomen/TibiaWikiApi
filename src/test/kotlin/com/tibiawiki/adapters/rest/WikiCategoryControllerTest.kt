@@ -45,8 +45,8 @@ class WikiCategoryControllerTest {
 
         val body = WikiObjectFixtures.achievement()
         doReturn(ModifyResult.Success(body)).`when`(modifyAny).modify(
-            org.mockito.ArgumentMatchers.any(WikiObject::class.java),
-            org.mockito.ArgumentMatchers.eq("edit")
+            org.mockito.ArgumentMatchers.any<WikiObject>() ?: body,
+            org.mockito.ArgumentMatchers.eq("edit") ?: "edit"
         )
 
         val list = controller.getWikiObjects("achievements", false)
@@ -95,8 +95,8 @@ class WikiCategoryControllerTest {
             captured.add(invocation.getArgument(0))
             ModifyResult.Success(invocation.getArgument(0))
         }.`when`(modifyAny).modify(
-            org.mockito.ArgumentMatchers.any(WikiObject::class.java),
-            org.mockito.ArgumentMatchers.eq("edit")
+            org.mockito.ArgumentMatchers.any<WikiObject>() ?: WikiObject.WikiObjectImpl(),
+            org.mockito.ArgumentMatchers.eq("edit") ?: "edit"
         )
 
         controller.putWikiObject("achievements", mapper.readTree("""{"name":"Goo Goo Dancer"}"""), "edit")
