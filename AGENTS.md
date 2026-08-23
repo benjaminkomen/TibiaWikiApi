@@ -7,7 +7,7 @@ Spring Boot REST API over TibiaWiki (Fandom). Public Swagger: https://tibiawiki.
 ## Stack
 
 - **JDK 25** (`java.toolchain` and Kotlin `jvmTarget` 25 in `build.gradle`). Gradle wrapper **9.7.1** — always use `./gradlew`.
-- Kotlin **2.3.21**, Spring Boot **4.1.1**.
+- Kotlin **2.4.10**, Spring Boot **4.1.1**.
 - Layout: production, unit, and integration code is Kotlin under `src/main/kotlin`, `src/test/kotlin`, and `src/integrationTest/kotlin`.
 
 ## Build / run
@@ -29,7 +29,7 @@ CI (`buid.yml`) runs:
 ./gradlew ktlintCheck jacocoTestReport
 ```
 
-`jacocoTestReport` depends on `check`, which also runs the `integrationTest` source set. ktlint is the style checker — do not add a style guide.
+`jacocoTestReport` depends on `check`, which also runs the `integrationTest` source set. A slice of those ITs (`FixturesProfileIT`) uses `@ActiveProfiles("fixtures")` and the real `FixtureArticleRepository` — no mocks and no Fandom. ktlint is the style checker — do not add a style guide.
 
 The Bun harness in `regression/` is **not** part of the Gradle `test` task.
 

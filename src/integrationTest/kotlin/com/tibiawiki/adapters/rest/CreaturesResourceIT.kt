@@ -1,4 +1,4 @@
-package com.tibiawiki.controller
+package com.tibiawiki.adapters.rest
 
 import com.tibiawiki.TestUtils.makeHttpHeaders
 import com.tibiawiki.domain.enums.InfoboxTemplate

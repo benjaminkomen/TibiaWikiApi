@@ -1,0 +1,31 @@
+{
+  "path": "/api/pages/Dragon",
+  "status": 200,
+  "body": {
+    "actualname": "dragon",
+    "armor": "25",
+    "article": "a",
+    "convince": "--",
+    "creatureclass": "Reptiles",
+    "exp": "700",
+    "hp": "1000",
+    "illusionable": "yes",
+    "implemented": "4.0",
+    "isboss": "no",
+    "location": "[[Thais]]",
+    "loot": [
+      {
+        "amount": "0-105",
+        "itemName": "Gold Coin"
+      },
+      {
+        "itemName": "Dragon Ham"
+      }
+    ],
+    "name": "Dragon",
+    "plural": "dragons",
+    "primarytype": "Dragons",
+    "summon": "--",
+    "templateType": "Creature"
+  }
+}

@@ -235,6 +235,11 @@
     "description": "Loot statistics v2 detail: Ferumbras (loot2 / loot2_rc)"
   },
   {
+    "id": "page-dragon",
+    "path": "/api/pages/Dragon",
+    "description": "Wiki page by title: Dragon"
+  },
+  {
     "id": "missile-throwing-cake",
     "path": "/api/missiles/Throwing_Cake_Missile",
     "description": "Missile detail: Throwing Cake Missile"
