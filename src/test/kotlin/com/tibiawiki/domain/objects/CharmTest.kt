@@ -40,8 +40,10 @@ class CharmTest {
 
     companion object {
         private const val TIERED_MINOR_COST = "100 / 150 / 225"
-        private const val MINOR_JSON = "{\"type\":\"Minor\",\"cost\":\"100 / 150 / 225\",\"effect\":\"boost\"}"
-        private const val MAJOR_JSON = "{\"type\":\"Major\",\"cost\":\"600 / 900 / 3000\",\"effect\":\"aoe\"}"
+        private const val MINOR_JSON =
+            "{\"templateType\":\"Charm\",\"type\":\"Minor\",\"cost\":\"100 / 150 / 225\",\"effect\":\"boost\"}"
+        private const val MAJOR_JSON =
+            "{\"templateType\":\"Charm\",\"type\":\"Major\",\"cost\":\"600 / 900 / 3000\",\"effect\":\"aoe\"}"
         private val adrenalineBurstInfobox = """
             {{Infobox Charm
             | name         = Adrenaline Burst
