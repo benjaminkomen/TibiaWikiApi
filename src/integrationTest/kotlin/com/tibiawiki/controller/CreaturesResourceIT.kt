@@ -66,6 +66,7 @@ class CreaturesResourceIT {
         assertThat(creature["hp"], `is`("1000"))
         assertThat(creature["exp"], `is`("700"))
         assertThat(creature["armor"], `is`("25"))
+        assertThat(creature["mitigation"], `is`("1.56"))
         assertThat(creature["summon"], `is`("--"))
         assertThat(creature["convince"], `is`("--"))
         assertThat(creature["illusionable"], `is`("yes"))
@@ -91,6 +92,7 @@ class CreaturesResourceIT {
         assertThat(resultAsJSON.get("hp"), `is`("1000"))
         assertThat(resultAsJSON.get("exp"), `is`("700"))
         assertThat(resultAsJSON.get("armor"), `is`("25"))
+        assertThat(resultAsJSON.get("mitigation"), `is`("1.56"))
         assertThat(resultAsJSON.get("summon"), `is`("--"))
         assertThat(resultAsJSON.get("convince"), `is`("--"))
         assertThat(resultAsJSON.get("illusionable"), `is`("yes"))
@@ -141,6 +143,7 @@ class CreaturesResourceIT {
             | hp             = 1000
             | exp            = 700
             | armor          = 25
+            | mitigation     = 1.56
             | summon         = --
             | convince       = --
             | illusionable   = yes

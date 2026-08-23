@@ -6,6 +6,7 @@
 | hp             = 1000
 | exp            = 700
 | armor          = 25
+| mitigation     = 1.56
 | summon         = --
 | convince       = --
 | illusionable   = yes

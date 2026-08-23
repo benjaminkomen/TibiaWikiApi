@@ -22,6 +22,7 @@
         "itemName": "Dragon Ham"
       }
     ],
+    "mitigation": "1.56",
     "name": "Dragon",
     "plural": "dragons",
     "primarytype": "Dragons",

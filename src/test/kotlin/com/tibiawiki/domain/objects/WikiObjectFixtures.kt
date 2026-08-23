@@ -210,6 +210,28 @@ object WikiObjectFixtures {
 
     fun creature(): Creature = creatureWithLoot(dragonLoot())
 
+    @JvmStatic
+    fun bossCreature(): Creature = Creature(
+        name = "Ferumbras",
+        actualname = "Ferumbras",
+        hitPoints = "50000",
+        experiencePoints = "12000",
+        armor = "50",
+        mitigation = "2.45",
+        summon = "--",
+        convince = "--",
+        illusionable = YesNo.NO_LOWERCASE,
+        creatureclass = "Demons",
+        primarytype = "Sorcerers",
+        isboss = YesNo.YES_LOWERCASE,
+        bosstiaryclass = "Nemesis",
+        cooldown = "20",
+        isarenaboss = YesNo.NO_LOWERCASE,
+        maxdmg = "2300",
+        maxbattlelength = "15",
+        location = "[[Kharos]]."
+    )
+
     fun creatureWithEmptyLoot(): Creature = Creature(
         name = "Freed Soul",
         article = Article.A,
