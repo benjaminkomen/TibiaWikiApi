@@ -2,15 +2,19 @@
   "path": "/api/spells/Light_Healing",
   "status": 200,
   "body": {
+    "basepower": "40",
     "cooldown": "1",
     "effect": "Restores a small amount of [[HP|health]].",
     "levelrequired": "8",
+    "libraryname": "Light Healing",
     "mana": "20",
     "name": "Light Healing",
     "premium": "no",
+    "spellid": "1",
     "subclass": "Healing",
     "templateType": "Spell",
     "type": "Instant",
+    "voc": "[[Knight]]s, [[Paladin]]s, [[Sorcerer]]s, [[Druid]]s and [[Monk]]s",
     "words": "exura"
   }
 }

@@ -88,7 +88,7 @@ Representative pages (fixtures profile only):
 | Chained Penance | Monk-only spell (`voc=[[Monk]]s`) |
 | Powerful Strike | `Infobox Imbuement` via `/api/pages/Powerful_Strike` |
 | Bladespark | `Infobox Familiar` via `/api/pages/Bladespark` |
-| `Loot_Statistics:Dragon` | `Loot2_RC` **first**, then `Loot2` (v1 vs v2 ordering) |
+| `Loot_Statistics:Dragon` | `Loot2_RC` **first**, then `Loot2` (v1 vs v2). Today's parser still treats `{{Loot2` as a prefix, so both goldens currently show the RC table; #405 should flip them after the fix. |
 
 `wiki.fixtures.path` / `WIKI_FIXTURES_PATH` defaults to `regression/fixtures`
 (resolved from the repo root).

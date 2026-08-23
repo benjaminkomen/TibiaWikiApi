@@ -1,0 +1,18 @@
+{
+  "path": "/api/pages/Bladespark",
+  "status": 200,
+  "body": {
+    "actualname": "bladespark",
+    "article": "a",
+    "cooldown": "30",
+    "implemented": "11.80.7048",
+    "mana": "2000",
+    "name": "Bladespark",
+    "plural": "bladesparks",
+    "premium": "yes",
+    "templateType": "Familiar",
+    "type": "Instant",
+    "voc": "[[Paladin]]s",
+    "words": "utevo gran res sac"
+  }
+}

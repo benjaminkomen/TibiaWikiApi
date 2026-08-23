@@ -3,16 +3,35 @@
   "status": 200,
   "body": [
     {
+      "basepower": "40",
       "cooldown": "1",
       "effect": "Restores a small amount of [[HP|health]].",
       "levelrequired": "8",
+      "libraryname": "Light Healing",
       "mana": "20",
       "name": "Light Healing",
       "premium": "no",
+      "spellid": "1",
       "subclass": "Healing",
       "templateType": "Spell",
       "type": "Instant",
+      "voc": "[[Knight]]s, [[Paladin]]s, [[Sorcerer]]s, [[Druid]]s and [[Monk]]s",
       "words": "exura"
+    },
+    {
+      "cooldown": "4",
+      "effect": "Deals holy damage that can jump to nearby enemies.",
+      "implemented": "15.00.249ccc",
+      "levelrequired": "8",
+      "mana": "180",
+      "name": "Chained Penance",
+      "premium": "no",
+      "spellid": "280",
+      "subclass": "Attack",
+      "templateType": "Spell",
+      "type": "Instant",
+      "voc": "[[Monk]]s",
+      "words": "exori mas nia"
     }
   ]
 }
