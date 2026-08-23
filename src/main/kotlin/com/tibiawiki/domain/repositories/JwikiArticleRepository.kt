@@ -1,70 +1,128 @@
 package com.tibiawiki.domain.repositories
 
+import com.tibiawiki.config.WikiClientProperties
 import com.tibiawiki.domain.objects.WikiNamespace
 import com.tibiawiki.domain.utils.PropertiesUtil
+import com.tibiawiki.domain.wiki.ExpandTooLargeException
+import com.tibiawiki.domain.wiki.WikiCallSupport
+import com.tibiawiki.domain.wiki.WikiFactory
+import com.tibiawiki.domain.wiki.WikiResponseCache
 import io.github.fastily.jwiki.core.MQuery
 import io.github.fastily.jwiki.core.NS
 import io.github.fastily.jwiki.core.Wiki
-import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Repository
 
 /**
- * This repository is responsible for obtaining data from the external wiki source. Given a pageName or categoryName
- * it can retrieve one Article or list of Articles from the wiki.
+ * Live Fandom-backed [ArticleRepository]. Wiki construction, HTTP, and login
+ * happen on first use (not in this constructor) so a Fandom outage degrades
+ * reads instead of failing process start.
  */
 @Repository
 @Profile("!fixtures")
-class JwikiArticleRepository : ArticleRepository {
+class JwikiArticleRepository(
+    private val properties: WikiClientProperties,
+    private val wikiFactory: WikiFactory,
+    private val cache: WikiResponseCache,
+    private val calls: WikiCallSupport
+) : ArticleRepository {
 
-    private val wiki: Wiki
     private var isDebugEnabled = false
 
-    constructor() {
-        wiki = Wiki.Builder().withApiEndpoint(DEFAULT_WIKI_URI.toHttpUrlOrNull()).build()
-        login(wiki)
-    }
-
-    constructor(wiki: Wiki) {
-        this.wiki = wiki
-    }
+    constructor(wiki: Wiki) : this(
+        WikiClientProperties(),
+        WikiFactory.fixed(wiki),
+        WikiResponseCache.disabled(),
+        WikiCallSupport.direct()
+    )
 
     override fun getPageNamesFromCategory(categoryName: String): List<String> {
-        return wiki.getCategoryMembers(categoryName, NS.MAIN)
+        return getPageNamesFromCategory(categoryName, NS.MAIN)
     }
 
     override fun getPageNamesFromCategory(categoryName: String, namespace: WikiNamespace): List<String> {
-        return wiki.getCategoryMembers(categoryName, JwikiNamespaceResolver.resolve(wiki, namespace))
+        val resolved = JwikiNamespaceResolver.resolve(wiki(), namespace)
+        val key = categoryKey(categoryName, resolved.v)
+        return cache.getOrLoadCategory(key) {
+            calls.call("getCategoryMembers") {
+                wiki().getCategoryMembers(categoryName, resolved)
+            }
+        }
     }
 
     /**
      * @return a map of key-value pairs of: title - pagecontent
      */
     override fun getArticlesFromCategory(pageNames: List<String>): Map<String, String> {
-        return MQuery.getPageText(wiki, pageNames)
+        if (pageNames.size > properties.expand.maxPages) {
+            throw ExpandTooLargeException(pageNames.size, properties.expand.maxPages)
+        }
+        val result = LinkedHashMap<String, String>()
+        val missing = ArrayList<String>()
+        for (pageName in pageNames) {
+            val cached = cache.getArticleIfPresent(pageName)
+            if (cached != null) {
+                cached.text?.let { result[pageName] = it }
+            } else {
+                missing.add(pageName)
+            }
+        }
+        if (missing.isNotEmpty()) {
+            val fetched = calls.call("getArticles") {
+                MQuery.getPageText(wiki(), missing)
+            }
+            for (pageName in missing) {
+                val text = fetched[pageName]?.takeIf { it.isNotEmpty() }
+                cache.putArticle(pageName, text)
+                if (text != null) {
+                    result[pageName] = text
+                }
+            }
+        }
+        return result
     }
 
     override fun getArticlesFromCategory(categoryName: String): Map<String, String> {
-        return MQuery.getPageText(wiki, wiki.getCategoryMembers(categoryName))
+        val key = categoryKey(categoryName, ALL_NAMESPACES)
+        val names = cache.getOrLoadCategory(key) {
+            calls.call("getCategoryMembers") {
+                wiki().getCategoryMembers(categoryName)
+            }
+        }
+        return getArticlesFromCategory(names)
     }
 
     override fun getPageNamesUsingTemplate(templateName: String): List<String> {
-        return wiki.whatTranscludesHere(templateName, NS.MAIN)
+        val key = "template:$templateName"
+        return cache.getOrLoadCategory(key) {
+            calls.call("whatTranscludesHere") {
+                wiki().whatTranscludesHere(templateName, NS.MAIN)
+            }
+        }
     }
 
     override fun getArticle(pageName: String): String? {
-        val pageText = wiki.getPageText(pageName)
-        return if (pageText == "") null else pageText
+        return cache.getOrLoadArticle(pageName) {
+            calls.call("getArticle") {
+                wiki().getPageText(pageName).takeIf { it.isNotEmpty() }
+            }
+        }
     }
 
     override fun modifyArticle(pageName: String, pageContent: String, editSummary: String?): Boolean {
         LOG.info("Attempting to publish page {} with new content {}.", pageName, pageContent)
-        return if (isDebugEnabled) {
+        val edited = if (isDebugEnabled) {
             true
         } else {
-            wiki.edit(pageName, pageContent, editSummary)
+            calls.call("modifyArticle") {
+                wiki().edit(pageName, pageContent, editSummary)
+            }
         }
+        if (edited) {
+            cache.invalidateArticle(pageName)
+        }
+        return edited
     }
 
     fun enableDebug() {
@@ -85,8 +143,14 @@ class JwikiArticleRepository : ArticleRepository {
         }
     }
 
+    private fun wiki(): Wiki = wikiFactory.get()
+
     companion object {
         private val LOG = LoggerFactory.getLogger(JwikiArticleRepository::class.java)
-        private const val DEFAULT_WIKI_URI = "https://tibia.fandom.com/api.php"
+        private const val ALL_NAMESPACES = Int.MIN_VALUE
+
+        private fun categoryKey(categoryName: String, namespace: Int): String {
+            return "category:$categoryName#$namespace"
+        }
     }
 }

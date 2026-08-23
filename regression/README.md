@@ -11,7 +11,7 @@ intentional: run `bun run capture` when you want a new baseline.
 | Mode | Wiki backend | When to use |
 | --- | --- | --- |
 | **fixtures** (CI + default local refresh) | In-process `FixtureArticleRepository` reading `regression/fixtures/` | GitHub Actions, everyday golden refresh |
-| **live** | jwiki → `https://tibia.fandom.com/api.php` (default Spring profile) | Rare, manual only |
+| **live** | jwiki → `wiki.api-url` (default `https://tibia.fandom.com/api.php`), with timeouts, retries, and a short-TTL cache | Rare, manual only |
 
 **CI uses fixtures only.** The `fixtures` Spring profile never constructs
 `JwikiArticleRepository`, so the process makes **no outbound calls** to

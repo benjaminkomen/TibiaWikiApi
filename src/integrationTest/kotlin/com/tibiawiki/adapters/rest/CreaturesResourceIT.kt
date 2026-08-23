@@ -5,6 +5,8 @@ import com.tibiawiki.domain.enums.InfoboxTemplate
 import com.tibiawiki.domain.objects.Creature
 import com.tibiawiki.domain.objects.WikiObjectFixtures
 import com.tibiawiki.domain.repositories.ArticleRepository
+import com.tibiawiki.domain.wiki.ExpandTooLargeException
+import com.tibiawiki.domain.wiki.WikiUnavailableException
 import com.tibiawiki.process.RetrieveAny
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
@@ -13,6 +15,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mockito.doReturn
+import org.mockito.Mockito.doThrow
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.resttestclient.TestRestTemplate
 import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate
@@ -118,6 +121,25 @@ class CreaturesResourceIT {
 
         val result = restTemplate.exchange("/api/creatures", HttpMethod.PUT, HttpEntity(makeCreature(), makeHttpHeaders(editSummary)), Void::class.java)
         assertThat(result.statusCode, `is`(HttpStatus.OK))
+    }
+
+    @Test
+    fun givenFandomUnavailable_whenListCreatures_thenResponseIsServiceUnavailable() {
+        doThrow(WikiUnavailableException("Fandom down"))
+            .`when`(articleRepository).getPageNamesFromCategory(InfoboxTemplate.CREATURE.categoryName)
+
+        val result = restTemplate.getForEntity("/api/creatures", String::class.java)
+        assertThat(result.statusCode, `is`(HttpStatus.SERVICE_UNAVAILABLE))
+    }
+
+    @Test
+    fun givenExpandOverCap_whenListCreatures_thenResponseIsPayloadTooLarge() {
+        doReturn(emptyList<String>()).`when`(articleRepository).getPageNamesFromCategory(RetrieveAny.CATEGORY_LISTS)
+        doReturn(listOf("Dragon")).`when`(articleRepository).getPageNamesFromCategory(InfoboxTemplate.CREATURE.categoryName)
+        doThrow(ExpandTooLargeException(9000, 5000)).`when`(articleRepository).getArticlesFromCategory(listOf("Dragon"))
+
+        val result = restTemplate.getForEntity("/api/creatures?expand=true", String::class.java)
+        assertThat(result.statusCode, `is`(HttpStatus.PAYLOAD_TOO_LARGE))
     }
 
     @Test

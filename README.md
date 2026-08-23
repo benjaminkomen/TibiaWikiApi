@@ -19,6 +19,19 @@ Process health (no Fandom/wiki calls): `GET /actuator/health`,
 `/actuator/health/liveness`, `/actuator/health/readiness`, and `/actuator/info`.
 Cloud Run probe settings are documented in [`docker/README.md`](docker/README.md).
 
+## Fandom client (default profile)
+
+The default Spring profile talks to TibiaWiki on Fandom. That hop is treated as unreliable:
+
+- `wiki.api-url` and `wiki.user-agent` are configurable (no hardcoded client constants)
+- Each wiki call has a timeout (`wiki.call-timeout`, default 20s) and is retried with full jitter
+- Category member lists and single-page wikitext are cached in-process (`wiki.cache.ttl`, default 60s)
+- `?expand=true` is served from that cache and rejected with HTTP 413 if the category is larger than `wiki.expand.max-pages` (default 5000)
+- The jwiki `Wiki` client is created on first use, so a Fandom outage does not fail process start
+- Set `wiki.warm-on-startup=true` on Cloud Run min-instances to build `Wiki` at boot instead of on the first request
+
+The `fixtures` profile does not construct this client and never calls Fandom.
+
 ## API regression
 
 A Bun-based black-box harness in [`regression/`](regression/README.md) snapshots HTTP JSON
@@ -61,7 +74,8 @@ CORS allows GET (plus HEAD/OPTIONS) from `https://tibiawiki.dev` and local
 ## Query parameters
 For all resources the query parameter `?expand=true` can be appended to get a full list of JSON objects
  at the collection resource level. For example, instead of https://tibiawiki.dev/api/achievements the url
- https://tibiawiki.dev/api/achievements?expand=true can be used.
+ https://tibiawiki.dev/api/achievements?expand=true can be used. Categories larger than
+ `wiki.expand.max-pages` return HTTP 413 instead of bulk-fetching Fandom.
 
 ## Resources
 
