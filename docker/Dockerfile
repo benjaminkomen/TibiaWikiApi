@@ -1,4 +1,4 @@
-FROM gradle:8.14.3-jdk21 as builder
+FROM gradle:9.7.1-jdk25 as builder
 
 # Copy local code to the container image.
 WORKDIR /app
@@ -13,7 +13,7 @@ ENV GITHUB_TOKEN=${GITHUB_TOKEN}
 # name "app" keeps the artifact at app-2.0.0.jar).
 RUN gradle bootJar --no-daemon
 
-FROM eclipse-temurin:21-jre
+FROM eclipse-temurin:25-jre
 RUN mkdir /project
 COPY --from=builder /app/build/libs/app-2.0.0.jar /project/TibiaWikiApi.jar
 WORKDIR /project
