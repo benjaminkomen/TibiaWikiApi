@@ -38,7 +38,7 @@ class JwikiArticleRepository(
     )
 
     override fun getPageNamesFromCategory(categoryName: String): List<String> {
-        return getPageNamesFromCategory(categoryName, NS.MAIN)
+        return getPageNamesFromCategory(categoryName, WikiNamespace.MAIN)
     }
 
     override fun getPageNamesFromCategory(categoryName: String, namespace: WikiNamespace): List<String> {
