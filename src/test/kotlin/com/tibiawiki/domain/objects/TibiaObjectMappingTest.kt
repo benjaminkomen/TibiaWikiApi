@@ -24,6 +24,26 @@ class TibiaObjectMappingTest {
     }
 
     @Test
+    fun mapsWikiObjectIdentityFieldsOnReadAndWrite() {
+        val wikiJson = mapOf(
+            "templateType" to "Object",
+            "name" to "Carlin Sword",
+            "article" to "a",
+            "actualname" to "carlin sword",
+            "objectclass" to "Weapons"
+        )
+
+        val tibiaObject = wikiObjectFactory.createWikiObject(wikiJson) as TibiaObject
+
+        assertThat(tibiaObject.name, `is`("Carlin Sword"))
+        assertThat(tibiaObject.articleTitle(), `is`("Carlin Sword"))
+
+        val json = wikiObjectFactory.createJSONObject(tibiaObject, tibiaObject.getTemplateType())
+        assertThat(json["name"], `is`("Carlin Sword"))
+        assertThat(json["actualname"], `is`("carlin sword"))
+    }
+
+    @Test
     fun mapsLiveInfoboxObjectParametersAndWeaponTypes() {
         val wikiJson = mapOf(
             "templateType" to "Object",

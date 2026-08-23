@@ -185,6 +185,11 @@ tasks.register('integrationTest', Test) {
     classpath = sourceSets.integrationTest.runtimeClasspath
     outputs.upToDateWhen { false }
     mustRunAfter test
+    // PUT ITs exercise ModifyAny. Do not add src/integrationTest/resources/application.properties:
+    // Spring Boot loads only the first classpath:/application.properties, which would hide
+    // main actuator exposure and springdoc.api-docs.path. @SpringBootTest(properties=...)
+    // still overrides this per class (e.g. wiki.write.enabled=false).
+    systemProperty 'wiki.write.enabled', 'true'
 }
 
 check.dependsOn integrationTest

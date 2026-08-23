@@ -30,7 +30,7 @@ class CharmTest {
     @Test
     fun fixtureInfoboxMapsToMinorWithoutStrippingType() {
         val json = JsonFactory().convertInfoboxPartOfArticleToJson(adrenalineBurstInfobox)
-        val charm = productionMapper().convertValue(json, Charm::class.java)
+        val charm = productionMapper().convertValue(json, Charm::class.java) as Charm
 
         assertThat(charm.type, `is`(Charm.Type.Minor))
         assertThat(charm.cost, `is`(TIERED_MINOR_COST))

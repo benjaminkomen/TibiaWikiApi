@@ -1,9 +1,14 @@
 package com.tibiawiki.config
 
+import jakarta.servlet.http.HttpServletRequest
+import jakarta.servlet.http.HttpServletResponse
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpHeaders
 import org.springframework.web.cors.CorsConfiguration
+import org.springframework.web.cors.CorsUtils
+import org.springframework.web.cors.DefaultCorsProcessor
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import org.springframework.web.filter.CorsFilter
 
@@ -17,7 +22,9 @@ class CORSResponseFilter(
     fun corsFilter(): CorsFilter {
         val source = UrlBasedCorsConfigurationSource()
         source.registerCorsConfiguration("/**", corsConfiguration())
-        return CorsFilter(source)
+        return CorsFilter(source).apply {
+            setCorsProcessor(AllowUnknownOriginGetProcessor())
+        }
     }
 
     fun corsConfiguration(): CorsConfiguration {
@@ -44,5 +51,28 @@ class CORSResponseFilter(
                 config.allowedOrigins = origins
             }
         }
+    }
+}
+
+/**
+ * Spring's CorsFilter answers 403 when Origin is not allow-listed. This API is
+ * public GET: browsers hide the body without ACAO, but non-browser clients
+ * should still receive 200. Preflight from an unknown origin stays rejected.
+ */
+internal class AllowUnknownOriginGetProcessor : DefaultCorsProcessor() {
+    override fun processRequest(
+        config: CorsConfiguration?,
+        request: HttpServletRequest,
+        response: HttpServletResponse
+    ): Boolean {
+        val origin = request.getHeader(HttpHeaders.ORIGIN)
+        if (config != null &&
+            origin != null &&
+            !CorsUtils.isPreFlightRequest(request) &&
+            config.checkOrigin(origin) == null
+        ) {
+            return true
+        }
+        return super.processRequest(config, request, response)
     }
 }
