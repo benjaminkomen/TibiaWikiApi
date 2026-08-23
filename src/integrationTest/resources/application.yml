@@ -1,6 +1,0 @@
-# YAML merges with src/main/resources/application.properties. A second
-# application.properties on the test classpath replaces that file entirely
-# (classpath: matches one resource) and hid /actuator/info and /api-docs.
-wiki:
-  write:
-    enabled: true
