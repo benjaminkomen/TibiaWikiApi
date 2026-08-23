@@ -11,7 +11,7 @@
   "Pickupable Objects": ["Carlin Sword"],
   "Keys": ["Key 4055"],
   "Locations": ["Thais"],
-  "Loot Statistics": ["Ferumbras"],
+  "Loot Statistics": ["Demon", "Ferumbras"],
   "Missiles": ["Throwing Cake Missile"],
   "Mounts": ["Donkey"],
   "NPCs": ["Sam"],

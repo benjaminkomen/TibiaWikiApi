@@ -222,7 +222,12 @@
   {
     "id": "loot-ferumbras",
     "path": "/api/loot/Ferumbras",
-    "description": "Loot statistics detail: Ferumbras"
+    "description": "Loot statistics detail: Ferumbras (Loot2 then Loot2_RC)"
+  },
+  {
+    "id": "loot-demon",
+    "path": "/api/loot/Demon",
+    "description": "Loot statistics detail: Demon (Loot2_RC first, then Loot2)"
   },
   {
     "id": "loot-v2",
@@ -233,6 +238,11 @@
     "id": "loot-v2-ferumbras",
     "path": "/api/v2/loot/Ferumbras",
     "description": "Loot statistics v2 detail: Ferumbras (loot2 / loot2_rc)"
+  },
+  {
+    "id": "loot-v2-demon",
+    "path": "/api/v2/loot/Demon",
+    "description": "Loot statistics v2 detail: Demon (Loot2_RC first, then Loot2)"
   },
   {
     "id": "page-dragon",

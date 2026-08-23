@@ -93,6 +93,22 @@ class LootStatisticsV2ResourceIT {
     }
 
     @Test
+    fun givenGetLootsByName_whenLoot2RcComesFirst_thenLoot2AndLoot2RcStayDistinct() {
+        doReturn(LOOT_DEMON_RC_FIRST_TEXT).`when`(articleRepository).getArticle("Loot_Statistics:Demon")
+
+        val result = restTemplate.getForEntity("/api/v2/loot/Demon", String::class.java)
+        assertThat(result.statusCode, `is`(HttpStatus.OK))
+
+        val loot2Result = JSONObject(result.body).getJSONObject("loot2")
+        assertThat(loot2Result.get("kills"), `is`("500"))
+        assertThat(loot2Result.get("name"), `is`("Demon"))
+
+        val loot2RewardChestResult = JSONObject(result.body).getJSONObject("loot2_rc")
+        assertThat(loot2RewardChestResult.get("kills"), `is`("2"))
+        assertThat(loot2RewardChestResult.get("name"), `is`("Demon"))
+    }
+
+    @Test
     fun givenGetLootsByName_whenWrongRequest_thenResponseIsNotFound() {
         doReturn(null).`when`(articleRepository).getArticle("Loot:Foobar")
 
@@ -162,6 +178,24 @@ class LootStatisticsV2ResourceIT {
             |[[Spellbook of Lost Souls]], 3
             }}
             <br/>Average gold: 99.75
+            """.trimIndent()
+        private val LOOT_DEMON_RC_FIRST_TEXT =
+            """
+            {{Loot2_RC
+            |version=8.6
+            |kills=2
+            |name=Demon
+            |Magic Plate Armor, times:1, amount:1, total:1
+            |Demon Shield, times:1, amount:1, total:1
+            }}
+
+            {{Loot2
+            |version=8.6
+            |kills=500
+            |name=Demon
+            |Gold Coin, times:400, amount:1-200, total:40000
+            |Fire Axe, times:10, amount:1, total:10
+            }}
             """.trimIndent()
     }
 }

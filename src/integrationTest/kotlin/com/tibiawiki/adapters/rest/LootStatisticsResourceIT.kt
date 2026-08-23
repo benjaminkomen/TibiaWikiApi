@@ -73,6 +73,20 @@ class LootStatisticsResourceIT {
     }
 
     @Test
+    fun givenGetLootsByName_whenLoot2RcComesFirst_thenResponseIsRegularLoot2() {
+        doReturn(LOOT_DEMON_RC_FIRST_TEXT).`when`(articleRepository).getArticle("Loot_Statistics:Demon")
+
+        val result = restTemplate.getForEntity("/api/loot/Demon", String::class.java)
+        assertThat(result.statusCode, `is`(HttpStatus.OK))
+
+        val resultAsJSON = JSONObject(result.body)
+        assertThat(resultAsJSON.get("kills"), `is`("500"))
+        assertThat(resultAsJSON.get("name"), `is`("Demon"))
+        assertThat(resultAsJSON.get("version"), `is`("8.6"))
+        assertThat(resultAsJSON.get("pageName"), `is`("Loot_Statistics:Demon"))
+    }
+
+    @Test
     fun givenGetLootsByName_whenWrongRequest_thenResponseIsNotFound() {
         doReturn(null).`when`(articleRepository).getArticle("Loot:Foobar")
 
@@ -98,6 +112,24 @@ class LootStatisticsResourceIT {
             |Torch, times:223, amount:1, total:223
             |Crystal Necklace, times:56, amount:1, total:56
             |Small Ruby, times:27, amount:1, total:27
+            }}
+            """.trimIndent()
+        private val LOOT_DEMON_RC_FIRST_TEXT =
+            """
+            {{Loot2_RC
+            |version=8.6
+            |kills=2
+            |name=Demon
+            |Magic Plate Armor, times:1, amount:1, total:1
+            |Demon Shield, times:1, amount:1, total:1
+            }}
+
+            {{Loot2
+            |version=8.6
+            |kills=500
+            |name=Demon
+            |Gold Coin, times:400, amount:1-200, total:40000
+            |Fire Axe, times:10, amount:1, total:10
             }}
             """.trimIndent()
     }

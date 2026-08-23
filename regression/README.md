@@ -98,7 +98,9 @@ Every resource in the root README table has a name-list GET and the documented
 example detail GET. Underscore encoding is used for spaces (and parentheses in
 the book example). `/api/v2/loot` has the same list + Ferumbras detail coverage
 as `/api/loot` (v2 returns `loot2` / `loot2_rc` parts instead of a single loot2
-object). `/api/pages/{title}` is covered with Dragon (same infobox JSON as
+object). Ferumbras is Loot2 then Loot2_RC; Demon is Loot2_RC first then Loot2
+so v1 vs v2 stay disambiguated when the reward-chest table precedes regular loot.
+`/api/pages/{title}` is covered with Dragon (same infobox JSON as
 `/api/creatures/Dragon`).
 
 Missing: `/api/creatures/ThisDoesNotExistXYZ123` (fixture has no such article →

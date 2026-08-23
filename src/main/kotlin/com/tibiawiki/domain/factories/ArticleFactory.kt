@@ -4,7 +4,6 @@ import com.tibiawiki.domain.utils.TemplateUtils
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import java.util.Optional
-import java.util.regex.Pattern
 
 /**
  * Conversion from Article to infoboxPartOfArticle.
@@ -55,7 +54,8 @@ class ArticleFactory {
         val pageName = pageNameAndArticleContent.key
         val articleContent = pageNameAndArticleContent.value
 
-        if (!LOOT2_HEADER_PATTERN.matcher(articleContent).find()) {
+        val loot2 = extractExactLootTemplate(articleContent, LOOT2_HEADER)
+        if (loot2.isEmpty) {
             if (log.isWarnEnabled) {
                 log.warn(
                     "Cannot extract loot statistics template from article '{}'," +
@@ -66,8 +66,7 @@ class ArticleFactory {
             return ""
         }
 
-        return TemplateUtils.getBetweenOuterBalancedBrackets(articleContent, LOOT2_HEADER)
-            .orElse("")
+        return loot2.orElseThrow()
     }
 
     /**
@@ -77,7 +76,9 @@ class ArticleFactory {
         val pageName = pageNameAndArticleContent.key
         val articleContent = pageNameAndArticleContent.value
 
-        if (!LOOT2_HEADER_PATTERN.matcher(articleContent).find() && !LOOT2_RC_HEADER_REGEX.matcher(articleContent).find()) {
+        val loot2 = extractExactLootTemplate(articleContent, LOOT2_HEADER)
+        val loot2Rc = extractExactLootTemplate(articleContent, LOOT2_RC_HEADER)
+        if (loot2.isEmpty && loot2Rc.isEmpty) {
             if (log.isWarnEnabled) {
                 log.warn(
                     "Cannot extract loot statistics template from article '{}'," +
@@ -89,17 +90,6 @@ class ArticleFactory {
         }
 
         val result = HashMap<String, String>(2)
-        val loot2 = if (LOOT2_HEADER_PATTERN.matcher(articleContent).find()) {
-            TemplateUtils.getBetweenOuterBalancedBrackets(articleContent, LOOT2_HEADER)
-        } else {
-            Optional.empty()
-        }
-        val loot2Rc = if (LOOT2_RC_HEADER_REGEX.matcher(articleContent).find()) {
-            TemplateUtils.getBetweenOuterBalancedBrackets(articleContent, LOOT2_RC_HEADER)
-        } else {
-            Optional.empty()
-        }
-
         loot2.ifPresent { result["loot2"] = it }
         loot2Rc.ifPresent { result["loot2_rc"] = it }
 
@@ -116,12 +106,41 @@ class ArticleFactory {
             .map { it._1() + newContent + it._2() }
     }
 
+    /**
+     * Locate `header` as a full template name. `{{Loot2` must not match `{{Loot2_RC`.
+     */
+    private fun extractExactLootTemplate(articleContent: String, header: String): Optional<String> {
+        val startIndex = indexOfExactTemplate(articleContent, header)
+        if (startIndex < 0) {
+            return Optional.empty()
+        }
+        return TemplateUtils.getBetweenOuterBalancedBrackets(articleContent.substring(startIndex), header)
+    }
+
     companion object {
         private val log = LoggerFactory.getLogger(ArticleFactory::class.java)
         private const val INFOBOX_HEADER = "{{Infobox"
         private const val LOOT2_HEADER = "{{Loot2"
-        private val LOOT2_HEADER_PATTERN: Pattern = Pattern.compile("\\{\\{Loot2\\n")
         private const val LOOT2_RC_HEADER = "{{Loot2_RC"
-        private val LOOT2_RC_HEADER_REGEX: Pattern = Pattern.compile("\\{\\{Loot2_RC\\n")
+
+        private fun indexOfExactTemplate(text: String, header: String): Int {
+            var fromIndex = 0
+            while (fromIndex < text.length) {
+                val index = text.indexOf(header, fromIndex)
+                if (index < 0) {
+                    return -1
+                }
+                val afterHeader = index + header.length
+                if (afterHeader >= text.length || !isTemplateNameContinuation(text[afterHeader])) {
+                    return index
+                }
+                fromIndex = afterHeader
+            }
+            return -1
+        }
+
+        private fun isTemplateNameContinuation(character: Char): Boolean {
+            return character.isLetterOrDigit() || character == '_'
+        }
     }
 }
