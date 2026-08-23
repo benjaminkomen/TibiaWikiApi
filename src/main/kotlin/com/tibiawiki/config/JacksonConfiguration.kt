@@ -26,8 +26,8 @@ class JacksonConfiguration {
                 .disable(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES)
                 .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
                 .defaultTimeZone(TimeZone.getTimeZone("ECT"))
-                // Argument order preserved from Boot 2/3 (target, mixinSource as previously passed)
-                .addMixIn(WikiObjectMixin::class.java, WikiObject::class.java)
+                // Jackson: addMixIn(target, mixinSource) — apply mixin annotations onto WikiObject
+                .addMixIn(WikiObject::class.java, WikiObjectMixin::class.java)
         }
     }
 }

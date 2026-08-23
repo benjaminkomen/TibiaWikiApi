@@ -8,7 +8,7 @@ Spring Boot REST API over TibiaWiki (Fandom). Public Swagger: https://tibiawiki.
 
 - **JDK 25** (`java.toolchain` and Kotlin `jvmTarget` 25 in `build.gradle`). Gradle wrapper **9.7.1** — always use `./gradlew`.
 - Kotlin **2.3.21**, Spring Boot **4.1.1**.
-- Layout: most production code is Java under `src/main/java`. Kotlin lives in `src/main/kotlin` (app entry `TibiaWikiApiApplication.kt`, config, some REST adapters) plus a few `.kt` files under `src/main/java`. Tests: `src/test` and `src/integrationTest`.
+- Layout: production, unit, and integration code is Kotlin under `src/main/kotlin`, `src/test/kotlin`, and `src/integrationTest/kotlin`.
 
 ## Build / run
 

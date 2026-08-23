@@ -225,6 +225,16 @@
     "description": "Loot statistics detail: Ferumbras"
   },
   {
+    "id": "loot-v2",
+    "path": "/api/v2/loot",
+    "description": "List of loot-statistic names (v2)"
+  },
+  {
+    "id": "loot-v2-ferumbras",
+    "path": "/api/v2/loot/Ferumbras",
+    "description": "Loot statistics v2 detail: Ferumbras (loot2 / loot2_rc)"
+  },
+  {
     "id": "missile-throwing-cake",
     "path": "/api/missiles/Throwing_Cake_Missile",
     "description": "Missile detail: Throwing Cake Missile"
