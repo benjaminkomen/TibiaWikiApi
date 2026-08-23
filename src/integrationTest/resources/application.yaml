@@ -1,6 +1,0 @@
-# Use application.yaml (not application.properties) so this file does not
-# shadow src/main/resources/application.properties on the IT classpath.
-# Existing PUT ITs exercise ModifyAny (future bot path). Public Cloud Run stays off.
-wiki:
-  write:
-    enabled: true

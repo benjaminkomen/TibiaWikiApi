@@ -24,7 +24,10 @@ import org.springframework.http.HttpStatus
 import org.springframework.test.context.junit.jupiter.SpringExtension
 
 @ExtendWith(SpringExtension::class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(
+    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+    properties = ["wiki.write.enabled=true"]
+)
 @AutoConfigureTestRestTemplate
 class AchievementsControllerIT(
     @Autowired private val restTemplate: TestRestTemplate
