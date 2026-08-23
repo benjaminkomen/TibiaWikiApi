@@ -1,6 +1,7 @@
 package com.tibiawiki.domain.objects
 
 import com.tibiawiki.config.JacksonConfiguration
+import com.tibiawiki.domain.enums.Status
 import com.tibiawiki.domain.factories.JsonFactory
 import com.tibiawiki.domain.factories.WikiObjectFactory
 import org.hamcrest.MatcherAssert.assertThat
@@ -33,6 +34,7 @@ class CharmTest {
 
         assertThat(charm.type, `is`(Charm.Type.Minor))
         assertThat(charm.cost, `is`(TIERED_MINOR_COST))
+        assertThat(charm.status, `is`(Status.ACTIVE_LOWERCASE))
     }
 
     @Test
