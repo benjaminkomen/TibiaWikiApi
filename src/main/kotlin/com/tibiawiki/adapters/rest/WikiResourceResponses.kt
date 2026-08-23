@@ -21,7 +21,7 @@ object WikiResourceResponses {
         names: () -> List<String>
     ): ResponseEntity<Any> {
         val body = if (expand == true) {
-            expanded().map<Any>(JSONObject::toMap)
+            expanded().map { it.toMap() }.toList()
         } else {
             names()
         }

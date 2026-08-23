@@ -13,8 +13,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.any
 import org.mockito.ArgumentMatchers.anyList
-import org.mockito.ArgumentMatchers.anyMap
-import org.mockito.ArgumentMatchers.anyString
 import org.mockito.ArgumentMatchers.eq
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
@@ -24,28 +22,16 @@ class RetrieveLootTest {
 
     private lateinit var target: RetrieveLoot
     private lateinit var articleRepository: ArticleRepository
-    private lateinit var articleFactory: ArticleFactory
-    private lateinit var jsonFactory: JsonFactory
 
     @BeforeEach
     fun setup() {
         articleRepository = mock(ArticleRepository::class.java)
-        articleFactory = mock(ArticleFactory::class.java)
-        jsonFactory = mock(JsonFactory::class.java)
-        target = RetrieveLoot(articleRepository, articleFactory, jsonFactory)
-
-        doReturn(SOME_LOOT_PART).`when`(articleFactory).extractLootPartOfArticle(any())
-        doReturn(SOME_LOOT_PART).`when`(articleFactory).extractLootPartOfArticle(anyString(), anyString())
-        doReturn(SOME_LOOT_PARTS).`when`(articleFactory).extractAllLootPartsOfArticle(any())
-        doReturn(SOME_LOOT_PARTS).`when`(articleFactory).extractAllLootPartsOfArticle(anyString(), anyString())
-        doReturn(SOME_JSON_OBJECT).`when`(jsonFactory).convertLootPartOfArticleToJson(anyString(), anyString())
-        doReturn(SOME_JSON_OBJECT).`when`(jsonFactory).convertAllLootPartsOfArticleToJson(anyString(), anyMap())
+        target = RetrieveLoot(articleRepository, ArticleFactory(), JsonFactory())
     }
 
     @Test
     fun testGetLootJSON_ZeroResults() {
-        doReturn(emptyList<String>()).`when`(articleRepository)
-            .getPageNamesFromCategory(eq("Loot Statistics"), any(NS::class.java))
+        stubLootCategory(emptyList())
 
         val result = target.getLootJSONObject().toList()
 
@@ -56,14 +42,13 @@ class RetrieveLootTest {
     fun testGetLootJSON_TwoResults() {
         val names = listOf(SOME_NAME, SOME_OTHER_NAME)
         val pages = mapOf(SOME_NAME to SOME_ARTICLE_CONTENT, SOME_OTHER_NAME to SOME_ARTICLE_CONTENT)
-
-        doReturn(names).`when`(articleRepository)
-            .getPageNamesFromCategory(eq("Loot Statistics"), any(NS::class.java))
+        stubLootCategory(names)
         doReturn(pages).`when`(articleRepository).getArticlesFromCategory(anyList())
 
         val result = target.getLootJSONObject().toList()
 
         assertThat(result, hasSize(2))
+        assertThat(result[0].getString("name"), `is`("Amazon"))
     }
 
     @Test
@@ -72,21 +57,20 @@ class RetrieveLootTest {
 
         val result: Optional<JSONObject> = target.getLootJSONObject(SOME_PAGE_NAME)
 
-        assertThat(result.orElseThrow(), `is`(SOME_JSON_OBJECT))
+        assertThat(result.orElseThrow().getString("name"), `is`("Amazon"))
     }
 
     @Test
     fun testGetAllLootPartsJSON_TwoResults() {
         val names = listOf(SOME_NAME, SOME_OTHER_NAME)
         val pages = mapOf(SOME_NAME to SOME_ARTICLE_CONTENT, SOME_OTHER_NAME to SOME_ARTICLE_CONTENT)
-
-        doReturn(names).`when`(articleRepository)
-            .getPageNamesFromCategory(eq("Loot Statistics"), any(NS::class.java))
+        stubLootCategory(names)
         doReturn(pages).`when`(articleRepository).getArticlesFromCategory(anyList())
 
         val result = target.getAllLootPartsJSON().toList()
 
         assertThat(result, hasSize(2))
+        assertThat(result[0].has("loot2"), `is`(true))
     }
 
     @Test
@@ -95,13 +79,12 @@ class RetrieveLootTest {
 
         val result: Optional<JSONObject> = target.getAllLootPartsJSON(SOME_PAGE_NAME)
 
-        assertThat(result.orElseThrow(), `is`(SOME_JSON_OBJECT))
+        assertThat(result.orElseThrow().has("loot2"), `is`(true))
     }
 
     @Test
     fun testGetLootList() {
-        doReturn(listOf(SOME_NAME)).`when`(articleRepository)
-            .getPageNamesFromCategory(eq("Loot Statistics"), any(NS::class.java))
+        stubLootCategory(listOf(SOME_NAME))
 
         assertThat(target.getLootList(), `is`(listOf(SOME_NAME)))
     }
@@ -113,13 +96,26 @@ class RetrieveLootTest {
         assertThat(namespace, notNullValue())
     }
 
+    private fun stubLootCategory(names: List<String>) {
+        doReturn(names).`when`(articleRepository)
+            .getPageNamesFromCategory(eqValue("Loot Statistics"), anyValue(NS::class.java))
+    }
+
     companion object {
         private const val SOME_PAGE_NAME = "Loot_Statistics:Amazon"
-        private const val SOME_ARTICLE_CONTENT = "{{Loot2\n|name=Amazon\n}}"
-        private const val SOME_LOOT_PART = "|name=Amazon"
-        private val SOME_LOOT_PARTS = mapOf("loot2" to SOME_LOOT_PART)
-        private val SOME_JSON_OBJECT = JSONObject()
+        private const val SOME_ARTICLE_CONTENT = "{{Loot2\n|version=8.6\n|kills=1\n|name=Amazon\n}}"
         private const val SOME_NAME = "Loot_Statistics:Amazon"
         private const val SOME_OTHER_NAME = "Loot_Statistics:Dragon"
+
+        private fun eqValue(value: String): String {
+            eq(value)
+            return value
+        }
+
+        @Suppress("UNCHECKED_CAST")
+        private fun <T> anyValue(type: Class<T>): T {
+            any(type)
+            return null as T
+        }
     }
 }
