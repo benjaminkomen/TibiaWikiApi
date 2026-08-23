@@ -470,8 +470,8 @@ class JsonFactoryTest {
         val npc = makeNPC()
         val result = target.convertJsonToInfoboxPartOfArticle(makeNPCJson(npc), npc.fieldOrder())
         assertThat(result, `is`(INFOBOX_NPC_TEXT))
-        assertThat(result.contains("| buys"), `is`(false))
-        assertThat(result.contains("| sells"), `is`(false))
+        assertThat(Regex("""\| buys\s+=""").containsMatchIn(result), `is`(false))
+        assertThat(Regex("""\| sells\s+=""").containsMatchIn(result), `is`(false))
     }
 
     @Test
