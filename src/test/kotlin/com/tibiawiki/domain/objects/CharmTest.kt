@@ -76,7 +76,7 @@ class CharmTest {
             | cost         = 100 / 150 / 225
             | effect       = Boosts damage for a short time.
             | implemented  = 11.50.6055
-            | status       = active
+            | status       = Active
             }}
         """.trimIndent()
     }
