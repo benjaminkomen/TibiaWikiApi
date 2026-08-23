@@ -117,6 +117,26 @@ class AchievementsControllerIT(
     }
 
     @Test
+    fun `given put achievement when name is blank then response is bad request with validation results`() {
+        val editSummary = "[bot] editing during integration test"
+        val httpHeaders = TestUtils.makeHttpHeaders(editSummary)
+
+        val result = restTemplate.exchange(
+            "/api/achievements",
+            HttpMethod.PUT,
+            HttpEntity(makeAchievement().copy(name = "  "), httpHeaders),
+            Map::class.java
+        )
+
+        assertEquals(HttpStatus.BAD_REQUEST, result.statusCode)
+        assertEquals("name is required", result.body?.get("message"))
+        @Suppress("UNCHECKED_CAST")
+        val validationResults = result.body?.get("validationResults") as List<Map<String, Any>>
+        assertEquals("ERROR", validationResults[0]["severity"])
+        assertEquals("name is required", validationResults[0]["description"])
+    }
+
+    @Test
     fun `given put achievement when correct request but unable to Edit Wiki then response is BadRequest`() {
         val editSummary = "[bot] editing during integration test"
         doReturn(INFOBOX_ACHIEVEMENT_TEXT).`when`<ArticleRepository>(articleRepository).getArticle(SOME_ACHIEVEMENT_NAME)

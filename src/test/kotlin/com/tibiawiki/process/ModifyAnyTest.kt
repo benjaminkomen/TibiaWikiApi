@@ -1,18 +1,25 @@
 package com.tibiawiki.process
 
+import com.tibiawiki.domain.ArticleNotFoundException
 import com.tibiawiki.domain.factories.ArticleFactory
 import com.tibiawiki.domain.factories.JsonFactory
 import com.tibiawiki.domain.factories.WikiObjectFactory
 import com.tibiawiki.domain.objects.WikiObject
 import com.tibiawiki.domain.objects.WikiObjectFixtures
+import com.tibiawiki.domain.objects.validation.ValidationException
 import com.tibiawiki.domain.repositories.ArticleRepository
 import io.vavr.control.Try
 import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.Matchers.instanceOf
+import org.hamcrest.Matchers.`is`
 import org.json.JSONObject
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.never
+import org.mockito.Mockito.verify
 import java.util.Optional
 
 class ModifyAnyTest {
@@ -74,6 +81,28 @@ class ModifyAnyTest {
         val result: Try<WikiObject> = target.modify(someAchievement, "[test] editing the page")
 
         assertThat("Test: failed to modify article", result.isFailure)
+    }
+
+    @Test
+    fun testModify_ValidationFailure() {
+        val unnamed = WikiObjectFixtures.achievement(name = null)
+
+        val result: Try<WikiObject> = target.modify(unnamed, "[test] editing the page")
+
+        assertThat(result.isFailure, `is`(true))
+        assertThat(result.cause, instanceOf(ValidationException::class.java))
+        verify(articleRepository, never()).getArticle(anyString())
+    }
+
+    @Test
+    fun testModify_ArticleMissing() {
+        val someAchievement = makeAchievement()
+        doReturn(null).`when`(articleRepository).getArticle(someAchievement.name.orEmpty())
+
+        val result: Try<WikiObject> = target.modify(someAchievement, "[test] editing the page")
+
+        assertThat(result.isFailure, `is`(true))
+        assertThat(result.cause, instanceOf(ArticleNotFoundException::class.java))
     }
 
     private fun makeAchievement(): WikiObject = WikiObjectFixtures.achievement()

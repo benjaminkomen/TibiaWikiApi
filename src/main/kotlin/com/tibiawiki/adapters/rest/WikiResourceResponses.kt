@@ -1,5 +1,6 @@
 package com.tibiawiki.adapters.rest
 
+import com.tibiawiki.domain.ArticleNotFoundException
 import com.tibiawiki.domain.objects.WikiObject
 import com.tibiawiki.domain.objects.validation.ValidationException
 import io.vavr.control.Try
@@ -11,7 +12,7 @@ import java.util.stream.Stream
 
 /**
  * Shared HTTP mapping for the near-identical wiki list/detail/modify endpoints.
- * Keeps Spring mappings and OpenAPI annotations on each controller.
+ * 400/404/500 status mapping lives in [ApiExceptionHandler]; helpers throw or unwrap.
  */
 object WikiResourceResponses {
 
@@ -29,16 +30,24 @@ object WikiResourceResponses {
     }
 
     fun jsonOrNotFound(json: Optional<JSONObject>): ResponseEntity<String> {
-        return json
-            .map { ResponseEntity.ok().body(it.toString(2)) }
-            .orElseGet { ResponseEntity.notFound().build() }
+        return jsonOrNotFound(json.orElse(null))
+    }
+
+    fun jsonOrNotFound(json: JSONObject?): ResponseEntity<String> {
+        if (json == null || json.isEmpty) {
+            throw ArticleNotFoundException()
+        }
+        return ResponseEntity.ok().body(json.toString(2))
     }
 
     fun modify(result: Try<WikiObject>): ResponseEntity<WikiObject> {
-        return result
-            .map { ResponseEntity.ok().body(it) }
-            .recover<ValidationException>(ValidationException::class.java) { ResponseEntity.badRequest().build() }
-            .recover { ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build() }
-            .get()
+        if (result.isSuccess) {
+            return ResponseEntity.ok().body(result.get())
+        }
+        when (val cause = result.cause) {
+            is ValidationException -> throw cause
+            is ArticleNotFoundException -> throw cause
+            else -> return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()
+        }
     }
 }

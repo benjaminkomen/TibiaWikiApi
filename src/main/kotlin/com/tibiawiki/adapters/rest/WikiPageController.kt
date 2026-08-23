@@ -32,9 +32,6 @@ class WikiPageController(
         ]
     )
     fun getWikiPageByTitle(@PathVariable("title") title: String): ResponseEntity<String> {
-        return retrieveWikiPages.getWikiPageJSON(title)
-            ?.takeIf { it.isEmpty.not() }
-            ?.let { ResponseEntity.ok().body(it.toString(2)) }
-            ?: ResponseEntity.notFound().build()
+        return WikiResourceResponses.jsonOrNotFound(retrieveWikiPages.getWikiPageJSON(title))
     }
 }

@@ -1,5 +1,6 @@
 package com.tibiawiki.adapters.rest
 
+import com.tibiawiki.domain.ArticleNotFoundException
 import com.tibiawiki.domain.RetrieveWikiPages
 import com.tibiawiki.domain.objects.WikiObject
 import com.tibiawiki.domain.objects.WikiObjectFixtures
@@ -25,6 +26,7 @@ import org.hamcrest.Matchers.`is`
 import org.json.JSONObject
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
 import org.springframework.http.HttpStatus
@@ -53,7 +55,7 @@ class RemainingWikiControllersTest {
         val body = WikiObjectFixtures.charm()
         stubModify(body)
         val c = CharmsController(retrieve, modifyAny)
-        assertStandard(c.getCharms(false), c.getCharms(true), c.getCharmsByName("Foo"), c.getCharmsByName("Missing"), c.putCharm(body, "edit"))
+        assertStandard(c.getCharms(false), c.getCharms(true), c.getCharmsByName("Foo"), { c.getCharmsByName("Missing") }, c.putCharm(body, "edit"))
     }
 
     @Test
@@ -66,7 +68,7 @@ class RemainingWikiControllersTest {
         val body = WikiObjectFixtures.building()
         stubModify(body)
         val c = BuildingsController(retrieve, modifyAny)
-        assertStandard(c.getBuildings(false), c.getBuildings(true), c.getBuildingsByName("Foo"), c.getBuildingsByName("Missing"), c.putBuilding(body, "edit"))
+        assertStandard(c.getBuildings(false), c.getBuildings(true), c.getBuildingsByName("Foo"), { c.getBuildingsByName("Missing") }, c.putBuilding(body, "edit"))
     }
 
     @Test
@@ -79,7 +81,7 @@ class RemainingWikiControllersTest {
         val body = WikiObjectFixtures.corpse()
         stubModify(body)
         val c = CorpsesController(retrieve, modifyAny)
-        assertStandard(c.getCorpses(false), c.getCorpses(true), c.getCorpsesByName("Foo"), c.getCorpsesByName("Missing"), c.putCorpse(body, "edit"))
+        assertStandard(c.getCorpses(false), c.getCorpses(true), c.getCorpsesByName("Foo"), { c.getCorpsesByName("Missing") }, c.putCorpse(body, "edit"))
     }
 
     @Test
@@ -92,7 +94,7 @@ class RemainingWikiControllersTest {
         val body = WikiObjectFixtures.effect()
         stubModify(body)
         val c = EffectsController(retrieve, modifyAny)
-        assertStandard(c.getEffects(false), c.getEffects(true), c.getEffectsByName("Foo"), c.getEffectsByName("Missing"), c.putEffect(body, "edit"))
+        assertStandard(c.getEffects(false), c.getEffects(true), c.getEffectsByName("Foo"), { c.getEffectsByName("Missing") }, c.putEffect(body, "edit"))
     }
 
     @Test
@@ -105,7 +107,7 @@ class RemainingWikiControllersTest {
         val body = WikiObjectFixtures.key()
         stubModify(body)
         val c = KeysController(retrieve, modifyAny)
-        assertStandard(c.getKeys(false), c.getKeys(true), c.getKeysByName("Foo"), c.getKeysByName("Missing"), c.putKey(body, "edit"))
+        assertStandard(c.getKeys(false), c.getKeys(true), c.getKeysByName("Foo"), { c.getKeysByName("Missing") }, c.putKey(body, "edit"))
     }
 
     @Test
@@ -118,7 +120,7 @@ class RemainingWikiControllersTest {
         val body = WikiObjectFixtures.location()
         stubModify(body)
         val c = LocationsController(retrieve, modifyAny)
-        assertStandard(c.getLocations(false), c.getLocations(true), c.getLocationsByName("Foo"), c.getLocationsByName("Missing"), c.putLocation(body, "edit"))
+        assertStandard(c.getLocations(false), c.getLocations(true), c.getLocationsByName("Foo"), { c.getLocationsByName("Missing") }, c.putLocation(body, "edit"))
     }
 
     @Test
@@ -131,7 +133,7 @@ class RemainingWikiControllersTest {
         val body = WikiObjectFixtures.missile()
         stubModify(body)
         val c = MissilesController(retrieve, modifyAny)
-        assertStandard(c.getMissiles(false), c.getMissiles(true), c.getMissilesByName("Foo"), c.getMissilesByName("Missing"), c.putMissile(body, "edit"))
+        assertStandard(c.getMissiles(false), c.getMissiles(true), c.getMissilesByName("Foo"), { c.getMissilesByName("Missing") }, c.putMissile(body, "edit"))
     }
 
     @Test
@@ -144,7 +146,7 @@ class RemainingWikiControllersTest {
         val body = WikiObjectFixtures.mount()
         stubModify(body)
         val c = MountsController(retrieve, modifyAny)
-        assertStandard(c.getMounts(false), c.getMounts(true), c.getMountsByName("Foo"), c.getMountsByName("Missing"), c.putMount(body, "edit"))
+        assertStandard(c.getMounts(false), c.getMounts(true), c.getMountsByName("Foo"), { c.getMountsByName("Missing") }, c.putMount(body, "edit"))
     }
 
     @Test
@@ -157,7 +159,7 @@ class RemainingWikiControllersTest {
         val body = WikiObjectFixtures.npc()
         stubModify(body)
         val c = NPCsController(retrieve, modifyAny)
-        assertStandard(c.getNPCs(false), c.getNPCs(true), c.getNPCsByName("Foo"), c.getNPCsByName("Missing"), c.putNPC(body, "edit"))
+        assertStandard(c.getNPCs(false), c.getNPCs(true), c.getNPCsByName("Foo"), { c.getNPCsByName("Missing") }, c.putNPC(body, "edit"))
     }
 
     @Test
@@ -170,7 +172,7 @@ class RemainingWikiControllersTest {
         val body = WikiObjectFixtures.tibiaObject()
         stubModify(body)
         val c = ObjectsController(retrieve, modifyAny)
-        assertStandard(c.getObjects(false), c.getObjects(true), c.getObjectsByName("Foo"), c.getObjectsByName("Missing"), c.putObject(body, "edit"))
+        assertStandard(c.getObjects(false), c.getObjects(true), c.getObjectsByName("Foo"), { c.getObjectsByName("Missing") }, c.putObject(body, "edit"))
     }
 
     @Test
@@ -183,7 +185,7 @@ class RemainingWikiControllersTest {
         val body = WikiObjectFixtures.outfit()
         stubModify(body)
         val c = OutfitsController(retrieve, modifyAny)
-        assertStandard(c.getOutfits(false), c.getOutfits(true), c.getOutfitsByName("Foo"), c.getOutfitsByName("Missing"), c.putOutfit(body, "edit"))
+        assertStandard(c.getOutfits(false), c.getOutfits(true), c.getOutfitsByName("Foo"), { c.getOutfitsByName("Missing") }, c.putOutfit(body, "edit"))
     }
 
     @Test
@@ -196,7 +198,7 @@ class RemainingWikiControllersTest {
         val body = WikiObjectFixtures.quest()
         stubModify(body)
         val c = QuestsController(retrieve, modifyAny)
-        assertStandard(c.getQuests(false), c.getQuests(true), c.getQuestsByName("Foo"), c.getQuestsByName("Missing"), c.putQuest(body, "edit"))
+        assertStandard(c.getQuests(false), c.getQuests(true), c.getQuestsByName("Foo"), { c.getQuestsByName("Missing") }, c.putQuest(body, "edit"))
     }
 
     @Test
@@ -209,7 +211,7 @@ class RemainingWikiControllersTest {
         val body = WikiObjectFixtures.spell()
         stubModify(body)
         val c = SpellsController(retrieve, modifyAny)
-        assertStandard(c.getSpells(false), c.getSpells(true), c.getSpellsByName("Foo"), c.getSpellsByName("Missing"), c.putSpell(body, "edit"))
+        assertStandard(c.getSpells(false), c.getSpells(true), c.getSpellsByName("Foo"), { c.getSpellsByName("Missing") }, c.putSpell(body, "edit"))
     }
 
     @Test
@@ -222,7 +224,7 @@ class RemainingWikiControllersTest {
         val body = WikiObjectFixtures.street()
         stubModify(body)
         val c = StreetsController(retrieve, modifyAny)
-        assertStandard(c.getStreets(false), c.getStreets(true), c.getStreetsByName("Foo"), c.getStreetsByName("Missing"), c.putStreet(body, "edit"))
+        assertStandard(c.getStreets(false), c.getStreets(true), c.getStreetsByName("Foo"), { c.getStreetsByName("Missing") }, c.putStreet(body, "edit"))
     }
 
     @Test
@@ -234,8 +236,8 @@ class RemainingWikiControllersTest {
         val c = WikiPageController(retrieve)
 
         assertThat(c.getWikiPageByTitle("Foo").statusCode, `is`(HttpStatus.OK))
-        assertThat(c.getWikiPageByTitle("Missing").statusCode, `is`(HttpStatus.NOT_FOUND))
-        assertThat(c.getWikiPageByTitle("Empty").statusCode, `is`(HttpStatus.NOT_FOUND))
+        assertThrows<ArticleNotFoundException> { c.getWikiPageByTitle("Missing") }
+        assertThrows<ArticleNotFoundException> { c.getWikiPageByTitle("Empty") }
     }
 
     private fun stubModify(wikiObject: WikiObject) {
@@ -246,7 +248,7 @@ class RemainingWikiControllersTest {
         list: ResponseEntity<Any>,
         expanded: ResponseEntity<Any>,
         found: ResponseEntity<String>,
-        missing: ResponseEntity<String>,
+        missing: () -> ResponseEntity<String>,
         put: ResponseEntity<WikiObject>
     ) {
         assertThat(list.statusCode, `is`(HttpStatus.OK))
@@ -255,7 +257,7 @@ class RemainingWikiControllersTest {
         @Suppress("UNCHECKED_CAST")
         assertThat((expanded.body as Iterable<Any>).toList(), hasSize(1))
         assertThat(found.statusCode, `is`(HttpStatus.OK))
-        assertThat(missing.statusCode, `is`(HttpStatus.NOT_FOUND))
+        assertThrows<ArticleNotFoundException> { missing() }
         assertThat(put.statusCode, `is`(HttpStatus.OK))
     }
 }

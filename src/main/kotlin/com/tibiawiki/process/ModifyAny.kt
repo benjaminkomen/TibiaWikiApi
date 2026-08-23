@@ -1,5 +1,6 @@
 package com.tibiawiki.process
 
+import com.tibiawiki.domain.ArticleNotFoundException
 import com.tibiawiki.domain.factories.ArticleFactory
 import com.tibiawiki.domain.factories.JsonFactory
 import com.tibiawiki.domain.factories.WikiObjectFactory
@@ -24,26 +25,30 @@ class ModifyAny(
 ) {
 
     fun modify(wikiObject: WikiObject, editSummary: String?): Try<WikiObject> {
-        val originalWikiObject = articleRepository.getArticle(wikiObject.name ?: "") ?: ""
-
+        val title = wikiObject.articleTitle()
         return validate(wikiObject)
-            .map { wikiObj -> wikiObjectFactory.createJSONObject(wikiObj, wikiObj.getTemplateType()) }
-            .map { json -> jsonFactory.convertJsonToInfoboxPartOfArticle(json, wikiObject.fieldOrder()) }
-            .map { s -> articleFactory.insertInfoboxPartOfArticle(originalWikiObject, s) }
-            .flatMap { s ->
-                if (s.isEmpty) {
-                    Try.failure(IllegalArgumentException("Could not find required text in article"))
-                } else {
-                    Try.success(s.get())
-                }
-            }
-            .map { s -> articleRepository.modifyArticle(wikiObject.name ?: "", s, editSummary) }
-            .flatMap { b ->
-                if (b) {
-                    Try.success(wikiObject)
-                } else {
-                    Try.failure(ValidationException("Unable to edit wikiObject."))
-                }
+            .flatMap { obj ->
+                val originalWikiObject = articleRepository.getArticle(title)
+                    ?: return@flatMap Try.failure(ArticleNotFoundException(title))
+                Try.success(obj)
+                    .map { wikiObj -> wikiObjectFactory.createJSONObject(wikiObj, wikiObj.getTemplateType()) }
+                    .map { json -> jsonFactory.convertJsonToInfoboxPartOfArticle(json, wikiObject.fieldOrder()) }
+                    .map { s -> articleFactory.insertInfoboxPartOfArticle(originalWikiObject, s) }
+                    .flatMap { s ->
+                        if (s.isEmpty) {
+                            Try.failure(IllegalArgumentException("Could not find required text in article"))
+                        } else {
+                            Try.success(s.get())
+                        }
+                    }
+                    .map { s -> articleRepository.modifyArticle(title, s, editSummary) }
+                    .flatMap { b ->
+                        if (b) {
+                            Try.success(wikiObject)
+                        } else {
+                            Try.failure(ValidationException("Unable to edit wikiObject."))
+                        }
+                    }
             }
     }
 

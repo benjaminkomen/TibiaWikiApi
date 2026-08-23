@@ -1,13 +1,14 @@
 package com.tibiawiki.adapters.rest
 
+import com.tibiawiki.domain.ArticleNotFoundException
 import com.tibiawiki.domain.objects.WikiObject
 import com.tibiawiki.domain.objects.validation.ValidationException
 import io.vavr.control.Try
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
-import org.hamcrest.Matchers.nullValue
 import org.json.JSONObject
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.springframework.http.HttpStatus
 import java.util.Optional
 import java.util.stream.Stream
@@ -39,27 +40,39 @@ class WikiResourceResponsesTest {
     }
 
     @Test
-    fun jsonOrNotFoundReturnsPrettyJsonOr404() {
+    fun jsonOrNotFoundReturnsPrettyJson() {
         val found = WikiResourceResponses.jsonOrNotFound(Optional.of(JSONObject().put("name", "Book")))
-        val missing = WikiResourceResponses.jsonOrNotFound(Optional.empty())
 
         assertThat(found.statusCode, `is`(HttpStatus.OK))
         assertThat(found.body!!.contains("Book"), `is`(true))
-        assertThat(missing.statusCode, `is`(HttpStatus.NOT_FOUND))
-        assertThat(missing.body, nullValue())
     }
 
     @Test
-    fun modifyMapsSuccessValidationFailureAndUnexpectedFailure() {
+    fun jsonOrNotFoundThrowsWhenMissingOrEmpty() {
+        assertThrows<ArticleNotFoundException> {
+            WikiResourceResponses.jsonOrNotFound(Optional.empty())
+        }
+        assertThrows<ArticleNotFoundException> {
+            WikiResourceResponses.jsonOrNotFound(JSONObject())
+        }
+    }
+
+    @Test
+    fun modifyMapsSuccessAndRethrowsValidationOrNotFound() {
         val wikiObject = WikiObject.WikiObjectImpl()
 
         val ok = WikiResourceResponses.modify(Try.success(wikiObject))
-        val badRequest = WikiResourceResponses.modify(Try.failure(ValidationException("invalid")))
-        val serverError = WikiResourceResponses.modify(Try.failure(IllegalStateException("boom")))
-
         assertThat(ok.statusCode, `is`(HttpStatus.OK))
         assertThat(ok.body, `is`(wikiObject))
-        assertThat(badRequest.statusCode, `is`(HttpStatus.BAD_REQUEST))
+
+        assertThrows<ValidationException> {
+            WikiResourceResponses.modify(Try.failure(ValidationException("invalid")))
+        }
+        assertThrows<ArticleNotFoundException> {
+            WikiResourceResponses.modify(Try.failure(ArticleNotFoundException("Missing")))
+        }
+
+        val serverError = WikiResourceResponses.modify(Try.failure(IllegalStateException("boom")))
         assertThat(serverError.statusCode, `is`(HttpStatus.INTERNAL_SERVER_ERROR))
     }
 }
