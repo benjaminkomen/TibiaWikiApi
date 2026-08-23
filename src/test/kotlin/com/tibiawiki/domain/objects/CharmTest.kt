@@ -27,7 +27,7 @@ class CharmTest {
 
     @Test
     fun fixtureInfoboxMapsToMinorWithoutStrippingType() {
-        val json = JsonFactory().convertInfoboxPartOfArticleToJson(ADRENALINE_BURST_INFOBOX)
+        val json = JsonFactory().convertInfoboxPartOfArticleToJson(adrenalineBurstInfobox)
         val charm = productionMapper().readValue(json.toString(), Charm::class.java)
 
         assertThat(charm.type, `is`(Charm.Type.Minor))
@@ -40,11 +40,9 @@ class CharmTest {
 
     companion object {
         private const val TIERED_MINOR_COST = "100 / 150 / 225"
-        private const val MINOR_JSON =
-            """{"type":"Minor","cost":"$TIERED_MINOR_COST","effect":"boost"}"""
-        private const val MAJOR_JSON =
-            """{"type":"Major","cost":"600 / 900 / 3000","effect":"aoe"}"""
-        private const val ADRENALINE_BURST_INFOBOX = """
+        private const val MINOR_JSON = "{\"type\":\"Minor\",\"cost\":\"100 / 150 / 225\",\"effect\":\"boost\"}"
+        private const val MAJOR_JSON = "{\"type\":\"Major\",\"cost\":\"600 / 900 / 3000\",\"effect\":\"aoe\"}"
+        private val adrenalineBurstInfobox = """
             {{Infobox Charm
             | name         = Adrenaline Burst
             | type         = Minor
