@@ -1,11 +1,10 @@
 package com.tibiawiki.process;
 
-import com.tibiawiki.domain.enums.YesNo;
 import com.tibiawiki.domain.factories.ArticleFactory;
 import com.tibiawiki.domain.factories.JsonFactory;
 import com.tibiawiki.domain.factories.WikiObjectFactory;
-import com.tibiawiki.domain.objects.Achievement;
 import com.tibiawiki.domain.objects.WikiObject;
+import com.tibiawiki.domain.objects.WikiObjectFixtures;
 import com.tibiawiki.domain.repositories.ArticleRepository;
 import io.vavr.control.Try;
 import org.json.JSONObject;
@@ -75,18 +74,7 @@ class ModifyAnyTest {
     }
 
     private WikiObject makeAchievement() {
-        return Achievement.builder()
-                .grade(1)
-                .name("Goo Goo Dancer")
-                .description("Seeing a mucus plug makes your heart dance and you can't resist to see what it hides. Goo goo away!")
-                .spoiler("Obtainable by using 100 [[Muck Remover]]s on [[Mucus Plug]]s.")
-                .premium(YesNo.YES_LOWERCASE)
-                .points(1)
-                .secret(YesNo.YES_LOWERCASE)
-                .implemented("9.6")
-                .achievementid(319)
-                .relatedpages("[[Muck Remover]], [[Mucus Plug]]")
-                .build();
+        return WikiObjectFixtures.achievement();
     }
 
 

@@ -1,8 +1,8 @@
 package com.tibiawiki.domain.factories;
 
 import tools.jackson.databind.ObjectMapper;
-import com.tibiawiki.domain.objects.Achievement;
 import com.tibiawiki.domain.objects.WikiObject;
+import com.tibiawiki.domain.objects.WikiObjectFixtures;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -67,8 +67,6 @@ class WikiObjectFactoryTest {
     }
 
     private WikiObject makeAchievement() {
-        return Achievement.builder()
-                .name("Goo Goo Dancer")
-                .build();
+        return WikiObjectFixtures.namedAchievement("Goo Goo Dancer");
     }
 }

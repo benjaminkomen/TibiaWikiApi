@@ -2,8 +2,8 @@ package com.tibiawiki.adapters.rest
 
 import com.tibiawiki.TestUtils
 import com.tibiawiki.domain.enums.InfoboxTemplate
-import com.tibiawiki.domain.enums.YesNo
 import com.tibiawiki.domain.objects.Achievement
+import com.tibiawiki.domain.objects.WikiObjectFixtures
 import com.tibiawiki.domain.repositories.ArticleRepository
 import com.tibiawiki.process.RetrieveAny
 import org.json.JSONObject
@@ -129,18 +129,7 @@ class AchievementsControllerIT(
     }
 
     private fun makeAchievement(): Achievement {
-        return Achievement.builder()
-            .grade(1)
-            .name(SOME_ACHIEVEMENT_NAME)
-            .description("Seeing a mucus plug makes your heart dance and you can't resist to see what it hides. Goo goo away!")
-            .spoiler("Obtainable by using 100 [[Muck Remover]]s on [[Mucus Plug]]s.")
-            .premium(YesNo.YES_LOWERCASE)
-            .points(1)
-            .secret(YesNo.YES_LOWERCASE)
-            .implemented("9.6")
-            .achievementid(319)
-            .relatedpages("[[Muck Remover]], [[Mucus Plug]]")
-            .build()
+        return WikiObjectFixtures.achievement(name = SOME_ACHIEVEMENT_NAME)
     }
 
     companion object {
