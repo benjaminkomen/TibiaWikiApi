@@ -352,7 +352,32 @@
   {
     "id": "spell-light-healing",
     "path": "/api/spells/Light_Healing",
-    "description": "Spell detail: Light Healing"
+    "description": "Spell detail: Light Healing (spellid + Monks)"
+  },
+  {
+    "id": "spell-chained-penance",
+    "path": "/api/spells/Chained_Penance",
+    "description": "Spell detail: Chained Penance (Monk-only)"
+  },
+  {
+    "id": "page-powerful-strike",
+    "path": "/api/pages/Powerful_Strike",
+    "description": "Wiki page detail: Powerful Strike (Infobox Imbuement)"
+  },
+  {
+    "id": "page-bladespark",
+    "path": "/api/pages/Bladespark",
+    "description": "Wiki page detail: Bladespark (Infobox Familiar)"
+  },
+  {
+    "id": "loot-dragon",
+    "path": "/api/loot/Dragon",
+    "description": "Loot statistics v1 detail: Dragon (RC-first article)"
+  },
+  {
+    "id": "loot-v2-dragon",
+    "path": "/api/v2/loot/Dragon",
+    "description": "Loot statistics v2 detail: Dragon (RC-first, loot2 / loot2_rc)"
   },
   {
     "id": "street-sugar-street",

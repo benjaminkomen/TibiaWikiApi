@@ -76,7 +76,19 @@ bun run capture
 underscore aliases.
 
 These files were written from the infobox samples already in this repo's unit
-tests — not by hammering Fandom.
+tests, plus representative field shapes from the 2026 freshness audit — not by
+hammering Fandom.
+
+Representative pages (fixtures profile only):
+
+| Page | What it encodes |
+| --- | --- |
+| Dragon | Creature `mitigation` plus a loot table with rarity tokens |
+| Light Healing | `spellid`, `basepower`, `libraryname`, and `voc` including Monks |
+| Chained Penance | Monk-only spell (`voc=[[Monk]]s`) |
+| Powerful Strike | `Infobox Imbuement` via `/api/pages/Powerful_Strike` |
+| Bladespark | `Infobox Familiar` via `/api/pages/Bladespark` |
+| `Loot_Statistics:Dragon` | `Loot2_RC` **first**, then `Loot2` (v1 vs v2 ordering) |
 
 `wiki.fixtures.path` / `WIKI_FIXTURES_PATH` defaults to `regression/fixtures`
 (resolved from the repo root).
@@ -98,10 +110,11 @@ Every resource in the root README table has a name-list GET and the documented
 example detail GET. Underscore encoding is used for spaces (and parentheses in
 the book example). `/api/v2/loot` has the same list + Ferumbras detail coverage
 as `/api/loot` (v2 returns `loot2` / `loot2_rc` parts instead of a single loot2
-object). Ferumbras is Loot2 then Loot2_RC; Demon is Loot2_RC first then Loot2
-so v1 vs v2 stay disambiguated when the reward-chest table precedes regular loot.
-`/api/pages/{title}` is covered with Dragon (same infobox JSON as
-`/api/creatures/Dragon`).
+object). Ferumbras is Loot2 then Loot2_RC; Demon and Dragon are Loot2_RC first
+then Loot2 so v1 vs v2 stay disambiguated when the reward-chest table precedes
+regular loot (`{{Loot2` must not match `{{Loot2_RC`). `/api/pages/{title}` is
+covered with Dragon (same infobox JSON as `/api/creatures/Dragon`) plus one
+Imbuement and one Familiar.
 
 Missing: `/api/creatures/ThisDoesNotExistXYZ123` (fixture has no such article →
 **404**, empty body).

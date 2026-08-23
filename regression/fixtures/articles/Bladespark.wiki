@@ -1,0 +1,13 @@
+{{Infobox Familiar|List={{{1|}}}|GetValue={{{GetValue|}}}
+| name           = Bladespark
+| article        = a
+| actualname     = bladespark
+| plural         = bladesparks
+| implemented    = 11.80.7048
+| voc            = [[Paladin]]s
+| type           = Instant
+| words          = utevo gran res sac
+| mana           = 2000
+| cooldown       = 30
+| premium        = yes
+}}

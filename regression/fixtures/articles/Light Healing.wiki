@@ -7,5 +7,9 @@
 | cooldown      = 1
 | levelrequired = 8
 | premium       = no
+| voc           = [[Knight]]s, [[Paladin]]s, [[Sorcerer]]s, [[Druid]]s and [[Monk]]s
+| spellid       = 1
+| basepower     = 40
+| libraryname   = Light Healing
 | effect        = Restores a small amount of [[HP|health]].
 }}

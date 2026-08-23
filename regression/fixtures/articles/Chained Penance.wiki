@@ -1,0 +1,14 @@
+{{Infobox Spell|List={{{1|}}}|GetValue={{{GetValue|}}}
+| name          = Chained Penance
+| type          = Instant
+| subclass      = Attack
+| words         = exori mas nia
+| mana          = 180
+| cooldown      = 4
+| levelrequired = 8
+| premium       = no
+| voc           = [[Monk]]s
+| spellid       = 280
+| implemented   = 15.00.249ccc
+| effect        = Deals holy damage that can jump to nearby enemies.
+}}

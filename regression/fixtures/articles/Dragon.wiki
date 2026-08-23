@@ -12,11 +12,61 @@
 | illusionable   = yes
 | creatureclass  = Reptiles
 | primarytype    = Dragons
+| bestiaryclass  = Dragon
+| bestiarylevel  = Medium
+| occurrence     = Common
+| spawntype      = Regular, Raid
 | isboss         = no
-| implemented    = 4.0
-| location       = [[Thais]]
+| isarenaboss    = no
+| abilities      = [[Melee]] (0-120), [[Fire Wave]] (100-170), [[Great Fireball]] (60-140), [[Self-Healing]] (40-70)
+| maxdmg         = 430
+| pushable       = no
+| pushobjects    = yes
+| walksaround    = None
+| walksthrough   = Fire, Energy, Poison
+| paraimmune     = yes
+| senseinvis     = yes
+| physicalDmgMod = 100%
+| earthDmgMod    = 20%
+| fireDmgMod     = 0%
+| deathDmgMod    = 100%
+| energyDmgMod   = 80%
+| holyDmgMod     = 100%
+| iceDmgMod      = 110%
+| hpDrainDmgMod  = 100%?
+| drownDmgMod    = 100%?
+| bestiaryname   = dragon
+| bestiarytext   = Dragons were
+| sounds         = {{Sound List|FCHHHHH|GROOAAARRR}}
+| implemented    = Pre-6.0
+| notes          = Dragons are
+| behaviour      = Dragons are
+| runsat         = 300
+| speed          = 86
+| strategy       = '''All''' [[player]]s
+| location       = [[Thais]] [[Ancient Temple]], [[Darashia Dragon Lair]], [[Mount Sternum Dragon Cave]], [[Mintwallin]], deep in [[Fibula Dungeon]], [[Kazordoon Dragon Lair]] (near [[Dwarf Bridge]]), [[Plains of Havoc]], [[Elven Bane]] castle, [[Maze of Lost Souls]], southern cave and dragon tower in [[Shadowthorn]], [[Orc Fortress]], [[Venore]] [[Dragon Lair]], [[Pits of Inferno]], [[Behemoth Quest]] room in [[Edron]], [[Hero Cave]], deep [[Cyclopolis]], [[Edron Dragon Lair]], [[Goroma]], [[Ankrahmun Dragon Lair]]s, [[Draconia]], [[Dragonblaze Peaks]], some [[Ankrahmun Tombs]], underground of [[Fenrock]] (on the way to [[Beregar]]), [[Krailos Steppe]] and [[Crystal Lakes]].
 | loot           = {{Loot Table
  |{{Loot Item|0-105|Gold Coin}}
- |{{Loot Item|Dragon Ham}}
+ |{{Loot Item|0-3|Dragon Ham}}
+ |{{Loot Item|Steel Shield}}
+ |{{Loot Item|Crossbow}}
+ |{{Loot Item|Dragon's Tail}}
+ |{{Loot Item|0-10|Burst Arrow}}
+ |{{Loot Item|Longsword|semi-rare}}
+ |{{Loot Item|Steel Helmet|semi-rare}}
+ |{{Loot Item|Broadsword|semi-rare}}
+ |{{Loot Item|Plate Legs|semi-rare}}
+ |{{Loot Item|Green Dragon Leather|rare}}
+ |{{Loot Item|Wand of Inferno|rare}}
+ |{{Loot Item|Strong Health Potion|rare}}
+ |{{Loot Item|Green Dragon Scale|rare}}
+ |{{Loot Item|Double Axe|rare}}
+ |{{Loot Item|Dragon Hammer|rare}}
+ |{{Loot Item|Serpent Sword|rare}}
+ |{{Loot Item|Small Diamond|very rare}}
+ |{{Loot Item|Dragon Shield|very rare}}
+ |{{Loot Item|Life Crystal|very rare}}
+ |{{Loot Item|Dragonbone Staff|very rare}}
 }}
+| history        = Dragons are
 }}
