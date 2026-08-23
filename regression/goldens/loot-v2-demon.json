@@ -6,16 +6,16 @@
       "kills": "500",
       "loot": [
         {
-          "amount": "1-200",
-          "itemName": "Gold Coin",
-          "times": "400",
-          "total": "40000"
-        },
-        {
           "amount": "1",
           "itemName": "Fire Axe",
           "times": "10",
           "total": "10"
+        },
+        {
+          "amount": "1-200",
+          "itemName": "Gold Coin",
+          "times": "400",
+          "total": "40000"
         }
       ],
       "name": "Demon",
