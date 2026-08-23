@@ -14,7 +14,7 @@ import org.mockito.ArgumentMatchers
 import org.mockito.Mockito.doReturn
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.mock.mockito.MockBean
+import org.springframework.test.context.bean.override.mockito.MockitoBean
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.test.web.client.getForEntity
 import org.springframework.http.HttpEntity
@@ -28,7 +28,7 @@ class AchievementsControllerIT(
     @Autowired private val restTemplate: TestRestTemplate
 ) {
 
-    @MockBean
+    @MockitoBean
     private lateinit var articleRepository: ArticleRepository
 
     @Test

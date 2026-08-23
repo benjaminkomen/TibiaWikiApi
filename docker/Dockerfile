@@ -1,4 +1,4 @@
-FROM gradle:8.5-jdk21 as builder
+FROM gradle:8.14.3-jdk21 as builder
 
 # Copy local code to the container image.
 WORKDIR /app

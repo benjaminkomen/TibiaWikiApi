@@ -1,6 +1,6 @@
 package com.tibiawiki.domain.factories;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.tibiawiki.domain.objects.Achievement;
 import com.tibiawiki.domain.objects.WikiObject;
 import org.json.JSONObject;

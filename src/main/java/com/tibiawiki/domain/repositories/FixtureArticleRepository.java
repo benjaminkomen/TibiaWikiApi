@@ -1,7 +1,7 @@
 package com.tibiawiki.domain.repositories;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.json.JsonMapper;
 import io.github.fastily.jwiki.core.NS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -106,7 +106,7 @@ public class FixtureArticleRepository implements ArticleRepository {
             throw new IllegalStateException("Missing fixture file: " + file.toAbsolutePath());
         }
         try {
-            return new ObjectMapper().readValue(file.toFile(), CATEGORIES_TYPE);
+            return JsonMapper.builder().build().readValue(file.toFile(), CATEGORIES_TYPE);
         } catch (IOException e) {
             throw new IllegalStateException("Unable to read " + file.toAbsolutePath(), e);
         }

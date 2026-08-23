@@ -1,6 +1,6 @@
 package com.tibiawiki.domain.factories;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.tibiawiki.domain.objects.Achievement;
 import com.tibiawiki.domain.objects.Book;
 import com.tibiawiki.domain.objects.Building;
@@ -25,7 +25,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -124,7 +123,7 @@ public class WikiObjectFactory {
     private <T> T mapJsonToObject(JSONObject wikiObjectJson, Class<T> clazz) {
         try {
             return objectMapper.readValue(wikiObjectJson.toString(), clazz);
-        } catch (IOException e) {
+        } catch (RuntimeException e) {
             log.error("Unable to convert json to {} object.", clazz.toString(), e);
         }
         return null;
