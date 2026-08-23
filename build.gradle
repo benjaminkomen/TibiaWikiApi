@@ -1,9 +1,9 @@
 buildscript {
     ext {
-        // Last OSS 3.x line (3.5.16, June 2026). Jakarta EE 9+ / Spring Framework 6.
-        springBootVersion = '3.5.16'
-        // Boot 3.5.16 BOM still manages Kotlin 1.9.25
-        kotlinVersion = '1.9.25'
+        // Latest OSS-supported Boot line as of Aug 2026 (Spring Framework 7 / Jakarta EE 11)
+        springBootVersion = '4.1.1'
+        // Boot 4.1.1 BOM manages Kotlin 2.3.21 (Boot 4 requires Kotlin 2.2+)
+        kotlinVersion = '2.3.21'
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -17,7 +17,7 @@ plugins {
     id "org.sonarqube" version "4.4.1.3373"
     id "org.jetbrains.kotlin.jvm" version "${kotlinVersion}"
     id "org.jetbrains.kotlin.plugin.spring" version "${kotlinVersion}"
-    id "org.jlleitschuh.gradle.ktlint" version "10.2.1"
+    id "org.jlleitschuh.gradle.ktlint" version "14.2.0"
 }
 
 apply plugin: 'org.springframework.boot'
@@ -41,27 +41,27 @@ repositories {
 }
 
 ext {
-    // Versions aligned with the Spring Boot 3.5.16 BOM unless noted
+    // Versions aligned with the Spring Boot 4.1.1 BOM unless noted
     slf4jVersion = '2.0.18'
-    junitVersion = '5.12.2'
+    junitVersion = '6.0.3'
     lombokVersion = '1.18.38'
-    jacksonVersion = '2.21.4'
+    jacksonVersion = '3.1.5'
     jacocoVersion = "0.8.12"
-    mockitoVersion = "5.17.0"
+    mockitoVersion = "5.23.0"
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}"
     implementation "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}"
-    implementation "com.fasterxml.jackson.module:jackson-module-kotlin:${jacksonVersion}"
+    implementation "tools.jackson.module:jackson-module-kotlin:${jacksonVersion}"
     implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
-    implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-webmvc:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-jackson:${springBootVersion}"
 //    implementation "benjaminkomen:jwiki:2.2.0"
     implementation "io.github.fastily:jwiki:1.10.0"
     implementation "org.slf4j:slf4j-api:${slf4jVersion}"
     implementation "net.logstash.logback:logstash-logback-encoder:7.1.1"
-    // logback-classic comes from spring-boot-starter (1.5.34 on Boot 3.5.16)
-    implementation "com.google.cloud:spring-cloud-gcp-starter-logging:7.4.10"
+    implementation "com.google.cloud:spring-cloud-gcp-starter-logging:8.1.0"
     implementation "org.codehaus.janino:janino:3.1.12"
     implementation "org.json:json:20220320"
     implementation "com.google.guava:guava:31.1-jre"
@@ -70,13 +70,14 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
     testImplementation "org.mockito:mockito-core:${mockitoVersion}"
     testImplementation "org.hamcrest:hamcrest:2.2"
-    testImplementation("org.springframework.boot:spring-boot-starter-test:${springBootVersion}") {
+    testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test:${springBootVersion}") {
         exclude group: 'com.vaadin.external.google', module: 'android-json'
     }
+    testImplementation "org.springframework.boot:spring-boot-starter-restclient:${springBootVersion}"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
 
-    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.17"
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:3.1.0"
 }
 
 java {
@@ -86,16 +87,16 @@ java {
 }
 
 compileKotlin {
-    kotlinOptions {
-        freeCompilerArgs = ["-Xjsr305=strict"]
-        jvmTarget = "21"
+    compilerOptions {
+        freeCompilerArgs.add("-Xjsr305=strict")
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
     }
 }
 
 compileTestKotlin {
-    kotlinOptions {
-        freeCompilerArgs = ["-Xjsr305=strict"]
-        jvmTarget = "21"
+    compilerOptions {
+        freeCompilerArgs.add("-Xjsr305=strict")
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
     }
 }
 
@@ -141,7 +142,6 @@ sourceSets {
 configurations {
     integrationTestImplementation.extendsFrom implementation
     integrationTestImplementation.extendsFrom testImplementation
-    // Jackson 2.21 / springdoc pull Kotlin 2.1 artifacts; Boot 3.5.16 still compiles with 1.9.25
     all {
         resolutionStrategy.eachDependency { details ->
             if (details.requested.group == 'org.jetbrains.kotlin') {

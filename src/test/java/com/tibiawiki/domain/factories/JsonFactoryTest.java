@@ -1,6 +1,7 @@
 package com.tibiawiki.domain.factories;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.tibiawiki.domain.enums.Article;
 import com.tibiawiki.domain.enums.BestiaryClass;
 import com.tibiawiki.domain.enums.BestiaryLevel;
@@ -68,7 +69,7 @@ class JsonFactoryTest {
     @BeforeEach
     void setup() {
         target = new JsonFactory();
-        objectMapper = new ObjectMapper();
+        objectMapper = JsonMapper.builder().build();
     }
 
     @Test

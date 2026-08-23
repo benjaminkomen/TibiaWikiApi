@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 /**
  * Conversion from infoboxPartOfArticle to JSON and back.
  */
-@Component
+@Component("wikiJsonFactory")
 public class JsonFactory {
 
     private static final Logger LOG = LoggerFactory.getLogger(JsonFactory.class);

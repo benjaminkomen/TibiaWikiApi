@@ -13,10 +13,11 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.ArgumentMatchers
 import org.mockito.Mockito.doReturn
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.mock.mockito.MockBean
-import org.springframework.boot.test.web.client.TestRestTemplate
-import org.springframework.boot.test.web.client.getForEntity
+import org.springframework.test.context.bean.override.mockito.MockitoBean
+import org.springframework.boot.resttestclient.TestRestTemplate
+import org.springframework.boot.resttestclient.getForEntity
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
@@ -24,11 +25,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureTestRestTemplate
 class AchievementsControllerIT(
     @Autowired private val restTemplate: TestRestTemplate
 ) {
 
-    @MockBean
+    @MockitoBean
     private lateinit var articleRepository: ArticleRepository
 
     @Test

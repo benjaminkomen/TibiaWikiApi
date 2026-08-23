@@ -1,0 +1,15 @@
+# ktlint 14 is required for Kotlin 2.3 PSI. Keep the pre-1.0 (intellij_idea)
+# rule set so existing Kotlin is not mass-reformatted.
+[*.{kt,kts}]
+ktlint_code_style = intellij_idea
+ktlint_standard_trailing-comma-on-call-site = disabled
+ktlint_standard_trailing-comma-on-declaration-site = disabled
+ktlint_standard_argument-list-wrapping = disabled
+ktlint_standard_function-signature = disabled
+ktlint_standard_class-signature = disabled
+ktlint_standard_chain-method-continuation = disabled
+ktlint_standard_function-expression-body = disabled
+ktlint_standard_no-empty-first-line-in-class-body = disabled
+ktlint_standard_max-line-length = disabled
+ktlint_standard_import-ordering = disabled
+ktlint_standard_enum-wrapping = disabled
