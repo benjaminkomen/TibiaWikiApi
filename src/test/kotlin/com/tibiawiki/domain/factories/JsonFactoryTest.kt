@@ -248,7 +248,9 @@ class JsonFactoryTest {
 
     @Test
     fun testConvertJsonToInfoboxPartOfArticle_Empty() {
-        assertThat(target.convertJsonToInfoboxPartOfArticle(null, emptyList()), `is`(""))
+        assertThat(target.convertJsonToInfoboxPartOfArticle(null as Map<String, *>?, emptyList()), `is`(""))
+        assertThat(target.convertJsonToInfoboxPartOfArticle(emptyMap<String, Any>(), emptyList()), `is`(""))
+        assertThat(target.convertJsonToInfoboxPartOfArticle(null as JSONObject?, emptyList()), `is`(""))
         assertThat(target.convertJsonToInfoboxPartOfArticle(JSONObject(), emptyList()), `is`(""))
 
         val jsonWithNoTemplateType = makeAchievementJson(makeAchievement())
