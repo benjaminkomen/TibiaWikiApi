@@ -1,0 +1,23 @@
+{
+  "path": "/api/items/Carlin_Sword",
+  "status": 200,
+  "body": {
+    "actualname": "carlin sword",
+    "article": "a",
+    "attack": "15",
+    "defense": "13",
+    "implemented": "7.1",
+    "itemclass": "Weapons",
+    "itemid": [
+      "3283"
+    ],
+    "marketable": "yes",
+    "name": "Carlin Sword",
+    "objectclass": "Weapons",
+    "plural": "?",
+    "primarytype": "Sword Weapons",
+    "templateType": "Object",
+    "type": "Sword",
+    "weight": "40.00"
+  }
+}

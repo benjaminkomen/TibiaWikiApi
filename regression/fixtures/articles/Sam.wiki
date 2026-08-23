@@ -1,0 +1,10 @@
+{{Infobox NPC|List={{{1|}}}|GetValue={{{GetValue|}}}
+| name         = Sam
+| job          = Artisan
+| job2         = Weapon Shopkeeper
+| location     = [[Temple Street]] in [[Thais]].
+| city         = Thais
+| gender       = Male
+| race         = Human
+| implemented  = Pre-6.0
+}}

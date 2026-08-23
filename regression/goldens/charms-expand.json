@@ -1,0 +1,15 @@
+{
+  "path": "/api/charms?expand=true",
+  "status": 200,
+  "body": [
+    {
+      "cost": "100",
+      "effect": "Boosts damage for a short time.",
+      "implemented": "11.50.6055",
+      "name": "Adrenaline Burst",
+      "status": "active",
+      "templateType": "Charm",
+      "type": "Offensive"
+    }
+  ]
+}

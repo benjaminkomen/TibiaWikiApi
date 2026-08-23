@@ -1,0 +1,15 @@
+{{Infobox Building|List={{{1|}}}|GetValue={{{GetValue|}}}
+| name         = Theater Avenue 8b
+| implemented  = Pre-6.0
+| type         = House
+| location     = South-east of depot, two floors up.
+| posx         = 126.101
+| posy         = 124.48
+| posz         = 5
+| street       = Theater Avenue
+| houseid      = 20315
+| size         = 26
+| beds         = 3
+| rent         = 1370
+| city         = Carlin
+}}

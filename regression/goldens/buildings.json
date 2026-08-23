@@ -1,0 +1,7 @@
+{
+  "path": "/api/buildings",
+  "status": 200,
+  "body": [
+    "Theater Avenue 8b"
+  ]
+}

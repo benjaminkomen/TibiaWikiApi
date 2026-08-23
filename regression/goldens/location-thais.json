@@ -1,0 +1,11 @@
+{
+  "path": "/api/locations/Thais",
+  "status": 200,
+  "body": {
+    "implemented": "Pre-6.0",
+    "near": "[[Fibula]], [[Mintwallin]]",
+    "population": "1000",
+    "ruler": "[[King Tibianus]]",
+    "templateType": "Geography"
+  }
+}

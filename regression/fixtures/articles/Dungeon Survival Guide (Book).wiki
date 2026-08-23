@@ -1,0 +1,10 @@
+{{Infobox Book|List={{{1|}}}|GetValue={{{GetValue|}}}
+| booktype     = Book (Brown)
+| title        = Dungeon Survival Guide
+| pagename     = Dungeon Survival Guide (Book)
+| location     = [[Rookgaard Academy]]
+| blurb        = Tips for exploring dungeons, and warning against being reckless.
+| returnpage   = Rookgaard Libraries
+| relatedpages = [[Rope]], [[Shovel]]
+| text         = Dungeon Survival Guide
+}}

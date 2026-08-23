@@ -1,0 +1,14 @@
+{{Infobox Corpse|List={{{1|}}}|GetValue={{{GetValue|}}}
+| name         = Dead Rat
+| article      = a
+| liquid       = [[Blood]]
+| 1decaytime   = 5 minutes.
+| 2decaytime   = 5 minutes.
+| 3decaytime   = 60 seconds.
+| 1volume      = 5
+| 1weight      = 63.00
+| 2weight      = 44.00
+| 3weight      = 30.00
+| corpseof     = [[Rat]], [[Cave Rat]], [[Munster]]
+| implemented  = Pre-6.0
+}}

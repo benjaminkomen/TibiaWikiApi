@@ -1,0 +1,11 @@
+{{Infobox Spell|List={{{1|}}}|GetValue={{{GetValue|}}}
+| name          = Light Healing
+| type          = Instant
+| subclass      = Healing
+| words         = exura
+| mana          = 20
+| cooldown      = 1
+| levelrequired = 8
+| premium       = no
+| effect        = Restores a small amount of [[HP|health]].
+}}

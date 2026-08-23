@@ -1,0 +1,8 @@
+{{Infobox Object|List={{{1|}}}|GetValue={{{GetValue|}}}
+| name         = Blueberry Bush
+| article      = a
+| objectclass  = Bushes
+| implemented  = 7.1
+| walkable     = no
+| location     = Can be found all around [[Tibia]].
+}}

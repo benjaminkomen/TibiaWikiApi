@@ -1,0 +1,7 @@
+{
+  "path": "/api/books",
+  "status": 200,
+  "body": [
+    "Dungeon Survival Guide (Book)"
+  ]
+}

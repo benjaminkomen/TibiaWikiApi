@@ -1,0 +1,16 @@
+{
+  "path": "/api/effects?expand=true",
+  "status": 200,
+  "body": [
+    {
+      "causes": "*[[Energy Strike]]",
+      "effect": "[[Energy Damage]] on target.",
+      "effectid": [
+        "12"
+      ],
+      "name": "Blue Electricity Effect",
+      "primarytype": "Attack",
+      "templateType": "Effect"
+    }
+  ]
+}

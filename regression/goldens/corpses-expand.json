@@ -1,0 +1,21 @@
+{
+  "path": "/api/corpses?expand=true",
+  "status": 200,
+  "body": [
+    {
+      "1decaytime": "5 minutes.",
+      "1volume": "5",
+      "1weight": "63.00",
+      "2decaytime": "5 minutes.",
+      "2weight": "44.00",
+      "3decaytime": "60 seconds.",
+      "3weight": "30.00",
+      "article": "a",
+      "corpseof": "[[Rat]], [[Cave Rat]], [[Munster]]",
+      "implemented": "Pre-6.0",
+      "liquid": "[[Blood]]",
+      "name": "Dead Rat",
+      "templateType": "Corpse"
+    }
+  ]
+}

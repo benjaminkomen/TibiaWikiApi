@@ -1,0 +1,15 @@
+{
+  "path": "/api/keys?expand=true",
+  "status": 200,
+  "body": [
+    {
+      "aka": "Panpipe Quest Key",
+      "location": "[[Jakundaf Desert]]",
+      "number": "4055",
+      "primarytype": "Silver",
+      "shortnotes": "Access to the [[Panpipe Quest]].",
+      "templateType": "Key",
+      "value": "Negotiable"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "path": "/api/outfits/Pirate_Outfits",
+  "status": 200,
+  "body": {
+    "implemented": "7.8",
+    "name": "Pirate",
+    "notes": "Pirate outfits are perfect for swabbing the deck.",
+    "premium": "yes",
+    "primarytype": "Quest",
+    "templateType": "Outfit"
+  }
+}

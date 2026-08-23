@@ -1,0 +1,272 @@
+[
+  {
+    "id": "achievements",
+    "path": "/api/achievements",
+    "description": "List of achievement names"
+  },
+  {
+    "id": "books",
+    "path": "/api/books",
+    "description": "List of book names"
+  },
+  {
+    "id": "buildings",
+    "path": "/api/buildings",
+    "description": "List of building names"
+  },
+  {
+    "id": "charms",
+    "path": "/api/charms",
+    "description": "List of charm names"
+  },
+  {
+    "id": "corpses",
+    "path": "/api/corpses",
+    "description": "List of corpse names"
+  },
+  {
+    "id": "creatures",
+    "path": "/api/creatures",
+    "description": "List of creature names"
+  },
+  {
+    "id": "effects",
+    "path": "/api/effects",
+    "description": "List of effect names"
+  },
+  {
+    "id": "huntingplaces",
+    "path": "/api/huntingplaces",
+    "description": "List of hunting place names"
+  },
+  {
+    "id": "items",
+    "path": "/api/items",
+    "description": "List of item names"
+  },
+  {
+    "id": "keys",
+    "path": "/api/keys",
+    "description": "List of key names"
+  },
+  {
+    "id": "locations",
+    "path": "/api/locations",
+    "description": "List of location names"
+  },
+  {
+    "id": "loot",
+    "path": "/api/loot",
+    "description": "List of loot-statistic names"
+  },
+  {
+    "id": "missiles",
+    "path": "/api/missiles",
+    "description": "List of missile names"
+  },
+  {
+    "id": "mounts",
+    "path": "/api/mounts",
+    "description": "List of mount names"
+  },
+  {
+    "id": "npcs",
+    "path": "/api/npcs",
+    "description": "List of NPC names"
+  },
+  {
+    "id": "objects",
+    "path": "/api/objects",
+    "description": "List of object names"
+  },
+  {
+    "id": "outfits",
+    "path": "/api/outfits",
+    "description": "List of outfit names"
+  },
+  {
+    "id": "quests",
+    "path": "/api/quests",
+    "description": "List of quest names"
+  },
+  {
+    "id": "spells",
+    "path": "/api/spells",
+    "description": "List of spell names"
+  },
+  {
+    "id": "streets",
+    "path": "/api/streets",
+    "description": "List of street names"
+  },
+  {
+    "id": "achievements-expand",
+    "path": "/api/achievements?expand=true",
+    "description": "Full achievement objects (expand=true)"
+  },
+  {
+    "id": "charms-expand",
+    "path": "/api/charms?expand=true",
+    "description": "Full charm objects (expand=true)"
+  },
+  {
+    "id": "corpses-expand",
+    "path": "/api/corpses?expand=true",
+    "description": "Full corpse objects (expand=true)"
+  },
+  {
+    "id": "effects-expand",
+    "path": "/api/effects?expand=true",
+    "description": "Full effect objects (expand=true)"
+  },
+  {
+    "id": "huntingplaces-expand",
+    "path": "/api/huntingplaces?expand=true",
+    "description": "Full hunting place objects (expand=true)"
+  },
+  {
+    "id": "keys-expand",
+    "path": "/api/keys?expand=true",
+    "description": "Full key objects (expand=true)"
+  },
+  {
+    "id": "locations-expand",
+    "path": "/api/locations?expand=true",
+    "description": "Full location objects (expand=true)"
+  },
+  {
+    "id": "missiles-expand",
+    "path": "/api/missiles?expand=true",
+    "description": "Full missile objects (expand=true)"
+  },
+  {
+    "id": "mounts-expand",
+    "path": "/api/mounts?expand=true",
+    "description": "Full mount objects (expand=true)"
+  },
+  {
+    "id": "outfits-expand",
+    "path": "/api/outfits?expand=true",
+    "description": "Full outfit objects (expand=true)"
+  },
+  {
+    "id": "quests-expand",
+    "path": "/api/quests?expand=true",
+    "description": "Full quest objects (expand=true)"
+  },
+  {
+    "id": "spells-expand",
+    "path": "/api/spells?expand=true",
+    "description": "Full spell objects (expand=true)"
+  },
+  {
+    "id": "streets-expand",
+    "path": "/api/streets?expand=true",
+    "description": "Full street objects (expand=true)"
+  },
+  {
+    "id": "achievement-goo-goo-dancer",
+    "path": "/api/achievements/Goo_Goo_Dancer",
+    "description": "Achievement detail: Goo Goo Dancer"
+  },
+  {
+    "id": "book-dungeon-survival-guide",
+    "path": "/api/books/Dungeon_Survival_Guide_(Book)",
+    "description": "Book detail: Dungeon Survival Guide (Book)"
+  },
+  {
+    "id": "building-theater-avenue-8b",
+    "path": "/api/buildings/Theater_Avenue_8b",
+    "description": "Building detail: Theater Avenue 8b"
+  },
+  {
+    "id": "charm-adrenaline-burst",
+    "path": "/api/charms/Adrenaline_Burst",
+    "description": "Charm detail: Adrenaline Burst"
+  },
+  {
+    "id": "corpse-dead-rat",
+    "path": "/api/corpses/Dead_Rat",
+    "description": "Corpse detail: Dead Rat"
+  },
+  {
+    "id": "creature-dragon",
+    "path": "/api/creatures/Dragon",
+    "description": "Creature detail: Dragon"
+  },
+  {
+    "id": "effect-blue-electricity-effect",
+    "path": "/api/effects/Blue_Electricity_Effect",
+    "description": "Effect detail: Blue Electricity Effect"
+  },
+  {
+    "id": "huntingplace-hero-cave",
+    "path": "/api/huntingplaces/Hero_Cave",
+    "description": "Hunting place detail: Hero Cave"
+  },
+  {
+    "id": "item-carlin-sword",
+    "path": "/api/items/Carlin_Sword",
+    "description": "Item detail: Carlin Sword"
+  },
+  {
+    "id": "key-4055",
+    "path": "/api/keys/Key_4055",
+    "description": "Key detail: Key 4055"
+  },
+  {
+    "id": "location-thais",
+    "path": "/api/locations/Thais",
+    "description": "Location detail: Thais"
+  },
+  {
+    "id": "loot-ferumbras",
+    "path": "/api/loot/Ferumbras",
+    "description": "Loot statistics detail: Ferumbras"
+  },
+  {
+    "id": "missile-throwing-cake",
+    "path": "/api/missiles/Throwing_Cake_Missile",
+    "description": "Missile detail: Throwing Cake Missile"
+  },
+  {
+    "id": "mount-donkey",
+    "path": "/api/mounts/Donkey",
+    "description": "Mount detail: Donkey"
+  },
+  {
+    "id": "npc-sam",
+    "path": "/api/npcs/Sam",
+    "description": "NPC detail: Sam"
+  },
+  {
+    "id": "object-blueberry-bush",
+    "path": "/api/objects/Blueberry_Bush",
+    "description": "Object detail: Blueberry Bush"
+  },
+  {
+    "id": "outfit-pirate-outfits",
+    "path": "/api/outfits/Pirate_Outfits",
+    "description": "Outfit detail: Pirate Outfits"
+  },
+  {
+    "id": "quest-paradox-tower",
+    "path": "/api/quests/The_Paradox_Tower_Quest",
+    "description": "Quest detail: The Paradox Tower Quest"
+  },
+  {
+    "id": "spell-light-healing",
+    "path": "/api/spells/Light_Healing",
+    "description": "Spell detail: Light Healing"
+  },
+  {
+    "id": "street-sugar-street",
+    "path": "/api/streets/Sugar_Street",
+    "description": "Street detail: Sugar Street"
+  },
+  {
+    "id": "creature-missing",
+    "path": "/api/creatures/ThisDoesNotExistXYZ123",
+    "description": "Missing creature (records the live 404 response)"
+  }
+]

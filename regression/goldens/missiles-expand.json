@@ -1,0 +1,14 @@
+{
+  "path": "/api/missiles?expand=true",
+  "status": 200,
+  "body": [
+    {
+      "implemented": "7.9",
+      "missileid": "42",
+      "name": "Throwing Cake Missile",
+      "primarytype": "Throwing Weapon",
+      "shotby": "[[Undead Jester]]'s attack.",
+      "templateType": "Missile"
+    }
+  ]
+}

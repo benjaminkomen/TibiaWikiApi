@@ -1,0 +1,7 @@
+{{Infobox Effect|List={{{1|}}}|GetValue={{{GetValue|}}}
+| name         = Blue Electricity Effect
+| effectid     = 12
+| primarytype  = Attack
+| causes       = *[[Energy Strike]]
+| effect       = [[Energy Damage]] on target.
+}}

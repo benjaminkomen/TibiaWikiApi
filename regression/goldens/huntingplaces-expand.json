@@ -1,0 +1,21 @@
+{
+  "path": "/api/huntingplaces?expand=true",
+  "status": 200,
+  "body": [
+    {
+      "bestloot": "Reins",
+      "city": "Edron",
+      "exp": "Good",
+      "image": "Hero",
+      "implemented": "6.4",
+      "location": "North of [[Edron]].",
+      "loot": "Good",
+      "lvlknights": "70",
+      "lvlmages": "50",
+      "lvlpaladins": "60",
+      "name": "Hero Cave",
+      "templateType": "Hunt",
+      "vocation": "All vocations."
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{{Infobox Object|List={{{1|}}}|GetValue={{{GetValue|}}}
+| name          = Carlin Sword
+| article       = a
+| actualname    = carlin sword
+| plural        = ?
+| itemid        = 3283
+| marketable    = yes
+| objectclass   = Weapons
+| itemclass     = Weapons
+| primarytype   = Sword Weapons
+| type          = Sword
+| attack        = 15
+| defense       = 13
+| weight        = 40.00
+| implemented   = 7.1
+}}

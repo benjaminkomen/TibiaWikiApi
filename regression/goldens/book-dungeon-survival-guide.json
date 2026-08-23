@@ -1,0 +1,15 @@
+{
+  "path": "/api/books/Dungeon_Survival_Guide_(Book)",
+  "status": 200,
+  "body": {
+    "blurb": "Tips for exploring dungeons, and warning against being reckless.",
+    "booktype": "Book (Brown)",
+    "location": "[[Rookgaard Academy]]",
+    "pagename": "Dungeon Survival Guide (Book)",
+    "relatedpages": "[[Rope]], [[Shovel]]",
+    "returnpage": "Rookgaard Libraries",
+    "templateType": "Book",
+    "text": "Dungeon Survival Guide",
+    "title": "Dungeon Survival Guide"
+  }
+}

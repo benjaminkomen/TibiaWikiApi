@@ -1,0 +1,6 @@
+{{Infobox Street
+| name         = Sugar Street
+| implemented  = 7.8
+| city         = Liberty Bay
+| notes        = A street in west Liberty Bay.
+}}

@@ -1,0 +1,13 @@
+{
+  "path": "/api/streets?expand=true",
+  "status": 200,
+  "body": [
+    {
+      "city": "Liberty Bay",
+      "implemented": "7.8",
+      "name": "Sugar Street",
+      "notes": "A street in west Liberty Bay.",
+      "templateType": "Street"
+    }
+  ]
+}

@@ -15,6 +15,24 @@ terminal. Then execute: `./gradlew bootRun` and open your browser on http://loca
 You can now access the REST resources using your browser or any REST client such as Postman or curl from your command line.
 E.g. navigating to http://localhost:8080/api/corpses should give you a list of corpses.
 
+## API regression
+
+A Bun-based black-box harness in [`regression/`](regression/README.md) snapshots HTTP JSON
+and compares later responses to those goldens. It is not part of the Gradle test task.
+
+GitHub Actions (`.github/workflows/api-regression.yml`) boots the API with
+`--spring.profiles.active=fixtures` — an in-process wiki repository that reads
+`regression/fixtures/` — then runs `bun run test` against `http://localhost:8080`.
+That job never calls Fandom or tibiawiki.dev.
+
+```bash
+./regression/scripts/boot-fixtures.sh   # repo root, other terminal
+cd regression && bun run test
+```
+
+Use `bun run capture` against the fixture-backed server to refresh goldens.
+See [`regression/README.md`](regression/README.md).
+
 ## Query parameters
 For all resources the query parameter `?expand=true` can be appended to get a full list of JSON objects
  at the collection resource level. For example, instead of https://tibiawiki.dev/api/achievements the url

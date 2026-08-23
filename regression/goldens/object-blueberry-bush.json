@@ -1,0 +1,13 @@
+{
+  "path": "/api/objects/Blueberry_Bush",
+  "status": 200,
+  "body": {
+    "article": "a",
+    "implemented": "7.1",
+    "location": "Can be found all around [[Tibia]].",
+    "name": "Blueberry Bush",
+    "objectclass": "Bushes",
+    "templateType": "Object",
+    "walkable": "no"
+  }
+}

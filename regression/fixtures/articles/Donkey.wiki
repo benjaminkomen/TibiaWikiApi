@@ -1,0 +1,6 @@
+{{Infobox Mount|List={{{1|}}}|GetValue={{{GetValue|}}}
+| name          = Donkey
+| speed         = 10
+| taming_method = Use a [[Bag of Apple Slices]].
+| implemented   = 9.1
+}}

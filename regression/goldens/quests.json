@@ -1,0 +1,7 @@
+{
+  "path": "/api/quests",
+  "status": 200,
+  "body": [
+    "The Paradox Tower Quest"
+  ]
+}

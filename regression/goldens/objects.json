@@ -1,0 +1,7 @@
+{
+  "path": "/api/objects",
+  "status": 200,
+  "body": [
+    "Blueberry Bush"
+  ]
+}

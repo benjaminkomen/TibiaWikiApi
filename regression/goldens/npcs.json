@@ -1,0 +1,7 @@
+{
+  "path": "/api/npcs",
+  "status": 200,
+  "body": [
+    "Sam"
+  ]
+}

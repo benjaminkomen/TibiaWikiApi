@@ -1,0 +1,13 @@
+{
+  "path": "/api/quests/The_Paradox_Tower_Quest",
+  "status": 200,
+  "body": {
+    "aka": "Riddler Quest",
+    "implemented": "6.61-6.97",
+    "location": "[[Paradox Tower]] near [[Kazordoon]]",
+    "lvl": "30",
+    "name": "The Paradox Tower Quest",
+    "premium": "yes",
+    "templateType": "Quest"
+  }
+}

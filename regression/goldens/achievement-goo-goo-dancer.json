@@ -1,0 +1,17 @@
+{
+  "path": "/api/achievements/Goo_Goo_Dancer",
+  "status": 200,
+  "body": {
+    "achievementid": "319",
+    "description": "Seeing a mucus plug makes your heart dance and you can't resist to see what it hides. Goo goo away!",
+    "grade": "1",
+    "implemented": "9.6",
+    "name": "Goo Goo Dancer",
+    "points": "1",
+    "premium": "yes",
+    "relatedpages": "[[Muck Remover]], [[Mucus Plug]]",
+    "secret": "yes",
+    "spoiler": "Obtainable by using 100 [[Muck Remover]]s on [[Mucus Plug]]s.",
+    "templateType": "Achievement"
+  }
+}

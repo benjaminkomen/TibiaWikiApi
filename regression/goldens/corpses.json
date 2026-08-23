@@ -1,0 +1,7 @@
+{
+  "path": "/api/corpses",
+  "status": 200,
+  "body": [
+    "Dead Rat"
+  ]
+}

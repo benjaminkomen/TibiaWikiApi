@@ -1,0 +1,7 @@
+{
+  "path": "/api/streets",
+  "status": 200,
+  "body": [
+    "Sugar Street"
+  ]
+}

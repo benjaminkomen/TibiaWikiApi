@@ -1,0 +1,16 @@
+{
+  "path": "/api/spells/Light_Healing",
+  "status": 200,
+  "body": {
+    "cooldown": "1",
+    "effect": "Restores a small amount of [[HP|health]].",
+    "levelrequired": "8",
+    "mana": "20",
+    "name": "Light Healing",
+    "premium": "no",
+    "subclass": "Healing",
+    "templateType": "Spell",
+    "type": "Instant",
+    "words": "exura"
+  }
+}

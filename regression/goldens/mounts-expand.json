@@ -1,0 +1,13 @@
+{
+  "path": "/api/mounts?expand=true",
+  "status": 200,
+  "body": [
+    {
+      "implemented": "9.1",
+      "name": "Donkey",
+      "speed": "10",
+      "taming_method": "Use a [[Bag of Apple Slices]].",
+      "templateType": "Mount"
+    }
+  ]
+}

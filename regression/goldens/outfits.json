@@ -1,0 +1,7 @@
+{
+  "path": "/api/outfits",
+  "status": 200,
+  "body": [
+    "Pirate Outfits"
+  ]
+}

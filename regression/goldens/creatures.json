@@ -1,0 +1,7 @@
+{
+  "path": "/api/creatures",
+  "status": 200,
+  "body": [
+    "Dragon"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "path": "/api/npcs/Sam",
+  "status": 200,
+  "body": {
+    "city": "Thais",
+    "gender": "Male",
+    "implemented": "Pre-6.0",
+    "job": "Artisan",
+    "job2": "Weapon Shopkeeper",
+    "location": "[[Temple Street]] in [[Thais]].",
+    "name": "Sam",
+    "race": "Human",
+    "templateType": "NPC"
+  }
+}

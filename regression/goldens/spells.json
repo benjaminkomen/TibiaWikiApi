@@ -1,0 +1,7 @@
+{
+  "path": "/api/spells",
+  "status": 200,
+  "body": [
+    "Light Healing"
+  ]
+}

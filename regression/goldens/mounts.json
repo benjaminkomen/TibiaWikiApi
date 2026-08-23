@@ -1,0 +1,7 @@
+{
+  "path": "/api/mounts",
+  "status": 200,
+  "body": [
+    "Donkey"
+  ]
+}

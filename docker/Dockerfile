@@ -8,8 +8,10 @@ COPY src ./src
 ARG GITHUB_TOKEN
 ENV GITHUB_TOKEN=${GITHUB_TOKEN}
 
-# Build a release artifact.
-RUN gradle build --no-daemon
+# Produce the boot jar only. Unit/IT coverage runs in GitHub Actions;
+# this image does not copy test fixtures or a settings.gradle (WORKDIR
+# name "app" keeps the artifact at app-2.0.0.jar).
+RUN gradle bootJar --no-daemon
 
 FROM eclipse-temurin:21-jre
 RUN mkdir /project

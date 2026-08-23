@@ -1,0 +1,14 @@
+{{Infobox Hunt|List={{{1|}}}|GetValue={{{GetValue|}}}
+| name         = Hero Cave
+| image        = Hero
+| implemented  = 6.4
+| city         = Edron
+| location     = North of [[Edron]].
+| vocation     = All vocations.
+| lvlknights   = 70
+| lvlpaladins  = 60
+| lvlmages     = 50
+| loot         = Good
+| exp          = Good
+| bestloot     = Reins
+}}
