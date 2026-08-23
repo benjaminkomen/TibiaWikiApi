@@ -109,9 +109,16 @@ sonar {
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.sourceEncoding", "UTF-8"
         property "sonar.sources", "src/main"
-        property "sonar.tests", "src/test"
+        property "sonar.tests", "src/test,src/integrationTest"
         property "sonar.java.coveragePlugin", "jacoco"
         property "sonar.coverage.jacoco.xmlReportPaths", "./build/reports/jacocoTestReport.xml"
+        // kotlin:S6474 wants gradle/verification-metadata.xml. Generating and
+        // committing checksums for every Maven coordinate would churn on each
+        // Dependabot bump and is too heavy for this repo; leave the hotspot
+        // suppressed rather than adding sonar.coverage.exclusions.
+        property "sonar.issue.ignore.multicriteria", "e1"
+        property "sonar.issue.ignore.multicriteria.e1.ruleKey", "kotlin:S6474"
+        property "sonar.issue.ignore.multicriteria.e1.resourceKey", "**"
     }
 }
 
@@ -189,6 +196,9 @@ jacoco {
 
 jacocoTestReport {
     dependsOn check
+    // jacocoTestReport defaults to the unit `test` exec only. Controllers that
+    // are exercised solely from src/integrationTest otherwise report 0% in Sonar.
+    executionData.setFrom(fileTree(layout.buildDirectory.dir("jacoco")).include("*.exec"))
 
     reports {
         xml.required = true

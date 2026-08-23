@@ -10,8 +10,11 @@ import java.math.BigDecimal
 
 data class TibiaObject(
     val itemid: List<Int>? = emptyList(),
+    // Wiki infobox still serializes these keys; dropping them would break GET/PUT JSON.
+    @Suppress("kotlin:S1133")
     @Deprecated("replaced by objectclass")
     val primarytype: String? = null,
+    @Suppress("kotlin:S1133")
     @Deprecated(message = "never used")
     val sprites: String? = null,
     val objectclass: String,

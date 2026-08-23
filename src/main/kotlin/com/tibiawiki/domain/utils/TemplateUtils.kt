@@ -94,14 +94,12 @@ object TemplateUtils {
             .map { if (it.isEmpty()) null else it }
 
         if (keys.size != sanitizedValues.size) {
-            if (log.isErrorEnabled) {
-                val endLength = minOf(infoboxTemplatePartOfArticle.length, 200)
-                log.error(
-                    "Amount of keys and values don't match for article starting with: {}",
-                    infoboxTemplatePartOfArticle.substring(0, endLength).replace("\n", "")
-                )
-                return HashMap()
-            }
+            val endLength = minOf(infoboxTemplatePartOfArticle.length, 200)
+            log.error(
+                "Amount of keys and values don't match for article starting with: {}",
+                infoboxTemplatePartOfArticle.substring(0, endLength).replace("\n", "")
+            )
+            return HashMap()
         }
 
         for (i in keys.indices) {
