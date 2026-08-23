@@ -1,0 +1,54 @@
+package com.tibiawiki.adapters.rest
+
+import com.tibiawiki.domain.enums.InfoboxTemplate
+import com.tibiawiki.process.RetrieveByTemplate
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.Parameter
+import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.responses.ApiResponses
+import io.swagger.v3.oas.annotations.tags.Tag
+import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.RestController
+
+@Tag(name = "Worlds")
+@RestController
+@RequestMapping("/api/worlds")
+class WorldsController(
+    private val retrieveByTemplate: RetrieveByTemplate
+) {
+
+    @GetMapping(value = [""], produces = [MediaType.APPLICATION_JSON_VALUE])
+    @Operation(summary = "Get a list of game worlds")
+    @ApiResponses(value = [ApiResponse(responseCode = "200", description = "list of game worlds retrieved")])
+    fun getWorlds(
+        @Parameter(
+            description = "optionally expands the result to retrieve not only " +
+                "the world names but the full worlds",
+            required = false
+        )
+        @RequestParam(value = "expand", required = false) expand: Boolean?
+    ): ResponseEntity<Any> {
+        return WikiResourceResponses.list(
+            expand,
+            { retrieveByTemplate.asJson(InfoboxTemplate.WORLD) },
+            { retrieveByTemplate.names(InfoboxTemplate.WORLD) }
+        )
+    }
+
+    @GetMapping(value = ["/{name}"], produces = [MediaType.APPLICATION_JSON_VALUE])
+    @Operation(summary = "Get a specific game world by name")
+    @ApiResponses(
+        value = [
+            ApiResponse(responseCode = "200", description = "world with specified name found"),
+            ApiResponse(responseCode = "404", description = "world with specified name not found")
+        ]
+    )
+    fun getWorldsByName(@PathVariable("name") name: String): ResponseEntity<String> {
+        return WikiResourceResponses.jsonOrNotFound(retrieveByTemplate.getJson(name))
+    }
+}

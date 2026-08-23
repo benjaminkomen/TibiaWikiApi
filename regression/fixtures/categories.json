@@ -7,7 +7,9 @@
   "Corpses": ["Dead Rat"],
   "Creatures": ["Dragon"],
   "Effects": ["Blue Electricity Effect"],
+  "Familiars": ["Grovebeast"],
   "Hunting Places": ["Hero Cave"],
+  "Imbuements": ["Powerful Strike"],
   "Pickupable Objects": ["Carlin Sword"],
   "Keys": ["Key 4055"],
   "Locations": ["Thais"],
@@ -19,5 +21,7 @@
   "Outfits": ["Pirate Outfits"],
   "Quest Overview Pages": ["The Paradox Tower Quest"],
   "Spells": ["Light Healing"],
-  "Streets": ["Sugar Street"]
+  "Streets": ["Sugar Street"],
+  "Updates": ["Summer Update 2020"],
+  "Game Worlds": ["Antica"]
 }

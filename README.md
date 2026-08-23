@@ -55,7 +55,9 @@ The following resources are available:
 | Corpses         | [corpses](https://tibiawiki.dev/api/corpses)                | [Dead Rat](https://tibiawiki.dev/api/corpses/Dead_Rat)                                             |
 | Creatures       | [creatures](https://tibiawiki.dev/api/creatures)            | [Dragon](https://tibiawiki.dev/api/creatures/Dragon)                                               |
 | Effects         | [effects](https://tibiawiki.dev/api/effects)                | [Blue Electricity Effect](https://tibiawiki.dev/api/effects/Blue_Electricity_Effect)               |
+| Familiars       | [familiars](https://tibiawiki.dev/api/familiars)            | [Grovebeast](https://tibiawiki.dev/api/familiars/Grovebeast)                                       |
 | Hunting Places  | [hunting places](https://tibiawiki.dev/api/huntingplaces)   | [Hero Cave](https://tibiawiki.dev/api/huntingplaces/Hero_Cave)                                     |
+| Imbuements      | [imbuements](https://tibiawiki.dev/api/imbuements)          | [Powerful Strike](https://tibiawiki.dev/api/imbuements/Powerful_Strike)                            |
 | Items<sup>1</sup> | [items](https://tibiawiki.dev/api/items)                  | [Carlin Sword](https://tibiawiki.dev/api/items/Carlin_Sword)                                       |
 | Keys            | [keys](https://tibiawiki.dev/api/keys)                      | [Key 4055](https://tibiawiki.dev/api/keys/Key_4055)                                                |
 | Locations       | [locations](https://tibiawiki.dev/api/locations)            | [Thais](https://tibiawiki.dev/api/locations/Thais)                                                 |
@@ -68,6 +70,8 @@ The following resources are available:
 | Quests          | [quests](https://tibiawiki.dev/api/quests)                  | [The Paradox Tower Quest](https://tibiawiki.dev/api/quests/The_Paradox_Tower_Quest)                |
 | Spells          | [spells](https://tibiawiki.dev/api/spells)                  | [Light Healing](https://tibiawiki.dev/api/spells/Light_Healing)                                    |
 | Streets         | [streets](https://tibiawiki.dev/api/streets)                | [Sugar Street](https://tibiawiki.dev/api/streets/Sugar_Street)                                     |
+| Updates         | [updates](https://tibiawiki.dev/api/updates)                | [Summer Update 2020](https://tibiawiki.dev/api/updates/Summer_Update_2020)                         |
+| Worlds          | [worlds](https://tibiawiki.dev/api/worlds)                  | [Antica](https://tibiawiki.dev/api/worlds/Antica)                                                  |
 
 <sup>1</sup> as of 2021 the categories Items and Objects were merged on the wiki. To be backwards compatible with systems
 relying on an accurate list of Items, this API now returns a list of 'Pickupable Items' from the Items endpoint, but which

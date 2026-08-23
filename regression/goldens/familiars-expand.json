@@ -1,0 +1,11 @@
+{
+  "path": "/api/familiars?expand=true",
+  "status": 200,
+  "body": [
+    {
+      "implemented": "11.40",
+      "name": "Grovebeast",
+      "templateType": "Familiar"
+    }
+  ]
+}

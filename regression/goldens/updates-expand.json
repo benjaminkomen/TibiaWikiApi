@@ -1,0 +1,12 @@
+{
+  "path": "/api/updates?expand=true",
+  "status": 200,
+  "body": [
+    {
+      "date": "July 13, 2020",
+      "implemented": "12.40",
+      "name": "Summer Update 2020",
+      "templateType": "Update"
+    }
+  ]
+}

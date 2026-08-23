@@ -1,0 +1,9 @@
+{
+  "path": "/api/familiars/Grovebeast",
+  "status": 200,
+  "body": {
+    "implemented": "11.40",
+    "name": "Grovebeast",
+    "templateType": "Familiar"
+  }
+}

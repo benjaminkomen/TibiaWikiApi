@@ -100,6 +100,26 @@
     "description": "List of street names"
   },
   {
+    "id": "familiars",
+    "path": "/api/familiars",
+    "description": "List of familiar names"
+  },
+  {
+    "id": "imbuements",
+    "path": "/api/imbuements",
+    "description": "List of imbuement names"
+  },
+  {
+    "id": "updates",
+    "path": "/api/updates",
+    "description": "List of update names"
+  },
+  {
+    "id": "worlds",
+    "path": "/api/worlds",
+    "description": "List of game world names"
+  },
+  {
     "id": "achievements-expand",
     "path": "/api/achievements?expand=true",
     "description": "Full achievement objects (expand=true)"
@@ -163,6 +183,26 @@
     "id": "streets-expand",
     "path": "/api/streets?expand=true",
     "description": "Full street objects (expand=true)"
+  },
+  {
+    "id": "familiars-expand",
+    "path": "/api/familiars?expand=true",
+    "description": "Full familiar objects (expand=true)"
+  },
+  {
+    "id": "imbuements-expand",
+    "path": "/api/imbuements?expand=true",
+    "description": "Full imbuement objects (expand=true)"
+  },
+  {
+    "id": "updates-expand",
+    "path": "/api/updates?expand=true",
+    "description": "Full update objects (expand=true)"
+  },
+  {
+    "id": "worlds-expand",
+    "path": "/api/worlds?expand=true",
+    "description": "Full world objects (expand=true)"
   },
   {
     "id": "achievement-goo-goo-dancer",
@@ -288,6 +328,26 @@
     "id": "street-sugar-street",
     "path": "/api/streets/Sugar_Street",
     "description": "Street detail: Sugar Street"
+  },
+  {
+    "id": "familiar-grovebeast",
+    "path": "/api/familiars/Grovebeast",
+    "description": "Familiar detail: Grovebeast"
+  },
+  {
+    "id": "imbuement-powerful-strike",
+    "path": "/api/imbuements/Powerful_Strike",
+    "description": "Imbuement detail: Powerful Strike"
+  },
+  {
+    "id": "update-summer-2020",
+    "path": "/api/updates/Summer_Update_2020",
+    "description": "Update detail: Summer Update 2020"
+  },
+  {
+    "id": "world-antica",
+    "path": "/api/worlds/Antica",
+    "description": "World detail: Antica"
   },
   {
     "id": "creature-missing",

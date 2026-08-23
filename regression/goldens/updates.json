@@ -1,0 +1,7 @@
+{
+  "path": "/api/updates",
+  "status": 200,
+  "body": [
+    "Summer Update 2020"
+  ]
+}

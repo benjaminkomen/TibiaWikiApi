@@ -1,0 +1,6 @@
+{{Infobox Imbuement|List={{{1|}}}|GetValue={{{GetValue|}}}
+| name          = Powerful Strike
+| prefix        = Powerful
+| type          = Strike
+| implemented   = 11.50
+}}

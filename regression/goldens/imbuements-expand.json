@@ -1,0 +1,13 @@
+{
+  "path": "/api/imbuements?expand=true",
+  "status": 200,
+  "body": [
+    {
+      "implemented": "11.50",
+      "name": "Powerful Strike",
+      "prefix": "Powerful",
+      "templateType": "Imbuement",
+      "type": "Strike"
+    }
+  ]
+}

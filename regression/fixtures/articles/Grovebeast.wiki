@@ -1,0 +1,4 @@
+{{Infobox Familiar|List={{{1|}}}|GetValue={{{GetValue|}}}
+| name          = Grovebeast
+| implemented   = 11.40
+}}
