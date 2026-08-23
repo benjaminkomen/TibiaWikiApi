@@ -1,0 +1,7 @@
+{{Infobox Cipsoft_Member|List={{{1|}}}|GetValue={{{GetValue|}}}
+| name         = Knightmare
+| actualname   = Stephan
+| job          = Content Designer
+| implemented  = 6.0
+| status       = active
+}}

@@ -6,7 +6,9 @@ import com.tibiawiki.domain.objects.Achievement
 import com.tibiawiki.domain.objects.Book
 import com.tibiawiki.domain.objects.Building
 import com.tibiawiki.domain.objects.Charm
+import com.tibiawiki.domain.objects.CipsoftMember
 import com.tibiawiki.domain.objects.Corpse
+import com.tibiawiki.domain.objects.Fansite
 import com.tibiawiki.domain.objects.Creature
 import com.tibiawiki.domain.objects.Effect
 import com.tibiawiki.domain.objects.HuntingPlace
@@ -447,6 +449,46 @@ class JsonFactoryTest {
     }
 
     @Test
+    fun testConvertJsonToInfoboxPartOfArticle_Fansite() {
+        val fansite = makeFansite()
+        val result = target.convertJsonToInfoboxPartOfArticle(makeFansiteJson(fansite), fansite.fieldOrder())
+        assertThat(result, `is`(INFOBOX_FANSITE_TEXT))
+    }
+
+    @Test
+    fun testConvertJsonToInfoboxPartOfArticle_CipsoftMember() {
+        val cipsoftMember = makeCipsoftMember()
+        val result = target.convertJsonToInfoboxPartOfArticle(makeCipsoftMemberJson(cipsoftMember), cipsoftMember.fieldOrder())
+        assertThat(result, `is`(INFOBOX_CIPSOFT_MEMBER_TEXT))
+    }
+
+    @Test
+    fun testConvertInfoboxPartOfArticleToJson_InfoboxFansite() {
+        val result = target.convertInfoboxPartOfArticleToJson(INFOBOX_FANSITE_TEXT)
+
+        assertThat(result.get("templateType"), `is`("Fansite"))
+        assertThat(result.get("name"), `is`("TibiaWiki"))
+        assertThat(result.get("logo"), `is`("TibiaWiki Logo.png"))
+        assertThat(result.get("url"), `is`("https://tibia.fandom.com"))
+        assertThat(result.get("language"), `is`("English"))
+        assertThat(result.get("type"), `is`("Official"))
+        assertThat(result.get("implemented"), `is`("8.00"))
+        assertThat(result.get("fansiteitem"), `is`("TibiaWiki Gem"))
+        assertThat(result.get("itemworth"), `is`("5000"))
+    }
+
+    @Test
+    fun testConvertInfoboxPartOfArticleToJson_InfoboxCipsoftMember() {
+        val result = target.convertInfoboxPartOfArticleToJson(INFOBOX_CIPSOFT_MEMBER_TEXT)
+
+        assertThat(result.get("templateType"), `is`("Cipsoft_Member"))
+        assertThat(result.get("name"), `is`("Knightmare"))
+        assertThat(result.get("actualname"), `is`("Stephan"))
+        assertThat(result.get("job"), `is`("Content Designer"))
+        assertThat(result.get("implemented"), `is`("6.0"))
+    }
+
+    @Test
     fun testConvertLootPartOfArticleToJson_Loot2Bear() {
         val result = target.convertLootPartOfArticleToJson("Loot Statistics:Bear", LOOT_BEAR_TEXT)
 
@@ -686,6 +728,22 @@ class JsonFactoryTest {
 
     private fun makeStreetJson(street: Street): JSONObject {
         return JSONObject(objectMapper.convertValue(street, Map::class.java)).put("templateType", "Street")
+    }
+
+    private fun makeFansite(): Fansite {
+        return WikiObjectFixtures.fansite()
+    }
+
+    private fun makeFansiteJson(fansite: Fansite): JSONObject {
+        return JSONObject(objectMapper.convertValue(fansite, Map::class.java)).put("templateType", "Fansite")
+    }
+
+    private fun makeCipsoftMember(): CipsoftMember {
+        return WikiObjectFixtures.cipsoftMember()
+    }
+
+    private fun makeCipsoftMemberJson(cipsoftMember: CipsoftMember): JSONObject {
+        return JSONObject(objectMapper.convertValue(cipsoftMember, Map::class.java)).put("templateType", "Cipsoft_Member")
     }
 
     companion object {
@@ -1172,6 +1230,26 @@ class JsonFactoryTest {
             | wheelspell     = no
             | passivespell   = no
             | effect         = Restores a small amount of [[HP|health]].
+            }}
+        """.trimIndent().trimStart() + "\n"
+        private val INFOBOX_FANSITE_TEXT = """
+            {{Infobox Fansite|List={{{1|}}}|GetValue={{{GetValue|}}}
+            | name         = TibiaWiki
+            | logo         = TibiaWiki Logo.png
+            | url          = https://tibia.fandom.com
+            | language     = English
+            | type         = Official
+            | implemented  = 8.00
+            | fansiteitem  = TibiaWiki Gem
+            | itemworth    = 5000
+            }}
+        """.trimIndent().trimStart() + "\n"
+        private val INFOBOX_CIPSOFT_MEMBER_TEXT = """
+            {{Infobox Cipsoft_Member|List={{{1|}}}|GetValue={{{GetValue|}}}
+            | name         = Knightmare
+            | actualname   = Stephan
+            | job          = Content Designer
+            | implemented  = 6.0
             }}
         """.trimIndent().trimStart() + "\n"
     }

@@ -20,6 +20,11 @@
     "description": "List of charm names"
   },
   {
+    "id": "cipsoftmembers",
+    "path": "/api/cipsoftmembers",
+    "description": "List of CipSoft member names"
+  },
+  {
     "id": "corpses",
     "path": "/api/corpses",
     "description": "List of corpse names"
@@ -33,6 +38,11 @@
     "id": "effects",
     "path": "/api/effects",
     "description": "List of effect names"
+  },
+  {
+    "id": "fansites",
+    "path": "/api/fansites",
+    "description": "List of fansite names"
   },
   {
     "id": "huntingplaces",
@@ -130,6 +140,11 @@
     "description": "Full charm objects (expand=true)"
   },
   {
+    "id": "cipsoftmembers-expand",
+    "path": "/api/cipsoftmembers?expand=true",
+    "description": "Full CipSoft member objects (expand=true)"
+  },
+  {
     "id": "corpses-expand",
     "path": "/api/corpses?expand=true",
     "description": "Full corpse objects (expand=true)"
@@ -138,6 +153,11 @@
     "id": "effects-expand",
     "path": "/api/effects?expand=true",
     "description": "Full effect objects (expand=true)"
+  },
+  {
+    "id": "fansites-expand",
+    "path": "/api/fansites?expand=true",
+    "description": "Full fansite objects (expand=true)"
   },
   {
     "id": "huntingplaces-expand",
@@ -225,6 +245,11 @@
     "description": "Charm detail: Adrenaline Burst"
   },
   {
+    "id": "cipsoftmember-knightmare",
+    "path": "/api/cipsoftmembers/Knightmare",
+    "description": "CipSoft member detail: Knightmare"
+  },
+  {
     "id": "corpse-dead-rat",
     "path": "/api/corpses/Dead_Rat",
     "description": "Corpse detail: Dead Rat"
@@ -238,6 +263,11 @@
     "id": "effect-blue-electricity-effect",
     "path": "/api/effects/Blue_Electricity_Effect",
     "description": "Effect detail: Blue Electricity Effect"
+  },
+  {
+    "id": "fansite-tibiawiki",
+    "path": "/api/fansites/TibiaWiki",
+    "description": "Fansite detail: TibiaWiki"
   },
   {
     "id": "huntingplace-hero-cave",

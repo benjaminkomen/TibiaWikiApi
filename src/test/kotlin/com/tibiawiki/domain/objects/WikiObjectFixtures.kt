@@ -493,4 +493,24 @@ object WikiObjectFixtures {
         city = City.LIBERTY_BAY,
         notes = "{{StreetStyles|Sugar Street}} is in west"
     )
+
+    @JvmStatic
+    fun fansite(): Fansite = Fansite(
+        name = "TibiaWiki",
+        logo = "TibiaWiki Logo.png",
+        url = "https://tibia.fandom.com",
+        language = "English",
+        type = "Official",
+        implemented = "8.00",
+        fansiteitem = "TibiaWiki Gem",
+        itemworth = "5000"
+    )
+
+    @JvmStatic
+    fun cipsoftMember(): CipsoftMember = CipsoftMember(
+        name = "Knightmare",
+        actualname = "Stephan",
+        job = "Content Designer",
+        implemented = "6.0"
+    )
 }

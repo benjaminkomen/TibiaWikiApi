@@ -1,0 +1,16 @@
+{
+  "path": "/api/fansites/TibiaWiki",
+  "status": 200,
+  "body": {
+    "fansiteitem": "TibiaWiki Gem",
+    "implemented": "8.00",
+    "itemworth": "5000",
+    "language": "English",
+    "logo": "TibiaWiki Logo.png",
+    "name": "TibiaWiki",
+    "status": "active",
+    "templateType": "Fansite",
+    "type": "Official",
+    "url": "https://tibia.fandom.com"
+  }
+}

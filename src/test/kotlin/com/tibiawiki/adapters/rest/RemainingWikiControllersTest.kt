@@ -4,8 +4,10 @@ import com.tibiawiki.domain.ArticleNotFoundException
 import com.tibiawiki.domain.RetrieveWikiPages
 import com.tibiawiki.domain.objects.WikiObject
 import com.tibiawiki.domain.objects.WikiObjectFixtures
+import com.tibiawiki.domain.enums.InfoboxTemplate
 import com.tibiawiki.process.ModifyAny
 import com.tibiawiki.process.RetrieveBuildings
+import com.tibiawiki.process.RetrieveByTemplate
 import com.tibiawiki.process.RetrieveCharms
 import com.tibiawiki.process.RetrieveCorpses
 import com.tibiawiki.process.RetrieveEffects
@@ -43,6 +45,38 @@ class RemainingWikiControllersTest {
     @BeforeEach
     fun setup() {
         modifyAny = mock(ModifyAny::class.java)
+    }
+
+    @Test
+    fun fansites() {
+        val retrieve = mock(RetrieveByTemplate::class.java)
+        doReturn(names).`when`(retrieve).names(InfoboxTemplate.FANSITE)
+        doReturn(Stream.of(json)).`when`(retrieve).asJson(InfoboxTemplate.FANSITE)
+        doReturn(Optional.of(json)).`when`(retrieve).getJson("Foo")
+        doReturn(Optional.empty<JSONObject>()).`when`(retrieve).getJson("Missing")
+        val body = WikiObjectFixtures.fansite()
+        stubModify(body)
+        val c = FansitesController(retrieve, modifyAny)
+        assertStandard(c.getFansites(false), c.getFansites(true), c.getFansitesByName("Foo"), c.getFansitesByName("Missing"), c.putFansite(body, "edit"))
+    }
+
+    @Test
+    fun cipsoftMembers() {
+        val retrieve = mock(RetrieveByTemplate::class.java)
+        doReturn(names).`when`(retrieve).names(InfoboxTemplate.CIPSOFT_MEMBER)
+        doReturn(Stream.of(json)).`when`(retrieve).asJson(InfoboxTemplate.CIPSOFT_MEMBER)
+        doReturn(Optional.of(json)).`when`(retrieve).getJson("Foo")
+        doReturn(Optional.empty<JSONObject>()).`when`(retrieve).getJson("Missing")
+        val body = WikiObjectFixtures.cipsoftMember()
+        stubModify(body)
+        val c = CipsoftMembersController(retrieve, modifyAny)
+        assertStandard(
+            c.getCipsoftMembers(false),
+            c.getCipsoftMembers(true),
+            c.getCipsoftMembersByName("Foo"),
+            c.getCipsoftMembersByName("Missing"),
+            c.putCipsoftMember(body, "edit")
+        )
     }
 
     @Test

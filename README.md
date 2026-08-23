@@ -73,10 +73,12 @@ The following resources are available:
 | Books           | [books](https://tibiawiki.dev/api/books)                    | [Dungeon Survival Guide (Book)](https://tibiawiki.dev/api/books/Dungeon_Survival_Guide_%28Book%29) |
 | Buildings       | [buildings](https://tibiawiki.dev/api/buildings)            | [Theater Avenue 8b](https://tibiawiki.dev/api/buildings/Theater_Avenue_8b)                         |
 | Charms          | [charms](https://tibiawiki.dev/api/charms)                  | [Adrenaline Burst](https://tibiawiki.dev/api/charms/Adrenaline_Burst)                              |
+| CipSoft Members | [cipsoftmembers](https://tibiawiki.dev/api/cipsoftmembers)  | [Knightmare](https://tibiawiki.dev/api/cipsoftmembers/Knightmare)                                   |
 | Corpses         | [corpses](https://tibiawiki.dev/api/corpses)                | [Dead Rat](https://tibiawiki.dev/api/corpses/Dead_Rat)                                             |
 | Creatures       | [creatures](https://tibiawiki.dev/api/creatures)            | [Dragon](https://tibiawiki.dev/api/creatures/Dragon)                                               |
 | Effects         | [effects](https://tibiawiki.dev/api/effects)                | [Blue Electricity Effect](https://tibiawiki.dev/api/effects/Blue_Electricity_Effect)               |
 | Familiars       | [familiars](https://tibiawiki.dev/api/familiars)            | [Grovebeast](https://tibiawiki.dev/api/familiars/Grovebeast)                                       |
+| Fansites        | [fansites](https://tibiawiki.dev/api/fansites)              | [TibiaWiki](https://tibiawiki.dev/api/fansites/TibiaWiki)                                           |
 | Hunting Places  | [hunting places](https://tibiawiki.dev/api/huntingplaces)   | [Hero Cave](https://tibiawiki.dev/api/huntingplaces/Hero_Cave)                                     |
 | Imbuements      | [imbuements](https://tibiawiki.dev/api/imbuements)          | [Powerful Strike](https://tibiawiki.dev/api/imbuements/Powerful_Strike)                            |
 | Items<sup>1</sup> | [items](https://tibiawiki.dev/api/items)                  | [Carlin Sword](https://tibiawiki.dev/api/items/Carlin_Sword)                                       |

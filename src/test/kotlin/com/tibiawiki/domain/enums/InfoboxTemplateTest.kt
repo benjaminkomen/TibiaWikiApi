@@ -19,5 +19,9 @@ class InfoboxTemplateTest {
         assertThat(InfoboxTemplate.UPDATE.categoryName, `is`("Updates"))
         assertThat(InfoboxTemplate.FAMILIAR.templateName, `is`("Familiar"))
         assertThat(InfoboxTemplate.FAMILIAR.categoryName, `is`("Familiars"))
+        assertThat(InfoboxTemplate.FANSITE.templateName, `is`("Fansite"))
+        assertThat(InfoboxTemplate.FANSITE.categoryName, `is`("Tibia_Fansites"))
+        assertThat(InfoboxTemplate.CIPSOFT_MEMBER.templateName, `is`("Cipsoft_Member"))
+        assertThat(InfoboxTemplate.CIPSOFT_MEMBER.categoryName, `is`("CipSoft_Members"))
     }
 }

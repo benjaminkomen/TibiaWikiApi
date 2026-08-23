@@ -1,0 +1,11 @@
+{{Infobox Fansite|List={{{1|}}}|GetValue={{{GetValue|}}}
+| name         = TibiaWiki
+| logo         = TibiaWiki Logo.png
+| url          = https://tibia.fandom.com
+| language     = English
+| type         = Official
+| implemented  = 8.00
+| fansiteitem  = TibiaWiki Gem
+| itemworth    = 5000
+| status       = active
+}}
