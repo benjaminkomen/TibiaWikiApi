@@ -15,6 +15,13 @@
     "templateType": "Spell",
     "type": "Instant",
     "voc": "[[Knight]]s, [[Paladin]]s, [[Sorcerer]]s, [[Druid]]s and [[Monk]]s",
+    "vocations": [
+      "knight",
+      "paladin",
+      "sorcerer",
+      "druid",
+      "monk"
+    ],
     "words": "exura"
   }
 }

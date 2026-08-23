@@ -2,6 +2,7 @@
   "path": "/api/familiars",
   "status": 200,
   "body": [
-    "Grovebeast"
+    "Grovebeast",
+    "Bladespark"
   ]
 }

@@ -14,6 +14,9 @@
     "templateType": "Spell",
     "type": "Instant",
     "voc": "[[Monk]]s",
+    "vocations": [
+      "monk"
+    ],
     "words": "exori mas nia"
   }
 }

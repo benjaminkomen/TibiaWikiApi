@@ -11,6 +11,7 @@
     "name": "Powerful Strike",
     "prefix": "Powerful",
     "slot": "weapons",
-    "templateType": "Imbuement"
+    "templateType": "Imbuement",
+    "type": "Strike"
   }
 }

@@ -3,9 +3,15 @@
   "status": 200,
   "body": [
     {
-      "implemented": "11.50",
+      "amount": "3",
+      "category": "Skill",
+      "effect": "Critical Extra Damage",
+      "effectpercent": "15",
+      "imbuement": "Strike",
+      "implemented": "11.02",
       "name": "Powerful Strike",
       "prefix": "Powerful",
+      "slot": "weapons",
       "templateType": "Imbuement",
       "type": "Strike"
     }

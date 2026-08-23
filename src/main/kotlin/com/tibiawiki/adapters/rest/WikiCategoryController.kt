@@ -26,7 +26,7 @@ import tools.jackson.databind.ObjectMapper
 
 @Tag(name = "Wiki Categories")
 @RestController
-@RequestMapping("/api/{category}")
+@RequestMapping("/api/{category:achievements|books|buildings|charms|corpses|creatures|effects|items|keys|locations|missiles|mounts|npcs|objects|outfits|quests|spells|streets}")
 class WikiCategoryController(
     private val retrieveByTemplate: RetrieveByTemplate,
     private val modifyAny: ModifyAny,

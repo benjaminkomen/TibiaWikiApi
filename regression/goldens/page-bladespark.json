@@ -13,6 +13,9 @@
     "templateType": "Familiar",
     "type": "Instant",
     "voc": "[[Paladin]]s",
+    "vocations": [
+      "paladin"
+    ],
     "words": "utevo gran res sac"
   }
 }
