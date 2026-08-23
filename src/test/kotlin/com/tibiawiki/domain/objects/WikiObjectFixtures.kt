@@ -446,6 +446,57 @@ object WikiObjectFixtures {
         location = "Can be found all around [[Tibia]].",
         notes2 = "<br />{{JSpoiler|After using [[Blueberry]] Bushes 500 times,"
     )
+=======
+    fun item(): TibiaObject {
+        val result = TibiaObject(
+            name = "Carlin Sword",
+            article = Article.A,
+            actualname = "carlin sword",
+            plural = "?",
+            notes = "If you have one of these ",
+            itemid = listOf(3283),
+            objectclass = ObjectClass.WEAPONS.description,
+            flavortext = "Foobar",
+            pickupable = YesNo.YES_LOWERCASE,
+            usable = YesNo.YES_LOWERCASE,
+            levelrequired = 0,
+            hands = Hands.One,
+            weapontype = WeaponType.Sword,
+            attack = "15",
+            defense = 13,
+            defensemod = "+1",
+            enchantable = YesNo.NO_LOWERCASE,
+            weight = BigDecimal.valueOf(40.00).setScale(2, RoundingMode.HALF_UP),
+            marketable = YesNo.YES_LOWERCASE,
+            droppedby = mutableListOf("Grorlam", "Stone Golem"),
+            value = "118",
+            npcvalue = "118",
+            npcprice = "473",
+            npcvaluerook = "0",
+            npcpricerook = "0",
+            buyfrom = "Baltim, Brengus, Cedrik,",
+            sellto = "Baltim, Brengus, Cedrik, Esrik,"
+        )
+        return result
+    }
+
+    fun tibiaObject(): TibiaObject {
+        val result = TibiaObject(
+            name = "Blueberry Bush",
+            article = Article.A,
+            implemented = "7.1",
+            notes = "They are the source of the [[blueberry|blueberries]].",
+            itemid = null,
+            sounds = null,
+            droppedby = null,
+            objectclass = "Bushes",
+            walkable = YesNo.NO_LOWERCASE,
+            location = "Can be found all around [[Tibia]].",
+            notes2 = "<br />{{JSpoiler|After using [[Blueberry]] Bushes 500 times,"
+        )
+        return result
+    }
+>>>>>>> bc99fb2 (Keep restacked tip ITs aligned after generic Retrieve.)
 
     fun spell(): Spell = Spell(
         name = "Light Healing",

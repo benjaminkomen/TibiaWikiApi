@@ -52,7 +52,7 @@ class WikiCategoryControllerTest {
         val list = controller.getWikiObjects("achievements", false)
         val expanded = controller.getWikiObjects("achievements", true)
         val found = controller.getWikiObjectByName("achievements", "Foo")
-        val put = controller.putWikiObject("achievements", mapper.readTree("""{"name":"Goo Goo Dancer"}"""), "edit")
+        val put = controller.putWikiObject("achievements", mapper.valueToTree(body), "edit")
 
         assertThat(list.statusCode, `is`(HttpStatus.OK))
         assertThat(list.body, `is`(names))
@@ -103,7 +103,7 @@ class WikiCategoryControllerTest {
 
         assertThat(captured, hasSize(1))
         assertThat(captured[0] is Achievement, `is`(true))
-        assertThat((captured[0] as Achievement).name, `is`("Goo Goo Dancer"))
+        assertThat((captured[0] as Achievement).name, `is`(WikiObjectFixtures.achievement().name))
     }
 
     @Test
