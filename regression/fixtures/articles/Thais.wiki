@@ -1,0 +1,6 @@
+{{Infobox Geography
+| implemented  = Pre-6.0
+| ruler        = [[King Tibianus]]
+| population   = 1000
+| near         = [[Fibula]], [[Mintwallin]]
+}}

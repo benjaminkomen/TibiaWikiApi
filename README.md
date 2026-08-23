@@ -17,16 +17,21 @@ E.g. navigating to http://localhost:8080/api/corpses should give you a list of c
 
 ## API regression
 
-A Bun-based black-box harness in [`regression/`](regression/README.md) snapshots live HTTP JSON
-and compares later responses to those goldens. It is not part of the Gradle/Java tests.
-GitHub Actions runs `bun run test` against https://tibiawiki.dev on every push and pull request.
+A Bun-based black-box harness in [`regression/`](regression/README.md) snapshots HTTP JSON
+and compares later responses to those goldens. It is not part of the Gradle test task.
+
+GitHub Actions (`.github/workflows/api-regression.yml`) boots the API with
+`--spring.profiles.active=fixtures` — an in-process wiki repository that reads
+`regression/fixtures/` — then runs `bun run test` against `http://localhost:8080`.
+That job never calls Fandom or tibiawiki.dev.
 
 ```bash
-cd regression
-BASE_URL=https://tibiawiki.dev bun run test
+./regression/scripts/boot-fixtures.sh   # repo root, other terminal
+cd regression && bun run test
 ```
 
-Use `bun run capture` to refresh goldens. See [`regression/README.md`](regression/README.md) for local `bootRun` vs production.
+Use `bun run capture` against the fixture-backed server to refresh goldens.
+See [`regression/README.md`](regression/README.md).
 
 ## Query parameters
 For all resources the query parameter `?expand=true` can be appended to get a full list of JSON objects

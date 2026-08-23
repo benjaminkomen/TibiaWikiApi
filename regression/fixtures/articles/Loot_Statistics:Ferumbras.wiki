@@ -1,0 +1,7 @@
+{{Loot2
+|version=8.6
+|kills=143
+|name=Ferumbras
+|Gold Coin, times:100, amount:1-105, total:5000
+|Platinum Coin, times:10, amount:7-34, total:178
+}}

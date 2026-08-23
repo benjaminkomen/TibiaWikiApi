@@ -1,0 +1,7 @@
+{{Infobox Missile|List={{{1|}}}|GetValue={{{GetValue|}}}
+| name         = Throwing Cake Missile
+| implemented  = 7.9
+| missileid    = 42
+| primarytype  = Throwing Weapon
+| shotby       = [[Undead Jester]]'s attack.
+}}

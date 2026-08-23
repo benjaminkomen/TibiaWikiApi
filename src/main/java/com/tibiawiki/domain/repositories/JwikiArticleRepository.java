@@ -7,6 +7,7 @@ import io.github.fastily.jwiki.core.NS;
 import io.github.fastily.jwiki.core.Wiki;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.Map;
  * it can retrieve one Article or list of Articles from the wiki.
  */
 @Repository
+@Profile("!fixtures")
 public class JwikiArticleRepository implements ArticleRepository {
 
     private static final Logger LOG = LoggerFactory.getLogger(JwikiArticleRepository.class);

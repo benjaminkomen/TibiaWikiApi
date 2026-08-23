@@ -1,0 +1,8 @@
+{{Infobox Key|List={{{1|}}}|GetValue={{{GetValue|}}}
+| number       = 4055
+| aka          = Panpipe Quest Key
+| primarytype  = Silver
+| location     = [[Jakundaf Desert]]
+| value        = Negotiable
+| shortnotes   = Access to the [[Panpipe Quest]].
+}}

@@ -1,0 +1,21 @@
+{{Infobox Creature|List={{{1|}}}|GetValue={{{GetValue|}}}
+| name           = Dragon
+| article        = a
+| actualname     = dragon
+| plural         = dragons
+| hp             = 1000
+| exp            = 700
+| armor          = 25
+| summon         = --
+| convince       = --
+| illusionable   = yes
+| creatureclass  = Reptiles
+| primarytype    = Dragons
+| isboss         = no
+| implemented    = 4.0
+| location       = [[Thais]]
+| loot           = {{Loot Table
+ |{{Loot Item|0-105|Gold Coin}}
+ |{{Loot Item|Dragon Ham}}
+}}
+}}

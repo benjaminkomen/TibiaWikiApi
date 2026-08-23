@@ -1,0 +1,7 @@
+{{Infobox Outfit|List={{{1|}}}|GetValue={{{GetValue|}}}
+| name         = Pirate
+| primarytype  = Quest
+| premium      = yes
+| implemented  = 7.8
+| notes        = Pirate outfits are perfect for swabbing the deck.
+}}

@@ -1,0 +1,8 @@
+{{Infobox Quest|List={{{1|}}}|GetValue={{{GetValue|}}}
+| name         = The Paradox Tower Quest
+| aka          = Riddler Quest
+| location     = [[Paradox Tower]] near [[Kazordoon]]
+| lvl          = 30
+| premium      = yes
+| implemented  = 6.61-6.97
+}}
