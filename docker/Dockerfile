@@ -13,7 +13,7 @@ ENV GITHUB_TOKEN=${GITHUB_TOKEN}
 # name "app" keeps the artifact at app-2.0.0.jar).
 RUN gradle bootJar --no-daemon
 
-FROM eclipse-temurin:25-jre
+FROM eclipse-temurin:25.0.4_7-jre
 RUN mkdir /project
 COPY --from=builder /app/build/libs/app-2.0.0.jar /project/TibiaWikiApi.jar
 WORKDIR /project
