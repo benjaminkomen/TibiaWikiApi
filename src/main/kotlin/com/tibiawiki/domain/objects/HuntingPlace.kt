@@ -5,6 +5,12 @@ import com.tibiawiki.domain.enums.City
 import com.tibiawiki.domain.enums.InfoboxTemplate
 import com.tibiawiki.domain.enums.Star
 
+/**
+ * Infobox Hunt model.
+ *
+ * Recommended level (`lvl*`), skill (`sk*`), and defence (`def*`) columns follow the wiki
+ * template: knight, paladin, and mage only. Monk columns are omitted until TibiaWiki adds them.
+ */
 data class HuntingPlace(
     override val name: String? = null,
     override val implemented: String? = null,

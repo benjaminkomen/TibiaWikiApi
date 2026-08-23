@@ -5,6 +5,7 @@ import com.tibiawiki.domain.enums.InfoboxTemplate
 import com.tibiawiki.domain.enums.SpellSubclass
 import com.tibiawiki.domain.enums.SpellType
 import com.tibiawiki.domain.enums.Status
+import com.tibiawiki.domain.enums.Vocation
 import com.tibiawiki.domain.enums.YesNo
 
 data class Spell(
@@ -102,6 +103,14 @@ data class Spell(
     history = history,
     status = status
 ) {
+    /**
+     * Typed vocations parsed from wiki `voc` text (including Monk).
+     * Not part of [fieldOrder]; write-back keeps the original `voc` string.
+     */
+    @get:JsonProperty("vocations")
+    val vocations: List<Vocation>
+        get() = Vocation.parseVoc(voc)
+
     override fun getTemplateType(): String {
         return InfoboxTemplate.SPELL.templateName
     }

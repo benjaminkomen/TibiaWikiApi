@@ -72,3 +72,7 @@ The following resources are available:
 <sup>1</sup> as of 2021 the categories Items and Objects were merged on the wiki. To be backwards compatible with systems
 relying on an accurate list of Items, this API now returns a list of 'Pickupable Items' from the Items endpoint, but which
 have the Object templateType.
+
+Hunting Places follow Infobox Hunt: recommended level, skill, and defence are knight, paladin, and mage only.
+TibiaWiki has not added Monk columns yet, so this API does not invent them. Spell `voc` values that include Monks
+are parsed into typed `vocations` (the original `voc` wiki string is unchanged).

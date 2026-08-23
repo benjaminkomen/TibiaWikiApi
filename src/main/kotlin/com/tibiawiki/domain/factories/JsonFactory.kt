@@ -1,6 +1,7 @@
 package com.tibiawiki.domain.factories
 
 import com.google.common.base.Strings
+import com.tibiawiki.domain.enums.Vocation
 import com.tibiawiki.domain.objects.HuntingPlaceSkills
 import com.tibiawiki.domain.utils.TemplateUtils
 import org.json.JSONArray
@@ -169,6 +170,12 @@ class JsonFactory {
         }
         if (jsonObject.has(LOWER_LEVELS)) {
             jsonObject.put(LOWER_LEVELS, makeLowerLevelsArray(jsonObject.getString(LOWER_LEVELS)))
+        }
+        if (jsonObject.has(VOC)) {
+            val vocations = Vocation.parseVoc(jsonObject.getString(VOC))
+            if (vocations.isNotEmpty()) {
+                jsonObject.put(VOCATIONS, JSONArray(vocations.map { it.description }))
+            }
         }
         return jsonObject
     }
@@ -421,6 +428,8 @@ class JsonFactory {
         private const val ITEM_ID = "itemid"
         private const val EFFECT_ID = "effectid"
         private const val LOWER_LEVELS = "lowerlevels"
+        private const val VOC = "voc"
+        private const val VOCATIONS = "vocations"
         private val ITEMS_WITH_NO_DROPPEDBY_LIST = listOf("Gold Coin", "Platinum Coin")
         private const val INFOBOX_HEADER_PATTERN = "\\{\\{Infobox[\\s_](.*?)[|\\n]"
         private const val RARITY_PATTERN = "(always|common|uncommon|semi-rare|rare|very rare|extremely rare)(|\\?)"

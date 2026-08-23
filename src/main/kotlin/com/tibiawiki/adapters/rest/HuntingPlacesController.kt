@@ -31,7 +31,11 @@ class HuntingPlacesController(
 ) {
 
     @GetMapping(value = [""], produces = [MediaType.APPLICATION_JSON_VALUE])
-    @Operation(summary = "Get a list of hunting places")
+    @Operation(
+        summary = "Get a list of hunting places",
+        description = "Infobox Hunt level/skill/defence columns are knight, paladin, and mage only. " +
+            "Monk columns are not modeled until TibiaWiki adds them."
+    )
     @ApiResponses(value = [ApiResponse(responseCode = "200", description = "list of hunting places retrieved")])
     fun getHuntingPlaces(
         @Parameter(

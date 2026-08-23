@@ -148,6 +148,24 @@ class JsonFactoryTest {
     }
 
     @Test
+    fun testEnhanceJsonObject_VocIncludingMonk() {
+        val inputJsonObject = JSONObject(
+            mapOf(
+                "name" to "Light Healing",
+                "templateType" to "Spell",
+                "voc" to "[[Paladin]]s, [[Druid]]s, [[Sorcerer]]s and [[Monk]]s"
+            )
+        )
+        val result = target.enhanceJsonObject(inputJsonObject)
+        assertThat(result.get("voc"), `is`("[[Paladin]]s, [[Druid]]s, [[Sorcerer]]s and [[Monk]]s"))
+        val vocations = result.get("vocations") as JSONArray
+        assertThat(vocations.get(0), `is`("paladin"))
+        assertThat(vocations.get(1), `is`("druid"))
+        assertThat(vocations.get(2), `is`("sorcerer"))
+        assertThat(vocations.get(3), `is`("monk"))
+    }
+
+    @Test
     fun testEnhanceJsonObject_Spawntype_Empty() {
         val inputJsonObject = JSONObject(mapOf("name" to "Demon", "templateType" to "Creature", "spawntype" to " "))
         val result = target.enhanceJsonObject(inputJsonObject)
