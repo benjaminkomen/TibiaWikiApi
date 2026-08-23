@@ -2,18 +2,19 @@ package com.tibiawiki.adapters.rest
 
 import com.tibiawiki.config.WikiWriteApiDocs
 import com.tibiawiki.domain.WikiJson
+import com.tibiawiki.domain.enums.InfoboxTemplate
 import com.tibiawiki.domain.objects.HuntingPlace
 import com.tibiawiki.domain.objects.WikiObject
 import com.tibiawiki.process.ModifyAny
-import com.tibiawiki.process.RetrieveHuntingPlaces
+import com.tibiawiki.process.RetrieveByTemplate
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.tags.Tag
+import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
-import jakarta.servlet.http.HttpServletRequest
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -28,7 +29,7 @@ import java.nio.charset.StandardCharsets
 @RestController
 @RequestMapping("/api/huntingplaces")
 class HuntingPlacesController(
-    private val retrieveHuntingPlaces: RetrieveHuntingPlaces,
+    private val retrieveByTemplate: RetrieveByTemplate,
     private val modifyAny: ModifyAny
 ) {
 
@@ -47,7 +48,11 @@ class HuntingPlacesController(
         )
         @RequestParam(value = "expand", required = false) expand: Boolean?
     ): ResponseEntity<Any> {
-        return WikiResourceResponses.list(expand, { retrieveHuntingPlaces.huntingPlacesJSON }, { retrieveHuntingPlaces.huntingPlacesList })
+        return WikiResourceResponses.list(
+            expand,
+            { retrieveByTemplate.articlesAsJSON(InfoboxTemplate.HUNT) },
+            { retrieveByTemplate.pageNames(InfoboxTemplate.HUNT) }
+        )
     }
 
     @GetMapping(value = ["/**"], produces = [MediaType.APPLICATION_JSON_VALUE]) // accept special characters such as slashes in path
@@ -61,7 +66,7 @@ class HuntingPlacesController(
     fun getHuntingPlacesByName(request: HttpServletRequest): ResponseEntity<WikiJson> {
         val requestUri = request.requestURI
         val name = URLDecoder.decode(requestUri.split("/huntingplaces/")[1], StandardCharsets.UTF_8)
-        return WikiResourceResponses.jsonOrNotFound(retrieveHuntingPlaces.getHuntingPlaceJSON(name))
+        return WikiResourceResponses.jsonOrNotFound(retrieveByTemplate.articleAsJSON(name))
     }
 
     @PutMapping(value = [""], consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])

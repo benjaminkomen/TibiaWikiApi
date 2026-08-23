@@ -5,32 +5,40 @@ import com.tibiawiki.domain.enums.InfoboxTemplate
 import com.tibiawiki.domain.factories.ArticleFactory
 import com.tibiawiki.domain.factories.JsonFactory
 import com.tibiawiki.domain.repositories.ArticleRepository
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 
 /**
- * Shared list/expand/detail retrieval for wiki categories that follow the
- * standard InfoboxTemplate + Category:Lists filter. Used by the issue #408
- * collection endpoints so a later generic Retrieve (#394) can absorb them
- * without changing HTTP contracts.
+ * Shared read path for every infobox category. Loot stays on [RetrieveLoot]
+ * because it uses a custom namespace and different article extractors.
+ *
+ * [pageNames] / [articlesAsJSON] / [articleAsJSON] are the generic names.
+ * [names] / [asJson] / [getJson] are aliases used by dedicated collection
+ * controllers that landed before this generalization.
  */
-@Component
+@Service
 class RetrieveByTemplate(
     articleRepository: ArticleRepository,
     articleFactory: ArticleFactory,
     jsonFactory: JsonFactory
 ) : RetrieveAny(articleRepository, articleFactory, jsonFactory) {
 
-    fun names(template: InfoboxTemplate): List<String> {
+    fun pageNames(template: InfoboxTemplate): List<String> {
         val category = articleRepository.getPageNamesFromCategory(template.categoryName)
         val listsCategory = articleRepository.getPageNamesFromCategory(CATEGORY_LISTS)
         return category.filter { page -> page !in listsCategory }
     }
 
-    fun asJson(template: InfoboxTemplate): List<WikiJson> {
-        return getArticlesFromInfoboxTemplateAsJSON(names(template))
+    fun articlesAsJSON(template: InfoboxTemplate): List<WikiJson> {
+        return getArticlesFromInfoboxTemplateAsJSON(pageNames(template))
     }
 
-    fun getJson(pageName: String): WikiJson? {
+    fun articleAsJSON(pageName: String): WikiJson? {
         return getArticleAsJSON(pageName)
     }
+
+    fun names(template: InfoboxTemplate): List<String> = pageNames(template)
+
+    fun asJson(template: InfoboxTemplate): List<WikiJson> = articlesAsJSON(template)
+
+    fun getJson(pageName: String): WikiJson? = articleAsJSON(pageName)
 }
