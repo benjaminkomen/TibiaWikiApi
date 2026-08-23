@@ -39,6 +39,7 @@ import com.tibiawiki.domain.objects.Quest;
 import com.tibiawiki.domain.objects.Spell;
 import com.tibiawiki.domain.objects.Street;
 import com.tibiawiki.domain.objects.TibiaObject;
+import com.tibiawiki.domain.objects.WikiObjectFixtures;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -658,18 +659,7 @@ class JsonFactoryTest {
     }
 
     private Achievement makeAchievement() {
-        return Achievement.builder()
-                .grade(1)
-                .name("Goo Goo Dancer")
-                .description("Seeing a mucus plug makes your heart dance and you can't resist to see what it hides. Goo goo away!")
-                .spoiler("Obtainable by using 100 [[Muck Remover]]s on [[Mucus Plug]]s.")
-                .premium(YesNo.YES_LOWERCASE)
-                .points(1)
-                .secret(YesNo.YES_LOWERCASE)
-                .implemented("9.6")
-                .achievementid(319)
-                .relatedpages("[[Muck Remover]], [[Mucus Plug]]")
-                .build();
+        return WikiObjectFixtures.achievement();
     }
 
     private JSONObject makeAchievementJson(Achievement achievement) {
@@ -690,21 +680,7 @@ class JsonFactoryTest {
             """;
 
     private Book makeBook() {
-        return Book.builder()
-                .booktype(BookType.BOOK_BROWN)
-                .title("Dungeon Survival Guide")
-                .pagename("Dungeon Survival Guide (Book)")
-                .location("[[Rookgaard Academy]]")
-                .blurb("Tips for exploring dungeons, and warning against being reckless.")
-                .returnpage("Rookgaard Libraries")
-                .relatedpages("[[Rope]], [[Shovel]]")
-                .text("Dungeon Survival Guide<br><br>Don't explore the dungeons before you tested your skills" +
-                        " in the training cellars of our academy. You will find dungeons somewhere in the wilderness. Don't enter" +
-                        " dungeons without equipment. Especially a rope and a shovel will prove valuable. Make sure you have a" +
-                        " supply of torches with you, while wandering into the unknown. It's wise to travel the dungeons in groups" +
-                        " and not alone. For more help read all the books of the academy before you begin exploring. Traveling in" +
-                        " the dungeons will reward the cautious and brave, but punish the reckless.")
-                .build();
+        return WikiObjectFixtures.book();
     }
 
     private JSONObject makeBookJson(Book book) {
@@ -736,27 +712,7 @@ class JsonFactoryTest {
             """;
 
     private Building makeBuilding() {
-        return Building.builder()
-                .name("Theater Avenue 8b")
-                .implemented("Pre-6.0")
-                .type(BuildingType.House)
-                .location("South-east of depot, two floors up.")
-                .posx("126.101")
-                .posy("124.48")
-                .posz("5")
-                .street("Theater Avenue")
-                .houseid(20315)
-                .size(26)
-                .beds(3)
-                .rent(1370)
-                .city(City.CARLIN)
-                .openwindows(3)
-                .floors(1)
-                .rooms(1)
-                .furnishings("1 [[Wall Lamp]].")
-                .notes("")
-                .image("[[File:Theater Avenue 8b.png]]")
-                .build();
+        return WikiObjectFixtures.building();
     }
 
     private JSONObject makeBuildingJson(Building building) {
@@ -784,25 +740,7 @@ class JsonFactoryTest {
             """;
 
     private Corpse makeCorpse() {
-        return Corpse.builder()
-                .name("Dead Rat")
-                .article(Article.A)
-                .liquid("[[Blood]]")
-                .firstVolume(5)
-                .firstWeight(BigDecimal.valueOf(63.00).setScale(2, RoundingMode.HALF_UP))
-                .secondWeight(BigDecimal.valueOf(44.00).setScale(2, RoundingMode.HALF_UP))
-                .thirdWeight(BigDecimal.valueOf(30.00).setScale(2, RoundingMode.HALF_UP))
-                .firstDecaytime("5 minutes.")
-                .secondDecaytime("5 minutes.")
-                .thirdDecaytime("60 seconds.")
-                .corpseof("[[Rat]], [[Cave Rat]], [[Munster]]")
-                .sellto("[[Tom]] ([[Rookgaard]]) '''2''' [[gp]]<br>[[Seymour]] ([[Rookgaard]]) '''2''' [[gp]]" +
-                        "<br>[[Billy]] ([[Rookgaard]]) '''2''' [[gp]]<br>[[Humgolf]] ([[Kazordoon]]) '''2''' [[gp]]<br>" +
-                        "\n[[Baxter]] ([[Thais]]) '''1''' [[gp]]<br>")
-                .implemented("Pre-6.0")
-                .notes("These corpses are commonly used by low level players on [[Rookgaard]] to earn some gold" +
-                        " for better [[equipment]]. Only fresh corpses are accepted, rotted corpses are ignored.")
-                .build();
+        return WikiObjectFixtures.corpse();
     }
 
     private JSONObject makeCorpseJson(Corpse corpse) {
@@ -849,15 +787,7 @@ class JsonFactoryTest {
 
 
     private Effect makeEffect() {
-        return Effect.builder()
-                .name("Fireball Effect")
-                .effectid(Arrays.asList(7, 82))
-                .primarytype("Attack")
-                .lightcolor(208)
-                .lightradius(6)
-                .causes("*[[Fireball]] and [[Great Fireball]];")
-                .effect("[[Fire Damage]] on target or nothing.")
-                .build();
+        return WikiObjectFixtures.effect();
     }
 
     private JSONObject makeEffectJson(Effect effect) {
@@ -948,20 +878,7 @@ class JsonFactoryTest {
             """;
 
     private Key makeKey() {
-        return Key.builder()
-                .number("4055")
-                .aka("Panpipe Quest Key")
-                .primarytype(KeyType.SILVER)
-                .location("[[Jakundaf Desert]]")
-                .value("Negotiable")
-                .npcvalue(0)
-                .npcprice(0)
-                .buyfrom("--")
-                .sellto("--")
-                .origin("Hidden in a rock south of the Desert Dungeon entrance.")
-                .shortnotes("Access to the [[Panpipe Quest]].")
-                .longnotes("Allows you to open the door ([https://tibia.wikia.com/wiki/Mapper?coords=127.131,125.129,8,3,1,1 here]) to the [[Panpipe Quest]].")
-                .build();
+        return WikiObjectFixtures.key();
     }
 
     private JSONObject makeKeyJson(Key key) {
@@ -978,15 +895,7 @@ class JsonFactoryTest {
             """;
 
     private Location makeLocation() {
-        return Location.builder()
-                .ruler("[[King Tibianus]]")
-                .implemented("Pre-6.0")
-                .population("{{PAGESINCATEGORY:Thais NPCs|pages}}")
-                .organization("[[Thieves Guild]], [[Tibian Bureau of Investigation]], [[Inquisition]]")
-                .near("[[Fibula]], [[Mintwallin]], [[Greenshore]], [[Mount Sternum]]")
-                .map("[[File:Map_thais.jpg]]")
-                .map2("[[File:Thais.PNG]]")
-                .build();
+        return WikiObjectFixtures.location();
     }
 
     private JSONObject makeLocationJson(Location location) {
@@ -1001,14 +910,7 @@ class JsonFactoryTest {
     }
 
     private Missile makeMissile() {
-        return Missile.builder()
-                .name("Throwing Cake Missile")
-                .implemented("7.9")
-                .missileid(42)
-                .primarytype("Throwing Weapon")
-                .shotby("[[Undead Jester]]'s attack and probably by throwing a [[Throwing Cake]].")
-                .notes("This missile is followed by the [[Cream Cake Effect]]: [[File:Cream Cake Effect.gif]]")
-                .build();
+        return WikiObjectFixtures.missile();
     }
 
     private JSONObject makeMissileJson(Missile missile) {
@@ -1023,14 +925,7 @@ class JsonFactoryTest {
     }
 
     private Mount makeMount() {
-        return Mount.builder()
-                .name("Donkey")
-                .speed(10)
-                .tamingMethod("Use a [[Bag of Apple Slices]] on a creature transformed into Donkey.")
-                .implemented("9.1")
-                .achievement("Loyal Lad")
-                .notes("Go to [[Incredibly Old Witch]]'s house,")
-                .build();
+        return WikiObjectFixtures.mount();
     }
 
     private JSONObject makeMountJson(Mount mount) {
@@ -1045,25 +940,7 @@ class JsonFactoryTest {
     }
 
     private NPC makeNPC() {
-        return NPC.builder()
-                .name("Sam")
-                .implemented("Pre-6.0")
-                .job("Artisan")
-                .job2("Weapon Shopkeeper")
-                .job3("Armor Shopkeeper")
-                .location("[[Temple Street]] in [[Thais]].")
-                .posx(BigDecimal.valueOf(126.104).setScale(3, RoundingMode.HALF_UP))
-                .posy(BigDecimal.valueOf(125.200).setScale(3, RoundingMode.HALF_UP))
-                .posz(7)
-                .gender(Gender.MALE)
-                .race("Human")
-                .city(City.THAIS)
-                .buysell(YesNo.YES_LOWERCASE)
-                .sells("{{Price to Buy |Axe")
-                .buys("{{Price to Sell |Axe")
-                .sounds(Collections.singletonList("Hello there, adventurer! Need a deal in weapons or armor? I'm your man!"))
-                .notes("Sam is the Blacksmith of [[Thais]].")
-                .build();
+        return WikiObjectFixtures.npc();
     }
 
     private JSONObject makeNPCJson(NPC npc) {
@@ -1095,120 +972,15 @@ class JsonFactoryTest {
     }
 
     private Creature makeCreature() {
-        return Creature.builder()
-                .name("Dragon")
-                .article(Article.A)
-                .actualname("dragon")
-                .plural("dragons")
-                .implemented("Pre-6.0")
-                .hitPoints("1000")
-                .experiencePoints("700")
-                .summon("--")
-                .convince("--")
-                .illusionable(YesNo.YES_LOWERCASE)
-                .creatureclass("Reptiles")
-                .primarytype("Dragons")
-                .bestiaryclass(BestiaryClass.DRAGON)
-                .bestiarylevel(BestiaryLevel.Medium)
-                .occurrence(BestiaryOccurrence.COMMON)
-                .spawntype(Arrays.asList(Spawntype.REGULAR, Spawntype.RAID))
-                .isboss(YesNo.NO_LOWERCASE)
-                .isarenaboss(YesNo.NO_LOWERCASE)
-                .abilities("[[Melee]] (0-120), [[Fire Wave]] (100-170), [[Great Fireball]] (60-140), [[Self-Healing]] (40-70)")
-                .maxdmg("430")
-                .armor("25")
-                .pushable(YesNo.NO_LOWERCASE)
-                .pushobjects(YesNo.YES_LOWERCASE)
-                .walksthrough("Fire, Energy, Poison")
-                .walksaround("None")
-                .paraimmune(YesNo.YES_LOWERCASE)
-                .senseinvis(YesNo.YES_LOWERCASE)
-                .physicalDmgMod(Percentage.of(100))
-                .holyDmgMod(Percentage.of(100))
-                .deathDmgMod(Percentage.of(100))
-                .fireDmgMod(Percentage.of(0))
-                .energyDmgMod(Percentage.of(80))
-                .iceDmgMod(Percentage.of(110))
-                .earthDmgMod(Percentage.of(20))
-                .drownDmgMod(Percentage.of("100%?"))
-                .hpDrainDmgMod(Percentage.of("100%?"))
-                .bestiaryname("dragon")
-                .bestiarytext("Dragons were")
-                .sounds(Arrays.asList("FCHHHHH", "GROOAAARRR"))
-                .notes("Dragons are")
-                .behaviour("Dragons are")
-                .runsat("300")
-                .speed("86")
-                .location("[[Thais]] [[Ancient Temple]], [[Darashia Dragon Lair]], [[Mount Sternum Dragon Cave]]," +
-                        " [[Mintwallin]], deep in [[Fibula Dungeon]], [[Kazordoon Dragon Lair]] (near [[Dwarf Bridge]]), [[Plains" +
-                        " of Havoc]], [[Elven Bane]] castle, [[Maze of Lost Souls]], southern cave and dragon tower in" +
-                        " [[Shadowthorn]], [[Orc Fortress]], [[Venore]] [[Dragon Lair]], [[Pits of Inferno]], [[Behemoth Quest]]" +
-                        " room in [[Edron]], [[Hero Cave]], deep [[Cyclopolis]], [[Edron Dragon Lair]], [[Goroma]], [[Ankrahmun" +
-                        " Dragon Lair]]s, [[Draconia]], [[Dragonblaze Peaks]], some [[Ankrahmun Tombs]], underground of [[Fenrock]]" +
-                        " (on the way to [[Beregar]]), [[Krailos Steppe]] and [[Crystal Lakes]].")
-                .strategy("'''All''' [[player]]s")
-                .loot(Arrays.asList(
-                        LootItem.builder().amount("0-105").itemName("Gold Coin").build(),
-                        LootItem.builder().amount("0-3").itemName("Dragon Ham").build(),
-                        LootItem.builder().itemName("Steel Shield").build(),
-                        LootItem.builder().itemName("Crossbow").build(),
-                        LootItem.builder().itemName("Dragon's Tail").build(),
-                        LootItem.builder().amount("0-10").itemName("Burst Arrow").build(),
-                        LootItem.builder().itemName("Longsword").rarity(Rarity.SEMI_RARE).build(),
-                        LootItem.builder().itemName("Steel Helmet").rarity(Rarity.SEMI_RARE).build(),
-                        LootItem.builder().itemName("Broadsword").rarity(Rarity.SEMI_RARE).build(),
-                        LootItem.builder().itemName("Plate Legs").rarity(Rarity.SEMI_RARE).build(),
-                        LootItem.builder().itemName("Green Dragon Leather").rarity(Rarity.RARE).build(),
-                        LootItem.builder().itemName("Wand of Inferno").rarity(Rarity.RARE).build(),
-                        LootItem.builder().itemName("Strong Health Potion").rarity(Rarity.RARE).build(),
-                        LootItem.builder().itemName("Green Dragon Scale").rarity(Rarity.RARE).build(),
-                        LootItem.builder().itemName("Double Axe").rarity(Rarity.RARE).build(),
-                        LootItem.builder().itemName("Dragon Hammer").rarity(Rarity.RARE).build(),
-                        LootItem.builder().itemName("Serpent Sword").rarity(Rarity.RARE).build(),
-                        LootItem.builder().itemName("Small Diamond").rarity(Rarity.VERY_RARE).build(),
-                        LootItem.builder().itemName("Dragon Shield").rarity(Rarity.VERY_RARE).build(),
-                        LootItem.builder().itemName("Life Crystal").rarity(Rarity.VERY_RARE).build(),
-                        LootItem.builder().itemName("Dragonbone Staff").rarity(Rarity.VERY_RARE).build()
-                ))
-                .history("Dragons are")
-                .build();
+        return WikiObjectFixtures.creature();
     }
 
     private Creature makeCreatureWithEmptyLootTable() {
-        return Creature.builder()
-                .name("Freed Soul")
-                .article(Article.A)
-                .actualname("Freed Soul")
-                .plural("Freed Soul")
-                .implemented("11.40")
-                .hitPoints("?")
-                .experiencePoints("?")
-                .summon("--")
-                .convince("--")
-                .illusionable(YesNo.NO_LOWERCASE)
-                .creatureclass("")
-                .primarytype("")
-                .isboss(YesNo.NO_LOWERCASE)
-                .abilities("[[Melee]] (0-?), [[Drown Damage|Drown Bomb]] on self (4000-8000) (damages boss only)")
-                .behaviour("They fight in close combat.")
-                .location("[[The Souldespoiler]]'s room.")
-                .strategy("Do not kill them since you need their help in order to kill the boss.")
-                .loot(Collections.emptyList())
-                .build();
+        return WikiObjectFixtures.creatureWithEmptyLoot();
     }
 
     private Outfit makeOutfit() {
-        return Outfit.builder()
-                .name("Pirate")
-                .primarytype("Quest")
-                .premium(YesNo.YES_LOWERCASE)
-                .outfit("premium, see [[Pirate Outfits Quest]].")
-                .addons("premium, see [[Pirate Outfits Quest]].")
-                .achievement("Swashbuckler")
-                .implemented("7.8")
-                .artwork("Pirate Outfits Artwork.jpg")
-                .notes("Pirate outfits are perfect for swabbing the deck or walking the plank. Quite dashing and great for sailing.")
-                .build();
+        return WikiObjectFixtures.outfit();
     }
 
     private JSONObject makeOutfitJson(Outfit outfit) {
@@ -1216,57 +988,7 @@ class JsonFactoryTest {
     }
 
     private HuntingPlace makeHuntingPlace() {
-        return HuntingPlace.builder()
-                .name("Hero Cave")
-                .image("Hero")
-                .implemented("6.4")
-                .city(City.EDRON)
-                .location("North of [[Edron]], [https://tibia.wikia.com/wiki/Mapper?coords=129.140,123.150,7,3,1,1 here].")
-                .vocation("All vocations.")
-                .lvlknights("70")
-                .lvlpaladins("60")
-                .lvlmages("50")
-                .skknights("75")
-                .skpaladins("80")
-                .skmages("1")
-                .defknights("75")
-                .defpaladins("1")
-                .defmages("1")
-                .lowerlevels(Arrays.asList(HuntingPlaceSkills.builder()
-                                .areaname("Demons")
-                                .lvlknights("130")
-                                .lvlpaladins("130")
-                                .lvlmages("130")
-                                .skknights("1")
-                                .skpaladins("1")
-                                .skmages("1")
-                                .defknights("1")
-                                .defpaladins("1")
-                                .defmages("1")
-                                .build(),
-                        HuntingPlaceSkills.builder()
-                                .areaname("Another Area (Past Teleporter)")
-                                .lvlknights("230")
-                                .lvlpaladins("230")
-                                .lvlmages("230")
-                                .skknights("2")
-                                .skpaladins("2")
-                                .skmages("2")
-                                .defknights("2")
-                                .defpaladins("2")
-                                .defmages("2")
-                                .build())
-                )
-                .exp("Good")
-                .loot("Good")
-                .bestloot("Reins")
-                .bestloot2("Foobar")
-                .bestloot3("Foobar")
-                .bestloot4("Foobar")
-                .bestloot5("Foobar")
-                .map("Hero Cave 3.png")
-                .map2("Hero Cave 6.png")
-                .build();
+        return WikiObjectFixtures.huntingPlace();
     }
 
     private TibiaObject makeItem() {
@@ -1385,23 +1107,7 @@ class JsonFactoryTest {
             """;
 
     private Spell makeSpell() {
-        return Spell.builder()
-                .name("Light Healing")
-                .type(SpellType.Instant)
-                .subclass(SpellSubclass.Healing)
-                .words("exura")
-                .premium(YesNo.NO_LOWERCASE)
-                .mana(20)
-                .levelrequired(8)
-                .cooldown(1)
-                .cooldowngroup(1)
-                .voc("[[Paladin]]s, [[Druid]]s and [[Sorcerer]]s")
-                .druidAbDendriel("[[Maealil]]")
-                .paladinAbDendriel("[[Maealil]]")
-                .spellcost(0)
-                .effect("Restores a small amount of [[HP|health]]. (Cures [[paralysis]].)")
-                .notes("A weak, but popular healing spell.")
-                .build();
+        return WikiObjectFixtures.spell();
     }
 
     private JSONObject makeSpellJson(Spell spell) {
@@ -1409,29 +1115,11 @@ class JsonFactoryTest {
     }
 
     private Quest makeQuest() {
-        return Quest.builder()
-                .name("The Paradox Tower Quest")
-                .aka("Riddler Quest, Mathemagics Quest")
-                .reward("Up to two of the following:")
-                .location("[[Paradox Tower]] near [[Kazordoon]]")
-                .lvl(30)
-                .lvlrec(50)
-                .log(YesNo.YES_LOWERCASE)
-                .premium(YesNo.YES_LOWERCASE)
-                .transcripts(YesNo.YES_LOWERCASE)
-                .dangers("[[Wyvern]]s<br /> ([[Mintwallin]]): [[Minotaur]]s,")
-                .legend("Surpass the wrath of a madman and subject yourself to his twisted taunting.")
-                .implemented("6.61-6.97")
-                .build();
+        return WikiObjectFixtures.quest();
     }
 
     private Street makeStreet() {
-        return Street.builder()
-                .name("Sugar Street")
-                .implemented("7.8")
-                .city(City.LIBERTY_BAY)
-                .notes("{{StreetStyles|Sugar Street}} is in west")
-                .build();
+        return WikiObjectFixtures.street();
     }
 
     private JSONObject makeStreetJson(Street street) {

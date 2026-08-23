@@ -9,8 +9,7 @@ import com.tibiawiki.domain.enums.Rarity;
 import com.tibiawiki.domain.enums.Spawntype;
 import com.tibiawiki.domain.enums.YesNo;
 import com.tibiawiki.domain.objects.Creature;
-import com.tibiawiki.domain.objects.LootItem;
-import com.tibiawiki.domain.objects.Percentage;
+import com.tibiawiki.domain.objects.WikiObjectFixtures;
 import com.tibiawiki.domain.repositories.ArticleRepository;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
@@ -222,82 +221,6 @@ public class CreaturesResourceIT {
     }
 
     private Creature makeCreature() {
-        return Creature.builder()
-                .name("Dragon")
-                .article(Article.A)
-                .actualname("dragon")
-                .plural("dragons")
-                .implemented("Pre-6.0")
-                .hitPoints("1000")
-                .experiencePoints("700")
-                .summon("--")
-                .convince("--")
-                .illusionable(YesNo.YES_LOWERCASE)
-                .creatureclass("Reptiles")
-                .primarytype("Dragons")
-                .bestiaryclass(BestiaryClass.DRAGON)
-                .bestiarylevel(BestiaryLevel.Medium)
-                .occurrence(BestiaryOccurrence.COMMON)
-                .spawntype(Arrays.asList(Spawntype.REGULAR, Spawntype.RAID))
-                .isboss(YesNo.NO_LOWERCASE)
-                .isarenaboss(YesNo.NO_LOWERCASE)
-                .abilities("[[Melee]] (0-120), [[Fire Wave]] (100-170), [[Great Fireball]] (60-140), [[Self-Healing]] (40-70)")
-                .maxdmg("430")
-                .armor("25")
-                .pushable(YesNo.NO_LOWERCASE)
-                .pushobjects(YesNo.YES_LOWERCASE)
-                .walksthrough("Fire, Energy, Poison")
-                .walksaround("None")
-                .paraimmune(YesNo.YES_LOWERCASE)
-                .senseinvis(YesNo.YES_LOWERCASE)
-                .physicalDmgMod(Percentage.of(100))
-                .holyDmgMod(Percentage.of(100))
-                .deathDmgMod(Percentage.of(100))
-                .fireDmgMod(Percentage.of(0))
-                .energyDmgMod(Percentage.of(80))
-                .iceDmgMod(Percentage.of(110))
-                .earthDmgMod(Percentage.of(20))
-                .drownDmgMod(Percentage.of("100%?"))
-                .hpDrainDmgMod(Percentage.of("100%?"))
-                .bestiaryname("dragon")
-                .bestiarytext("Dragons were")
-                .sounds(Arrays.asList("FCHHHHH", "GROOAAARRR"))
-                .notes("Dragons are")
-                .behaviour("Dragons are")
-                .runsat("300")
-                .speed("86")
-                .location("[[Thais]] [[Ancient Temple]], [[Darashia Dragon Lair]], [[Mount Sternum Dragon Cave]]," +
-                        " [[Mintwallin]], deep in [[Fibula Dungeon]], [[Kazordoon Dragon Lair]] (near [[Dwarf Bridge]]), [[Plains" +
-                        " of Havoc]], [[Elven Bane]] castle, [[Maze of Lost Souls]], southern cave and dragon tower in" +
-                        " [[Shadowthorn]], [[Orc Fortress]], [[Venore]] [[Dragon Lair]], [[Pits of Inferno]], [[Behemoth Quest]]" +
-                        " room in [[Edron]], [[Hero Cave]], deep [[Cyclopolis]], [[Edron Dragon Lair]], [[Goroma]], [[Ankrahmun" +
-                        " Dragon Lair]]s, [[Draconia]], [[Dragonblaze Peaks]], some [[Ankrahmun Tombs]], underground of [[Fenrock]]" +
-                        " (on the way to [[Beregar]]), [[Krailos Steppe]] and [[Crystal Lakes]].")
-                .strategy("'''All''' [[player]]s")
-                .loot(Arrays.asList(
-                        LootItem.builder().amount("0-105").itemName("Gold Coin").build(),
-                        LootItem.builder().amount("0-3").itemName("Dragon Ham").build(),
-                        LootItem.builder().itemName("Steel Shield").build(),
-                        LootItem.builder().itemName("Crossbow").build(),
-                        LootItem.builder().itemName("Dragon's Tail").build(),
-                        LootItem.builder().amount("0-10").itemName("Burst Arrow").build(),
-                        LootItem.builder().itemName("Longsword").rarity(Rarity.SEMI_RARE).build(),
-                        LootItem.builder().itemName("Steel Helmet").rarity(Rarity.SEMI_RARE).build(),
-                        LootItem.builder().itemName("Broadsword").rarity(Rarity.SEMI_RARE).build(),
-                        LootItem.builder().itemName("Plate Legs").rarity(Rarity.SEMI_RARE).build(),
-                        LootItem.builder().itemName("Green Dragon Leather").rarity(Rarity.RARE).build(),
-                        LootItem.builder().itemName("Wand of Inferno").rarity(Rarity.RARE).build(),
-                        LootItem.builder().itemName("Strong Health Potion").rarity(Rarity.RARE).build(),
-                        LootItem.builder().itemName("Green Dragon Scale").rarity(Rarity.RARE).build(),
-                        LootItem.builder().itemName("Double Axe").rarity(Rarity.RARE).build(),
-                        LootItem.builder().itemName("Dragon Hammer").rarity(Rarity.RARE).build(),
-                        LootItem.builder().itemName("Serpent Sword").rarity(Rarity.RARE).build(),
-                        LootItem.builder().itemName("Small Diamond").rarity(Rarity.VERY_RARE).build(),
-                        LootItem.builder().itemName("Dragon Shield").rarity(Rarity.VERY_RARE).build(),
-                        LootItem.builder().itemName("Life Crystal").rarity(Rarity.VERY_RARE).build(),
-                        LootItem.builder().itemName("Dragonbone Staff").rarity(Rarity.VERY_RARE).build()
-                ))
-                .history("Dragons are")
-                .build();
+        return WikiObjectFixtures.creature();
     }
 }
