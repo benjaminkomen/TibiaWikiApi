@@ -9,7 +9,7 @@ Gets data from http://tibia.wikia.com and exposes this data using a RESTful JSON
 Navigate to https://tibiawiki.dev to view the Swagger API of this project.
 
 ## Run locally
-Requires JDK 21. Clone this git project to your local computer and compile it using: `./gradlew build` from your favourite command line
+Requires JDK 25. Clone this git project to your local computer and compile it using: `./gradlew build` from your favourite command line
 terminal. Then execute: `./gradlew bootRun` and open your browser on http://localhost:8080
  
 You can now access the REST resources using your browser or any REST client such as Postman or curl from your command line.
