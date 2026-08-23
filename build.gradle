@@ -1,7 +1,9 @@
 buildscript {
     ext {
-        springBootVersion = '2.6.7'
-        kotlinVersion = '1.6.21'
+        // 2.7.18 is the last 2.x line that supports Gradle 8 (required to run on JDK 21)
+        springBootVersion = '2.7.18'
+        // Kotlin 1.9.20+ is required for jvmTarget 21
+        kotlinVersion = '1.9.25'
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -12,7 +14,7 @@ plugins {
     id 'java'
     id 'idea'
     id 'jacoco'
-    id "org.sonarqube" version "3.3"
+    id "org.sonarqube" version "4.4.1.3373"
     id "org.jetbrains.kotlin.jvm" version "${kotlinVersion}"
     id "org.jetbrains.kotlin.plugin.spring" version "${kotlinVersion}"
     id "org.jlleitschuh.gradle.ktlint" version "10.2.1"
@@ -41,10 +43,10 @@ repositories {
 ext {
     slf4jVersion = '1.7.36'
     junitVersion = '5.8.2'
-    lombokVersion = '1.18.24'
+    lombokVersion = '1.18.38'
     jacksonVersion = '2.13.2'
-    jacocoVersion = "0.8.7"
-    mockitoVersion = "4.5.1"
+    jacocoVersion = "0.8.12"
+    mockitoVersion = "5.14.2"
 }
 
 dependencies {
@@ -66,7 +68,6 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
     testImplementation "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
     testImplementation "org.mockito:mockito-core:${mockitoVersion}"
-    testImplementation "org.mockito:mockito-inline:${mockitoVersion}"
     testImplementation "org.hamcrest:hamcrest:2.2"
     testImplementation("org.springframework.boot:spring-boot-starter-test:${springBootVersion}") {
         exclude group: 'com.vaadin.external.google', module: 'android-json'
@@ -78,22 +79,23 @@ dependencies {
     implementation "org.springdoc:springdoc-openapi-ui:1.6.8"
 }
 
-//java {
-//    sourceCompatibility = JavaVersion.VERSION_16
-//    targetCompatibility = JavaVersion.VERSION_16
-//}
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
 
 compileKotlin {
     kotlinOptions {
         freeCompilerArgs = ["-Xjsr305=strict"]
-        jvmTarget = "17"
+        jvmTarget = "21"
     }
 }
 
 compileTestKotlin {
     kotlinOptions {
         freeCompilerArgs = ["-Xjsr305=strict"]
-        jvmTarget = "17"
+        jvmTarget = "21"
     }
 }
 
@@ -156,7 +158,7 @@ idea {
 task integrationTest(type: Test) {
     description = 'Runs the integration tests.'
     group = 'verification'
-    sourceCompatibility = 17
+    sourceCompatibility = 21
     testClassesDirs = sourceSets.integrationTest.output.classesDirs
     classpath = sourceSets.integrationTest.runtimeClasspath
     outputs.upToDateWhen { false }
@@ -173,7 +175,7 @@ jacocoTestReport {
     dependsOn check
 
     reports {
-        xml.enabled = true
-        xml.destination = file("${buildDir}/reports/jacocoTestReport.xml")
+        xml.required = true
+        xml.outputLocation = layout.buildDirectory.file("reports/jacocoTestReport.xml")
     }
 }

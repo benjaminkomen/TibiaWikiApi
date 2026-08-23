@@ -1,4 +1,4 @@
-FROM gradle:7.3-jdk17 as builder
+FROM gradle:8.5-jdk21 as builder
 
 # Copy local code to the container image.
 WORKDIR /app
@@ -11,7 +11,7 @@ ENV GITHUB_TOKEN=${GITHUB_TOKEN}
 # Build a release artifact.
 RUN gradle build --no-daemon
 
-FROM openjdk:17-slim-buster
+FROM eclipse-temurin:21-jre
 RUN mkdir /project
 COPY --from=builder /app/build/libs/app-2.0.0.jar /project/TibiaWikiApi.jar
 WORKDIR /project
