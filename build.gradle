@@ -141,6 +141,14 @@ sourceSets {
 configurations {
     integrationTestImplementation.extendsFrom implementation
     integrationTestImplementation.extendsFrom testImplementation
+    // Jackson 2.21 / springdoc pull Kotlin 2.1 artifacts; Boot 3.5.16 still compiles with 1.9.25
+    all {
+        resolutionStrategy.eachDependency { details ->
+            if (details.requested.group == 'org.jetbrains.kotlin') {
+                details.useVersion kotlinVersion
+            }
+        }
+    }
 }
 
 springBoot {
