@@ -3,12 +3,14 @@ package com.tibiawiki.domain.factories
 import com.tibiawiki.domain.objects.Achievement
 import com.tibiawiki.domain.objects.Book
 import com.tibiawiki.domain.objects.Building
+import com.tibiawiki.domain.objects.Charm
 import com.tibiawiki.domain.objects.Corpse
 import com.tibiawiki.domain.objects.Creature
 import com.tibiawiki.domain.objects.Effect
 import com.tibiawiki.domain.objects.HuntingPlace
 import com.tibiawiki.domain.objects.Key
 import com.tibiawiki.domain.objects.Location
+import com.tibiawiki.domain.objects.Missile
 import com.tibiawiki.domain.objects.Mount
 import com.tibiawiki.domain.objects.NPC
 import com.tibiawiki.domain.objects.Outfit
@@ -56,6 +58,7 @@ class WikiObjectFactory(
             TEMPLATE_TYPE_ACHIEVEMENT -> mapJsonToObject(wikiObjectJson, Achievement::class.java)
             TEMPLATE_TYPE_BOOK -> mapJsonToObject(wikiObjectJson, Book::class.java)
             TEMPLATE_TYPE_BUILDING -> mapJsonToObject(wikiObjectJson, Building::class.java)
+            TEMPLATE_TYPE_CHARM -> mapJsonToObject(wikiObjectJson, Charm::class.java)
             TEMPLATE_TYPE_CORPSE -> mapJsonToObject(wikiObjectJson, Corpse::class.java)
             TEMPLATE_TYPE_CREATURE -> mapJsonToObject(wikiObjectJson, Creature::class.java)
             TEMPLATE_TYPE_EFFECT -> mapJsonToObject(wikiObjectJson, Effect::class.java)
@@ -63,6 +66,7 @@ class WikiObjectFactory(
             TEMPLATE_TYPE_HUNTING_PLACE -> mapJsonToObject(wikiObjectJson, HuntingPlace::class.java)
             TEMPLATE_TYPE_ITEM, TEMPLATE_TYPE_OBJECT -> mapJsonToObject(wikiObjectJson, TibiaObject::class.java)
             TEMPLATE_TYPE_KEY -> mapJsonToObject(wikiObjectJson, Key::class.java)
+            TEMPLATE_TYPE_MISSILE -> mapJsonToObject(wikiObjectJson, Missile::class.java)
             TEMPLATE_TYPE_MOUNT -> mapJsonToObject(wikiObjectJson, Mount::class.java)
             TEMPLATE_TYPE_NPC -> mapJsonToObject(wikiObjectJson, NPC::class.java)
             TEMPLATE_TYPE_OUTFIT -> mapJsonToObject(wikiObjectJson, Outfit::class.java)
@@ -102,6 +106,7 @@ class WikiObjectFactory(
         private const val TEMPLATE_TYPE_ACHIEVEMENT = "Achievement"
         private const val TEMPLATE_TYPE_BOOK = "Book"
         private const val TEMPLATE_TYPE_BUILDING = "Building"
+        private const val TEMPLATE_TYPE_CHARM = "Charm"
         private const val TEMPLATE_TYPE_CORPSE = "Corpse"
         private const val TEMPLATE_TYPE_CREATURE = "Creature"
         private const val TEMPLATE_TYPE_EFFECT = "Effect"
@@ -110,6 +115,7 @@ class WikiObjectFactory(
         private const val TEMPLATE_TYPE_MOUNT = "Mount"
         private const val TEMPLATE_TYPE_ITEM = "Item"
         private const val TEMPLATE_TYPE_KEY = "Key"
+        private const val TEMPLATE_TYPE_MISSILE = "Missile"
         private const val TEMPLATE_TYPE_NPC = "NPC"
         private const val TEMPLATE_TYPE_OBJECT = "Object"
         private const val TEMPLATE_TYPE_OUTFIT = "Outfit"

@@ -135,6 +135,16 @@ object WikiObjectFixtures {
         longnotes = "Allows you to open the door ([https://tibia.wikia.com/wiki/Mapper?coords=127.131,125.129,8,3,1,1 here]) to the [[Panpipe Quest]]."
     )
 
+    @JvmStatic
+    fun charm(): Charm = Charm(
+        name = "Adrenaline Burst",
+        type = Charm.Type.Minor,
+        cost = "100 / 150 / 225",
+        effect = "Boosts damage for a short time.",
+        implemented = "11.50.6055"
+    )
+
+    @JvmStatic
     fun location(): Location = Location(
         ruler = "[[King Tibianus]]",
         implemented = "Pre-6.0",
@@ -145,6 +155,7 @@ object WikiObjectFixtures {
         map2 = "[[File:Thais.PNG]]"
     )
 
+    @JvmStatic
     fun missile(): Missile = Missile(
         name = "Throwing Cake Missile",
         implemented = "7.9",

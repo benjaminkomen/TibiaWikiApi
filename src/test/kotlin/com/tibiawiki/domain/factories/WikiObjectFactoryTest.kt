@@ -1,5 +1,8 @@
 package com.tibiawiki.domain.factories
 
+import com.tibiawiki.config.JacksonConfiguration
+import com.tibiawiki.domain.objects.Charm
+import com.tibiawiki.domain.objects.Missile
 import com.tibiawiki.domain.objects.WikiObject
 import com.tibiawiki.domain.objects.WikiObjectFixtures
 import org.hamcrest.MatcherAssert.assertThat
@@ -13,6 +16,7 @@ import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
 import tools.jackson.databind.ObjectMapper
+import tools.jackson.databind.json.JsonMapper
 
 class WikiObjectFactoryTest {
 
@@ -47,6 +51,64 @@ class WikiObjectFactoryTest {
     }
 
     @Test
+    fun testCreateWikiObject_CharmPopulatesName() {
+        target = WikiObjectFactory(realMapper())
+
+        val json = JSONObject()
+            .put("templateType", "Charm")
+            .put("name", "Adrenaline Burst")
+            .put("actualname", "adrenaline burst")
+            .put("type", "Minor")
+            .put("cost", "100 / 150 / 225")
+            .put("effect", "Boosts damage for a short time.")
+            .put("implemented", "11.50.6055")
+        val result = target.createWikiObject(json)
+
+        assertThat(result, instanceOf(Charm::class.java))
+        val charm = result as Charm
+        assertThat(charm.getTemplateType(), `is`("Charm"))
+        assertThat(charm.name, `is`("Adrenaline Burst"))
+        assertThat(charm.actualname, `is`("adrenaline burst"))
+        assertThat(charm.type, `is`(Charm.Type.Minor))
+        assertThat(charm.cost, `is`("100 / 150 / 225"))
+        assertThat(charm.implemented, `is`("11.50.6055"))
+    }
+
+    @Test
+    fun testCreateWikiObject_CharmAcceptsMinorType() {
+        target = WikiObjectFactory(realMapper())
+
+        val json = JSONObject()
+            .put("templateType", "Charm")
+            .put("name", "Adrenaline Burst")
+            .put("type", "Minor")
+        val result = target.createWikiObject(json)
+
+        assertThat(result, instanceOf(Charm::class.java))
+        assertThat((result as Charm).type, `is`(Charm.Type.Minor))
+        assertThat(result.name, `is`("Adrenaline Burst"))
+    }
+
+    @Test
+    fun testCreateWikiObject_MissilePopulatesName() {
+        target = WikiObjectFactory(realMapper())
+
+        val json = JSONObject()
+            .put("templateType", "Missile")
+            .put("name", "Throwing Cake Missile")
+            .put("missileid", 42)
+            .put("implemented", "7.9")
+        val result = target.createWikiObject(json)
+
+        assertThat(result, instanceOf(Missile::class.java))
+        val missile = result as Missile
+        assertThat(missile.getTemplateType(), `is`("Missile"))
+        assertThat(missile.name, `is`("Throwing Cake Missile"))
+        assertThat(missile.missileid, `is`(42))
+        assertThat(missile.implemented, `is`("7.9"))
+    }
+
+    @Test
     fun testCreateJSONObject_Success() {
         val someWikiObject = makeAchievement()
         val someMap = HashMap<String, Any>()
@@ -57,7 +119,38 @@ class WikiObjectFactoryTest {
         assertThat(result.get("templateType"), `is`(SOME_TEMPLATE_TYPE))
     }
 
+    @Test
+    fun testCreateJSONObject_CharmIncludesName() {
+        target = WikiObjectFactory(realMapper())
+        val charm = WikiObjectFixtures.charm()
+
+        val result = target.createJSONObject(charm, "Charm")
+
+        assertThat(result.get("templateType"), `is`("Charm"))
+        assertThat(result.get("name"), `is`("Adrenaline Burst"))
+        assertThat(result.get("type").toString(), `is`("Minor"))
+        assertThat(result.get("cost"), `is`("100 / 150 / 225"))
+    }
+
+    @Test
+    fun testCreateJSONObject_MissileIncludesName() {
+        target = WikiObjectFactory(realMapper())
+        val missile = WikiObjectFixtures.missile()
+
+        val result = target.createJSONObject(missile, "Missile")
+
+        assertThat(result.get("templateType"), `is`("Missile"))
+        assertThat(result.get("name"), `is`("Throwing Cake Missile"))
+        assertThat(result.get("missileid"), `is`(42))
+    }
+
     private fun makeAchievement(): WikiObject = WikiObjectFixtures.namedAchievement("Goo Goo Dancer")
+
+    private fun realMapper(): ObjectMapper {
+        val builder = JsonMapper.builder()
+        JacksonConfiguration().jsonMapperBuilderCustomizer().customize(builder)
+        return builder.build()
+    }
 
     companion object {
         private const val SOME_TEMPLATE_TYPE = "Achievement"

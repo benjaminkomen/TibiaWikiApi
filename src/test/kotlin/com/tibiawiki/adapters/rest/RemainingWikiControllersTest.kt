@@ -1,7 +1,6 @@
 package com.tibiawiki.adapters.rest
 
 import com.tibiawiki.domain.RetrieveWikiPages
-import com.tibiawiki.domain.objects.Charm
 import com.tibiawiki.domain.objects.WikiObject
 import com.tibiawiki.domain.objects.WikiObjectFixtures
 import com.tibiawiki.process.ModifyAny
@@ -51,7 +50,7 @@ class RemainingWikiControllersTest {
         doReturn(Stream.of(json)).`when`(retrieve).charmsJSON
         doReturn(Optional.of(json)).`when`(retrieve).getCharmJSON("Foo")
         doReturn(Optional.empty<JSONObject>()).`when`(retrieve).getCharmJSON("Missing")
-        val body = Charm(Charm.Type.Minor, "100 / 150 / 225", "crit")
+        val body = WikiObjectFixtures.charm()
         stubModify(body)
         val c = CharmsController(retrieve, modifyAny)
         assertStandard(c.getCharms(false), c.getCharms(true), c.getCharmsByName("Foo"), c.getCharmsByName("Missing"), c.putCharm(body, "edit"))

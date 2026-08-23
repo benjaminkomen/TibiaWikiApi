@@ -48,6 +48,21 @@ class ModifyAnyTest {
     }
 
     @Test
+    fun testModify_CharmUsesName() {
+        val charm = WikiObjectFixtures.charm()
+        val name = charm.name.orEmpty()
+        doReturn("").`when`(articleRepository).getArticle(name)
+        doReturn(SOME_JSON_OBJECT).`when`(wikiObjectFactory).createJSONObject(charm, charm.getTemplateType())
+        doReturn("").`when`(jsonFactory).convertJsonToInfoboxPartOfArticle(SOME_JSON_OBJECT, charm.fieldOrder())
+        doReturn(Optional.of("")).`when`(articleFactory).insertInfoboxPartOfArticle("", "")
+        doReturn(true).`when`(articleRepository).modifyArticle(name, "", "[test] editing the page")
+
+        val result: Try<WikiObject> = target.modify(charm, "[test] editing the page")
+
+        assertThat("Test: successfully modified charm using populated name", result.isSuccess)
+    }
+
+    @Test
     fun testModify_Failure() {
         val someAchievement = makeAchievement()
         val name = someAchievement.name.orEmpty()

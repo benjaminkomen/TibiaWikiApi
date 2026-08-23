@@ -4,6 +4,7 @@ import com.tibiawiki.config.JacksonConfiguration
 import com.tibiawiki.domain.factories.JsonFactory
 import com.tibiawiki.domain.factories.WikiObjectFactory
 import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.Matchers.hasItems
 import org.hamcrest.Matchers.`is`
 import org.junit.jupiter.api.Test
 import tools.jackson.databind.json.JsonMapper
@@ -32,6 +33,28 @@ class CharmTest {
 
         assertThat(charm.type, `is`(Charm.Type.Minor))
         assertThat(charm.cost, `is`(TIERED_MINOR_COST))
+    }
+
+    @Test
+    fun nameAndParentFieldsArePopulated() {
+        val charm = WikiObjectFixtures.charm()
+
+        assertThat(charm.name, `is`("Adrenaline Burst"))
+        assertThat(charm.implemented, `is`("11.50.6055"))
+        assertThat(charm.getTemplateType(), `is`("Charm"))
+        assertThat(
+            charm.fieldOrder(),
+            hasItems("name", "actualname", "implemented", "notes", "history", "status")
+        )
+    }
+
+    @Test
+    fun typeAcceptsMinorAndMajor() {
+        val minor = Charm(name = "Adrenaline Burst", type = Charm.Type.Minor)
+        val major = Charm(name = "Wound", type = Charm.Type.Major)
+
+        assertThat(minor.type, `is`(Charm.Type.Minor))
+        assertThat(major.type, `is`(Charm.Type.Major))
     }
 
     private fun productionMapper() = JsonMapper.builder()

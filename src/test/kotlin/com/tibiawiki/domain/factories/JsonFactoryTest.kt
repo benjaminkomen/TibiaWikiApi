@@ -5,6 +5,7 @@ import tools.jackson.databind.ObjectMapper
 import com.tibiawiki.domain.objects.Achievement
 import com.tibiawiki.domain.objects.Book
 import com.tibiawiki.domain.objects.Building
+import com.tibiawiki.domain.objects.Charm
 import com.tibiawiki.domain.objects.Corpse
 import com.tibiawiki.domain.objects.Creature
 import com.tibiawiki.domain.objects.Effect
@@ -252,6 +253,13 @@ class JsonFactoryTest {
     }
 
     @Test
+    fun testConvertJsonToInfoboxPartOfArticle_Charm() {
+        val charm = makeCharm()
+        val result = target.convertJsonToInfoboxPartOfArticle(makeCharmJson(charm), charm.fieldOrder())
+        assertThat(result, `is`(INFOBOX_CHARM_TEXT))
+    }
+
+    @Test
     fun testConvertJsonToInfoboxPartOfArticle_Corpse() {
         val corpse = makeCorpse()
         val result = target.convertJsonToInfoboxPartOfArticle(makeCorpseJson(corpse), corpse.fieldOrder())
@@ -385,6 +393,14 @@ class JsonFactoryTest {
 
     private fun makeBuilding(): Building {
         return WikiObjectFixtures.building()
+    }
+
+    private fun makeCharm(): Charm {
+        return WikiObjectFixtures.charm()
+    }
+
+    private fun makeCharmJson(charm: Charm): JSONObject {
+        return JSONObject(objectMapper.convertValue(charm, Map::class.java)).put("templateType", "Charm")
     }
 
     private fun makeBuildingJson(building: Building): JSONObject {
@@ -836,6 +852,15 @@ class JsonFactoryTest {
             | furnishings  = 1 [[Wall Lamp]].
             | notes        =${" "}
             | image        = [[File:Theater Avenue 8b.png]]
+            }}
+        """.trimIndent().trimStart() + "\n"
+        private val INFOBOX_CHARM_TEXT = """
+            {{Infobox Charm|List={{{1|}}}|GetValue={{{GetValue|}}}
+            | name         = Adrenaline Burst
+            | type         = Minor
+            | cost         = 100 / 150 / 225
+            | effect       = Boosts damage for a short time.
+            | implemented  = 11.50.6055
             }}
         """.trimIndent().trimStart() + "\n"
         private val INFOBOX_CORPSE_TEXT = """
