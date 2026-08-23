@@ -1,0 +1,14 @@
+{
+  "path": "/api/mounts/Donkey",
+  "status": 200,
+  "body": {
+    "achievement": "Loyal Lad",
+    "implemented": "9.10",
+    "mount_id": "387",
+    "name": "Donkey",
+    "notes": "Go to [[Incredibly Old Witch]]'s house, {{Mapper Coords|125.250|126.95|7|2|text=here}}, then lure any wild creature and wait until the witch turns it into a Donkey. Use a [[Bag of Apple Slices]] on the changed creature before it's changed again. You can also trap the Incredibly Old Witch and use the Bag when she transforms herself. It's recommended to put the Bag of Apple Slices on a hotkey so when a creature is changed to Donkey you just need to press it instead of clicking the item and then the Donkey.<br />\nIf you tame the donkey by using the item on the witch herself (while she is transformed into Donkey), she will temporarily vanish, and respawns about 10 minutes later.<br />\nOn most game worlds it's the cheapest mount to obtain, what makes it popular among low or mid levels who want to gain additional 10 points of speed.\n\n<gallery captionalign=\"center\" mode=\"nolines\">Donkey (Transformation).gif|Donkey (transformed creature)</gallery>",
+    "speed": "10",
+    "taming_method": "Use a [[Bag of Apple Slices]] on a creature transformed into Donkey.",
+    "templateType": "Mount"
+  }
+}

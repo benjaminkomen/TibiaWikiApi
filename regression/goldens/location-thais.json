@@ -1,0 +1,14 @@
+{
+  "path": "/api/locations/Thais",
+  "status": 200,
+  "body": {
+    "implemented": "Pre-6.0",
+    "map": "[[File:Map_thais.jpg]]",
+    "map2": "[[File:Thais.PNG]]",
+    "near": "[[Fibula]], [[Mintwallin]], [[Greenshore]], [[Mount Sternum]]",
+    "organization": "[[Thieves Guild]], [[Tibian Bureau of Investigation]], [[Inquisition]]",
+    "population": "{{PAGESINCATEGORY:Thais NPCs|pages}}",
+    "ruler": "[[King Tibianus]]",
+    "templateType": "Geography"
+  }
+}

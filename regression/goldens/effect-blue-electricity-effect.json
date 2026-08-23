@@ -1,0 +1,19 @@
+{
+  "path": "/api/effects/Blue_Electricity_Effect",
+  "status": 200,
+  "body": {
+    "causes": "Shots from [[Wand of Cosmic Energy]], [[Heavy Magic Missile]], being [[Electrified]], shooting a [[Diamond Arrow]], certain [[Creature Spells]], using a [[Scum Bag]] on a [[Spectral Scum]].",
+    "effect": "[[Energy Damage]] on target.",
+    "effectid": [
+      "12"
+    ],
+    "implemented": "4.0",
+    "lightcolor": "143",
+    "lightradius": "3",
+    "name": "Blue Electricity Effect",
+    "notes": "{{seealso|Purple Electricity Effect|Yellow Electricity Effect}}",
+    "primarytype": "Attack",
+    "secondarytype": "Status",
+    "templateType": "Effect"
+  }
+}

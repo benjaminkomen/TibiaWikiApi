@@ -1,0 +1,13 @@
+{
+  "path": "/api/missiles/Throwing_Cake_Missile",
+  "status": 200,
+  "body": {
+    "implemented": "8.10",
+    "missileid": "42",
+    "name": "Throwing Cake Missile",
+    "notes": "This missile is followed by the [[Cream Cake Effect]]: [[File:Cream Cake Effect.gif]]",
+    "primarytype": "Throwing Weapon",
+    "shotby": "[[Undead Jester]]'s attack and probably by throwing a [[Throwing Cake]].",
+    "templateType": "Missile"
+  }
+}

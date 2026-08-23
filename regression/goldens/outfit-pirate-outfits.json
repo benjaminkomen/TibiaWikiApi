@@ -1,0 +1,21 @@
+{
+  "path": "/api/outfits/Pirate_Outfits",
+  "status": 200,
+  "body": {
+    "achievement": "Swashbuckler",
+    "addons": "[[Premium Account]], see [[Pirate Outfits Quest]].",
+    "artwork": "Pirate Outfits Artwork.jpg",
+    "artwork2": "Pirate Outfits Concept Artwork.jpg",
+    "artwork2_label": "Sketch",
+    "artwork_label": "Artwork",
+    "female_id": "155",
+    "implemented": "7.8",
+    "male_id": "151",
+    "name": "Pirate",
+    "notes": "Pirate outfits are perfect for swabbing the deck or walking the plank. Quite dashing and great for sailing.",
+    "outfit": "[[Premium Account]], see [[Pirate Outfits Quest]].",
+    "premium": "yes",
+    "primarytype": "Quest",
+    "templateType": "Outfit"
+  }
+}

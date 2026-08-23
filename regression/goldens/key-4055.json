@@ -1,0 +1,19 @@
+{
+  "path": "/api/keys/Key_4055",
+  "status": 200,
+  "body": {
+    "aka": "Panpipe Quest Key",
+    "buyfrom": "--",
+    "location": "[[Jakundaf Desert]]",
+    "longnotes": "Allows you to open the door ({{Mapper Coords|127.131|125.129|8|3|text=here}}) to the [[Panpipe Quest]].",
+    "npcprice": "0",
+    "npcvalue": "0",
+    "number": "4055",
+    "origin": "Hidden in a hollow stone south of the Desert Dungeon entrance.",
+    "primarytype": "Silver",
+    "sellto": "--",
+    "shortnotes": "Access to the [[Panpipe Quest]].",
+    "templateType": "Key",
+    "value": "Negotiable"
+  }
+}

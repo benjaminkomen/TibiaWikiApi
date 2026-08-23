@@ -1,0 +1,258 @@
+{
+  "path": "/api/charms?expand=true",
+  "status": 200,
+  "body": [
+    {
+      "cost": "100 / 150 / 225",
+      "effect": "Adds 1.6% / 2.4% / 3.2% [[Life Leech]] to attacks if wearing equipment that provides life leech.",
+      "implemented": "12.40.9997",
+      "name": "Vampiric Embrace",
+      "status": "active",
+      "templateType": "Charm",
+      "type": "Minor"
+    },
+    {
+      "cost": "600 / 900 / 3000",
+      "effect": "Killing a monster has 10% / 20% / 22% chance to deal [[Physical Damage]] equal to 15% of its maximum [[Hit Point|health]] to all monsters in a small radius.",
+      "implemented": "14.10.4e0c16",
+      "name": "Carnage",
+      "notes": "* The effect radius of this charm will hit all nondiagonal squares around the killed creature, similarly to an [[Explosion Rune]] or a [[Berserk]] without diagonals.\n* Damage is limited up to 6 times the character level.\n* Creatures killed due to Carnage damage have no chance to trigger another instance of Carnage effect.\n* Charm only has a chance of working if the character with the charm activated makes the actual last hit to the selected creature.\n** Additionally, last hits performed by [[Summoned Creature|summons]] or [[Familiars]] of a player using this charm will not have a chance of triggering this charm's effect.\n* This charm does not trigger when killing a [[Summoned Creature|summon]] of a creature (i.e a [[Fire Elemental]] summoned by a [[Demon]]).\n* Unlike [[Wound]], the damage from this charm is reduced by creatures' armor, however its damage {{OfficialNewsArchive|8610|is not increased with physical pierce}}.",
+      "status": "active",
+      "templateType": "Charm",
+      "type": "Major"
+    },
+    {
+      "cost": "240 / 360 / 1200",
+      "effect": "Dodges an attack with a 5% / 10% / 11% chance, taking no damage at all.",
+      "implemented": "11.50.6055",
+      "name": "Dodge",
+      "notes": "There are some important factors to take into account when choosing a creature to activate this charm on:\n\n* Overall damage taken during a hunt: When choosing a creature to bind this charm during a hunt, you should choose the one that deals most damage to you overall during the hunting session, which is not necessarily the strongest creature of the dungeon. For instance, even though [[Juggernaut]]s and [[Hellhound]]s are the strongest creatures in the [[Roshamuul Prison]], it would be better to use the charm in [[Demon Outcast]]s or [[Dark Torturer]]s instead since they are present in a much higher number. \n\n* Protection from Equipment and [[Imbuements]]: It's also important to note what other protections the player already has. For example, if a lot of [[Fire Damage]] protection is being used, it may be more efficient to use the charm on a creature that deals high damage of another element, e.g. [[Life Drain]]. \n\n* Number of abilities used by the creature: Even though this may be quite hard to evaluate, it may be the decisive point when in doubt about 2 creatures. Since the Charm has a 10% chance of triggering for each attack received, the higher the number of attacks taken, the most efficient the charm will be. Of course, this is completely dependent on the strength of these attacks, but it's something to keep in mind.",
+      "status": "active",
+      "templateType": "Charm",
+      "type": "Major"
+    },
+    {
+      "cost": "320 / 480 / 1600",
+      "effect": "Each attack on a creature has a 5% / 10% / 11% chance to trigger and deal 5% of its maximum [[Hit Point]]s as [[Energy Damage]] once.",
+      "implemented": "11.50.6055",
+      "name": "Zap",
+      "notes": "Damage is limited to 2 times the character's level (applied before resistances). Since the elemental damage charms are applied on top of the creature's elemental resistances, the Zap charm is recommended for [[Energy Damage/Weak|creatures that are weak to Energy Damage]].",
+      "status": "active",
+      "templateType": "Charm",
+      "type": "Major"
+    },
+    {
+      "cost": "240 / 360 / 1200",
+      "effect": "Each attack on a creature has a 5% / 10% / 11% chance to trigger and deal 5% of its maximum [[Hit Point]]s as [[Physical Damage]] once.",
+      "implemented": "11.50.6055",
+      "name": "Wound",
+      "notes": "Damage is limited to 2 times the character's level (applied before resistances). Since the elemental damage charms are applied on top of the creature's elemental resistances, the Wound charm is recommended for [[Physical Damage/Weak|creatures that are weak to Physical Damage]].",
+      "status": "active",
+      "templateType": "Charm",
+      "type": "Major"
+    },
+    {
+      "cost": "100 / 150 / 225",
+      "effect": "Blesses you and reduces skill and [[XP]] loss by 6% / 9% / 12% when killed by the chosen creature.",
+      "history": "With the [[Summer Update 2020|Summer 2020 Update]], this charms effect was adjusted from '''3%''' to '''10%''' and its cost was decreased from '''2000''' to '''800''' charm points.",
+      "implemented": "11.50.6055",
+      "name": "Bless",
+      "notes": "It is not additive to [[Blessings]], and is applied after all their protection has been calculated. For example, a [[Promotion|promoted]] character with full blessings will be protected by 86% of experience loss on a [[death]]. If the stage 3 Bless charm activates, it will further protect the remaining 14% for 12%, for a total of 87,68% protection.",
+      "status": "active",
+      "templateType": "Charm",
+      "type": "Minor"
+    },
+    {
+      "cost": "100 / 150 / 225",
+      "effect": "Enhances your chances to successfully skin/dust a skinnable/dustable creature by 60% / 90% / 120%.",
+      "history": "Since [[Updates/11.70.6521|Update 11.70]], this charm's effect also applies to [[dusting]].<br />\nWith the [[Summer Update 2020|Summer 2020 Update]], this charms effect was adjusted from '''10%''' to '''25%''' and its cost was decreased from '''1500''' to '''800''' charm points.",
+      "implemented": "11.50.6055",
+      "name": "Scavenge",
+      "notes": "This charm improves the chance of having success when [[skinning]] or [[dusting]] corpses of the skinnable/dustable creature this charm is assigned to. For example, if the success chance is originally 5%, it becomes 8/9.5/11% after assigning the charm.\n\nNote that this charm is rather useful when attempting to skin the rare spawning [[Albino Dragon]] for its valuable [[Albino Dragon Leather]]. Also, if used for skinning [[Dragon]]s, you can earn a decent profit if the [[Green Dragon Leather]]s are going for 4-5k each on your [[Server]].",
+      "status": "active",
+      "templateType": "Charm",
+      "type": "Minor"
+    },
+    {
+      "cost": "400 / 600 / 2000",
+      "effect": "Each attack on a creature has a 5% / 10% / 11% chance to trigger and deal 5% of its maximum [[Hit Point]]s as [[Fire Damage]] once.",
+      "implemented": "11.50.6055",
+      "name": "Enflame",
+      "notes": "Damage is limited to 2 times the character's level (applied before resistances). Since the elemental damage charms are applied on top of the creature's elemental resistances, the Enflame charm is recommended for [[Fire Damage/Weak|creatures that are weak to Fire Damage]].",
+      "status": "active",
+      "templateType": "Charm",
+      "type": "Major"
+    },
+    {
+      "cost": "100 / 150 / 225",
+      "effect": "Adds 0.8% / 1.2% / 1.6% [[Mana Leech]] to attacks if wearing equipment that provides mana leech.",
+      "implemented": "12.40.9997",
+      "name": "Void's Call",
+      "status": "active",
+      "templateType": "Charm",
+      "type": "Minor"
+    },
+    {
+      "cost": "100 / 150 / 225",
+      "effect": "Numbs the creature with a 6% / 9% / 12% chance after its attack and [[Paralyse|paralyses]] the creature for 10 seconds.",
+      "implemented": "11.50.6055",
+      "name": "Numb",
+      "notes": "This affects creatures even if they are immune to the [[Paralyse Rune]].",
+      "status": "active",
+      "templateType": "Charm",
+      "type": "Minor"
+    },
+    {
+      "cost": "400 / 600 / 2000",
+      "effect": "Any damage taken has a 5% / 10% / 11% chance to be reflected to the aggressor as [[Physical Damage]].",
+      "implemented": "11.50.6055",
+      "name": "Parry",
+      "notes": "The damage dealt by this charm is displayed as [[Physical Damage]], but it is neutral and will damage the creature regardless of its resistances. It will, however, be affected by the creature's armor. Furthermore, the damage value is the base damage calculated before the player's resistances, which means that the equipment and imbuements used by the character will not affect the damage taken by the creature.\n\nParry is often unlocked by [[Knight]]s since this vocation will inevitably take a lot of damage. It's also very useful for higher level [[Paladin]]s that hunt blocking the creatures around themselves. It's not really recommended for [[Druid]]s and [[Sorcerer]]s since these players should try to avoid taking as much damage as possible and will benefit a lot more from the offensive elemental damage charms. Regardless of the vocation, however, parry is more effective on creatures that deal high damage but have relatively low health, which makes the elemental charms less effective on them.",
+      "status": "active",
+      "templateType": "Charm",
+      "type": "Major"
+    },
+    {
+      "cost": "320 / 480 / 1600",
+      "effect": "Each attack on a creature has a 5% / 10% / 11% chance to trigger and deal 5% of its maximum [[Hit Point]]s as [[Ice Damage]] once.",
+      "implemented": "11.50.6055",
+      "name": "Freeze",
+      "notes": "Damage is limited to 2 times the character's level (applied before resistances). Since the elemental damage charms are applied on top of the creature's elemental resistances, the Freeze charm is recommended for [[Ice Damage/Weak|creatures that are weak to Ice Damage]].",
+      "status": "active",
+      "templateType": "Charm",
+      "type": "Major"
+    },
+    {
+      "cost": "800, 1200, 4000",
+      "effect": "Adds 4% / 8% / 9% critical hit chance to attacks with [[Critical Hits|critical hit]] weapons.",
+      "history": "On {{OfficialNewsArchive|5268|November 05, 2019}}, the charm was changed. Its old description was ''Adds 3% critical hit chance to attacks with [[Critical Hits|critical hit]] weapons'', and it did not affect all creatures of the same type when the charm was triggered. This change, however, was due to the fact that the charm was previously bugged (or its description had a typo) and providing a much higher bonus (13%) than the expected. \n\nThis charm is an exception from [[Vocation Adjustments 2026]] double proc removal, so it does activate on all targets of AoE [[Ammunition]], unlike for example [[Savage Blow]] which doesn't. As stated by [[Liamas]] [https://www.tibia.com/forum/?action=thread&postid=39596528#post39596528 in Auditorium post]: ''Based on our data, Low Blow is currently well balanced, so we did not want to reduce its effectiveness''.",
+      "implemented": "11.50.6055",
+      "name": "Low Blow",
+      "notes": "If a critical hit is dealt due to this additional chance, every charm creature affected by the attack will receive critical damage.",
+      "status": "active",
+      "templateType": "Charm",
+      "type": "Major"
+    },
+    {
+      "cost": "100 / 150 / 225",
+      "effect": "Your attacks have a 30% / 45% / 60% chance to prevent creatures from fleeing due to low [[Hit Point|health]] for 30 seconds.",
+      "history": "* As announced on {{OfficialNewsArchive|8263|February 18, 2025}}, the [[Updates/14.12.95abf3|patch]] made this charm not be affected by [[Charm Upgrade]] potions anymore.",
+      "implemented": "14.10.4e0c16",
+      "name": "Fatal Hold",
+      "status": "active",
+      "templateType": "Charm",
+      "type": "Minor"
+    },
+    {
+      "actualname": "Curse",
+      "cost": "360 / 540 / 1,800",
+      "effect": "Each attack on a creature has a 5% / 10% / 11% chance to trigger and deal 5% of its maximum [[Hit Point]]s as [[Death Damage]] once.",
+      "implemented": "11.50.6055",
+      "name": "Curse (Charm)",
+      "notes": "Damage is limited to 2 times the character's level (applied before resistances). Since the elemental damage charms are applied on top of the creature's elemental resistances, the Curse charm is recommended for [[Death Damage/Weak|creatures that are weak to Death Damage]].",
+      "status": "active",
+      "templateType": "Charm",
+      "type": "Major"
+    },
+    {
+      "cost": "100 / 150 / 225",
+      "effect": "Gutting the creature yields 6% / 9% / 12% more creature products.",
+      "history": "With the [[Summer Update 2020|Summer 2020 Update]], this charms effect was adjusted from '''10%''' to '''20%''' and its cost was decreased from '''2000''' to '''800''' charm points.",
+      "implemented": "11.50.6055",
+      "name": "Gut",
+      "notes": "By activating this Charm on a creature, the chances of looting the [[Creature Products]] it drops are increased. In other words, there is 6% / 9% / 12% chance that an extra loot roll is generated for the creature products.",
+      "status": "active",
+      "templateType": "Charm",
+      "type": "Minor"
+    },
+    {
+      "cost": "100 / 150 / 225",
+      "effect": "20% / 30% /40% chance to gain [[mana]] instead of losing it when taking [[Mana Drain]] damage.",
+      "implemented": "14.10.4e0c16",
+      "name": "Void Inversion",
+      "status": "active",
+      "templateType": "Charm",
+      "type": "Minor"
+    },
+    {
+      "cost": "800 / 1200 / 4000",
+      "effect": "Adds 20% / 40% / 44% critical extra damage to attacks with [[Critical Hit]] weapons.",
+      "implemented": "14.10.4e0c16",
+      "name": "Savage Blow",
+      "status": "active",
+      "templateType": "Charm",
+      "type": "Major"
+    },
+    {
+      "cost": "600 / 900 / 3000",
+      "effect": "Each attack on a creature has a 5% / 10% / 11% chance to trigger and deal 5% of its maximum [[Hit Point]]s as [[Holy Damage]] once.",
+      "implemented": "12.40.9997",
+      "name": "Divine Wrath",
+      "notes": "Damage is limited to 2 times the character's level (applied before resistances). Since the elemental damage charms are applied on top of the creature's elemental resistances, the Divine Wrath charm is recommended for [[Holy Damage/Weak|creatures that are weak to Holy Damage]].",
+      "status": "active",
+      "templateType": "Charm",
+      "type": "Major"
+    },
+    {
+      "cost": "600 / 900 / 3000",
+      "effect": "Each attack has a 5% / 10% / 11% chance to deal [[Physical Damage]] equal to 2.5% of your maximum [[mana]].",
+      "implemented": "14.10.4e0c16",
+      "name": "Overflux",
+      "notes": "Damage is limited up to 8% of the creature's maximum [[Hit Point|health]].\n\nThe damage dealt by this charm is displayed as [[Physical Damage]], but it is neutral and will damage the creature regardless of its resistances.",
+      "status": "active",
+      "templateType": "Charm",
+      "type": "Major"
+    },
+    {
+      "cost": "100 / 150 / 225",
+      "effect": "Cleanses you from within with a 6% / 9% / 12% chance after you get hit and removes one random active negative [[Status Condition|status effect]] and temporarily makes you immune against it.",
+      "history": "* On {{OfficialNewsArchive|7736|January 30, 2024}}: this charm will not be activated anymore if the attacker is a [[Summoned Creature|summoned creature]]",
+      "implemented": "11.50.6055",
+      "name": "Cleanse",
+      "notes": "Cleanse will remove one existing negative condition the character has when it's triggered, regardless if the condition was applied by the creature on which the charm is activated or not. If the character has more than one negative condition, the selection will be random. For example, if you are [[Burning]] (from a [[Dragon Lord]]'s attack or from an environment [[Fire Field]]), you can remove this condition by being attacked by a [[Demon Skeleton]], as long as you have Cleanse activated on it. The following [[Status Condition]]s can be removed with Cleanse:\n\n* [[File:Poisoned Icon.gif]] [[Poisoned]]\n* [[File:Burning Icon.gif]] [[Burning]]\n* [[File:Electrified Icon.gif]] [[Electrified]]\n* [[File:Freezing Icon.gif]] [[Freezing]]\n* [[File:Cursed Icon.gif]] [[Cursed]]\n* [[File:Dazzled Icon.gif]] [[Dazzled]]\n* [[File:Bleed Icon.gif]] [[Bleeding]]\n* [[File:Slowed Icon.gif]] [[Slowed]]\n* [[File:Rooted Icon.gif]] [[Rooted]]\n* [[File:Feared Icon.gif]] [[Feared]]\n\nPlease note that '''skill debuffs cannot be removed with Cleanse'''. \n\nIt's often used by higher level players to remove a condition for which the character does not have a cleansing spell, allowing for faster removal of a [[Protection Zone Block]] by removing long duration burning effects such as [[Soulfire Rune]]s, or even other debuffs like [[Paralysis]]. It is therefore common for [[PvP]] players to switch this charm onto a nearby creature while attempting to drop said effects, or simply to keep it active for one of the creatures found in recurring fighting areas places such as [[Roshamuul]].",
+      "status": "active",
+      "templateType": "Charm",
+      "type": "Minor"
+    },
+    {
+      "cost": "600 / 900 / 3000",
+      "effect": "Each attack has a 5% / 10% / 11% chance to deal [[Physical Damage]] equal to 5% of your maximum [[Hit Point|health]].",
+      "implemented": "14.10.4e0c16",
+      "name": "Overpower",
+      "notes": "Damage is limited up to 8% of the creature's maximum [[Hit Point|health]].\n\nThe damage dealt by this charm is displayed as [[Physical Damage]], but it is neutral and will damage the creature regardless of its resistances.",
+      "status": "active",
+      "templateType": "Charm",
+      "type": "Major"
+    },
+    {
+      "cost": "100 / 150 / 225",
+      "effect": "Bursts of adrenaline enhance your reflexes with a 6% / 9% / 12% chance after getting hit and lets you move faster for 10 seconds.",
+      "implemented": "11.50.6055",
+      "name": "Adrenaline Burst",
+      "notes": "While the [[Speed]] boost of Adrenaline Burst is considerable - it multiplies character speed by 2.5 -, its unpredictability makes it hard to be used very efficiently. Also, since this bonus removes and is removed by [[Haste (Condition)|haste spells]], it will not stack with other temporary bonuses, reducing its usefulness.",
+      "status": "active",
+      "templateType": "Charm",
+      "type": "Minor"
+    },
+    {
+      "cost": "100 / 150 / 225",
+      "effect": "Cripples the creature with a 6% / 9% / 12% chance and [[paralysis|paralyses]] it for 10 seconds.",
+      "implemented": "11.50.6055",
+      "name": "Cripple",
+      "notes": "This affects creatures even if they are immune to the [[Paralyse Rune]]. It is not affected by [[Charm Upgrade]].",
+      "status": "active",
+      "templateType": "Charm",
+      "type": "Minor"
+    },
+    {
+      "cost": "240 / 360 / 1200",
+      "effect": "Each attack on a creature has a 5% / 10% / 11% chance to trigger and deal 5% of its maximum [[Hit Point]]s as [[Earth Damage]] once.",
+      "implemented": "11.50.6055",
+      "name": "Poison",
+      "notes": "Damage is limited to 2 times the character's level (applied before resistances). Since the elemental damage charms are applied on top of the creature's elemental resistances, the Poison charm is recommended for [[Earth Damage/Weak|creatures that are weak to Earth Damage]].",
+      "status": "active",
+      "templateType": "Charm",
+      "type": "Major"
+    }
+  ]
+}

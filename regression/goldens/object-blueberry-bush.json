@@ -1,0 +1,21 @@
+{
+  "path": "/api/objects/Blueberry_Bush",
+  "status": 200,
+  "body": {
+    "article": "a",
+    "implemented": "7.1",
+    "itemid": [
+      "3699",
+      "3700"
+    ],
+    "location": "Can be found all around [[Tibia]]. There are many Blueberry bushes in [[Greenshore]], east from the wheat field. The [[Dryad Gardens]] also contain a lot of bushes.",
+    "name": "Blueberry Bush",
+    "notes": "They are the source of the [[blueberry|blueberries]]. 'Use' the [[bush]] first, then take the three remaining blueberries, however sometimes other players \"use\" the Blueberry Bush and don't take them with themselves. Thus, there can be up to six blueberries in a bush. It takes one hour for the blueberry bush to regenerate.",
+    "notes2": "<br />After using [[Blueberry]] Bushes 500 times, you will earn the achievement [[Bluebarian]].",
+    "objectclass": "Flora and Minerals",
+    "pickupable": "no",
+    "primarytype": "Bushes",
+    "templateType": "Object",
+    "walkable": "no"
+  }
+}

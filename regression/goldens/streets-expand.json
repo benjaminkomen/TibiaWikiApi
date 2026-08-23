@@ -1,0 +1,1174 @@
+{
+  "path": "/api/streets?expand=true",
+  "status": 200,
+  "body": [
+    {
+      "city": "Ankrahmun",
+      "implemented": "7.3",
+      "name": "Charsirakh",
+      "notes": "{{StreetStyles|Charsirakh}} is located in the west of the city.<br/>\n\nBuildings and NPCs from west to east and north to south on the street:<br/>",
+      "templateType": "Street"
+    },
+    {
+      "city": "Port Hope",
+      "floor": "+1",
+      "implemented": "7.5",
+      "name": "Streets of Port Hope",
+      "notes": "<table border=\"0\" cellpadding=\"1\" cellspacing=\"0\" >\n<tr>\n  <td>{{StreetStyles|Haggler's Hangout}}</td>\n  <td>([[Haggler's Hangout|*]]) running horizontal on the north side of the river; ground floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Bamboo Garden}}</td>\n  <td>([[Bamboo Garden|*]]) running horizontal on the south side of the river; ground floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Coconut Quay}}</td>\n  <td>([[Coconut Quay|*]]) runs on the west side of town; second floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Banana Bay}}</td>\n  <td>([[Banana Bay|*]]) runs on the southwest side of town; second floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Crocodile Bridge}}</td>\n  <td>([[Crocodile Bridge|*]]) runs from Banana Quay at Harbour toward the south-center of town at Woodway; second floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|River Homes}}</td>\n  <td>([[River Homes|*]]) runs in the center of town, connecting with Woodway in the middle; second floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Woodway}}</td>\n  <td>([[Woodway|*]]) runs in the south-center of town from Crocodile Bridge to Flamingo Flats; second floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Flamingo Flats}}</td>\n  <td>([[Flamingo Flats|*]]) runs in the southeast end of town from Woodway to Jungle Edge; second floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Jungle Edge}}</td>\n  <td>([[Jungle Edge|*]]) runs in the northeast connected with Flamingo Flats in the south; second floor</td>\n</tr>\n<tr>\n</tr>\n</table>\n\nSome Port Hope buildings and NPCs lie outside the city beyond named streets:<br/>\n'''North:'''\n* [[Vescu]]\n'''Northeast:'''\n* [[The Treehouse]]\n* [[Hairycles]], in [[Banuta]]\n* [[The Blind Prophet]], outside [[Forbidden Lands]]\n'''South:'''\n* [[Rosemarie]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Liberty Bay",
+      "implemented": "7.8",
+      "name": "Trader&#39;s Point",
+      "notes": "{{StreetStyles|Trader's Point}} is in central [[Liberty Bay]]. It touches {{StreetStyles|Shady Trail}} to the west, {{StreetStyles|The Tavern}} to the south, {{StreetStyles|Freedom Street}} in the middle and {{StreetStyles|Ivory Circle}} in the east.\n\nBuildings and NPCs from west to east and north to south:\n* [[Red Lilly]], Equipment\n* [[Cedrik]], Weapon and Armor\n* [[Lyonel]], Tavern\n* [[Bradford]], Tavern\n* [[Trader's Point 1]]\n* [[Tyrias]], [[Temple]]\n* [[Trader's Point 2 (Shop)]]\n* [[Herbert]], [[Depot]] and [[Holy Shrines#Teleporter Hallways|Teleporter Hallway]]\n* [[Jefrey]], [[Bank]] at the Depot\n* [[Trader's Point 3 (Shop)]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Liberty Bay",
+      "implemented": "7.8",
+      "name": "Litter Promenade",
+      "notes": "{{StreetStyles|Litter Promenade}} is in southwest [[Liberty Bay]]. It touches {{StreetStyles|Rum Alley}} to the west, {{StreetStyles|Straycat's Corner}} to the north, and {{StreetStyles|Klabauter Walk}} to the east.\n\nBuildings and NPCs from west to east:\n* [[The Shelter]]\n* [[Litter Promenade 1]]\n* [[Litter Promenade 2]]\n* [[Litter Promenade 3]]\n* [[Litter Promenade 4]]\n* [[Litter Promenade 5]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Ab'Dendriel",
+      "floor": "+1",
+      "implemented": "6.2",
+      "name": "Treetop",
+      "notes": "{{StreetStyles|Treetop}} is the southern part of [[Ab'Dendriel]] on the first (+1) floor. It touches {{StreetStyles|Great Willow}} to the north and is the floor above {{StreetStyles|Underwood}}.<br/>\n<br/>\nBuildings and NPCs from south to north west to east on the street:<br/>\n\n* [[Treetop 1]]\n* [[Treetop 2]]\n* [[Eroth]]\n* [[Treetop 3 (Shop)]]\n* [[Treetop 4 (Shop)]]\n* [[Treetop 12 (Shop)]]\n* [[Ukea]], [[Furniture Shopkeeper NPCs|Furniture Shop]]\n* [[Shiriel]], [[Magic Shopkeeper NPCs|Magic Shop]]\n* [[Amarie]], [[Ab'Dendriel Library]]\n* [[Treetop 13]]\n* [[Treetop 10]]\n* [[Treetop 9]]\n* [[Treetop 8]]\n* [[Treetop 6]]\n* [[Treetop 7]]\n* [[Treetop 5 (Shop)]]\n* [[Treetop 11]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Liberty Bay",
+      "implemented": "7.8",
+      "name": "Shady Trail",
+      "notes": "{{StreetStyles|Shady Trail}} is in west [[Liberty Bay]]. It touches {{StreetStyles|Sugar Street}} and {{StreetStyles|Smuggler Backyard}} to the northwest, and {{StreetStyles|Trader's Point}} to the northeast, and {{StreetStyles|Straycat's Corner}} to the south.\n\nBuildings and NPCs from from north to south east to west:\n* [[Shady Trail 1]]\n* [[Shady Trail 2]]\n* [[Shady Trail 3]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Issavi",
+      "implemented": "12.20.8834",
+      "name": "Streets of Issavi",
+      "notes": "<br/>\nSome buildings and NPCs lie outside the city beyond named streets:<br/>",
+      "templateType": "Street"
+    },
+    {
+      "city": "Edron",
+      "implemented": "6.4",
+      "name": "Edron Flats",
+      "notes": "The {{StreetStyles|Edron Flats}} are located south of the castle in central Edron. It borders {{StreetStyles|Castle Street}} to the north-west, the {{StreetStyles|Castle Flats}} to the north, and {{StreetStyles|Central Circle}} to the east.\n\nBuildings:\n* [[Edron Flats, Basement Flat 1]] (-1 floor)\n* [[Edron Flats, Basement Flat 2]] (-1 floor)\n\n* [[Edron Flats, Flat 01]]\n* [[Edron Flats, Flat 02]]\n* [[Edron Flats, Flat 03]]\n* [[Edron Flats, Flat 04]]\n* [[Edron Flats, Flat 05]]\n* [[Edron Flats, Flat 06]]\n* [[Edron Flats, Flat 07]]\n* [[Edron Flats, Flat 08]]\n\n* [[Edron Flats, Flat 11]] (second floor)\n* [[Edron Flats, Flat 12]] (second floor)\n* [[Edron Flats, Flat 13]] (second floor)\n* [[Edron Flats, Flat 14]] (second floor)\n* [[Edron Flats, Flat 15]] (second floor)\n* [[Edron Flats, Flat 16]] (second floor)\n* [[Edron Flats, Flat 17]] (second floor)\n* [[Edron Flats, Flat 18]] (second floor)\n\n* [[Edron Flats, Flat 21]] (third floor)\n* [[Edron Flats, Flat 22]] (third floor)\n* [[Edron Flats, Flat 23]] (third floor)\n* [[Edron Flats, Flat 24]] (third floor)\n* [[Edron Flats, Flat 25]] (third floor)\n* [[Edron Flats, Flat 26]] (third floor)\n* [[Edron Flats, Flat 27]] (third floor)\n* [[Edron Flats, Flat 28]] (third floor)",
+      "templateType": "Street"
+    },
+    {
+      "city": "Kazordoon",
+      "floor": "+1",
+      "implemented": "6.1",
+      "name": "Streets of Kazordoon",
+      "notes": "<table border=\"0\" cellpadding=\"1\" cellspacing=\"0\" >\n<tr>\n  <td>{{StreetStyles|The Farms}}</td>\n  <td>[[The Farms|*]] +5, 0 floors: houses; wheat fields; [[Colossus]] view; the [[Gewen|magic carpet]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Royal Hall}}</td>\n  <td>[[Royal Hall|*]] +4 floor: Emperor's Quarters</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Nobility Quarter}}</td>\n  <td>[[Nobility Quarter|*]] +3 floor: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Halls of Sorcery}}</td>\n  <td>[[Halls of Sorcery|*]] +2 floor: [[magic]] sellers; sorcerer's guild; [[Kazordoon Libraries|library]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Upper Barracks}}</td>\n  <td>[[Upper Barracks|*]] +2 floor: houses; guildhall</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Armory Street}}</td>\n  <td>[[Armory Street|*]] +1 floor: Armory; general's house; [[Kazordoon Fortress]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Mountain Pass}}</td>\n  <td>[[Mountain Pass|*]] 0 floor: a house; paths through Kazordoon, to city entrances, to [[Mad Mage Valley]], and to [[Dwarven Mines]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|The Market}}</td>\n  <td>[[The Market|*]] -1 floor: houses; [[Depot]] and [[Bank]]; [[Ore Wagon]]s; knight's guild; shops, [[Colossus]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Kazordoon Entrance}}</td>\n  <td>[[Kazordoon Entrance|*]] -2 floor: city entrance/exit; [[Ore Wagon]]s; [[Dwacatra]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Lower Barracks}}</td>\n  <td>[[Lower Barracks|*]] -2 floor: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Shops Street}}</td>\n  <td>[[Shops Street|*]] -2 floor: shops; tavern; guildhalls; [[Ore Wagon]]s</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Mushroom Alley}}</td>\n  <td>[[Mushroom Alley|*]] -3 floor: mushroom farm; way to Brewery; way to shops, to temple, to Technomancers, and to city entrance/exit; city mine entrance and way to [[Steam Boat]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Temple Road}}</td>\n  <td>[[Temple Road|*]] -4, -5 floors: [[Temple]]; Dwarven fellowships; [[Game Room]]s; [[Blessing|Blessers]]; [[Wedding]] room; way to [[Gnomegate]] and [[The Spike]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Tunnel Gardens}}</td>\n  <td>[[Tunnel Gardens|*]] -4, -5 floors: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Technomancer Lane}}</td>\n  <td>[[Technomancer Lane|*]] -5 floor: [[Technomancer]]s</td>\n</tr>\n</table>\n<br />\nSome Kazordoon buildings and NPCs lie outside the city beyond named streets:<br/>\n* [[Rapanaio]], -7 floors underground in City Mines\n* [[Brodrosch]], [[Steamship]], -8 floors underground in City Mines\n'''North:'''\n* [[Lost Cavern]]\n* [[Hill Hideout]]\n* [[Uzon]], Magic Carpet\n'''West:'''\n* [[Budrik]], -1 underground in a mine entrance\n* [[A Dwarven Ghost]], -5 floors underground in [[Budrik]]'s mine\n* [[Riddler]], [[Paradox Tower]], +6 floors above ground\n'''South:'''\n* [[Wyda]]\n* [[MacNoodles]]\n* [[Wally]], [[Postal Service Headquarters]]\n* [[Kevin]], [[Postal Service Headquarters]] (second floor)\n* [[Wolftower]]\n* [[Riverspring]]\n* [[Adrenius]], [[Desert Dungeon]]\n* [[Hagor]], [[Desert Dungeon]]\n* [[Nemal]], [[Desert Dungeon]]\n* [[Outlaw Camp Street]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Kazordoon",
+      "floor": "+2",
+      "implemented": "6.1",
+      "name": "Streets of Kazordoon",
+      "notes": "<table border=\"0\" cellpadding=\"1\" cellspacing=\"0\" >\n<tr>\n  <td>{{StreetStyles|The Farms}}</td>\n  <td>[[The Farms|*]] +5, 0 floors: houses; wheat fields; [[Colossus]] view; the [[Gewen|magic carpet]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Royal Hall}}</td>\n  <td>[[Royal Hall|*]] +4 floor: Emperor's Quarters</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Nobility Quarter}}</td>\n  <td>[[Nobility Quarter|*]] +3 floor: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Halls of Sorcery}}</td>\n  <td>[[Halls of Sorcery|*]] +2 floor: [[magic]] sellers; sorcerer's guild; [[Kazordoon Libraries|library]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Upper Barracks}}</td>\n  <td>[[Upper Barracks|*]] +2 floor: houses; guildhall</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Armory Street}}</td>\n  <td>[[Armory Street|*]] +1 floor: Armory; general's house; [[Kazordoon Fortress]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Mountain Pass}}</td>\n  <td>[[Mountain Pass|*]] 0 floor: a house; paths through Kazordoon, to city entrances, to [[Mad Mage Valley]], and to [[Dwarven Mines]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|The Market}}</td>\n  <td>[[The Market|*]] -1 floor: houses; [[Depot]] and [[Bank]]; [[Ore Wagon]]s; knight's guild; shops, [[Colossus]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Kazordoon Entrance}}</td>\n  <td>[[Kazordoon Entrance|*]] -2 floor: city entrance/exit; [[Ore Wagon]]s; [[Dwacatra]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Lower Barracks}}</td>\n  <td>[[Lower Barracks|*]] -2 floor: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Shops Street}}</td>\n  <td>[[Shops Street|*]] -2 floor: shops; tavern; guildhalls; [[Ore Wagon]]s</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Mushroom Alley}}</td>\n  <td>[[Mushroom Alley|*]] -3 floor: mushroom farm; way to Brewery; way to shops, to temple, to Technomancers, and to city entrance/exit; city mine entrance and way to [[Steam Boat]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Temple Road}}</td>\n  <td>[[Temple Road|*]] -4, -5 floors: [[Temple]]; Dwarven fellowships; [[Game Room]]s; [[Blessing|Blessers]]; [[Wedding]] room; way to [[Gnomegate]] and [[The Spike]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Tunnel Gardens}}</td>\n  <td>[[Tunnel Gardens|*]] -4, -5 floors: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Technomancer Lane}}</td>\n  <td>[[Technomancer Lane|*]] -5 floor: [[Technomancer]]s</td>\n</tr>\n</table>\n<br />\nSome Kazordoon buildings and NPCs lie outside the city beyond named streets:<br/>\n* [[Rapanaio]], -7 floors underground in City Mines\n* [[Brodrosch]], [[Steamship]], -8 floors underground in City Mines\n'''North:'''\n* [[Lost Cavern]]\n* [[Hill Hideout]]\n* [[Uzon]], Magic Carpet\n'''West:'''\n* [[Budrik]], -1 underground in a mine entrance\n* [[A Dwarven Ghost]], -5 floors underground in [[Budrik]]'s mine\n* [[Riddler]], [[Paradox Tower]], +6 floors above ground\n'''South:'''\n* [[Wyda]]\n* [[MacNoodles]]\n* [[Wally]], [[Postal Service Headquarters]]\n* [[Kevin]], [[Postal Service Headquarters]] (second floor)\n* [[Wolftower]]\n* [[Riverspring]]\n* [[Adrenius]], [[Desert Dungeon]]\n* [[Hagor]], [[Desert Dungeon]]\n* [[Nemal]], [[Desert Dungeon]]\n* [[Outlaw Camp Street]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Venore",
+      "implemented": "7.1",
+      "name": "Mystic Lane",
+      "notes": "{{StreetStyles|Mystic Lane}} is in central [[Venore]]. It touches {{StreetStyles|Dream Street}} in the west, {{StreetStyles|Seagull Walk}} in the north west, {{StreetStyles|Lucky Lane}} in the south west, crosses {{StreetStyles|Walk of Flame}} and touches {{StreetStyles|Loot Lane}} in the north east and {{StreetStyles|Silver Street}} in the east.<br/>\n<br/>\nBuildings and NPCs from west to east and north to south on the street:<br/>\n* [[The Hard Rock]]\n** [[Asrak]], The Hard Rock Tavern (-4 floor)\n** [[Urkalio]], The Hard Rock Tavern (-3 floor)\n** [[Maria]], The Hard Rock Tavern (-2 floor)\n** [[A Strange Fellow]], The Hard Rock Tavern (-2 floor)\n** [[Zebron]], The Hard Rock Tavern (-2 floor)\n** [[Santa Claus]], The Hard Rock Tavern during Christmas (-2 floor)\n** [[Messenger of Santa]], The Hard Rock Tavern during Christmas (-2 floor)\n** [[Nurik]], The Hard Rock Tavern (-1 floor)\n** [[Dove]], Depot & Post Office (ground floor)\n** [[Lightfoot]], The Hard Rock Tavern (+1 floor)\n** [[Dustrunner]], The Hard Rock Tavern (+1 floor) \n** [[Boozer]], The Hard Rock Tavern (+2 floor) \n* [[Arnold]], between Depot and Temple\n* [[Venore Temple]]\n** [[Yberius]]\n* [[Mystic Lane 1]]\n* [[Mystic Lane 2]]\n* [[The Magic Bazar]]\n** [[Frans]] (entrance/+1 floor)\n** [[Digger]] (entrance/+1 floor)\n** [[Smiley]] (entrance/+1 floor)\n** [[Chatterbone]] (entrance/+1 floor)\n** [[Vladruc]] (+2 floor)",
+      "templateType": "Street"
+    },
+    {},
+    {
+      "city": "Svargrond",
+      "implemented": "8.00",
+      "name": "Pilchard Bin",
+      "notes": "{{StreetStyles|Pilchard Bin}} is located in the east of the city.",
+      "templateType": "Street"
+    },
+    {
+      "city": "Edron",
+      "implemented": "6.4",
+      "name": "Wood Avenue",
+      "notes": "{{StreetStyles|Wood Avenue}} is in the east of [[Edron]]. It touches {{StreetStyles|Skylane}} to the south and is located east of [[Edron Castle]].\n\nBuildings and NPCs from north to south on the street:\n* [[Wood Avenue 1]]\n* [[Wood Avenue 2]]\n* [[Wood Avenue 3]]\n* [[Wood Avenue 4]]\n* [[Wood Avenue 4a]]\n* [[Wood Avenue 4b]]\n* [[Wood Avenue 4c]]\n* [[Wood Avenue 5]]\n* NPC [[Edvard]] (furniture)\n* [[Wood Avenue 6a]]\n* [[Wood Avenue 6b]]\n* [[Wood Avenue 7]]\n* [[Wood Avenue 8]]\n* [[Wood Avenue 9a]]\n* [[Wood Avenue 9b]]\n* [[Wood Avenue 10a]]\n* [[Wood Avenue 10b]]\n* [[Wood Avenue 11]]\n\n[[Wood Avenue 1]] and [[Wood Avenue 5]] have a ridged/red roof, the rest has [[Flat Roof]].",
+      "templateType": "Street"
+    },
+    {
+      "city": "Ankrahmun",
+      "implemented": "7.3",
+      "name": "Rathal",
+      "notes": "{{StreetStyles|Rathal}} is located in the north-east of the city.<br/>\n\nBuildings and NPCs from west to east and north to south on the street:<br/>",
+      "templateType": "Street"
+    },
+    {
+      "city": "Port Hope",
+      "implemented": "7.5",
+      "name": "Haggler's Hangout",
+      "notes": "{{StreetStyles|Haggler's Hangout}} is on the ground floor of [[Port Hope]] on the north side of the river [[Mahaji]], opposite {{StreetStyles|Bamboo Garden}} on the south side of the river.<br/>\nLadders lead to the upper level with {{StreetStyles|Coconut Quay}} to the west, {{StreetStyles|River Homes}} in the center, and {{StreetStyles|Jungle Edge}} to the east.<br/>\n<br/>\nBuildings and NPCs from west to east and south to north on the street:<br/>\n* [[Port Hope Tavern]]\n** [[Clyde]] (ground floor)\n** [[Uso]] ([[Knight|Knight Guild]], -1 floor)\n** [[Helor]] ([[Paladin|Paladin Guild]], first floor)\n** [[Myra]] ([[Sorcerer|Sorcerer Guild]], first floor)\n** [[Ustan]] ([[Druid|Druid Guild]], first floor)\n* Outpost tower\n* [[Haggler's Hangout 1]]\n* [[Haggler's Hangout 2]]\n* [[Temple]]\n** [[Brewster]] (ground floor)\n** [[Port Hope Library]] (first floor)\n* [[Haggler's Hangout 4b (Shop)]]\n* [[Haggler's Hangout 4a (Shop)]]\n* [[Haggler's Hangout 3]]\n* [[Port Hope Depot]]\n** [[Ray]], Post office (first floor)\n** [[Gail]], Jewelry shop (first floor)\n** [[Brengus]], Armor/Weapons shop (first floor)\n** [[Ferks]], [[Bank]] (first floor)\n** [[Zaidal]], Furniture shop (second floor)\n** [[Tandros]], Magic shop (second floor)\n** [[Perod]], Equipment and Distance shop (second floor)\n** [[Holy Shrines#Teleport Hallways|Teleporter Hallway]] (third floor)\n* [[Old Adall]], centre [[Port Hope Ferries|ferry]]\n* [[Haggler's Hangout 5 (Shop)]]\n* [[Haggler's Hangout 6]]\n* Empty house with sealed door and a wolf in the enclosed yard (wolf accessible through [[Port Hope Swamp Trolls|cave]])\n* [[Angus]], [[Tibian Explorer Society]]\n* Outpost tower",
+      "templateType": "Street"
+    },
+    {
+      "city": "Thais",
+      "implemented": "Pre-6.0",
+      "name": "Mill Avenue",
+      "notes": "{{StreetStyles|Mill Avenue}} is in north-east [[Thais]]. It touches {{StreetStyles|Temple Street}} at the west and {{StreetStyles|The City Wall}} at the east.<br/>\n<br/>\nBuildings and NPCs from west to east and north to south on the street:<br/>\n* [[Grof, The Guard]], north gate\n* [[Mill]]\n* [[Mill Avenue 1 (Shop)]]\n* [[Mill Avenue 2 (Shop)]]\n* [[Venore]] branch office Warehouse\n** [[Gamon]], [[Furniture|Furniture Shop]]\n** [[Topsy]], [[Magic|Magic Shop]]\n** [[Turvy]], [[Armor|Armor Shop]]\n* [[Mill Avenue 3]]\n* [[Mill Avenue 4]] (second floor)\n* [[Mill Avenue 5]]\n\n* [[The City Wall 1a]]\n* [[The City Wall 1b]]  (second floor)\n* [[Miles, The Guard]], north-east outpost  (third floor)",
+      "templateType": "Street"
+    },
+    {
+      "city": "Ankrahmun",
+      "implemented": "7.3",
+      "name": "Arakmehn",
+      "notes": "{{StreetStyles|Arakmehn}} is located in the north of the city.<br/>\n\nBuildings and NPCs from west to east and north to south on the street:<br/>",
+      "templateType": "Street"
+    },
+    {
+      "city": "Liberty Bay",
+      "implemented": "7.8",
+      "name": "Klabauter Walk",
+      "notes": "{{StreetStyles|Klabauter Walk}} is in south [[Liberty Bay]]. It touches {{StreetStyles|Litter Promenade}} to the west, and {{StreetStyles|Freedom Street}} to the east.\n\nBuildings and NPCs from west to east and north to south:\n* [[Liberty Bay Libraries#Freedom Street|Liberty Bay Libraries]]\n* [[Marcus]], Harbour\n* [[Captain Waverider]], [[Boat]]\n* [[Captain Max]], [[Boat]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Carlin",
+      "name": "Central Street",
+      "notes": "{{StreetStyles|Central Street}} is in north [[Carlin]]. It touches {{StreetStyles|Park Lane}} to the west, {{StreetStyles|Northern Street}} to the east, and {{StreetStyles|Theater Avenue}} to the south.\n\nBuildings and NPCs from north to south and west to east on the street:<br/>\n* [[Bambi Bonecrusher]], North Gate\n* [[Castle of Carlin]]\n** [[Lou Toose]], Throne Room\n** [[Barbara]], Throne Room\n** [[Fenbala]], Throne Room \n** [[Queen Eloise]], Throne Room \n** [[Bunny Bonecrusher]], General's quarters (third floor)\n* [[Trisha]], [[Knight|Knight Guild]]\n* [[Liane]], [[Depot]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Ankrahmun",
+      "implemented": "7.3",
+      "name": "Mothrem",
+      "notes": "{{StreetStyles|Mothrem}} is located in the north-west of the city.<br/>\n\nBuildings and NPCs from west to east and north to south on the street:<br/>",
+      "templateType": "Street"
+    },
+    {
+      "city": "Svargrond",
+      "implemented": "8.00",
+      "name": "Streets of Svargrond",
+      "notes": "<table border=\"0\" cellpadding=\"1\" cellspacing=\"0\" >\n<tr>\n  <td>{{StreetStyles|Arena Walk}}</td>\n  <td>([[Arena Walk|*]])It runs down from the [[Svargrond Arena|Arena]] entrance vertically</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Bears Paw}}</td>\n  <td>([[Bears Paw|*]])Connects the houses directly north, west and south of the depot</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Corner Shop}}</td>\n  <td>([[Corner Shop|*]])Connects the depot with the shops and the boat (harbor)</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Fimbul Shelf}}</td>\n  <td>([[Fimbul Shelf|*]])Runs in the south-west part of the city connecting a few houses next to some ice grounds</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Furrier Quarter}}</td>\n  <td>([[Furrier Quarter|*]])Runs vertically connecting [[Fimbul Shelf]] until touching the [[Spirit Homes]] in the north</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Glacier Side}}</td>\n  <td>([[Glacier Side|*]])Running half a circle around the temple in the north-west part of town touching with [[Spirit Homes]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Pilchard Bin}}</td>\n  <td>([[Pilchard Bin|*]])A block of flats south-east of depot</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Raven Corner}}</td>\n  <td>([[Raven Corner|*]])Small corner with three houses connected with [[Bears Paw]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Shady Rocks}}</td>\n  <td>([[Shady Rocks|*]])Running north of depot, vertical and horizontal</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Shelf Site}}</td>\n  <td>([[Shelf Site|*]])One house connected with [[Glacier Side]], one level up in the west of town</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Skiffs End}}</td>\n  <td>([[Skiffs End|*]])Running between [[Buddel]] and the [[Trout Plaza]] in the most southern point of town</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Spirit Homes}}</td>\n  <td>([[Spirit Homes|*]])Running in north-west corner of town around temple, touching with [[Glacier Side]].</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Trout Plaza}}</td>\n  <td>([[Trout Plaza|*]])Running in an angle below [[Bears Paw]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Tusk Flats}}</td>\n  <td>([[Tusk Flats|*]])Connecting a few houses in the north-east corner of town, north of [[Corner Shop]]</td>\n</tr>\n</table>\n<br/>\nSome Svargrond buildings and NPCs lie outside the city beyond named streets:<br/>\n'''North of the city:'''\n* [[Iskan]], near [[Nibelor]]\n'''North, in the [[Svargrond Arena|Arena]]:'''\n* [[Halvar]]\n* [[Robert]] (first floor)\n* [[Hawkyr]] (first floor)\n* [[Thorwulf]] (first floor)\n'''North, on [[Formorgar Glacier]]:'''\n* [[Iyad]], [[Magic Carpet]] (third floor)\n* [[Romir]] (second floor)\n* [[Frost Manor]] (second floor)\n* [[A Starving Dog]] (second floor)\n'''West, in [[Formorgar Glacier]]:'''\n* [[A Restless Soul]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Kazordoon",
+      "floor": "-4",
+      "implemented": "6.1",
+      "name": "Temple Road",
+      "notes": "{{StreetStyles|Temple Road}} is in [[Kazordoon]] on the fourth and [[Streets of Kazordoon-5|fifth]] underground (-4, -5) floors. It touches {{StreetStyles|Tunnel Gardens}} in the north-west. Stairs go up to {{StreetStyles|Mushroom Alley}} (-3) in the middle.<br/>\n<br/>\nBuildings and NPCs from north to south and west to east on the street:<br/>\n\n* [[Xelvar]]\n* Portals to [[The Spike]] and [[Gnomegate]]\n* [[Pydar]], [[Blessing|Blesser]]\n* [[Dragoneaters]] fellowship\n* [[Iron Guildhall]], entrance on [[Shops Street]] (-2)\n* [[Tunnel Gardens]]\n* [[Ore Wagon]]s to [[Brodrosch]]'s [[Steam Boat]], [[Shops Street|Shops]], [[The Market|Depot]], [[Kazordoon Entrance|Main Gate]]\n* [[Ferus]], Wedding room\n* [[Isimov]], Temple\n* [[Kazordoon Fortress]] (inaccessible)\n* [[Savage Axes]] fellowship\n* [[Dwacatra]], entrance on [[Kazordoon Entrance]] (-2)\n* [[Game Room]]s: [[Tic Tac Toe]], [[Mill]], [[Chess]]/[[Checkers]].\n* stairs to [[Kawill]], Druid Guild and [[Blessing|Blesser]]\n* [[Molten Rock]] fellowship",
+      "templateType": "Street"
+    },
+    {
+      "city": "Thais",
+      "implemented": "Pre-6.0",
+      "name": "Upper Swamp Lane",
+      "notes": "{{StreetStyles|Upper Swamp Lane}} is in south [[Thais]]. It touches {{StreetStyles|Harbour Street}} to the west, {{StreetStyles|Lower Swamp Lane}} to the south, {{StreetStyles|Farm Lane}} to the north, and {{StreetStyles|The City Wall}} to the east.<br/>\n<br/>\nBuildings and NPCs from north to south and west to east on the street:<br/>\n* [[Elane]], [[Paladin|Paladin Guild]]\n* [[Galuna]], [[Paladin|Paladin Guild]] (second floor)\n* [[Upper Swamp Lane 2]]\n* [[Upper Swamp Lane 4]]\n* [[Alai Flats, Flat 01]]\n* [[Alai Flats, Flat 02]]\n* [[Alai Flats, Flat 03]]\n* [[Alai Flats, Flat 04]]\n* [[Alai Flats, Flat 05]]\n* [[Alai Flats, Flat 06]]\n* [[Alai Flats, Flat 07]]\n* [[Alai Flats, Flat 08]]\n* [[Alai Flats, Flat 11]] (second floor)\n* [[Alai Flats, Flat 12]] (second floor)\n* [[Alai Flats, Flat 13]] (second floor)\n* [[Alai Flats, Flat 14]] (second floor)\n* [[Alai Flats, Flat 15]] (second floor)\n* [[Alai Flats, Flat 16]] (second floor)\n* [[Alai Flats, Flat 17]] (second floor)\n* [[Alai Flats, Flat 18]] (second floor)\n* [[Alai Flats, Flat 21]] (third floor)\n* [[Alai Flats, Flat 22]] (third floor)\n* [[Alai Flats, Flat 23]] (third floor)\n* [[Alai Flats, Flat 24]] (third floor)\n* [[Alai Flats, Flat 25]] (third floor)\n* [[Alai Flats, Flat 26]] (third floor)\n* [[Alai Flats, Flat 27]] (third floor)\n* [[Alai Flats, Flat 28]] (third floor)\n* [[Southern Thais Guildhall]]\n* [[Upper Swamp Lane 8]]\n* [[Upper Swamp Lane 10]]\n* [[Upper Swamp Lane 12]]\nSee [[Lower Swamp Lane]] for the buildings on the south side of '''Upper Swamp Lane'''.",
+      "templateType": "Street"
+    },
+    {
+      "city": "Rathleton",
+      "implemented": "10.50",
+      "name": "Wallside Lane",
+      "notes": "{{StreetStyles|Wallside Lane}} is in the south-east on the first floor (main part of the city). It touches {{StreetStyles|Antimony Lane}} to the north.<br/>\n<br/>\nBuildings from west to east on the street:<br/>\n\n* [[Wallside Lane 2]]\n* [[Wallside Lane 1]]\n* [[Wallside Residence]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Carlin",
+      "name": "Sea Lane",
+      "notes": "{{StreetStyles|Sea Lane}} is in the south of [[Carlin]]. It only touches {{StreetStyles|Magician's Alley}} to the north. It is near {{StreetStyles|Central Plaza}} in central Carlin, and {{StreetStyles|Harbour Lane}} to the northeast.\n\nBuildings and NPCs from north to south on the street:\n* [[Nydala]], [[Furniture]]\n* [[Lonely Sea Side Hostel]]\n** [[Dane]], [[White Wave Cellar]] (-1 floor)\n* [[Suntower]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Rathleton",
+      "implemented": "10.50",
+      "name": "Vanward Flats",
+      "notes": "{{StreetStyles|Vanward Flats}} is in the south on the first floor (main part of the city). It touches {{StreetStyles|Cistern Avenue}} to the west and {{StreetStyles|Antimony Lane}} to the north.<br/>\n<br/>\nBuildings on the street:<br/>\n\n* [[Vanward Flats A]]\n* [[Vanward Flats B]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Kazordoon",
+      "implemented": "6.1",
+      "name": "Mountain Pass",
+      "notes": "{{StreetStyles|Mountain Pass}} is located in Kazordoon.",
+      "templateType": "Street"
+    },
+    {
+      "city": "Liberty Bay",
+      "implemented": "7.8",
+      "name": "Smuggler Backyard",
+      "notes": "{{StreetStyles|Straycat's Corner}} is in southwest [[Liberty Bay]]. It touches {{StreetStyles|Shady Trail}} to the north, and {{StreetStyles|Litter Promenade}} to the south.\n\nBuildings and NPCs from west to east and north to south:\n* [[Straycat's Corner 1]]\n* [[Straycat's Corner 2]]\n* [[Straycat's Corner 3]]\n* [[Straycat's Corner 4]]\n* [[Straycat's Corner 5]]\n* [[Straycat's Corner 6]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Ab'Dendriel",
+      "implemented": "6.2",
+      "name": "Underwood",
+      "notes": "{{StreetStyles|Underwood}} is the southern part of [[Ab'Dendriel]] on the ground floor. It touches {{StreetStyles|Great Willow}} and {{StreetStyles|Mangrove}} to the north and is the floor below {{StreetStyles|Treetop}} and above {{StreetStyles|Shadow Caves}}.<br/>\n<br/>\nBuildings and NPCs from south to north west to east on the street:<br/>\n\n* [[Elf Guard]], gate (+1 floor)\n* [[Olrik]], [[Postman NPCs|Post Office]]\n* [[Roderick]], [[Postman NPCs|Post Office]] (+1 floor)\n* [[Underwood 1]]\n* [[Underwood 2]]\n* [[Faluae]]\n* [[Underwood 7]]\n* [[A Sweaty Cyclops]] (+4 floor)\n* [[Guide Thelandil]] (+1 floor)\n* [[Captain Seagull]], [[Ship]] (+1 floor)\n* [[Underwood 10]]\n* [[Underwood 4]]\n* [[Underwood 3]]\n* [[Underwood 5]]\n* [[Underwood 6]]\n* [[Anerui]], [[Food Shopkeeper NPCs|Food Shop]]\n* [[Ab'Dendriel Library]]\n* [[Underwood 9]]\n* [[Underwood 8]]\n* [[Ab'Dendriel Clanhall]]\n* [[Maealil]], [[Temple]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Carlin",
+      "name": "East Lane",
+      "notes": "{{StreetStyles|East Lane}} is in east [[Carlin]]. It only touches {{StreetStyles|Theater Avenue}}, to the north.\n\nBuildings from west to east on the street:<br/>\n* [[East Lane 1a]]\n* [[East Lane 1b]] (second floor)\n* [[East Lane 2]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Thais",
+      "implemented": "Pre-6.0",
+      "name": "Streets of Thais",
+      "notes": "<table border=\"0\" cellpadding=\"1\" cellspacing=\"0\" >\n<tr>\n  <td>{{StreetStyles|Farm Lane}}</td>\n  <td>([[Farm Lane|*]])running vertical east of the temple, connecting Main Street and Upper Swamp Lane</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Harbour Street}}</td>\n  <td>([[Harbour Street|*]]) running vertical from west side of depot south</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Lower Swamp Lane}}</td>\n  <td>([[Lower Swamp Lane|*]]) running horizontal below the temple, south of Upper Swamp Lane</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Main Street}}</td>\n  <td>([[Main Street|*]]) running horizontal from ship to the east gate</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Mill Avenue}}</td>\n  <td>([[Mill Avenue|*]]) running horizontal in north-east Thais, connecting Temple Street and The City Wall</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Royal Avenue}}</td>\n  <td>([[Royal Avenue|*]]) running horizontal in north-west Thais\n</tr>\n<tr>\n  <td>{{StreetStyles|Sorcerer's Avenue}}</td>\n  <td>([[Sorcerer's Avenue|*]]) running horizontal west from Harbour Avenue to the west city gate</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Temple Street}}</td>\n  <td>([[Temple Street|*]]) running vertical from the temple north till the north entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|The City Wall}}</td>\n  <td>([[The City Wall|*]]) running vertical on east side of Thais</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Upper Swamp Lane}}</td>\n  <td>([[Upper Swamp Lane|*]]) running horizontal below the temple</td>\n</tr>\n</table>\n<br/>\nSome Thais buildings and NPCs lie outside the city beyond named streets:<br/>\n* [[Aruda]] wanders everywhere in the city as well as both north and south of it.\n'''North:'''\n* '''[[Greenshore Street]]'''\n* '''[[Thaian-Venorean Road]]'''\n* [[Thais Graveyard]]\n* [[A Frog]]\n* [[Dark Mansion]]\n* [[Loria]]\n* [[Lugri]] (-1 floor)\n* [[Halls of the Adventurers]]\n'''East:'''\n* [[Bloodhall]]\n* [[Lubo]], [[Lubo's Adventurer-Shop]]\n* [[Hoggle]], fishing hut (second floor)\n* [[Wally]], [[Postal Service Headquarters]]\n* [[Kevin]], [[Postal Service Headquarters]] (second floor)\n* [[Demon Tower]]\n'''South:'''\n* [[Thais Lighthouse]]\n* [[Spiritkeep]]\n* [[Hardek]], [[Armors]][[Weapons|and Weapons]]\n* [[Edowir]], [[White Flower Temple]]\n* [[Norf]], [[White Flower Temple]] (second floor)\n* [[Snake Tower]]\n* '''[[Fibula Street]]'''",
+      "templateType": "Street"
+    },
+    {
+      "city": "Port Hope",
+      "floor": "+1",
+      "implemented": "7.5",
+      "name": "Banana Bay",
+      "notes": "{{StreetStyles|Banana Bay}} is on the first floor of [[Port Hope]] near the mouth of the river [[Mahaji]] mostly on the south side, opposite {{StreetStyles|Coconut Quay}} on the north side of the river. It borders {{StreetStyles|Crocodile Bridge}} to the east.<br/>\nLadders lead to the lower level with {{StreetStyles|Bamboo Garden}}.\n<br/>\n<br/>\nBuildings and NPCs from west to east and north to south on the street:<br/>\n* [[Charles]], Boat\n* [[Guide Tiko]], dock\n* [[Banana Bay 1]]\n* [[Banana Bay 2]]\n* [[Banana Bay 3]]\n* [[Banana Bay 4]]",
+      "templateType": "Street"
+    },
+    {},
+    {
+      "city": "Venore",
+      "implemented": "7.1",
+      "name": "Market Street",
+      "notes": "{{StreetStyles|Market Street}} is in north [[Venore]]. It touches {{StreetStyles|Seagull Walk}} to the west, {{StreetStyles|Old Lighthouse}} to the north west, {{StreetStyles|Mystic Lane}} to the south west, crosses {{StreetStyles|Walk of Flame}}, and touches {{StreetStyles|Loot Lane}} to the south east and {{StreetStyles|Silver Street}} in the east.<br/>\n<br/>\nBuildings and NPCs from west to east and north to south on the street:<br/>\n* [[Seagull Walk 1]]\n* [[Market Street 1]]\n* [[Market Street 2]]\n* [[Market Street 3]]\n* [[Market Street 4 (Shop)]]\n* [[Market Street 5 (Shop)]]\n* [[Crunor's Finest Warehouse]]\n** [[Rose]] (entrance/+1 floor)\n** [[Rodney]] (entrance/+1 floor)\n** [[Livielle]] (entrance/+1 floor)\n** [[Talesia]] (+2 floor)\n* [[Market Street 6]]\n* [[Plank and Treasurechest]]\n** [[Allen]] (entrance/+1floor)\n** [[Borkas]] (entrance/+1 floor)\n** [[Yulas]] (entrance/+1 floor) \n* [[Market Street 7]]\n* [[Jean Claude]], outside House of Wealth\n* [[House of Wealth]]\n** [[Carina]],  (entrance/+1 floor)\n** [[Rokyn]] (entrance/+1 floor)\n** [[Odemara]] (entrance/+1 floor)\n** [[Dagomir]] (+2 floor)",
+      "templateType": "Street"
+    },
+    {
+      "city": "Venore",
+      "implemented": "7.1",
+      "name": "Paupers Palace",
+      "notes": "{{StreetStyles|Paupers Palace}} is in west [[Venore]]. It touches {{StreetStyles|Dream Street}} to the west and {{StreetStyles|Dagger Alley}} and {{StreetStyles|Salvation Street}} to the east.<br/>\n<br/>\nBuildings on the street:<br/>\n* [[Paupers Palace, Flat 01]] (ground floor)\n* [[Paupers Palace, Flat 02]] (ground floor)\n* [[Paupers Palace, Flat 03]] (ground floor)\n* [[Paupers Palace, Flat 04]] (ground floor)\n* [[Paupers Palace, Flat 05]] (ground floor)\n* [[Paupers Palace, Flat 06]] (ground floor)\n* [[Paupers Palace, Flat 07]] (ground floor)\n* [[Paupers Palace, Flat 11]] (+1 floor)\n* [[Paupers Palace, Flat 12]] (+1 floor)\n* [[Paupers Palace, Flat 13]] (+1 floor)\n* [[Paupers Palace, Flat 14]] (+1 floor)\n* [[Paupers Palace, Flat 15]] (+1 floor)\n* [[Paupers Palace, Flat 16]] (+1 floor)\n* [[Paupers Palace, Flat 17]] (+1 floor)\n* [[Paupers Palace, Flat 18]] (+1 floor)\n* [[Paupers Palace, Flat 21]] (+2 floor)\n* [[Paupers Palace, Flat 22]] (+2 floor)\n* [[Paupers Palace, Flat 23]] (+2 floor)\n* [[Paupers Palace, Flat 24]] (+2 floor)\n* [[Paupers Palace, Flat 25]] (+2 floor)\n* [[Paupers Palace, Flat 26]] (+2 floor)\n* [[Paupers Palace, Flat 27]] (+2 floor)\n* [[Paupers Palace, Flat 28]] (+2 floor)\n* [[Paupers Palace, Flat 31]] (+3 floor)\n* [[Paupers Palace, Flat 32]] (+3 floor)\n* [[Paupers Palace, Flat 33]] (+3 floor)\n* [[Paupers Palace, Flat 34]] (+3 floor)",
+      "templateType": "Street"
+    },
+    {
+      "city": "Ab'Dendriel",
+      "implemented": "6.2",
+      "name": "Great Willow",
+      "notes": "{{StreetStyles|Great Willow}} is in the central part of [[Ab'Dendriel]] with entrances on the ground and first (+1) floors. From the ground floor it is at the intersection of {{StreetStyles|Underwood}} and {{StreetStyles|Mangrove}} and from the first floor touches {{StreetStyles|Treetop}} to the south.<br/>\n<br/>\nBuildings per floor:<br/>\n\n* [[Great Willow 1a]]\n* [[Great Willow 1b]]\n* [[Great Willow 1c]]\n* [[Great Willow 2a]] (first floor)\n* [[Great Willow 2b]] (first floor)\n* [[Great Willow 2c]] (first floor)\n* [[Great Willow 2d]] (first floor)\n* [[Great Willow 3a]] (second floor)\n* [[Great Willow 3b]] (second floor)\n* [[Great Willow 3c]] (second floor)\n* [[Great Willow 3d]] (second floor)\n* [[Great Willow 4a]] (third floor)\n* [[Great Willow 4b]] (third floor)\n* [[Great Willow 4c]] (third floor)\n* [[Great Willow 4d]] (third floor)",
+      "templateType": "Street"
+    },
+    {
+      "city": "Ankrahmun",
+      "implemented": "7.3",
+      "name": "Othehothep",
+      "notes": "{{StreetStyles|Othehothep}} is located in the north-west of the city.<br/>\n\nBuildings and NPCs from west to east and north to south on the street:<br/>",
+      "templateType": "Street"
+    },
+    {
+      "city": "Port Hope",
+      "floor": "+1",
+      "implemented": "7.5",
+      "name": "River Homes",
+      "notes": "{{StreetStyles|River Homes}} is on the first floor of [[Port Hope]] on the north side of the river [[Mahaji]], opposite but bordering\n{{StreetStyles|Woodway}} on the south side of the river.<br/>\nLadders lead to the lower level with {{StreetStyles|Haggler's Hangout}}.\n<br/>\n<br/>\nBuildings and NPCs from west to east and south to north on the street:<br/>\n* [[River Homes 1]]\n* [[River Homes 2a]]\n* [[River Homes 2b]]\n* [[River Homes 3]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Carlin",
+      "name": "Central Plaza",
+      "notes": "{{StreetStyles|Central Plaza}} is in the center of [[Carlin]]. It touches {{StreetStyles|Theater Avenue}} to the north, and {{StreetStyles|Magician's Alley}} to the south.\n\nBuildings and NPCs from north to south and west to east on the street:<br/>\n'''West:'''<br/>\n* [[Cornelia]], [[Weapons]]\n* [[Imalas]], [[Food]]\n* [[Sarina]], [[Equipment]]\n'''East:'''<br/>\n* [[Central Plaza 3]]\n* [[Central Plaza 2]]\n* [[Central Plaza 1]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Kazordoon",
+      "floor": "+5",
+      "implemented": "6.1",
+      "name": "Streets of Kazordoon",
+      "notes": "<table border=\"0\" cellpadding=\"1\" cellspacing=\"0\" >\n<tr>\n  <td>{{StreetStyles|The Farms}}</td>\n  <td>[[The Farms|*]] +5, 0 floors: houses; wheat fields; [[Colossus]] view; the [[Gewen|magic carpet]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Royal Hall}}</td>\n  <td>[[Royal Hall|*]] +4 floor: Emperor's Quarters</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Nobility Quarter}}</td>\n  <td>[[Nobility Quarter|*]] +3 floor: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Halls of Sorcery}}</td>\n  <td>[[Halls of Sorcery|*]] +2 floor: [[magic]] sellers; sorcerer's guild; [[Kazordoon Libraries|library]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Upper Barracks}}</td>\n  <td>[[Upper Barracks|*]] +2 floor: houses; guildhall</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Armory Street}}</td>\n  <td>[[Armory Street|*]] +1 floor: Armory; general's house; [[Kazordoon Fortress]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Mountain Pass}}</td>\n  <td>[[Mountain Pass|*]] 0 floor: a house; paths through Kazordoon, to city entrances, to [[Mad Mage Valley]], and to [[Dwarven Mines]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|The Market}}</td>\n  <td>[[The Market|*]] -1 floor: houses; [[Depot]] and [[Bank]]; [[Ore Wagon]]s; knight's guild; shops, [[Colossus]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Kazordoon Entrance}}</td>\n  <td>[[Kazordoon Entrance|*]] -2 floor: city entrance/exit; [[Ore Wagon]]s; [[Dwacatra]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Lower Barracks}}</td>\n  <td>[[Lower Barracks|*]] -2 floor: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Shops Street}}</td>\n  <td>[[Shops Street|*]] -2 floor: shops; tavern; guildhalls; [[Ore Wagon]]s</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Mushroom Alley}}</td>\n  <td>[[Mushroom Alley|*]] -3 floor: mushroom farm; way to Brewery; way to shops, to temple, to Technomancers, and to city entrance/exit; city mine entrance and way to [[Steam Boat]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Temple Road}}</td>\n  <td>[[Temple Road|*]] -4, -5 floors: [[Temple]]; Dwarven fellowships; [[Game Room]]s; [[Blessing|Blessers]]; [[Wedding]] room; way to [[Gnomegate]] and [[The Spike]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Tunnel Gardens}}</td>\n  <td>[[Tunnel Gardens|*]] -4, -5 floors: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Technomancer Lane}}</td>\n  <td>[[Technomancer Lane|*]] -5 floor: [[Technomancer]]s</td>\n</tr>\n</table>\n<br />\nSome Kazordoon buildings and NPCs lie outside the city beyond named streets:<br/>\n* [[Rapanaio]], -7 floors underground in City Mines\n* [[Brodrosch]], [[Steamship]], -8 floors underground in City Mines\n'''North:'''\n* [[Lost Cavern]]\n* [[Hill Hideout]]\n* [[Uzon]], Magic Carpet\n'''West:'''\n* [[Budrik]], -1 underground in a mine entrance\n* [[A Dwarven Ghost]], -5 floors underground in [[Budrik]]'s mine\n* [[Riddler]], [[Paradox Tower]], +6 floors above ground\n'''South:'''\n* [[Wyda]]\n* [[MacNoodles]]\n* [[Wally]], [[Postal Service Headquarters]]\n* [[Kevin]], [[Postal Service Headquarters]] (second floor)\n* [[Wolftower]]\n* [[Riverspring]]\n* [[Adrenius]], [[Desert Dungeon]]\n* [[Hagor]], [[Desert Dungeon]]\n* [[Nemal]], [[Desert Dungeon]]\n* [[Outlaw Camp Street]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Kazordoon",
+      "floor": "-4",
+      "implemented": "6.1",
+      "name": "Tunnel Gardens",
+      "notes": "{{StreetStyles|Tunnel Gardens}} is in [[Kazordoon]] on the fourth and [[Streets of Kazordoon-5|fifth]] underground (-4, -5) floor. It touches {{StreetStyles|Temple Road}} in the east.<br/>\n<br/>\nBuildings from east to west and north to south on the street:<br/>\n\nAll houses are accessible from [[Temple Road]] but the first 6 are directly accessible from this -4 floor the latter 6 are accessed by going down a ladder to -5 floor, and then 2 more must go up a ladder again.\n* [[Tunnel Gardens 1]] (-4)\n* [[Tunnel Gardens 2]] (-4)\n* [[Tunnel Gardens 3]] (-4, -5)\n* [[Tunnel Gardens 4]] (-4, -5)\n* [[Tunnel Gardens 5]] (-4)\n* [[Tunnel Gardens 6]] (-4)\n\nAccessed from -5 floor:\n* [[Tunnel Gardens 7]] (-5)\n* [[Tunnel Gardens 8]] (-5)\n* [[Tunnel Gardens 9]] (-4)\n* [[Tunnel Gardens 10]] (-4)\n* [[Tunnel Gardens 11]] (-5)\n* [[Tunnel Gardens 12]] (-5)",
+      "templateType": "Street"
+    },
+    {
+      "city": "Svargrond",
+      "implemented": "8.00",
+      "name": "Furrier Quarter",
+      "notes": "{{StreetStyles|Furrier Quarter}} is located in the southwest of the city.",
+      "templateType": "Street"
+    },
+    {
+      "city": "Svargrond",
+      "implemented": "8.00",
+      "name": "Raven Corner",
+      "notes": "{{StreetStyles|Raven Corner}} is located in the center of the city.",
+      "templateType": "Street"
+    },
+    {
+      "city": "Kazordoon",
+      "floor": "+3",
+      "implemented": "6.1",
+      "name": "Streets of Kazordoon",
+      "notes": "<table border=\"0\" cellpadding=\"1\" cellspacing=\"0\" >\n<tr>\n  <td>{{StreetStyles|The Farms}}</td>\n  <td>[[The Farms|*]] +5, 0 floors: houses; wheat fields; [[Colossus]] view; the [[Gewen|magic carpet]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Royal Hall}}</td>\n  <td>[[Royal Hall|*]] +4 floor: Emperor's Quarters</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Nobility Quarter}}</td>\n  <td>[[Nobility Quarter|*]] +3 floor: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Halls of Sorcery}}</td>\n  <td>[[Halls of Sorcery|*]] +2 floor: [[magic]] sellers; sorcerer's guild; [[Kazordoon Libraries|library]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Upper Barracks}}</td>\n  <td>[[Upper Barracks|*]] +2 floor: houses; guildhall</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Armory Street}}</td>\n  <td>[[Armory Street|*]] +1 floor: Armory; general's house; [[Kazordoon Fortress]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Mountain Pass}}</td>\n  <td>[[Mountain Pass|*]] 0 floor: a house; paths through Kazordoon, to city entrances, to [[Mad Mage Valley]], and to [[Dwarven Mines]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|The Market}}</td>\n  <td>[[The Market|*]] -1 floor: houses; [[Depot]] and [[Bank]]; [[Ore Wagon]]s; knight's guild; shops, [[Colossus]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Kazordoon Entrance}}</td>\n  <td>[[Kazordoon Entrance|*]] -2 floor: city entrance/exit; [[Ore Wagon]]s; [[Dwacatra]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Lower Barracks}}</td>\n  <td>[[Lower Barracks|*]] -2 floor: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Shops Street}}</td>\n  <td>[[Shops Street|*]] -2 floor: shops; tavern; guildhalls; [[Ore Wagon]]s</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Mushroom Alley}}</td>\n  <td>[[Mushroom Alley|*]] -3 floor: mushroom farm; way to Brewery; way to shops, to temple, to Technomancers, and to city entrance/exit; city mine entrance and way to [[Steam Boat]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Temple Road}}</td>\n  <td>[[Temple Road|*]] -4, -5 floors: [[Temple]]; Dwarven fellowships; [[Game Room]]s; [[Blessing|Blessers]]; [[Wedding]] room; way to [[Gnomegate]] and [[The Spike]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Tunnel Gardens}}</td>\n  <td>[[Tunnel Gardens|*]] -4, -5 floors: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Technomancer Lane}}</td>\n  <td>[[Technomancer Lane|*]] -5 floor: [[Technomancer]]s</td>\n</tr>\n</table>\n<br />\nSome Kazordoon buildings and NPCs lie outside the city beyond named streets:<br/>\n* [[Rapanaio]], -7 floors underground in City Mines\n* [[Brodrosch]], [[Steamship]], -8 floors underground in City Mines\n'''North:'''\n* [[Lost Cavern]]\n* [[Hill Hideout]]\n* [[Uzon]], Magic Carpet\n'''West:'''\n* [[Budrik]], -1 underground in a mine entrance\n* [[A Dwarven Ghost]], -5 floors underground in [[Budrik]]'s mine\n* [[Riddler]], [[Paradox Tower]], +6 floors above ground\n'''South:'''\n* [[Wyda]]\n* [[MacNoodles]]\n* [[Wally]], [[Postal Service Headquarters]]\n* [[Kevin]], [[Postal Service Headquarters]] (second floor)\n* [[Wolftower]]\n* [[Riverspring]]\n* [[Adrenius]], [[Desert Dungeon]]\n* [[Hagor]], [[Desert Dungeon]]\n* [[Nemal]], [[Desert Dungeon]]\n* [[Outlaw Camp Street]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Thais",
+      "implemented": "Pre-6.0",
+      "name": "Royal Avenue",
+      "notes": "{{StreetStyles|Royal Avenue}} is in north-west [[Thais]]. It touches {{StreetStyles|Temple Street}} at the east and [[Rain Castle]] at the west.<br/>\n<br/>\nBuildings and NPCs from east to west and north to south on the street:<br/>\n* [[Grof, The Guard]], north gate\n* [[Warriors Guildhall]]\n* [[Harkath Bloodblade]], Royal Army Headquarters\n* [[Chester Kahs]], Royal Army Headquarters (second floor)\n* [[Lynda]], Church\n* [[Baxter]], Rain Castle bridge\n* [[Bozo]], Rain Castle courtyard\n* [[King Tibianus]], Rain Castle throne room (second floor)\n* [[Noodles]], Rain Castle throne room (second floor)\n* [[Vad Inchi]], Rain Castle throne room (second floor)\n* [[Harsky]], Rain Castle throne room (second floor)\n* [[Stutch]], Rain Castle throne room (second floor)\n* [[Trimegis]], Rain Castle tower (third floor)",
+      "templateType": "Street"
+    },
+    {
+      "city": "Kazordoon",
+      "floor": "+4",
+      "implemented": "6.1",
+      "name": "Streets of Kazordoon",
+      "notes": "<table border=\"0\" cellpadding=\"1\" cellspacing=\"0\" >\n<tr>\n  <td>{{StreetStyles|The Farms}}</td>\n  <td>[[The Farms|*]] +5, 0 floors: houses; wheat fields; [[Colossus]] view; the [[Gewen|magic carpet]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Royal Hall}}</td>\n  <td>[[Royal Hall|*]] +4 floor: Emperor's Quarters</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Nobility Quarter}}</td>\n  <td>[[Nobility Quarter|*]] +3 floor: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Halls of Sorcery}}</td>\n  <td>[[Halls of Sorcery|*]] +2 floor: [[magic]] sellers; sorcerer's guild; [[Kazordoon Libraries|library]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Upper Barracks}}</td>\n  <td>[[Upper Barracks|*]] +2 floor: houses; guildhall</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Armory Street}}</td>\n  <td>[[Armory Street|*]] +1 floor: Armory; general's house; [[Kazordoon Fortress]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Mountain Pass}}</td>\n  <td>[[Mountain Pass|*]] 0 floor: a house; paths through Kazordoon, to city entrances, to [[Mad Mage Valley]], and to [[Dwarven Mines]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|The Market}}</td>\n  <td>[[The Market|*]] -1 floor: houses; [[Depot]] and [[Bank]]; [[Ore Wagon]]s; knight's guild; shops, [[Colossus]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Kazordoon Entrance}}</td>\n  <td>[[Kazordoon Entrance|*]] -2 floor: city entrance/exit; [[Ore Wagon]]s; [[Dwacatra]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Lower Barracks}}</td>\n  <td>[[Lower Barracks|*]] -2 floor: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Shops Street}}</td>\n  <td>[[Shops Street|*]] -2 floor: shops; tavern; guildhalls; [[Ore Wagon]]s</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Mushroom Alley}}</td>\n  <td>[[Mushroom Alley|*]] -3 floor: mushroom farm; way to Brewery; way to shops, to temple, to Technomancers, and to city entrance/exit; city mine entrance and way to [[Steam Boat]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Temple Road}}</td>\n  <td>[[Temple Road|*]] -4, -5 floors: [[Temple]]; Dwarven fellowships; [[Game Room]]s; [[Blessing|Blessers]]; [[Wedding]] room; way to [[Gnomegate]] and [[The Spike]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Tunnel Gardens}}</td>\n  <td>[[Tunnel Gardens|*]] -4, -5 floors: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Technomancer Lane}}</td>\n  <td>[[Technomancer Lane|*]] -5 floor: [[Technomancer]]s</td>\n</tr>\n</table>\n<br />\nSome Kazordoon buildings and NPCs lie outside the city beyond named streets:<br/>\n* [[Rapanaio]], -7 floors underground in City Mines\n* [[Brodrosch]], [[Steamship]], -8 floors underground in City Mines\n'''North:'''\n* [[Lost Cavern]]\n* [[Hill Hideout]]\n* [[Uzon]], Magic Carpet\n'''West:'''\n* [[Budrik]], -1 underground in a mine entrance\n* [[A Dwarven Ghost]], -5 floors underground in [[Budrik]]'s mine\n* [[Riddler]], [[Paradox Tower]], +6 floors above ground\n'''South:'''\n* [[Wyda]]\n* [[MacNoodles]]\n* [[Wally]], [[Postal Service Headquarters]]\n* [[Kevin]], [[Postal Service Headquarters]] (second floor)\n* [[Wolftower]]\n* [[Riverspring]]\n* [[Adrenius]], [[Desert Dungeon]]\n* [[Hagor]], [[Desert Dungeon]]\n* [[Nemal]], [[Desert Dungeon]]\n* [[Outlaw Camp Street]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Kazordoon",
+      "floor": "+2",
+      "implemented": "6.1",
+      "name": "Upper Barracks",
+      "notes": "{{StreetStyles|Upper Barracks}} is located in Kazordoon, on +2 floor.\n\nBuildings and NPCs from north to south then west to east on the street:\n* [[Upper Barracks 1]]\n* [[Upper Barracks 2]]\n* [[Upper Barracks 3]]\n* [[Upper Barracks 4]]\n* [[Upper Barracks 5]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Kazordoon",
+      "floor": "-2",
+      "implemented": "6.1",
+      "name": "Lower Barracks",
+      "notes": "{{StreetStyles|Lower Barracks}} is in [[Kazordoon]] on the second underground (-2) floor. It is surrounded by {{StreetStyles|Shops Street}}.<br/>\n<br/>\nBuildings from north to south then west to east on the street:<br/>\n\n'''West block, west half:'''<br />\n* [[Lower Barracks 1]]\n* [[Lower Barracks 3]]\n* [[Lower Barracks 5]]\n* [[Lower Barracks 7]]\n* [[Lower Barracks 9]]\n* [[Lower Barracks 11]]\n\n'''West block, east half:'''<br />\n* [[Lower Barracks 2]]\n* [[Lower Barracks 4]]\n* [[Lower Barracks 6]]\n* [[Lower Barracks 8]]\n* [[Lower Barracks 10]]\n* [[Lower Barracks 12]]\n\n'''East block, west half:'''<br />\n* [[Lower Barracks 24]]\n* [[Lower Barracks 22]]\n* [[Lower Barracks 20]]\n* [[Lower Barracks 18]]\n* [[Lower Barracks 16]]\n* [[Lower Barracks 14]]\n\n'''East block, east half:'''<br />\n* [[Lower Barracks 23]]\n* [[Lower Barracks 21]]\n* [[Lower Barracks 19]]\n* [[Lower Barracks 17]]\n* [[Lower Barracks 15]]\n* [[Lower Barracks 13]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Svargrond",
+      "implemented": "8.00",
+      "name": "Spirit Homes",
+      "notes": "{{StreetStyles|Spirit Homes}} is located in the northwest of the city.",
+      "templateType": "Street"
+    },
+    {
+      "city": "Thais",
+      "implemented": "Pre-6.0",
+      "name": "Main Street",
+      "notes": "{{StreetStyles|Main Street}} is in central [[Thais]]. It touches {{StreetStyles|Harbour Street}} at the west, {{StreetStyles|Temple Street}} in central Thais, {{StreetStyles|Farm Lane}} in east-central Thais, and {{StreetStyles|The City Wall}} at the east.<br/>\n<br/>\nBuildings and NPCs from west to east and north to south on the street:<br/>\n'''North-west:'''<br/>\n* [[Captain Bluebear]], [[Boat]] (second floor)\n* [[Guide Luke]], [[Boat]] (second floor)\n* [[Dorian]], Docks (-1 floor)\n* [[Gamel]], Docks (-1 floor)\n* [[Black Bert]], Docks (second floor)\n* [[Warriors Guildhall]]\n* [[Frodo]], Tavern\n'''South-west:'''<br/>\n* [[Harbour Place 2 (Shop)]]\n* [[Towncryer]]\n* [[Benjamin]], [[Depot]]\n* [[Lorenzo]], [[Monster Arena]]\n* [[Deseus]], [[Monster Arena]]\n* [[Victor]], [[Duelling Arena]]\n* Library (no books)\n'''Central:'''<br/>\n* [[Quentin]], [[Temple]] and [[Holy Shrines#Teleporter Hallway|Teleporter Hallway]]\n* [[Hoaxette]] - wanders around here during month of April\n'''North-east:'''<br/>\n* Park\n* [[Game Rooms#Thais|The Games Hall]] (-1 floor)\n** [[Cillia]], Tibian Prize Exhibition (accessible through Games Hall)\n* [[Gregor]], The Knights Arena and [[Knight|Knight Guild]] (second floor)\n* [[Marvik]] (-1 floor)\n'''South-east:'''<br/>\n* [[Oswald]]\n* [[Main Street 9, 1st floor (Shop)]]\n* [[Main Street 9a, 2nd floor (Shop)]] (second floor)\n* [[Main Street 9b, 2nd floor (Shop)]] (second floor)\n* [[Quero]], [[Musical Instruments|Music Store]]\n* [[Xodet]], [[Magic|Thais Magic Shop]]\n* [[Hanna]], [[Valuables|Jeweler]]\n* [[Tim, The Guard]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Thais",
+      "city2": "Venore",
+      "implemented": "7.1",
+      "map": "<imagemap>\nFile:Thaian-Venorean Road.png|370px\nrect 126 410 156 438 [[Dark Mansion]]\ndesc bottom-right\n</imagemap>",
+      "name": "Thaian-Venorean Road",
+      "notes": "The Thaian-Venorean Road is located on the mainland of [[Tibia]] and connects [[Thais]] with [[Venore]]. Buildings at this road are:\n\n*[[Dark Mansion]]\n*Mount Sternum Outlook Tower\n*[[Lubo's Adventurer-Shop]]\n*[[Postal Service Headquarters]]\n*[[Mac Noodles]]\n*[[Wolftower]]\n*Venore [[Horse Station]]\n\nOther nearby points of interest include:\n\n*Thaian-Greenshore Road\n*[[Thais Graveyard]]\n*[[Alatar Lake]]\n*[[Mount Sternum]]\n*[[Triangle Tower]]\n*[[Dwarven Bridge]]\n*[[Jakundaf Desert]]\n*[[Riverspring]]\n*[[Venore Dragon Lair]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Kazordoon",
+      "floor": "-2",
+      "implemented": "6.1",
+      "name": "Kazordoon Entrance",
+      "notes": "{{StreetStyles|Kazordoon Entrance}} is in [[Kazordoon]] on the second underground (-2) floor. It has stairs on north end exiting the city, going up to {{StreetStyles|Mountain Pass}}. Stairs on south end go to {{StreetStyles|Mushroom Alley}} and the rest of the city.<br/>\n<br/>\nNotable things from north to south on the street:<br/>\n\n* [[Kazordoon Fortress]] (inaccessible)\n* [[Ore Wagon]]s to [[Shops Street]], [[The Market]], [[Temple Road]], [[Brodrosch]]'s [[Steamship]]\n* [[Ore Wagon]] to [[Lightbearer]] reward room where [[Lucius]] can be found during that event.\n* Stairs going down [[Mushroom Alley]] and the rest of the city\n* Stairs going down to [[Dwacatra]], the prison",
+      "templateType": "Street"
+    },
+    {
+      "city": "Ankrahmun",
+      "implemented": "7.3",
+      "name": "Thrarhor (Shop)",
+      "notes": "{{StreetStyles|Thrarhor (Shop)}} is located in the center of the city.<br/>\n\nBuildings and NPCs from west to east and north to south on the street:<br/>",
+      "templateType": "Street"
+    },
+    {
+      "city": "Liberty Bay",
+      "implemented": "7.8",
+      "name": "Marble Lane",
+      "notes": "{{StreetStyles|Marble Lane}} is in north [[Liberty Bay]]. It touches {{StreetStyles|Sugar Street}} to the south and {{StreetStyles|Admiral's Avenue}} to the southeast.\n\nBuildings and NPCs from north to south and west to east:<br/>\n'''South-West:'''\n* [[Marble Lane 1]]\n* [[Marble Lane 2]]\n* [[Marble Lane 3]]\n* [[Marble Lane 4]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Ankrahmun",
+      "implemented": "7.3",
+      "name": "Unklath",
+      "notes": "{{StreetStyles|Unklath}} is located in the north of the city.<br/>\n\nBuildings and NPCs from west to east and north to south on the street:<br/>",
+      "templateType": "Street"
+    },
+    {
+      "city": "Kazordoon",
+      "floor": "+1",
+      "implemented": "6.1",
+      "name": "Armory Street",
+      "notes": "{{StreetStyles|Armory Street}} is located in Kazordoon.",
+      "templateType": "Street"
+    },
+    {
+      "city": "Port Hope",
+      "floor": "+1",
+      "implemented": "7.5",
+      "name": "Jungle Edge",
+      "notes": "{{StreetStyles|Jungle Edge}} is on the first floor of [[Port Hope]] on the north side of the river [[Mahaji]], opposite but bordering\n{{StreetStyles|Flamingo Flats}} on the south side of the river.<br/>\nLadders lead to the lower level with {{StreetStyles|Haggler's Hangout}}.\n<br/>\n<br/>\nBuildings and NPCs from west to east and north to south on the street:<br/>\n* [[Jungle Edge 1]]\n* [[Jungle Edge 2]]\n* [[Jungle Edge 3]]\n* [[Jungle Edge 4]]\n* [[Jungle Edge 5]]\n* [[Jungle Edge 6]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Kazordoon",
+      "floor": "-3",
+      "implemented": "6.1",
+      "name": "Streets of Kazordoon",
+      "notes": "<table border=\"0\" cellpadding=\"1\" cellspacing=\"0\" >\n<tr>\n  <td>{{StreetStyles|The Farms}}</td>\n  <td>[[The Farms|*]] +5, 0 floors: houses; wheat fields; [[Colossus]] view; the [[Gewen|magic carpet]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Royal Hall}}</td>\n  <td>[[Royal Hall|*]] +4 floor: Emperor's Quarters</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Nobility Quarter}}</td>\n  <td>[[Nobility Quarter|*]] +3 floor: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Halls of Sorcery}}</td>\n  <td>[[Halls of Sorcery|*]] +2 floor: [[magic]] sellers; sorcerer's guild; [[Kazordoon Libraries|library]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Upper Barracks}}</td>\n  <td>[[Upper Barracks|*]] +2 floor: houses; guildhall</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Armory Street}}</td>\n  <td>[[Armory Street|*]] +1 floor: Armory; general's house; [[Kazordoon Fortress]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Mountain Pass}}</td>\n  <td>[[Mountain Pass|*]] 0 floor: a house; paths through Kazordoon, to city entrances, to [[Mad Mage Valley]], and to [[Dwarven Mines]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|The Market}}</td>\n  <td>[[The Market|*]] -1 floor: houses; [[Depot]] and [[Bank]]; [[Ore Wagon]]s; knight's guild; shops, [[Colossus]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Kazordoon Entrance}}</td>\n  <td>[[Kazordoon Entrance|*]] -2 floor: city entrance/exit; [[Ore Wagon]]s; [[Dwacatra]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Lower Barracks}}</td>\n  <td>[[Lower Barracks|*]] -2 floor: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Shops Street}}</td>\n  <td>[[Shops Street|*]] -2 floor: shops; tavern; guildhalls; [[Ore Wagon]]s</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Mushroom Alley}}</td>\n  <td>[[Mushroom Alley|*]] -3 floor: mushroom farm; way to Brewery; way to shops, to temple, to Technomancers, and to city entrance/exit; city mine entrance and way to [[Steam Boat]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Temple Road}}</td>\n  <td>[[Temple Road|*]] -4, -5 floors: [[Temple]]; Dwarven fellowships; [[Game Room]]s; [[Blessing|Blessers]]; [[Wedding]] room; way to [[Gnomegate]] and [[The Spike]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Tunnel Gardens}}</td>\n  <td>[[Tunnel Gardens|*]] -4, -5 floors: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Technomancer Lane}}</td>\n  <td>[[Technomancer Lane|*]] -5 floor: [[Technomancer]]s</td>\n</tr>\n</table>\n<br />\nSome Kazordoon buildings and NPCs lie outside the city beyond named streets:<br/>\n* [[Rapanaio]], -7 floors underground in City Mines\n* [[Brodrosch]], [[Steamship]], -8 floors underground in City Mines\n'''North:'''\n* [[Lost Cavern]]\n* [[Hill Hideout]]\n* [[Uzon]], Magic Carpet\n'''West:'''\n* [[Budrik]], -1 underground in a mine entrance\n* [[A Dwarven Ghost]], -5 floors underground in [[Budrik]]'s mine\n* [[Riddler]], [[Paradox Tower]], +6 floors above ground\n'''South:'''\n* [[Wyda]]\n* [[MacNoodles]]\n* [[Wally]], [[Postal Service Headquarters]]\n* [[Kevin]], [[Postal Service Headquarters]] (second floor)\n* [[Wolftower]]\n* [[Riverspring]]\n* [[Adrenius]], [[Desert Dungeon]]\n* [[Hagor]], [[Desert Dungeon]]\n* [[Nemal]], [[Desert Dungeon]]\n* [[Outlaw Camp Street]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Edron",
+      "implemented": "6.4",
+      "name": "Castle Shops",
+      "notes": "The {{StreetStyles|Castle Shops}} are located on the eastern side of the castle in central Edron. They share this side of the castle with the {{StreetStyles|Castle Flats}} and also border {{StreetStyles|Wood Avenue}} to the east.\n\nBuildings and NPCs from north to south:\n* [[Castle Shop 1]]\n* [[Castle Shop 2]]\n* [[Castle Shop 3]]\n* [[Willard]], [[Body Equipment|Weapons and Armor Shop]] (second floor)\n* [[Beatrice]], [[Equipment|General Store]] (second floor)\n* [[Rudolph]],  [[Body Equipment|Tailor Shop]] (second floor)",
+      "templateType": "Street"
+    },
+    {
+      "city": "Kazordoon",
+      "floor": "-4",
+      "implemented": "6.1",
+      "name": "Streets of Kazordoon",
+      "notes": "<table border=\"0\" cellpadding=\"1\" cellspacing=\"0\" >\n<tr>\n  <td>{{StreetStyles|The Farms}}</td>\n  <td>[[The Farms|*]] +5, 0 floors: houses; wheat fields; [[Colossus]] view; the [[Gewen|magic carpet]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Royal Hall}}</td>\n  <td>[[Royal Hall|*]] +4 floor: Emperor's Quarters</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Nobility Quarter}}</td>\n  <td>[[Nobility Quarter|*]] +3 floor: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Halls of Sorcery}}</td>\n  <td>[[Halls of Sorcery|*]] +2 floor: [[magic]] sellers; sorcerer's guild; [[Kazordoon Libraries|library]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Upper Barracks}}</td>\n  <td>[[Upper Barracks|*]] +2 floor: houses; guildhall</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Armory Street}}</td>\n  <td>[[Armory Street|*]] +1 floor: Armory; general's house; [[Kazordoon Fortress]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Mountain Pass}}</td>\n  <td>[[Mountain Pass|*]] 0 floor: a house; paths through Kazordoon, to city entrances, to [[Mad Mage Valley]], and to [[Dwarven Mines]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|The Market}}</td>\n  <td>[[The Market|*]] -1 floor: houses; [[Depot]] and [[Bank]]; [[Ore Wagon]]s; knight's guild; shops, [[Colossus]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Kazordoon Entrance}}</td>\n  <td>[[Kazordoon Entrance|*]] -2 floor: city entrance/exit; [[Ore Wagon]]s; [[Dwacatra]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Lower Barracks}}</td>\n  <td>[[Lower Barracks|*]] -2 floor: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Shops Street}}</td>\n  <td>[[Shops Street|*]] -2 floor: shops; tavern; guildhalls; [[Ore Wagon]]s</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Mushroom Alley}}</td>\n  <td>[[Mushroom Alley|*]] -3 floor: mushroom farm; way to Brewery; way to shops, to temple, to Technomancers, and to city entrance/exit; city mine entrance and way to [[Steam Boat]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Temple Road}}</td>\n  <td>[[Temple Road|*]] -4, -5 floors: [[Temple]]; Dwarven fellowships; [[Game Room]]s; [[Blessing|Blessers]]; [[Wedding]] room; way to [[Gnomegate]] and [[The Spike]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Tunnel Gardens}}</td>\n  <td>[[Tunnel Gardens|*]] -4, -5 floors: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Technomancer Lane}}</td>\n  <td>[[Technomancer Lane|*]] -5 floor: [[Technomancer]]s</td>\n</tr>\n</table>\n<br />\nSome Kazordoon buildings and NPCs lie outside the city beyond named streets:<br/>\n* [[Rapanaio]], -7 floors underground in City Mines\n* [[Brodrosch]], [[Steamship]], -8 floors underground in City Mines\n'''North:'''\n* [[Lost Cavern]]\n* [[Hill Hideout]]\n* [[Uzon]], Magic Carpet\n'''West:'''\n* [[Budrik]], -1 underground in a mine entrance\n* [[A Dwarven Ghost]], -5 floors underground in [[Budrik]]'s mine\n* [[Riddler]], [[Paradox Tower]], +6 floors above ground\n'''South:'''\n* [[Wyda]]\n* [[MacNoodles]]\n* [[Wally]], [[Postal Service Headquarters]]\n* [[Kevin]], [[Postal Service Headquarters]] (second floor)\n* [[Wolftower]]\n* [[Riverspring]]\n* [[Adrenius]], [[Desert Dungeon]]\n* [[Hagor]], [[Desert Dungeon]]\n* [[Nemal]], [[Desert Dungeon]]\n* [[Outlaw Camp Street]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Svargrond",
+      "implemented": "8.00",
+      "name": "Skiffs End",
+      "notes": "{{StreetStyles|Skiffs End}} is located in the south of the city.",
+      "templateType": "Street"
+    },
+    {
+      "city": "Kazordoon",
+      "floor": "-1",
+      "implemented": "6.1",
+      "name": "Streets of Kazordoon",
+      "notes": "<table border=\"0\" cellpadding=\"1\" cellspacing=\"0\" >\n<tr>\n  <td>{{StreetStyles|The Farms}}</td>\n  <td>[[The Farms|*]] +5, 0 floors: houses; wheat fields; [[Colossus]] view; the [[Gewen|magic carpet]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Royal Hall}}</td>\n  <td>[[Royal Hall|*]] +4 floor: Emperor's Quarters</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Nobility Quarter}}</td>\n  <td>[[Nobility Quarter|*]] +3 floor: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Halls of Sorcery}}</td>\n  <td>[[Halls of Sorcery|*]] +2 floor: [[magic]] sellers; sorcerer's guild; [[Kazordoon Libraries|library]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Upper Barracks}}</td>\n  <td>[[Upper Barracks|*]] +2 floor: houses; guildhall</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Armory Street}}</td>\n  <td>[[Armory Street|*]] +1 floor: Armory; general's house; [[Kazordoon Fortress]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Mountain Pass}}</td>\n  <td>[[Mountain Pass|*]] 0 floor: a house; paths through Kazordoon, to city entrances, to [[Mad Mage Valley]], and to [[Dwarven Mines]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|The Market}}</td>\n  <td>[[The Market|*]] -1 floor: houses; [[Depot]] and [[Bank]]; [[Ore Wagon]]s; knight's guild; shops, [[Colossus]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Kazordoon Entrance}}</td>\n  <td>[[Kazordoon Entrance|*]] -2 floor: city entrance/exit; [[Ore Wagon]]s; [[Dwacatra]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Lower Barracks}}</td>\n  <td>[[Lower Barracks|*]] -2 floor: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Shops Street}}</td>\n  <td>[[Shops Street|*]] -2 floor: shops; tavern; guildhalls; [[Ore Wagon]]s</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Mushroom Alley}}</td>\n  <td>[[Mushroom Alley|*]] -3 floor: mushroom farm; way to Brewery; way to shops, to temple, to Technomancers, and to city entrance/exit; city mine entrance and way to [[Steam Boat]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Temple Road}}</td>\n  <td>[[Temple Road|*]] -4, -5 floors: [[Temple]]; Dwarven fellowships; [[Game Room]]s; [[Blessing|Blessers]]; [[Wedding]] room; way to [[Gnomegate]] and [[The Spike]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Tunnel Gardens}}</td>\n  <td>[[Tunnel Gardens|*]] -4, -5 floors: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Technomancer Lane}}</td>\n  <td>[[Technomancer Lane|*]] -5 floor: [[Technomancer]]s</td>\n</tr>\n</table>\n<br />\nSome Kazordoon buildings and NPCs lie outside the city beyond named streets:<br/>\n* [[Rapanaio]], -7 floors underground in City Mines\n* [[Brodrosch]], [[Steamship]], -8 floors underground in City Mines\n'''North:'''\n* [[Lost Cavern]]\n* [[Hill Hideout]]\n* [[Uzon]], Magic Carpet\n'''West:'''\n* [[Budrik]], -1 underground in a mine entrance\n* [[A Dwarven Ghost]], -5 floors underground in [[Budrik]]'s mine\n* [[Riddler]], [[Paradox Tower]], +6 floors above ground\n'''South:'''\n* [[Wyda]]\n* [[MacNoodles]]\n* [[Wally]], [[Postal Service Headquarters]]\n* [[Kevin]], [[Postal Service Headquarters]] (second floor)\n* [[Wolftower]]\n* [[Riverspring]]\n* [[Adrenius]], [[Desert Dungeon]]\n* [[Hagor]], [[Desert Dungeon]]\n* [[Nemal]], [[Desert Dungeon]]\n* [[Outlaw Camp Street]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Kazordoon",
+      "floor": "-2",
+      "implemented": "6.1",
+      "name": "Streets of Kazordoon",
+      "notes": "<table border=\"0\" cellpadding=\"1\" cellspacing=\"0\" >\n<tr>\n  <td>{{StreetStyles|The Farms}}</td>\n  <td>[[The Farms|*]] +5, 0 floors: houses; wheat fields; [[Colossus]] view; the [[Gewen|magic carpet]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Royal Hall}}</td>\n  <td>[[Royal Hall|*]] +4 floor: Emperor's Quarters</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Nobility Quarter}}</td>\n  <td>[[Nobility Quarter|*]] +3 floor: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Halls of Sorcery}}</td>\n  <td>[[Halls of Sorcery|*]] +2 floor: [[magic]] sellers; sorcerer's guild; [[Kazordoon Libraries|library]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Upper Barracks}}</td>\n  <td>[[Upper Barracks|*]] +2 floor: houses; guildhall</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Armory Street}}</td>\n  <td>[[Armory Street|*]] +1 floor: Armory; general's house; [[Kazordoon Fortress]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Mountain Pass}}</td>\n  <td>[[Mountain Pass|*]] 0 floor: a house; paths through Kazordoon, to city entrances, to [[Mad Mage Valley]], and to [[Dwarven Mines]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|The Market}}</td>\n  <td>[[The Market|*]] -1 floor: houses; [[Depot]] and [[Bank]]; [[Ore Wagon]]s; knight's guild; shops, [[Colossus]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Kazordoon Entrance}}</td>\n  <td>[[Kazordoon Entrance|*]] -2 floor: city entrance/exit; [[Ore Wagon]]s; [[Dwacatra]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Lower Barracks}}</td>\n  <td>[[Lower Barracks|*]] -2 floor: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Shops Street}}</td>\n  <td>[[Shops Street|*]] -2 floor: shops; tavern; guildhalls; [[Ore Wagon]]s</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Mushroom Alley}}</td>\n  <td>[[Mushroom Alley|*]] -3 floor: mushroom farm; way to Brewery; way to shops, to temple, to Technomancers, and to city entrance/exit; city mine entrance and way to [[Steam Boat]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Temple Road}}</td>\n  <td>[[Temple Road|*]] -4, -5 floors: [[Temple]]; Dwarven fellowships; [[Game Room]]s; [[Blessing|Blessers]]; [[Wedding]] room; way to [[Gnomegate]] and [[The Spike]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Tunnel Gardens}}</td>\n  <td>[[Tunnel Gardens|*]] -4, -5 floors: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Technomancer Lane}}</td>\n  <td>[[Technomancer Lane|*]] -5 floor: [[Technomancer]]s</td>\n</tr>\n</table>\n<br />\nSome Kazordoon buildings and NPCs lie outside the city beyond named streets:<br/>\n* [[Rapanaio]], -7 floors underground in City Mines\n* [[Brodrosch]], [[Steamship]], -8 floors underground in City Mines\n'''North:'''\n* [[Lost Cavern]]\n* [[Hill Hideout]]\n* [[Uzon]], Magic Carpet\n'''West:'''\n* [[Budrik]], -1 underground in a mine entrance\n* [[A Dwarven Ghost]], -5 floors underground in [[Budrik]]'s mine\n* [[Riddler]], [[Paradox Tower]], +6 floors above ground\n'''South:'''\n* [[Wyda]]\n* [[MacNoodles]]\n* [[Wally]], [[Postal Service Headquarters]]\n* [[Kevin]], [[Postal Service Headquarters]] (second floor)\n* [[Wolftower]]\n* [[Riverspring]]\n* [[Adrenius]], [[Desert Dungeon]]\n* [[Hagor]], [[Desert Dungeon]]\n* [[Nemal]], [[Desert Dungeon]]\n* [[Outlaw Camp Street]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Edron",
+      "implemented": "6.4",
+      "name": "Castle Flats",
+      "notes": "The {{StreetStyles|Castle Flats}} are located throughout the walls of the castle in central Edron. They share the eastern side of the castle with the {{StreetStyles|Castle Shops}} and border {{StreetStyles|Castle Street}} to the west, {{StreetStyles|Edron Flats}} to the south, {{StreetStyles|Central Circle}} to the south-east and {{StreetStyles|Wood Avenue}} to the east.\n\nBuildings and NPCs:<br />\n\n''North side:''\n* [[Captain Seahorse]], on the [[Ship]]\n* [[Guide Jonathan]], on the dock\n* [[Falk]], right outside north castle gate\n* [[Edron Guardsman]], just inside the north castle gate\n* Arenas entrance\n** [[Shadowpunch]], [[Duelling Arena]]\n** [[Emilio]], [[Monster Arena]]\n** [[Artemyth]], [[Monster Arena]]\n* [[Pino]], at [[Magic Carpet]] above north gate (fourth floor)\n\n''East side:''\n* [[Bonifacius]]\n* [[Ebenizer]]\n* [[Chrystal]]\n* [[Mirabell]] (first floor)\n* [[Tereban]] (first floor)\n* [[Castle, 3rd Floor, Flat 01]] (third floor)\n* [[Castle, 3rd Floor, Flat 02]] (third floor)\n* [[Castle, 3rd Floor, Flat 03]] (third floor)\n* [[Castle, 3rd Floor, Flat 04]] (third floor)\n* [[Castle, 3rd Floor, Flat 05]] (third floor)\n* [[Castle, 3rd Floor, Flat 06]] (third floor)\n* [[Castle, 3rd Floor, Flat 07]] (third floor)\n\n* [[Castle, 4th Floor, Flat 01]] (fourth floor)\n* [[Castle, 4th Floor, Flat 02]] (fourth floor)\n* [[Castle, 4th Floor, Flat 03]] (fourth floor)\n* [[Castle, 4th Floor, Flat 04]] (fourth floor)\n* [[Castle, 4th Floor, Flat 05]] (fourth floor)\n* [[Castle, 4th Floor, Flat 06]] (fourth floor)\n* [[Castle, 4th Floor, Flat 07]] (fourth floor)\n* [[Castle, 4th Floor, Flat 08]] (fourth floor)\n* [[Castle, 4th Floor, Flat 09]] (fourth floor)\n\n''East side:''\n* [[Castle, Basement, Flat 01]] (-1 floor)\n* [[Castle, Basement, Flat 02]] (-1 floor)\n* [[Castle, Basement, Flat 03]] (-1 floor)\n* [[Castle, Basement, Flat 04]] (-1 floor)\n* [[Castle, Basement, Flat 05]] (-1 floor)\n* [[Castle, Basement, Flat 06]] (-1 floor)\n* [[Castle, Basement, Flat 07]] (-1 floor)\n* [[Castle, Basement, Flat 08]] (-1 floor)\n* [[Castle, Basement, Flat 09]] (-1 floor)\n* [[Amanda]], [[Temple]] (-1 floor)\n\n''Inside castle:''\n* [[Daniel Steelsoul]]",
+      "templateType": "Street"
+    },
+    {},
+    {
+      "city": "Edron",
+      "implemented": "6.4",
+      "name": "Cormaya Flats (Street)",
+      "notes": "{{StreetStyles|Cormaya Flats (Street)}} is on the island of [[Cormaya]], south of [[Edron]]. It touches {{StreetStyles|Cormaya Street}}.\n\nBuildings and NPCs from west to east and north to south on the street:\n*",
+      "templateType": "Street"
+    },
+    {
+      "city": "Venore",
+      "implemented": "7.1",
+      "name": "Dagger Alley",
+      "notes": "{{StreetStyles|Dagger Alley}} is in southwest [[Venore]]. It touches {{StreetStyles|Paupers Palace}} to the northwest, {{StreetStyles|Salvation Street}} to the northeast, and {{StreetStyles|Iron Alley}} in the south.<br/>\n<br/>\nBuilding on the street:<br/>\n* [[Dagger Alley 1]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Thais",
+      "implemented": "Pre-6.0",
+      "name": "Harbour Street",
+      "notes": "{{StreetStyles|Harbour Street}} is in west-central [[Thais]]. It touches {{StreetStyles|Main Street}} at the north, {{StreetStyles|Sorcerer's Avenue}} at the west, {{StreetStyles|Upper Swamp Lane}} at the east, and {{StreetStyles|Lower Swamp Lane}} at the south-east.<br/>\n<br/>\nBuildings and NPCs from west to east and north to south on the street:<br/>\n'''North-west:'''<br/>\n* [[Captain Bluebear]] (second floor)\n* [[Guide Luke]] (second floor)\n* [[Dorian]], Docks (-1 floor)\n* [[Harbour Place 1 (Shop)]]\n'''North:'''<br/>\n* [[Gamel]], Docks (-1 floor)\n* [[Black Bert]], Docks (second floor)\n* [[Harbour Place 2 (Shop)]]\n* [[Towncryer]]\n'''North-east:'''<br/>\n* [[Benjamin]], [[Depot]]\n'''West:'''<br/>\n* [[Sunset Homes, Flat 01]]\n* [[Sunset Homes, Flat 02]]\n* [[Sunset Homes, Flat 03]]\n* [[Sunset Homes, Flat 11]] (second floor)\n* [[Sunset Homes, Flat 12]] (second floor)\n* [[Sunset Homes, Flat 13]] (second floor)\n* [[Sunset Homes, Flat 14]] (second floor)\n* [[Sunset Homes, Flat 21]] (third floor)\n* [[Sunset Homes, Flat 22]] (third floor)\n* [[Sunset Homes, Flat 23]] (third floor)\n* [[Sunset Homes, Flat 24]] (third floor)\n* [[Harbour Street 4]]\n* [[Thais Hostel]] (second floor)\n'''East:'''<br/>\n* [[Elane]], [[Paladin|Paladin Guild]]\n* [[Galuna]], [[Paladin|Paladin Guild]] (second floor)\n* Lookout Tower\n'''South-west:'''<br/>\n* [[Thais Clanhall]]\n* [[Henricus]], [[Thais Jail]] (-1 floor)\n* [[Prisoner]], [[Thais Jail]] (-2 floor)\n* [[Wyat]], [[Thais Jail]]\n* [[Partos]], [[Thais Jail]] (-1 floor)\n* [[Walter, The Guard]], South Gate",
+      "templateType": "Street"
+    },
+    {
+      "city": "Ankrahmun",
+      "implemented": "7.3",
+      "name": "Uthemath",
+      "notes": "{{StreetStyles|Uthemath}} is located in the north-east of the city.<br/>\n\nBuildings and NPCs from west to east and north to south on the street:<br/>",
+      "templateType": "Street"
+    },
+    {
+      "city": "Port Hope",
+      "floor": "+1",
+      "implemented": "7.5",
+      "name": "Crocodile Bridge",
+      "notes": "{{StreetStyles|Crocodile Bridge}} is on the first floor of [[Port Hope]] on the south side of the river [[Mahaji]], opposite but bordering {{StreetStyles|Coconut Quay}} on the north side of the river. It borders {{StreetStyles|Banana Bay}} to the west and {{StreetStyles|Woodway}} to the east.<br/>\nLadders lead to the lower level with {{StreetStyles|Bamboo Garden}}.\n<br/>\n<br/>\nBuildings and NPCs from west to east and south to north on the street:<br/>\n* [[Crocodile Bridge 1]]\n* [[Crocodile Bridge 2]]\n* [[Crocodile Bridge 3]]\n* [[Crocodile Bridge 4]]\n* [[Crocodile Bridge 5]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Edron",
+      "implemented": "6.4",
+      "name": "Magic Academy",
+      "notes": "The {{StreetStyles|Magic Academy}} is located in the east of [[Edron]].",
+      "templateType": "Street"
+    },
+    {
+      "city": "Kazordoon",
+      "floor": "-5",
+      "implemented": "6.1",
+      "name": "Technomancer Lane",
+      "notes": "{{StreetStyles|Technomancer Lane}} is in [[Kazordoon]] on the fifth underground (-5) floor. Stairs go up to {{StreetStyles|Mushroom Alley}} (-3): south end.<br/>\n<br/>\nBuildings and NPCs from south to north on the street:<br/>\n\n* [[Kazordoon Fortress]] (inaccessible)\n* [[Scutty]]\n* [[Talphion]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Rathleton",
+      "floor": "+2",
+      "implemented": "10.50",
+      "name": "Streets of Rathleton",
+      "notes": "<table border=\"0\" cellpadding=\"1\" cellspacing=\"0\" >\n<tr>\n  <td>{{StreetStyles|Antimony Lane}}</td>\n  <td>([[Antimony Lane|*]]) is in central Rathleton touching {{StreetStyles|Rathleton Plaza}} and {{StreetStyles|Wallside Lane}} to the east, {{StreetStyles|Vanward Flats}} to the south, and {{StreetStyles|Cistern Avenue}} to the west; +1 floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Cistern Avenue}}</td>\n  <td>([[Cistern Avenue|*]]) is in the south-west touching {{StreetStyles|Rathleton Plaza}} in the north and {{StreetStyles|Antimony Lane}} and {{StreetStyles|Vanward Flats}} to the east; +1 floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Rathleton Magistrate Plaza}}</td>\n  <td>([[Rathleton Magistrate Plaza|*]]) is in the north-east and connects to the stairs going down to {{StreetStyles|Rathleton Shops}}; +2 floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Rathleton Plaza}}</td>\n  <td>([[Rathleton Plaza|*]]) is in central Rathleton touching {{StreetStyles|Rathleton Shops}} to the north, {{StreetStyles|Antimony Lane}} to the east, and {{StreetStyles|Cistern Avenue}} to the southwest; +1 floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Rathleton Shops}}</td>\n  <td>([[Rathleton Shops|*]]) is in the north touching {{StreetStyles|Rathleton Plaza}} to the south and connects to the stairs going up the {{StreetStyles|Rathleton Magistrate Plaza}}; +1 floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Vanward Flats}}</td>\n  <td>([[Vanward Flats|*]]) is in the south touching {{StreetStyles|Cistern Avenue}} to the west and {{StreetStyles|Antimony Lane}} to the north; +1 floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Wallside Lane}}</td>\n  <td>([[Wallside Lane|*]]) is in the south-east touching {{StreetStyles|Antimony Lane}} to the north</td>\n</tr>\n</table>\n<br/>\nSome buildings and NPCs lie outside the city beyond named streets:<br/>\nDock:\n* [[Captain Gulliver]]\n* [[Guide Kunibert]]\n* [[Olm]]\n\nOthers:\n* [[A Beggar]]\n* [[Chavis]]\n* [[Doubleday]]\n* [[Elliott]]\n* [[Fillias]]\n* [[Jacob]]\n* [[Roswitha]]\n* [[Terrence]]\n* [[The Beggar King]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Ab'Dendriel",
+      "floor": "-1",
+      "implemented": "6.2",
+      "name": "Streets of Ab'Dendriel",
+      "notes": "<table border=\"0\" cellpadding=\"1\" cellspacing=\"0\" >\n<tr>\n  <td>{{StreetStyles|Coastwood}}</td>\n  <td>[[Coastwood|*]] Northern part of city, +1 floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Great Willow}}</td>\n  <td>[[Great Willow|*]] Multi-floor flats, ground and +1 floors</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Mangrove}}</td>\n  <td>[[Mangrove Street|*]] Northern part of city, ground floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Shadow Caves}}</td>\n  <td>[[Shadow Caves Street|*]] below ground</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Treetop}}</td>\n  <td>[[Treetop|*]] Southern part of city, +1 floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Underwood}}</td>\n  <td>[[Underwood|*]] Southern part of city, ground floor</td>\n</tr>\n</table>\n\nSome Ab'Dendriel buildings and NPCs lie outside the city beyond named streets:<br/>\n'''West:'''\n* [[The Hideout]]\n'''East:'''\n* [[A Wrinkled Bonelord]] (-6 floor)\n* [[Dreadeye]] (-7 floor)\n* [[An Old Dragonlord]] (+5 floor)\n'''South:'''\n* [[Ceiron]]\n* [[Benevola]]\n* [[Huntsman]]\n* [[Suntower (Blessing)]]\n** [[Edala]] (+5 floor)\n* [[Shadow Towers]]\n* [[Cruleo]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Ab'Dendriel",
+      "floor": "-1",
+      "implemented": "6.2",
+      "name": "Shadow Caves Street",
+      "notes": "{{StreetStyles|Shadow Caves}} is the southern part of [[Ab'Dendriel]] on the first underground (-1) floor. It is located the floor below {{StreetStyles|Underwood}}.<br/>\n<br/>\nBuildings and NPCs from west to east and north to south on the street:<br/>\n\n* [[Briasol]], [[Jewelry Shopkeeper NPCs|Jewelry Shop]] (-1 floor)\n* [[Shadow Caves 1]] (-1 floor)\n* [[Shadow Caves 3]] (-1 floor)\n* [[Shadow Caves 2]] (-1 floor)\n* [[Shadow Caves 4]] (-1 floor)\n* [[Shanar]], Weapon/Armor Shop (-1 floor)\n* [[Bashira]], Equipment Shop (-1 floor)\n* [[Ab'Dendriel Library]] (-1 floor)\n* [[Training School]] (-1 floor)\n* [[Finarfin]], [[Depot]] (-1 floor)\n\n* [[Shadow Caves 11]] (-2 floor)\n* [[Shadow Caves 12]] (-2 floor)\n* [[Shadow Caves 13]] (-2 floor)\n* [[Shadow Caves 14]] (-2 floor)\n* [[Shadow Caves 15]] (-2 floor)\n* [[Shadow Caves 16]] (-2 floor)\n* [[Shadow Caves 17]] (-2 floor)\n* [[Shadow Caves 18]] (-2 floor)\n* [[Shirith]], [[Shadow Caves]] Mine (-2 floor)\n* [[Elathriel]], Prison (-2 floor)\n\n* [[Shadow Caves 21]] (-3 floor)\n* [[Shadow Caves 22]] (-3 floor)\n* [[Shadow Caves 23]] (-3 floor)\n* [[Shadow Caves 24]] (-3 floor)\n* [[Shadow Caves 25]] (-3 floor)\n* [[Shadow Caves 26]] (-3 floor)\n* [[Shadow Caves 27]] (-3 floor)\n* [[Shadow Caves 28]] (-3 floor)",
+      "templateType": "Street"
+    },
+    {
+      "city": "Ab'Dendriel",
+      "implemented": "6.2",
+      "name": "Mangrove",
+      "notes": "{{StreetStyles|Mangrove}} is the northern part of [[Ab'Dendriel]] on the ground floor. It touches {{StreetStyles|Great Willow}} and {{StreetStyles|Underwood}} to the south and is the floor below {{StreetStyles|Coastwood}}.<br/>\n<br/>\nBuildings and NPCs from west to east and north to south on the street:<br/>\n\n* [[Mangrove 1]]\n* [[Castle of the Winds]]\n* [[Elvith]], [[Instrument Shopkeeper NPCs|Instrument Shop]]\n* [[Mangrove 2]]\n* [[Brasith]], [[Food Shopkeeper NPCs|Food Shop]]\n* [[Mangrove 3]]\n* [[Irea]], Distance Weapons Shop\n* [[Mangrove 4]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Venore",
+      "implemented": "7.1",
+      "name": "Elm Street",
+      "notes": "{{StreetStyles|Elm Street}} is in northwest [[Venore]]. It crosses {{StreetStyles|Dream Street}} and touches {{StreetStyles|Seagull Walk}} to the east.<br/>\n<br/>\nBuildings on the street:<br/>\n* [[Elm Street 1]]\n* [[Elm Street 2]]\n* [[Elm Street 3]]\n* [[Elm Street 4]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Carlin",
+      "implemented": "Pre-6.0",
+      "name": "Theater Avenue",
+      "notes": "{{StreetStyles|Theater Avenue}} runs west to east through the middle of [[Carlin]]. It touches  \n{{StreetStyles|Park Lane}}, {{StreetStyles|Central Street}} and {{StreetStyles|Northern Street}} to the north, and {{StreetStyles|Magician's Alley}}, {{StreetStyles|Central Plaza}}, {{StreetStyles|Harbour Lane}} and \n{{StreetStyles|East Lane}} to the south.\n\nBuildings and NPCs from west to east and north to south on the street:\n* [[Busty Bonecrusher]], West Gate\n\n'''Northwest:'''\n* [[Perac]], Fletcher Shop\n* [[Legola]], [[Paladin|Paldin's Guild]]\n* [[Congress Hall and Library]]\n** [[Theater Avenue 11c]] (third floor)\n** [[Theater Avenue 11b]] (third floor)\n** [[Theater Avenue 11a]] (third floor)\n** [[Tibra]], Church\n** [[Carlin Libraries#Congress Hall and Library|Library]] (-1 floor)\n* [[Eva]], [[Bank]]\n* [[Liane]], [[Depot]]\n\n'''Southwest:'''\n* [[Theater Avenue 14 (Shop)]]\n* [[Theater Avenue 12]]\n* [[Theater Avenue 10]]\n* [[Rowenna]], [[Weapons|Weapons Shop]]\n\n'''Northeast:'''\n* [[Theater Avenue 7, Flat 06]]\n* [[Theater Avenue 7, Flat 05]]\n* [[Theater Avenue 7, Flat 04]]\n* [[Theater Avenue 7, Flat 03]]\n* [[Theater Avenue 7, Flat 02]]\n* [[Theater Avenue 7, Flat 01]]\n* [[Theater Avenue 7, Flat 16]] (second floor)\n* [[Theater Avenue 7, Flat 15]] (second floor)\n* [[Theater Avenue 7, Flat 14]] (second floor)\n* [[Theater Avenue 7, Flat 13]] (second floor)\n* [[Theater Avenue 7, Flat 12]] (second floor)\n* [[Theater Avenue 7, Flat 11]] (second floor)\n* [[Alia]], [[Temple]] and [[Holy Shrines#Teleporter Hallways|Teleporter Hallway]]\n* [[Theater Avenue 5]] (second floor)\n* [[Percybald]], Theater\n* [[Shauna]], Prison\n* [[Emma]], Prison\n* [[Blossom Bonecrusher]], East Gate\n\n'''Southeast:'''\n* [[Lector]], [[Food|Food Shop]]\n* [[Theater Avenue 8a]] (second floor)\n* [[Theater Avenue 8b]] (third floor)\n* [[Theater Avenue 6e]]\n* [[Theater Avenue 6c]]\n* [[Theater Avenue 6a]]\n* [[Theater Avenue 6f]] (second floor)\n* [[Theater Avenue 6d]] (second floor)\n* [[Theater Avenue 6b]] (second floor)",
+      "templateType": "Street"
+    },
+    {
+      "city": "Kazordoon",
+      "floor": "-5",
+      "implemented": "6.1",
+      "name": "Streets of Kazordoon",
+      "notes": "<table border=\"0\" cellpadding=\"1\" cellspacing=\"0\" >\n<tr>\n  <td>{{StreetStyles|The Farms}}</td>\n  <td>[[The Farms|*]] +5, 0 floors: houses; wheat fields; [[Colossus]] view; the [[Gewen|magic carpet]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Royal Hall}}</td>\n  <td>[[Royal Hall|*]] +4 floor: Emperor's Quarters</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Nobility Quarter}}</td>\n  <td>[[Nobility Quarter|*]] +3 floor: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Halls of Sorcery}}</td>\n  <td>[[Halls of Sorcery|*]] +2 floor: [[magic]] sellers; sorcerer's guild; [[Kazordoon Libraries|library]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Upper Barracks}}</td>\n  <td>[[Upper Barracks|*]] +2 floor: houses; guildhall</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Armory Street}}</td>\n  <td>[[Armory Street|*]] +1 floor: Armory; general's house; [[Kazordoon Fortress]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Mountain Pass}}</td>\n  <td>[[Mountain Pass|*]] 0 floor: a house; paths through Kazordoon, to city entrances, to [[Mad Mage Valley]], and to [[Dwarven Mines]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|The Market}}</td>\n  <td>[[The Market|*]] -1 floor: houses; [[Depot]] and [[Bank]]; [[Ore Wagon]]s; knight's guild; shops, [[Colossus]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Kazordoon Entrance}}</td>\n  <td>[[Kazordoon Entrance|*]] -2 floor: city entrance/exit; [[Ore Wagon]]s; [[Dwacatra]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Lower Barracks}}</td>\n  <td>[[Lower Barracks|*]] -2 floor: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Shops Street}}</td>\n  <td>[[Shops Street|*]] -2 floor: shops; tavern; guildhalls; [[Ore Wagon]]s</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Mushroom Alley}}</td>\n  <td>[[Mushroom Alley|*]] -3 floor: mushroom farm; way to Brewery; way to shops, to temple, to Technomancers, and to city entrance/exit; city mine entrance and way to [[Steam Boat]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Temple Road}}</td>\n  <td>[[Temple Road|*]] -4, -5 floors: [[Temple]]; Dwarven fellowships; [[Game Room]]s; [[Blessing|Blessers]]; [[Wedding]] room; way to [[Gnomegate]] and [[The Spike]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Tunnel Gardens}}</td>\n  <td>[[Tunnel Gardens|*]] -4, -5 floors: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Technomancer Lane}}</td>\n  <td>[[Technomancer Lane|*]] -5 floor: [[Technomancer]]s</td>\n</tr>\n</table>\n<br />\nSome Kazordoon buildings and NPCs lie outside the city beyond named streets:<br/>\n* [[Rapanaio]], -7 floors underground in City Mines\n* [[Brodrosch]], [[Steamship]], -8 floors underground in City Mines\n'''North:'''\n* [[Lost Cavern]]\n* [[Hill Hideout]]\n* [[Uzon]], Magic Carpet\n'''West:'''\n* [[Budrik]], -1 underground in a mine entrance\n* [[A Dwarven Ghost]], -5 floors underground in [[Budrik]]'s mine\n* [[Riddler]], [[Paradox Tower]], +6 floors above ground\n'''South:'''\n* [[Wyda]]\n* [[MacNoodles]]\n* [[Wally]], [[Postal Service Headquarters]]\n* [[Kevin]], [[Postal Service Headquarters]] (second floor)\n* [[Wolftower]]\n* [[Riverspring]]\n* [[Adrenius]], [[Desert Dungeon]]\n* [[Hagor]], [[Desert Dungeon]]\n* [[Nemal]], [[Desert Dungeon]]\n* [[Outlaw Camp Street]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Rathleton",
+      "implemented": "10.50",
+      "name": "Antimony Lane",
+      "notes": "{{StreetStyles|Antimony Lane}} is in central Rathleton on the first floor (main part of the city). It touches {{StreetStyles|Rathleton Plaza}} and {{StreetStyles|Wallside Lane}} to the east, {{StreetStyles|Vanward Flats}} to the south, and {{StreetStyles|Cistern Avenue}} to the west.<br/>\n<br/>\nBuildings from east to west on the street:<br/>\n\n* [[Antimony Lane 1]]\n* [[Antimony Lane 2]]\n* [[Antimony Lane 3]]\n* [[Antimony Lane 4]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Rathleton",
+      "implemented": "10.50",
+      "name": "Rathleton Plaza",
+      "notes": "{{StreetStyles|Rathleton Plaza}} is in central Rathleton on the first floor (main part of the city). It touches {{StreetStyles|Rathleton Shops}} to the north, {{StreetStyles|Antimony Lane}} to the east, and {{StreetStyles|Cistern Avenue}} to the southwest.<br/>\n<br/>\nBuildings from east to west on the street:<br/>\n\n* [[Rathleton Hills Estate]]\n* [[Rathleton Hills Residence]]\n* [[Rathleton Plaza 1]]\n* [[Rathleton Plaza 2]]\n* [[Rathleton Plaza 3]]\n* [[Rathleton Plaza 4]]\n* [[Old Heritage Estate]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Edron",
+      "implemented": "6.4",
+      "name": "Central Circle",
+      "notes": "{{StreetStyles|Central Circle}} is in central [[Edron]], south of the castle. It touches {{StreetStyles|Castle Flats}} to the north, {{StreetStyles|Edron Flats}} to the west, {{StreetStyles|Skylane}} to the southeast, and {{StreetStyles|Wood Avenue}} to the northeast.\n\nBuildings and NPCs from north to south on the street:\n* [[Ned Nobel]], right outside south castle gate\n* [[Central Circle 1]]\n* [[Central Circle 2]]\n* [[Central Circle 3]]\n* [[Central Circle 4]]\n* [[Central Circle 5]]\n* [[Central Circle 6 (Shop)]]\n* [[Central Circle 7 (Shop)]]\n* [[Central Circle 8 (Shop)]]",
+      "templateType": "Street"
+    },
+    {},
+    {
+      "city": "Venore",
+      "implemented": "7.1",
+      "name": "Walk of Flame",
+      "notes": "{{StreetStyles|Walk of Flame}} is in central [[Venore]]. It crosses {{StreetStyles|Market Street}} then {{StreetStyles|Mystic Lane}} and ends at {{StreetStyles|Salvation Street}}.<br/>\n<br/>\nBuildings and NPCs from north to south and west to east on the street:<br/>\n* [[Venore Harbor]]\n** [[Captain Fearless]], on his ship\n** [[Guide Elena]]\n* [[Foreign Affairs]]\n** [[Uncle]]\n* [[Venore Temple]]\n** [[Yberius]]\n* [[The Burning Portal]]\n** [[Ashtamor]]\n* [[Pyro Peter]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Edron",
+      "implemented": "6.4",
+      "name": "Skylane",
+      "notes": "{{StreetStyles|Skylane}} is in southeast [[Edron]]. It touches {{StreetStyles|Central Circle}} to the northwest and {{StreetStyles|Wood Avenue}} to the northeast.\n\nBuildings from north to south on the street:\n* [[Sky Lane, Guild 1]]\n* [[Sky Lane, Guild 2]]\n* [[Sky Lane, Guild 3]]\n* [[Sky Lane, Sea Tower]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Thais",
+      "implemented": "Pre-6.0",
+      "name": "Temple Street",
+      "notes": "{{StreetStyles|Temple Street}} is in central [[Thais]]. It touches {{StreetStyles|Royal Avenue}} at the north-west, {{StreetStyles|Mill Avenue}} at the north-east, and {{StreetStyles|Main Street}} at the south.<br/>\n<br/>\nBuildings and NPCs from north to south and west to east on the street:<br/>\n* [[Grof, The Guard]], north gate\n'''West:'''<br/>\n* [[Sam]], [[Armors]][[Weapons|and Weapons Shop]]\n* [[Warriors Guildhall]]\n* [[Frodo]], Tavern\n* [[Todd]], Tavern rooms (second floor)\n'''East:'''<br/>\n* [[Cooking#Cooking the bread|Baking house]]\n* [[Gorn]], [[Equipment|Equipment Shop]]\n* Park\n'''South:'''<br/>\n* Library (no books)\n* [[Quentin]], [[Temple]] and [[Holy Shrines#Teleporter Hallway|Teleporter Hallway]]\n* [[Hoaxette]] - wanders around here during month of April\n* [[Oswald]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Edron",
+      "implemented": "6.4",
+      "name": "Castle Street",
+      "notes": "{{StreetStyles|Castle Street}} is located west of the castle in central Edron. It borders the {{StreetStyles|Castle Flats}} to the east and the {{StreetStyles|Edron Flats}} to the south-east.\n\nBuildings and NPCs from south to north:\n* [[Castle Street 1]]\n* [[Shoddy Beggar]]\n* [[Castle Street 2]]\n* [[Castle Street 3]]\n* [[Castle Street 4]]\n* [[Castle Street 5]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Carlin",
+      "name": "Magician's Alley",
+      "notes": "{{StreetStyles|Magician's Alley}} is in the southwest of [[Carlin]]. It touches {{StreetStyles|Theater Avenue}} to the north, {{StreetStyles|Sea Lane}} to the south, {{StreetStyles|Central Plaza}} in central Carlin, and {{StreetStyles|Harbour Lane}} to the east.\n\nBuildings and NPCs from west to east and north to south on the street:<br />\n'''West:'''\n* [[Magician's Alley 1]]\n* [[Magician's Alley 1a]]\n* [[Magician's Alley 1b]]\n* [[Magician's Alley 1c]]\n* [[Magician's Alley 1d]]\n\n'''East:'''\n* [[Magician's Alley 5a]]\n* [[Magician's Alley 5b]]\n* [[Magician's Alley 5c]]\n* [[Magician's Alley 5d]]\n* [[Magician's Alley 5e]]\n* [[Magician's Alley 5f]]\n\n'''South-West:'''\n* [[Druid|Druid Guild]]\n** [[Padreia]]\n** [[Cerdras]] (second floor)\n* [[Carlin Clanhall]]\n* [[Magician's Alley 4]]\n\n'''South:'''\n* [[Magician's Alley 8]]\n* [[Rachel]], [[Magic Shop]]\n* [[Lea]], [[Sorcerer|Sorcerer Guild]] (second floor)",
+      "templateType": "Street"
+    },
+    {
+      "city": "Kazordoon",
+      "floor": "-1",
+      "implemented": "6.1",
+      "name": "The Market",
+      "notes": "{{StreetStyles|The Market}} is in [[Kazordoon]] on the first underground (-1) floor. It has stairs going up to {{StreetStyles|The Farms}} (+5) on the north-west end. Two stairs go up to {{StreetStyles|Armory Street}} (+1) farther west from Iwar and on his right. Stairs go down to {{StreetStyles|Shops Street}} and {{StreetStyles|Lower Barracks}} (-2) in the depot and to Iwar's left.<br/>\n<br/>\nBuildings and NPCs from west to east on the street:<br/>\n\n* entrance to [[Colossus]]\n* Arenas entrance\n** [[Alberto]], [[Monster Arena]]\n** [[Burt]], [[Monster Arena]]\n** [[Brom]], [[Duelling Arena]]\n* [[Furniture|Furniture Shop]]\n** [[Iwar]]\n* [[Knight|Knight Guild]]\n** [[Duria]]\n* Forge\n* [[The Market 1 (Shop)]]\n* [[The Market 2 (Shop)]]\n* [[The Market 3 (Shop)]]\n* [[The Market 4 (Shop)]]\n* [[Depot]] and [[Bank]]\n** [[Lokur]]\n** [[Ore Wagon]]s to [[Shops Street]], [[Kazordoon Entrance]], [[Temple Road]], [[Brodrosch]]'s [[Steamship]]\n\n* [[Marble Guildhall]] (accessible from [[Shops Street]] -2 floor, but not from {{StreetStyles|The Market}})",
+      "templateType": "Street"
+    },
+    {
+      "city": "Ankrahmun",
+      "implemented": "7.3",
+      "name": "Botham",
+      "notes": "{{StreetStyles|Botham}} is located in the south-east part of the city. It contains four pyrimads.<br/>\n\nBuildings and NPCs from west to east and north to south on the street:<br/>",
+      "templateType": "Street"
+    },
+    {
+      "city": "Liberty Bay",
+      "implemented": "7.8",
+      "name": "Rum Alley",
+      "notes": "{{StreetStyles|Rum Alley}} is in southwest [[Liberty Bay]]. It touches {{StreetStyles|Litter Promenade}} to the south.\n\nBuildings and NPCs from north to south and west to east:<br />\n'''South-West:'''\n* [[Rum Alley 1]]\n* [[Rum Alley 2]]\n* [[Rum Alley 3]]\n* [[The Shelter]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Venore",
+      "implemented": "7.1",
+      "name": "Silver Street",
+      "notes": "{{StreetStyles|Silver Street}} is in east [[Venore]]. It touches {{StreetStyles|Market Street}} to the north west, {{StreetStyles|Mystic Lane}} to the west, and {{StreetStyles|Iron Alley}} to the south west.<br/>\n<br/>\nBuildings and NPCs from north to south and west to east on the street:<br/>\n* Northeast Tower (not accessible)\n* [[Jean Claude]], outside House of Wealth\n* [[House of Wealth]]\n** [[Carina]] (entrance/+1 floor)\n** [[Rokyn]] (entrance/+1 floor)\n** [[Odemara]] (entrance/+1 floor)\n** [[Dagomir]] (+2 floor)\n* Storage Tower (not accessible)\n* [[Silver Street 4]]\n* [[Silver Street 3]]\n* [[Silver Street 2]]\n* Storage Tower (east city entrance)\n* [[Silver Street 1]]\n* [[Golden Axe Guildhall]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Darashia",
+      "implemented": "6.61-6.97",
+      "name": "Darashia 7",
+      "notes": "{{StreetStyles|Darashia 7}} is the flat building in north-east, east of {{StreetStyles|Darashia 4}}.\n<br/>\n\nBuildings on the street<br />\nGround floor counter-clockwise north-west to south-west:\n*[[Darashia 7, Flat 01]]\n*[[Darashia 7, Flat 02]]\n*[[Darashia 7, Flat 03]]\n*[[Darashia 7, Flat 04]]\n*[[Darashia 7, Flat 05]]\nFirst floor counter-clockwise north to east:\n*[[Darashia 7, Flat 11]]\n*[[Darashia 7, Flat 12]]\n*[[Darashia 7, Flat 13]]\n*[[Darashia 7, Flat 14]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Darashia",
+      "implemented": "6.61-6.97",
+      "name": "Darashia 8",
+      "notes": "{{StreetStyles|Darashia 8}} is the flat building in south-east, east of {{StreetStyles|Darashia 3}} and west of [[Darashia Villa]].\n<br/>\n\nBuildings on the street<br />\nGround floor counter-clockwise north-east to north-west:\n*[[Darashia 8, Flat 01]]\n*[[Darashia 8, Flat 02]]\n*[[Darashia 8, Flat 03]]\n*[[Darashia 8, Flat 04]]\n*[[Darashia 8, Flat 05]]\nFirst floor counter-clockwise north to east:\n*[[Darashia 8, Flat 11]]\n*[[Darashia 8, Flat 12]]\n*[[Darashia 8, Flat 13]]\n*[[Darashia 8, Flat 14]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Ankrahmun",
+      "implemented": "7.3",
+      "name": "Oskahl",
+      "notes": "{{StreetStyles|Oskahl}} is located in the south-west of the city.<br/>\n\nBuildings and NPCs from west to east and north to south on the street:<br/>",
+      "templateType": "Street"
+    },
+    {
+      "city": "Liberty Bay",
+      "implemented": "7.8",
+      "name": "Ivory Circle",
+      "notes": "{{StreetStyles|Ivory Circle}} is in north-east [[Liberty Bay]]. It touches {{StreetStyles|Admiral's Avenue}} in the west and {{StreetStyles|Trader's Point}} in the south.\n\nBuildings and NPCs clockwise from northwest:\n* [[Ivory Circle 1]]\n* [[Bertram]], Jeweler\n* [[Chantalle]], Jeweler\n* [[Theodore Loveless]], Jeweler (2nd floor)\n* [[Berenice]], Tibian Explorer Society\n* [[Ivory Circle 2]]\n* [[Frederik]], Malunga's Tower, Magic Supply Store\n* [[Malunga]], Malunga's Tower, Magic Supply Store (3rd floor)",
+      "templateType": "Street"
+    },
+    {
+      "city": "Liberty Bay",
+      "implemented": "7.8",
+      "name": "Sugar Street",
+      "notes": "{{StreetStyles|Sugar Street}} is in west and central [[Liberty Bay]]. It touches {{StreetStyles|Harvester's Haven}} to the north, '''Smuggler Backyard''' and {{StreetStyles|Shady Trail}} to the south, and {{StreetStyles|Marble Lane}} and {{StreetStyles|Admiral's Avenue}} to the east.\n\nBuildings and NPCs from south to north and west to east:<br/>\n'''South-West:'''\n* [[Sugar Street 1]]\n* [[Sugar Street 2]]\n* [[Sugar Street 3a]]\n* [[Sugar Street 4a]]\n\n'''North-West:'''\n* [[Sugar Street 3b]]\n\n'''North:'''\n* [[Ivy Cottage]]\n\n'''Central:'''\n* [[Sugar Street 4b]]\n* [[Sugar Street 4c]]\n* [[Sugar Street 4d]]\n\n'''East:'''\n* [[Peggy]], [[Furniture|Furniture Store]]\n* [[Sugar Street 5]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Liberty Bay",
+      "implemented": "7.8",
+      "name": "The Tavern",
+      "notes": "{{StreetStyles|The Tavern}} is in central [[Liberty Bay]]. It touches {{StreetStyles|Shady Trail}} and {{StreetStyles|Straycat's Corner}} to the west, {{StreetStyles|Trader's Point}} to the north, and {{StreetStyles|Freedom Street}} to the east.\n\nBuildings and NPCs:\n* [[Lyonel]], Tavern\n* [[Bradford]], Tavern\n* [[The Tavern 1a]] (second floor)\n* [[The Tavern 1b]] (second floor)\n* [[The Tavern 1c]] (second floor)\n* [[The Tavern 1d]] (second floor)\n* [[The Tavern 2a]] (third floor)\n* [[The Tavern 2b]] (third floor)\n* [[The Tavern 2c]] (third floor)\n* [[The Tavern 2d]] (third floor)",
+      "templateType": "Street"
+    },
+    {
+      "city": "Darashia",
+      "implemented": "6.61-6.97",
+      "name": "Darashia 1",
+      "notes": "{{StreetStyles|Darashia 1}} is the flat building in north-west of town, north of {{StreetStyles|Darashia 2}} west of [[Darashia Palace]].\n<br/>\n\nBuildings on the street<br />\nGround floor counter-clockwise north-east to south-east:\n*[[Darashia 1, Flat 01]]\n*[[Darashia 1, Flat 02]]\n*[[Darashia 1, Flat 03]]\n*[[Darashia 1, Flat 04]]\n*[[Darashia 1, Flat 05]]\nFirst floor counter-clockwise north to east:\n*[[Darashia 1, Flat 11]]\n*[[Darashia 1, Flat 12]]\n*[[Darashia 1, Flat 13]]\n*[[Darashia 1, Flat 14]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Darashia",
+      "implemented": "6.61-6.97",
+      "name": "Darashia 2",
+      "notes": "{{StreetStyles|Darashia 2}} is the flat building in west, south of {{StreetStyles|Darashia 1}} and north of [[Muhaydin|depot]].\n<br/>\n\nBuildings on the street<br />\nGround floor counter-clockwise north-east to south-east:\n*[[Darashia 2, Flat 01]]\n*[[Darashia 2, Flat 02]]\n*[[Darashia 2, Flat 03]]\n*[[Darashia 2, Flat 04]]\n*[[Darashia 2, Flat 05]]\n*[[Darashia 2, Flat 06]]\n*[[Darashia 2, Flat 07]]\nFirst floor counter-clockwise north-east to east:\n*[[Darashia 2, Flat 11]]\n*[[Darashia 2, Flat 12]]\n*[[Darashia 2, Flat 13]]\n*[[Darashia 2, Flat 14]]\n*[[Darashia 2, Flat 15]]\n*[[Darashia 2, Flat 16]]\n*[[Darashia 2, Flat 17]]\n*[[Darashia 2, Flat 18]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Darashia",
+      "implemented": "6.61-6.97",
+      "name": "Darashia 5",
+      "notes": "{{StreetStyles|Darashia 5}} is the flat building in north, east of [[Darashia Palace]] and west of {{StreetStyles|Darashia 6}}.\n<br/>\n\nBuildings on the street<br />\nGround floor counter-clockwise south-west to south-east:\n*[[Darashia 5, Flat 01]]\n*[[Darashia 5, Flat 02]]\n*[[Darashia 5, Flat 03]]\n*[[Darashia 5, Flat 04]]\n*[[Darashia 5, Flat 05]]\nFirst floor counter-clockwise north to east:\n*[[Darashia 5, Flat 11]]\n*[[Darashia 5, Flat 12]]\n*[[Darashia 5, Flat 13]]\n*[[Darashia 5, Flat 14]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Rathleton",
+      "implemented": "10.50",
+      "name": "Rathleton Shops",
+      "notes": "{{StreetStyles|Rathleton Shops}} is in the north on the first floor of [[Upper Rathleton]]. It touches {{StreetStyles|Rathleton Plaza}} to the south and connects to the stairs going up the {{StreetStyles|Rathleton Magistrate Plaza}}.<br/>\n<br/>\nBuildings and NPCs from east to west and north to south on the street:<br/>\n\n* Rathleton Post Office - [[Fyodor]] (+2 floor, entrance)\n** \"Interior Design\" Furniture - [[Nicholas]] (+3 floor)\n** \"Madame Fayla's Music Chamber\" Instruments Shop - [[Fayla]] (+4 floor)\n* \"Flint's Finest\" Armors and Weapons - [[Flint]] (+2 floor, entrance)\n** The Archer's Grounds - Distance Weapons and Paladin Spells - [[Silas]] (+3 floor)\n** \"Astronomy ...\" Sorcerer Spells - [[Barnabas Dee]] (+4 floor)\n* Rathleton Depot and Bank\n** Bank - [[Virgil]] (+3 floor)\n** \"Exquisite Jewellery and Antiquities\" Gem Store - [[Edmund]] (+4 floor)\n* Shops\n** Tools - [[Maro]] (+2 floor, entrance)\n** Magic Equipment - [[Mordecai]] (+3 floor)\n** Potions - [[Alaistar]] (+4 floor)\n* Knight Spells - [[Graham]] (+2 floor, entrance)\n** [[Emily]] (+3 floor)\n* \"Grand Opera Café\" Food Shop - [[Christine]] (+3 floor)\n** [[Training School]] (-1 floor)\n* Arenas\n** [[Fabiana]], [[Monster Arena]]\n** [[Helsi Van Ore]], [[Monster Arena]]\n** [[Roughington]], [[Duelling Arena]]\n* Oramond Temple and Druid Spells - [[Azalea]] (+2 floor, entrance)\n** [[Holy Shrines|Teleporter Archways]] (+4 floor)",
+      "templateType": "Street"
+    },
+    {
+      "city": "Darashia",
+      "implemented": "6.61-6.97",
+      "name": "Darashia 6",
+      "notes": "{{StreetStyles|Darashia 6}} is the flat building in north-east, east of {{StreetStyles|Darashia 5}}.\n<br/>\n\nBuildings on the street from north to south\n*[[Darashia 6a]]\n*[[Darashia 6b]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Darashia",
+      "implemented": "6.61-6.97",
+      "name": "Darashia 3",
+      "notes": "{{StreetStyles|Darashia 3}} is the flat building in south-center of town, east of [[Muhaydin|depot]] and {{StreetStyles|Darashia 2}} and west of {{StreetStyles|Darashia 8}}.\n<br/>\n\nBuildings on the street<br />\nGround floor counter-clockwise north-west to north-east:\n*[[Darashia 3, Flat 01]]\n*[[Darashia 3, Flat 02]]\n*[[Darashia 3, Flat 03]]\n*[[Darashia 3, Flat 04]]\n*[[Darashia 3, Flat 05]]\nFirst floor counter-clockwise north to east:\n*[[Darashia 3, Flat 11]]\n*[[Darashia 3, Flat 12]]\n*[[Darashia 3, Flat 13]]\n*[[Darashia 3, Flat 14]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Ankrahmun",
+      "implemented": "7.3",
+      "name": "Thanah",
+      "notes": "{{StreetStyles|Thanah}} is located in the center of the city.<br/>\n\nBuildings and NPCs from west to east and north to south on the street:<br/>",
+      "templateType": "Street"
+    },
+    {
+      "city": "Darashia",
+      "implemented": "6.61-6.97",
+      "name": "Darashia 4",
+      "notes": "{{StreetStyles|Darashia 4}} is the flat building in center of town, east of [[Darashia Market]] and west of {{StreetStyles|Darashia 7}}.\n<br/>\n\nBuildings on the street<br />\nGround floor counter-clockwise north-east to south-east:\n*[[Darashia 4, Flat 01]]\n*[[Darashia 4, Flat 02]]\n*[[Darashia 4, Flat 03]]\n*[[Darashia 4, Flat 04]]\n*[[Darashia 4, Flat 05]]\nFirst floor counter-clockwise north to east:\n*[[Darashia 4, Flat 11]]\n*[[Darashia 4, Flat 12]]\n*[[Darashia 4, Flat 13]]\n*[[Darashia 4, Flat 14]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Liberty Bay",
+      "implemented": "7.8",
+      "name": "Streets of Liberty Bay",
+      "notes": "{{{!}} border=\"0\" cellpadding=\"1\" cellspacing=\"0\" \n{{!}}-\n{{!}}<span style=\"color: red\">'''Admiral's Avenue'''</span> {{!}}{{!}} ([[Admiral's Avenue|*]]) horizontal from [[Sugar Street]] to the [[Valuables|jeweller]].\n{{!}}-\n{{!}}<span style=\"color: blue\">'''Freedom Street'''</span> {{!}}{{!}} ([[Freedom Street|*]]) vertical from the depot and northwards to [[Admiral's Avenue]].\n{{!}}-\n{{!}}<span style=\"color: yellow; background-color: gray\">'''Harvester's Haven'''</span> {{!}}{{!}} ([[Harvester's Haven|*]]) block of flats west of [[Marble Lane]]\n{{!}}-\n{{!}}<span style=\"color: white; background-color: gray\">'''Ivory Circle'''</span> {{!}}{{!}} ([[Ivory Circle|*]]) in a circle around the tower of [[magic]] and the local [[Tibian Explorer Society|explorer society]].\n{{!}}-\n{{!}}<span style=\"color: #753B19\">'''Klabauter Walk'''</span> {{!}}{{!}} ([[Klabauter Walk|*]]) horizontal path by the Harbour.\n{{!}}-\n{{!}}<span style=\"color: #66EEEE; background-color: gray\">'''Litter Promenade'''</span> {{!}}{{!}} ([[Litter Promenade|*]]) horizontal southernmost path in the poor quarters.\n{{!}}-\n{{!}}<span style=\"color: purple\">'''Marble Lane'''</span> {{!}}{{!}} ([[Marble Lane|*]]) vertical from the northern edge of the city to the [[Cedrik|blacksmith]].\n{{!}}-\n{{!}}<span style=\"color: brown\">'''Rum Alley'''</span> {{!}}{{!}} ([[Rum Alley|*]]) horizontal path passing just north of [[The Shelter]] in the poor quarters.\n{{!}}-\n{{!}}<span style=\"color: #99FF00; background-color: gray\">'''Shady Trail'''</span> {{!}}{{!}} ([[Shady Trail|*]]) vertical middle path in the poor quarters.\n{{!}}-\n{{!}}'''Smuggler Backyard''' {{!}}{{!}} ([[Smuggler Backyard|*]]) vertical western path in the poor quarters.\n{{!}}-\n{{!}}<span style=\"color: orange\">'''Straycat's Corner'''</span> {{!}}{{!}} ([[Straycat's Corner|*]]) vertical eastern path in the poor quarters.\n{{!}}-\n{{!}}<span style=\"color: green\">'''Sugar Street'''</span> {{!}}{{!}} ([[Sugar Street|*]]) horizontal going from the western edge of the city and onto [[Admiral's Avenue]].\n{{!}}-\n{{!}}<span style=\"color: #998800\">'''The Tavern'''</span> {{!}}{{!}} ([[The Tavern|*]]) block of flats above the tavern of [[Liberty Bay]], west of the depot.\n{{!}}-\n{{!}}<span style=\"color: #FF0099\">'''Trader's Point'''</span> {{!}}{{!}} ([[Trader's Point|*]]) horizontal going through the temple and north of the depot.\n{{!}}}",
+      "templateType": "Street"
+    },
+    {
+      "city": "Darashia",
+      "implemented": "6.61-6.97",
+      "name": "Darashia Street",
+      "notes": "{{StreetStyles|Darashia Street}} runs through most of [[Darashia]]. It is not actually a defined street but this page is used to manage all non-house entities in Darashia.<br/>\n<br/>\nBuildings and NPCs from north to south and west to east on the street:<br/>\n* [[Wasp Tower]]\n* [[Darashia Palace]]\n** [[Dabui]], palace guard, ground floor\n** [[Shalmar]], Mage Spells, ground floor\n** [[Asima]], Potions, ground floor\n** [[Fadil]], Buys Otherworld items, ground floor\n** [[Muzir]], Bank, ground floor\n** [[Razan]], Knight & Paladin Spells, ground floor\n** [[Morun]], palace guard, first floor\n** [[Kazzan]], caliph of Darashia, first floor\n* Mazarius house\n** [[Bozarn]], ground floor\n** [[Mazarius]], -1 floor\n* [[Darashia Market]]\n** [[Omur]], fruit\n** [[Ishina]], jewellry\n** [[Edoch]], fletching\n** [[Habdel]], weapons\n** [[Azil]], armors\n** [[Halif]], equipment\n** [[Mugluf]], food\n* [[Muhaydin]]\n** [[Kasmir]], Temple, sixth floor\n** [[Depot]]\n* [[Bath of Dreams]]\n* Stable\n* [[Darashia, Western Guildhall]]\n* [[Darashia, Eastern Guildhall]]\n* [[Miraia]], Enlightened Oasis\n* storage building\n* non-rentable house, owner unknown\n* [[Darashia, Villa]]\n* [[Hofech]], Furniture store, ground floor\n* [[Chemar]], Post and [[Magic Carpet]], first floor\n* [[Deeper Catacombs]]\n* [[Petros]], Boat, first floor",
+      "templateType": "Street"
+    },
+    {
+      "city": "Carlin",
+      "name": "Northern Street",
+      "notes": "{{StreetStyles|Northern Street}} is in northeast [[Carlin]]. It touches {{StreetStyles|Central Street}} to the west and {{StreetStyles|Theater Avenue}} to the south.\n\nBuildings and NPCs from west to east on the street:\n* [[Explorer Club]]\n** [[Northern Street 1a]]\n** [[Carlin Libraries#Explorer Club|Library]]\n** [[Northern Street 1b]] (second floor)\n** [[Northern Street 1c]] (second floor)\n* [[Royal Schoolhouse]]\n** [[Phillip]]\n** [[Carlin Libraries#Royal Schoolhouse|Library]]\n** [[Northern Street 3a]] (second floor)\n** [[Northern Street 3b]] (second floor)\n* [[Northern Street 5]]\n* [[Northern Street 7]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Ankrahmun",
+      "implemented": "7.3",
+      "name": "Esuph",
+      "notes": "{{StreetStyles|Esuph}} is located in the east of the city.<br/>\n\nBuildings and NPCs from west to east and north to south on the street:<br/>",
+      "templateType": "Street"
+    },
+    {
+      "city": "Edron",
+      "implemented": "6.4",
+      "name": "Stonehome Flats",
+      "notes": "{{StreetStyles|Stonehome Flats}} is a set of flats in the village [[Stonehome]], near [[Edron]]. There is one other street in this village, called [[Stonehome Village]].\n\nBuildings from north to south on the street:\n*[[Stonehome Flats, Flat 01]]\n*[[Stonehome Flats, Flat 02]]\n*[[Stonehome Flats, Flat 03]]\n*[[Stonehome Flats, Flat 04]]\n*[[Stonehome Flats, Flat 05]]\n*[[Stonehome Flats, Flat 06]]\n\n*[[Stonehome Flats, Flat 11]]\n*[[Stonehome Flats, Flat 12]]\n*[[Stonehome Flats, Flat 13]]\n*[[Stonehome Flats, Flat 14]]\n*[[Stonehome Flats, Flat 15]]\n*[[Stonehome Flats, Flat 16]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Liberty Bay",
+      "implemented": "7.8",
+      "name": "Harvester's Haven",
+      "notes": "{{StreetStyles|Harvester's Haven}} is in northwest [[Liberty Bay]]. It touches {{StreetStyles|Sugar Street}} to the south.\n\nBuildings and NPCs from south to north and west to east:<br/>\n'''West:'''\n* [[Harvester's Haven, Flat 01]]\n* [[Harvester's Haven, Flat 03]]\n* [[Harvester's Haven, Flat 05]]\n* [[Harvester's Haven, Flat 11]] (second floor)\n* [[Harvester's Haven, Flat 09]] (second floor)\n* [[Harvester's Haven, Flat 07]] (second floor)\n\n'''East:'''\n* [[Harvester's Haven, Flat 02]]\n* [[Harvester's Haven, Flat 04]]\n* [[Harvester's Haven, Flat 06]]\n* [[Harvester's Haven, Flat 08]] (second floor)\n* [[Harvester's Haven, Flat 10]] (second floor)\n* [[Harvester's Haven, Flat 12]] (second floor)",
+      "templateType": "Street"
+    },
+    {
+      "city": "Venore",
+      "implemented": "7.1",
+      "name": "Lucky Lane",
+      "notes": "{{StreetStyles|Lucky Lane}} is in south central [[Venore]]. It touches {{StreetStyles|Mystic Lane}} in the north, and crosses {{StreetStyles|Salvation Street}} and {{StreetStyles|Iron Alley}} mid way.<br/>\n<br/>\nBuildings and NPCs from north to south on the street:<br/>\n* [[The Hard Rock]]\n** [[Asrak]], The Hard Rock Tavern (-4 floor)\n** [[Urkalio]], The Hard Rock Tavern (-3 floor)\n** [[Maria]], The Hard Rock Tavern (-2 floor)\n** [[A Strange Fellow]], The Hard Rock Tavern (-2 floor)\n** [[Zebron]], The Hard Rock Tavern (-2 floor)\n** [[Santa Claus]], The Hard Rock Tavern during Christmas (-2 floor)\n** [[Messenger of Santa]], The Hard Rock Tavern during Christmas (-2 floor)\n** [[Nurik]], The Hard Rock Tavern (-1 floor)\n** [[Dove]], Depot & Post Office (ground floor)\n** [[Lightfoot]], The Hard Rock Tavern (+1 floor)\n** [[Dustrunner]], The Hard Rock Tavern (+1 floor) \n** [[Boozer]], The Hard Rock Tavern (+2 floor) \n* [[Lucky Lane 1 (Shop)]]\n* [[Warbert]], South gate",
+      "templateType": "Street"
+    },
+    {
+      "city": "Svargrond",
+      "implemented": "8.00",
+      "name": "Trout Plaza",
+      "notes": "{{StreetStyles|Trout Plaza}} is located in the south of the city.",
+      "templateType": "Street"
+    },
+    {
+      "city": "Svargrond",
+      "implemented": "8.00",
+      "name": "Bears Paw",
+      "notes": "{{StreetStyles|Bears Paw}} is located in the center of the city.",
+      "templateType": "Street"
+    },
+    {
+      "city": "Venore",
+      "implemented": "7.1",
+      "name": "Old Lighthouse (Street)\n| actualname.    = Old Lighthouse",
+      "notes": "{{StreetStyles|Old Lighthouse}} is in northwest [[Venore]]. It touches {{StreetStyles|Market Street}} to the south.<br/>\n<br/>\nBuilding on the street:<br/>\n* [[Old Lighthouse]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Edron",
+      "implemented": "6.4",
+      "name": "Stonehome Village",
+      "notes": "{{StreetStyles|Stonehome Village}} is the only street in the village [[Stonehome]], near [[Edron]]. The only other houses in Stonehome belong to [[Stonehome Flats]].\n\nBuildings from north to south on the street:\n*[[Stonehome Village 1]]\n*[[Stonehome Village 2]]\n*[[Stonehome Village 3]]\n*[[Stonehome Village 4]]\n*[[Stonehome Village 5]]\n*[[Stonehome Village 6]]\n*[[Stonehome Village 7]]\n*[[Stonehome Village 8]]\n*[[Stonehome Village 9]]\n*[[Stonehome Clanhall]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Thais",
+      "implemented": "Pre-6.0",
+      "name": "Sorcerer's Avenue",
+      "notes": "{{StreetStyles|Sorcerer's Avenue}} is in south-west [[Thais]]. It touches {{StreetStyles|Harbour Street}} and {{StreetStyles|Upper Swamp Lane}} to the east.<br/>\n<br/>\nBuildings and NPCs from west to east and north to south on the street:<br/>\n'''West:'''<br/>\n* [[Open-Air Theatre]]\n* [[Kulag, The Guard]], West Gate\n* [[Sorcerer's Avenue 5]]\n* [[Robin]], Master Huntsman (second floor)\n* [[Sorcerer's Avenue 1a]]\n* [[Sorcerer's Avenue 1b]] (second floor)\n* [[Sorcerer's Avenue 1c]] (second floor)\n* [[Muriel]], [[Sorcerer|Sorcerer Guild]]\n* [[Lungelen]], [[Sorcerer|Sorcerer Guild]] (second floor)\n* [[Sorcerer's Avenue Labs 2a]] (-1 floor)\n* [[Sorcerer's Avenue Labs 2b]] (-1 floor)\n* [[Sorcerer's Avenue Labs 2c]] (-1 floor)\n'''Central:'''<br/>\n* [[Beach Home Apartments, Flat 06]]\n* [[Beach Home Apartments, Flat 16]] (second floor)\n\n* [[Beach Home Apartments, Flat 05]]\n* [[Beach Home Apartments, Flat 04]]\n* [[Beach Home Apartments, Flat 03]]\n* [[Beach Home Apartments, Flat 02]]\n* [[Beach Home Apartments, Flat 01]]\n* [[Beach Home Apartments, Flat 15]] (second floor)\n* [[Beach Home Apartments, Flat 14]] (second floor)\n* [[Beach Home Apartments, Flat 13]] (second floor)\n* [[Beach Home Apartments, Flat 12]] (second floor)\n* [[Beach Home Apartments, Flat 11]] (second floor)\n* [[urine|Latrine]]\n* [[Suzy]], [[Bank]]\n'''East:'''<br/>\n* [[Sunset Homes, Flat 01]]\n* [[Sunset Homes, Flat 02]]\n* [[Sunset Homes, Flat 03]]\n* [[Sunset Homes, Flat 11]] (second floor)\n* [[Sunset Homes, Flat 12]] (second floor)\n* [[Sunset Homes, Flat 13]] (second floor)\n* [[Sunset Homes, Flat 14]] (second floor)\n* [[Sunset Homes, Flat 21]] (third floor)\n* [[Sunset Homes, Flat 22]] (third floor)\n* [[Sunset Homes, Flat 23]] (third floor)\n* [[Sunset Homes, Flat 24]] (third floor)",
+      "templateType": "Street"
+    },
+    {
+      "city": "Ab'Dendriel",
+      "floor": "+1",
+      "implemented": "6.2",
+      "name": "Streets of Ab'Dendriel",
+      "notes": "<table border=\"0\" cellpadding=\"1\" cellspacing=\"0\" >\n<tr>\n  <td>{{StreetStyles|Coastwood}}</td>\n  <td>[[Coastwood|*]] Northern part of city, +1 floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Great Willow}}</td>\n  <td>[[Great Willow|*]] Multi-floor flats, ground and +1 floors</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Mangrove}}</td>\n  <td>[[Mangrove Street|*]] Northern part of city, ground floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Shadow Caves}}</td>\n  <td>[[Shadow Caves Street|*]] below ground</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Treetop}}</td>\n  <td>[[Treetop|*]] Southern part of city, +1 floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Underwood}}</td>\n  <td>[[Underwood|*]] Southern part of city, ground floor</td>\n</tr>\n</table>\n\nSome Ab'Dendriel buildings and NPCs lie outside the city beyond named streets:<br/>\n'''West:'''\n* [[The Hideout]]\n'''East:'''\n* [[A Wrinkled Bonelord]] (-6 floor)\n* [[Dreadeye]] (-7 floor)\n* [[An Old Dragonlord]] (+5 floor)\n'''South:'''\n* [[Ceiron]]\n* [[Benevola]]\n* [[Huntsman]]\n* [[Suntower (Blessing)]]\n** [[Edala]] (+5 floor)\n* [[Shadow Towers]]\n* [[Cruleo]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Svargrond",
+      "implemented": "8.00",
+      "name": "Shelf Site (Street)\n| actualname.    = Shelf Site",
+      "notes": "{{StreetStyles|Shelf Site (Street)}} is located in the west of the city.",
+      "templateType": "Street"
+    },
+    {
+      "city": "Darashia",
+      "implemented": "6.61-6.97",
+      "name": "Streets of Darashia",
+      "notes": "<table border=\"0\" cellpadding=\"1\" cellspacing=\"0\" >\n<tr>\n  <td>{{StreetStyles|Darashia 1}}</td>\n  <td>([[Darashia 1|*]]) Flat in north-west of town, west of palace.</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Darashia 2}}</td>\n  <td>([[Darashia 2|*]]) Flat in west, north of depot.</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Darashia 3}}</td>\n  <td>([[Darashia 3|*]]) Flat in south-center of town, east of depot.</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Darashia 4}}</td>\n  <td>([[Darashia 4|*]]) Flat in center of town, east of marketplace.</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Darashia 5}}</td>\n  <td>([[Darashia 5|*]]) Flat in north, east of palace.</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Darashia 6}}</td>\n  <td>([[Darashia 6|*]]) Flat in north-east, east of [[Darashia 5]].</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Darashia 7}}</td>\n  <td>([[Darashia 7|*]]) Flat in east, east of [[Darashia 4]].</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Darashia 8}}</td>\n  <td>([[Darashia 8|*]]) Flat in south-east-center, east of [[Darashia 3]].</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Darashia Street}}</td>\n  <td>([[Darashia Street|*]]) runs from the Palace in north-west, to south via market, by depot, east by guildhalls to boat in south-east.</td>\n</tr>\n</table>\n<br/>\nSome Darashia buildings and NPCs lie outside the city or beyond named streets:\n*[[Casper]], lives in a cave just north of the city.\n*[[Samir]], lives in the mountains near [[Drefia]]. \n*[[Muhad]], lives in the [[Nomad Cave]].",
+      "templateType": "Street"
+    },
+    {
+      "city": "Port Hope",
+      "floor": "+1",
+      "implemented": "7.5",
+      "name": "Coconut Quay",
+      "notes": "{{StreetStyles|Coconut Quay}} is on the first floor of [[Port Hope]] near the mouth of the river [[Mahaji]] mostly on the north side, opposite but bordering {{StreetStyles|Banana Bay}} and {{StreetStyles|Crocodile Bridge}} on the south side of the river.<br/>\nLadders lead to the lower level with {{StreetStyles|Haggler's Hangout}}.\n<br/>\n<br/>\nBuildings and NPCs from west to east and south to north on the street:<br/>\n* [[Charles]], Boat\n* [[Guide Tiko]], dock\n* [[Shark Manor]]\n* [[Imbul]], west [[Port Hope Ferries|ferry]] (ground floor, accessible down ladder)\n* [[Coconut Quay 1]]\n* [[Coconut Quay 2]]\n* [[Coconut Quay 3]]\n* [[Coconut Quay 4]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Port Hope",
+      "implemented": "7.5",
+      "name": "Streets of Port Hope",
+      "notes": "<table border=\"0\" cellpadding=\"1\" cellspacing=\"0\" >\n<tr>\n  <td>{{StreetStyles|Haggler's Hangout}}</td>\n  <td>([[Haggler's Hangout|*]]) running horizontal on the north side of the river; ground floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Bamboo Garden}}</td>\n  <td>([[Bamboo Garden|*]]) running horizontal on the south side of the river; ground floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Coconut Quay}}</td>\n  <td>([[Coconut Quay|*]]) runs on the west side of town; second floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Banana Bay}}</td>\n  <td>([[Banana Bay|*]]) runs on the southwest side of town; second floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Crocodile Bridge}}</td>\n  <td>([[Crocodile Bridge|*]]) runs from Banana Quay at Harbour toward the south-center of town at Woodway; second floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|River Homes}}</td>\n  <td>([[River Homes|*]]) runs in the center of town, connecting with Woodway in the middle; second floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Woodway}}</td>\n  <td>([[Woodway|*]]) runs in the south-center of town from Crocodile Bridge to Flamingo Flats; second floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Flamingo Flats}}</td>\n  <td>([[Flamingo Flats|*]]) runs in the southeast end of town from Woodway to Jungle Edge; second floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Jungle Edge}}</td>\n  <td>([[Jungle Edge|*]]) runs in the northeast connected with Flamingo Flats in the south; second floor</td>\n</tr>\n<tr>\n</tr>\n</table>\n\nSome Port Hope buildings and NPCs lie outside the city beyond named streets:<br/>\n'''North:'''\n* [[Vescu]]\n'''Northeast:'''\n* [[The Treehouse]]\n* [[Hairycles]], in [[Banuta]]\n* [[The Blind Prophet]], outside [[Forbidden Lands]]\n'''South:'''\n* [[Rosemarie]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Svargrond",
+      "implemented": "8.00",
+      "name": "Fimbul Shelf",
+      "notes": "{{StreetStyles|Fimbul Shelf}} is located in the southwest of the city.",
+      "templateType": "Street"
+    },
+    {
+      "city": "Carlin",
+      "name": "Harbour Lane",
+      "notes": "{{StreetStyles|Harbour Lane}} is in the southeast of [[Carlin]]. It touches {{StreetStyles|Magician's Alley}} to the west and {{StreetStyles|Theater Avenue}} to the north. It is near {{StreetStyles|Sea Lane}} to the southwest, and {{StreetStyles|Central Plaza}} to the west.\n\nBuildings and NPCs from west to east and south to north on the street:<br/>\n'''South-West:'''\n* [[Rachel]], [[Magic Shop]]\n* [[Lea]], [[Sorcerer|Sorcerer Guild]] (second floor) \n* [[Harbour Lane 3]]\n\n'''South:'''\n* [[Harbour Flats, Flat 11]]\n* [[Harbour Flats, Flat 12]]\n* [[Harbour Flats, Flat 13]]\n* [[Harbour Flats, Flat 15]]\n* [[Harbour Flats, Flat 16]]\n* [[Harbour Flats, Flat 21]]\n* [[Harbour Flats, Flat 22]]\n* [[Harbour Flats, Flat 23]]\n\n'''East:'''\n* [[Guide Alexena]], Dock\n* [[Captain Greyhound]], [[Boat]]\n* [[Harbour Lane 2a (Shop)]]\n* [[Harbour Lane 2b (Shop)]]\n\n'''North-West:'''\n* [[Harbour Lane 1 (Shop)]]\n* [[Florentine]], [[Flowers]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Svargrond",
+      "implemented": "8.00",
+      "name": "Tusk Flats",
+      "notes": "{{StreetStyles|Tusk Flats}} is located in the northeast of the city.",
+      "templateType": "Street"
+    },
+    {
+      "city": "Ab'Dendriel",
+      "floor": "+1",
+      "implemented": "6.2",
+      "name": "Coastwood",
+      "notes": "{{StreetStyles|Coastwood}} is the northern part of [[Ab'Dendriel]] on the first (+1) floor. It is located the floor above {{StreetStyles|Mangrove}}.<br/>\n<br/>\nBuildings and NPCs from west to east and north to south on the street:<br/>\n\n* [[Coastwood 2]] (+1 floor)\n* [[Coastwood 1]] (+1 floor)\n* [[Coastwood 3]] (+1 floor)\n* [[Coastwood 4]] (+1 floor)\n* [[Coastwood 5]] (+1 floor)\n* [[Coastwood 6 (Shop)]] (+1 floor)\n* [[Coastwood 7]] (+1 floor)\n* [[Coastwood 9]] (+1 floor)\n* [[Coastwood 8]] (+1 floor)\n* [[Llathriel]] (+2 floor)\n* [[Coastwood 10]] (+1 floor)",
+      "templateType": "Street"
+    },
+    {
+      "city": "Port Hope",
+      "implemented": "7.5",
+      "name": "Bamboo Garden",
+      "notes": "{{StreetStyles|Bamboo Garden}} is on the ground floor of [[Port Hope]] on the south side of the river [[Mahaji]], opposite {{StreetStyles|Haggler's Hangout}} on the north side of the river.<br/>\nLadders lead to the upper level with {{StreetStyles|Banana Bay}} to the west, {{StreetStyles|Crocodile Bridge}} and {{StreetStyles|Woodway}} in the center, and {{StreetStyles|Flamingo Flats}} to the east.<br/>\n<br/>\nBuildings and NPCs from west to east and south to north on the street:<br/>\n* [[Bamboo Garden 1]]\n* Outpost tower\n* [[Bamboo Garden 2]]\n* Fort\n** [[Clark]] (ground floor)\n** [[Port Hope Library]] (ground floor)\n* [[Bamboo Garden 3]]\n* [[Bamboo Fortress]]\n* [[Lorek]], east [[Port Hope Ferries|ferry]], at the end of the street\n* [[Paw and Fur Society]]\n** [[Ben]] (ground floor)\n** [[Grizzly Adams]] (first floor)",
+      "templateType": "Street"
+    },
+    {
+      "city": "Liberty Bay",
+      "implemented": "7.8",
+      "name": "Freedom Street",
+      "notes": "{{StreetStyles|Freedom Street}} is in central [[Liberty Bay]]. It touches {{StreetStyles|Admiral's Avenue}} to the north, {{StreetStyles|Trader's Point}} in the middle, {{StreetStyles|The Tavern}} in the west, and {{StreetStyles|Klabauter Walk}} to the south.\n\nBuildings and NPCs from west to east and north to south:<br/>\n* [[Freedom Street 1]]\n* [[Freedom Street 2]]\n* [[Tyrias]], [[Temple]]\n* [[Herbert]], [[Depot]] and [[Holy Shrines#Teleporter Hallways|Teleporter Hallway]]\n* [[Jefrey]], [[Bank]] at the Depot\n* [[Lyonel]], Tavern\n* [[Bradford]], Tavern\n* [[Liberty Bay Libraries#Freedom Street|Liberty Bay Libraries]]\n* [[Marcus]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Rathleton",
+      "floor": "+2",
+      "implemented": "10.50",
+      "name": "Streets of Rathleton",
+      "notes": "<table border=\"0\" cellpadding=\"1\" cellspacing=\"0\" >\n<tr>\n  <td>{{StreetStyles|Antimony Lane}}</td>\n  <td>([[Antimony Lane|*]]) is in central Rathleton touching {{StreetStyles|Rathleton Plaza}} and {{StreetStyles|Wallside Lane}} to the east, {{StreetStyles|Vanward Flats}} to the south, and {{StreetStyles|Cistern Avenue}} to the west; +1 floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Cistern Avenue}}</td>\n  <td>([[Cistern Avenue|*]]) is in the south-west touching {{StreetStyles|Rathleton Plaza}} in the north and {{StreetStyles|Antimony Lane}} and {{StreetStyles|Vanward Flats}} to the east; +1 floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Rathleton Magistrate Plaza}}</td>\n  <td>([[Rathleton Magistrate Plaza|*]]) is in the north-east and connects to the stairs going down to {{StreetStyles|Rathleton Shops}}; +2 floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Rathleton Plaza}}</td>\n  <td>([[Rathleton Plaza|*]]) is in central Rathleton touching {{StreetStyles|Rathleton Shops}} to the north, {{StreetStyles|Antimony Lane}} to the east, and {{StreetStyles|Cistern Avenue}} to the southwest; +1 floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Rathleton Shops}}</td>\n  <td>([[Rathleton Shops|*]]) is in the north touching {{StreetStyles|Rathleton Plaza}} to the south and connects to the stairs going up the {{StreetStyles|Rathleton Magistrate Plaza}}; +1 floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Vanward Flats}}</td>\n  <td>([[Vanward Flats|*]]) is in the south touching {{StreetStyles|Cistern Avenue}} to the west and {{StreetStyles|Antimony Lane}} to the north; +1 floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Wallside Lane}}</td>\n  <td>([[Wallside Lane|*]]) is in the south-east touching {{StreetStyles|Antimony Lane}} to the north</td>\n</tr>\n</table>\n<br/>\nSome buildings and NPCs lie outside the city beyond named streets:<br/>\nDock:\n* [[Captain Gulliver]]\n* [[Guide Kunibert]]\n* [[Olm]]\n\nOthers:\n* [[A Beggar]]\n* [[Chavis]]\n* [[Doubleday]]\n* [[Elliott]]\n* [[Fillias]]\n* [[Jacob]]\n* [[Roswitha]]\n* [[Terrence]]\n* [[The Beggar King]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Venore",
+      "implemented": "7.1",
+      "name": "Loot Lane",
+      "notes": "{{StreetStyles|Loot Lane}} is in north east [[Venore]]. It touches {{StreetStyles|Market Street}} to the north and {{StreetStyles|Mystic Lane}} to the south.<br/>\n<br/>\nBuilding on the street:<br/>\n* [[Loot Lane 1 (Shop)]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Rathleton",
+      "floor": "+2",
+      "implemented": "10.50",
+      "name": "Rathleton Magistrate Plaza",
+      "notes": "{{StreetStyles|Rathleton Magistrate Plaza}} is in the north-east on the second floor (above main part of the city). It connects to the stairs going down to {{StreetStyles|Rathleton Shops}}. The name of this \"street\" is not official, it is named after the only building on the plaza, the [[Rathleton Magistrate]].<br/>\n<br/>\nBuildings and NPCs on the street:<br/>\n\n* [[Ezebeth]] (at building entrance)\n* [[Rathleton Magistrate]]\n** [[Marvin]], +2 (entrance level)\n** [[Barazbaz]], +2 (entrance level)\n** [[Jondrin]], +3\n** [[Sholley]], +4",
+      "templateType": "Street"
+    },
+    {
+      "city": "Venore",
+      "implemented": "7.1",
+      "name": "Salvation Street",
+      "notes": "{{StreetStyles|Salvation Street}} is in central south [[Venore]]. It touches {{StreetStyles|Paupers Palace}} to the west, {{StreetStyles|Dagger Alley}} to the southwest, crosses {{StreetStyles|Lucky Lane}}, and ends at {{StreetStyles|Iron Alley}} to the east.<br/>\n<br/>\nBuildings and NPCs from west to east on the street:<br/>\n* [[Salvation Street 1 (Shop)]]\n* [[Dress for Success]]\n** [[Velvet]] (entrance/+1 floor)\n** [[Norbert]] (entrance/+1 floor)\n** [[Aldo]] (entrance/+1 floor)\n** [[Hugo]] (+2 floor)\n** [[Irmana]] (+2 floor)\n** [[Kalvin]] (+2 floor)\n* [[Pyro Peter]]\n* [[Salvation Street 2]]\n* [[Salvation Street 3]]\n* [[Valorous Venore]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Svargrond",
+      "implemented": "8.00",
+      "name": "Glacier Side",
+      "notes": "{{StreetStyles|Glacier Side}} is located in the west of the city.",
+      "templateType": "Street"
+    },
+    {
+      "city": "Svargrond",
+      "implemented": "8.00",
+      "name": "Shady Rocks",
+      "notes": "{{StreetStyles|Shady Rocks}} is located in the north of the city.",
+      "templateType": "Street"
+    },
+    {
+      "city": "Ab'Dendriel",
+      "implemented": "6.2",
+      "name": "Streets of Ab'Dendriel",
+      "notes": "<table border=\"0\" cellpadding=\"1\" cellspacing=\"0\" >\n<tr>\n  <td>{{StreetStyles|Coastwood}}</td>\n  <td>[[Coastwood|*]] Northern part of city, +1 floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Great Willow}}</td>\n  <td>[[Great Willow|*]] Multi-floor flats, ground and +1 floors</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Mangrove}}</td>\n  <td>[[Mangrove Street|*]] Northern part of city, ground floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Shadow Caves}}</td>\n  <td>[[Shadow Caves Street|*]] below ground</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Treetop}}</td>\n  <td>[[Treetop|*]] Southern part of city, +1 floor</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Underwood}}</td>\n  <td>[[Underwood|*]] Southern part of city, ground floor</td>\n</tr>\n</table>\n\nSome Ab'Dendriel buildings and NPCs lie outside the city beyond named streets:<br/>\n'''West:'''\n* [[The Hideout]]\n'''East:'''\n* [[A Wrinkled Bonelord]] (-6 floor)\n* [[Dreadeye]] (-7 floor)\n* [[An Old Dragonlord]] (+5 floor)\n'''South:'''\n* [[Ceiron]]\n* [[Benevola]]\n* [[Huntsman]]\n* [[Suntower (Blessing)]]\n** [[Edala]] (+5 floor)\n* [[Shadow Towers]]\n* [[Cruleo]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Port Hope",
+      "floor": "+1",
+      "implemented": "7.5",
+      "name": "Flamingo Flats",
+      "notes": "{{StreetStyles|Flamingo Flats}} is on the first floor of [[Port Hope]] on the south side of the river [[Mahaji]], opposite but bordering\n{{StreetStyles|Jungle Edge}} on the north side of the river. It borders {{StreetStyles|Woodway}} to the west.<br/>\nLadders lead to the lower level with {{StreetStyles|Bamboo Garden}}.\n<br/>\n<br/>\nBuildings and NPCs from west to east and north to south on the street:<br/>\n* [[Flamingo Flats 1]]\n* [[Flamingo Flats 2]]\n* [[Flamingo Flats 3]]\n* [[Flamingo Flats 4]]\n* [[Flamingo Flats 5]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Venore",
+      "implemented": "7.1",
+      "name": "Dream Street",
+      "notes": "{{StreetStyles|Dream Street}} is in west [[Venore]]. It touches {{StreetStyles|Seagull Walk}} and {{StreetStyles|Elm Street}} to the north, {{StreetStyles|Mystic Lane}} halfway, and {{StreetStyles|Paupers Palace}}, and {{StreetStyles|Iron Alley}} to the south.<br/>\n<br/>\nBuildings and NPCs from north to south and west to east on the street:<br/>\n* [[Christoph]], northwestern gate (walkway/+1 floor)\n* Shipyard\n* [[Dream Street 4]]\n* [[Dream Street 3]]\n* [[Dream Street 2]]\n* [[Useful Things Warehouse]]\n** [[Chephan]] (entrance/+1 floor)\n** [[Julian]] (entrance/+1 floor)\n** [[Nelliem]] (entrance/+1 floor)\n** [[Shiantis]] (entrance/+1 floor)\n** [[Leeland]] (+2 floor)\n* [[Dream Street 1 (Shop)]]\n* [[Sylvester]], Prison and Garrison (+3 floor)",
+      "templateType": "Street"
+    },
+    {},
+    {
+      "city": "Ankrahmun",
+      "implemented": "7.3",
+      "name": "Streets of Ankrahmun",
+      "notes": "{{{!}} border=\"0\" cellpadding=\"1\" cellspacing=\"0\" \n{{!}}-\n{{!}}<span style=\"color: red\">'''Arakmehn I, II, III, IV'''</span> {{!}}{{!}} ([[Arakmehn|*]])Around the 4 pyramids near the main middle entrance. \n{{!}}-\n{{!}}<span style=\"color: #0CE\">'''Botham I, II, III, IV'''</span> {{!}}{{!}} ([[Botham|*]])South-east part of the city.\n{{!}}-\n{{!}}<span style=\"color: yellow\">'''Chameken I, II'''</span> {{!}}{{!}} ([[Chameken|*]])Connecting 2 small pyramids below [[Thanah]] and depot.\n{{!}}-\n{{!}}<span style=\"color: green\">'''Charsirakh I, II, III'''</span> {{!}}{{!}} ([[Charsirakh|*]])Connecting 2 of the most western pyramids.\n{{!}}-\n{{!}}<span style=\"color: #942\">'''Esuph I, II, III, IV'''</span> {{!}}{{!}} ([[Esuph|*]])Around 4 of the most eastern pyramids.\n{{!}}-\n{{!}}<span style=\"color: white; background-color: grey\">'''Mothrem I'''</span> {{!}}{{!}} ([[Mothrem|*]])1 pyramid above [[Othehothep]].\n{{!}}-\n{{!}}<span style=\"color: black\">'''Murkhol I'''</span> {{!}}{{!}} ([[Murkhol|*]])1 pyramid above [[Oskahl]].\n{{!}}-\n{{!}}<span style=\"color: purple\">'''Oskahl I'''</span> {{!}}{{!}} ([[Oskahl|*]])! large pyramid in the south-west of the city, north of the boat.\n{{!}}-\n{{!}}<span style=\"color: #F70\">'''Othehothep I, II, III'''</span> {{!}}{{!}} ([[Othehothep|*]])Connecting 3 pyramids in the north-west corner of the city.\n{{!}}-\n{{!}}<span style=\"color: #F99\">'''Rathal I, II'''</span> {{!}}{{!}} ([[Rathal|*]])Connecting 2 pyramids in the north-east of the city.\n{{!}}-\n{{!}}<span style=\"color: #9AD\">'''Thanah I, II'''</span> {{!}}{{!}} ([[Thanah|*]])2 large pyramids north and west of depot.\n{{!}}-\n{{!}}<span style=\"color: #6F0\">'''Thrarhor I (Shop)'''</span> {{!}}{{!}} ([[Thrarhor (Shop)|*]])1 big pyramid north of depot below shops.\n{{!}}-\n{{!}}<span style=\"color: blue\">'''Unklath I, II'''</span> {{!}}{{!}} ([[Unklath|*]])Connecting 2 pyramids south of [[Arakmehn]] and north of the arena building.\n{{!}}-\n{{!}}<span style=\"color: grey\">'''Uthemath I'''</span> {{!}}{{!}} ([[Uthemath|*]])1 pyramid between [[Rathal]] and [[Botham]].\n{{!}}-\n{{!}}}",
+      "templateType": "Street"
+    },
+    {
+      "city": "Svargrond",
+      "implemented": "8.00",
+      "name": "Corner Shop",
+      "notes": "{{StreetStyles|Corner Shop}} is located in the northeast of the city.",
+      "templateType": "Street"
+    },
+    {
+      "city": "Kazordoon",
+      "implemented": "6.1",
+      "name": "Streets of Kazordoon",
+      "notes": "<table border=\"0\" cellpadding=\"1\" cellspacing=\"0\" >\n<tr>\n  <td>{{StreetStyles|The Farms}}</td>\n  <td>[[The Farms|*]] +5, 0 floors: houses; wheat fields; [[Colossus]] view; the [[Gewen|magic carpet]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Royal Hall}}</td>\n  <td>[[Royal Hall|*]] +4 floor: Emperor's Quarters</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Nobility Quarter}}</td>\n  <td>[[Nobility Quarter|*]] +3 floor: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Halls of Sorcery}}</td>\n  <td>[[Halls of Sorcery|*]] +2 floor: [[magic]] sellers; sorcerer's guild; [[Kazordoon Libraries|library]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Upper Barracks}}</td>\n  <td>[[Upper Barracks|*]] +2 floor: houses; guildhall</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Armory Street}}</td>\n  <td>[[Armory Street|*]] +1 floor: Armory; general's house; [[Kazordoon Fortress]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Mountain Pass}}</td>\n  <td>[[Mountain Pass|*]] 0 floor: a house; paths through Kazordoon, to city entrances, to [[Mad Mage Valley]], and to [[Dwarven Mines]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|The Market}}</td>\n  <td>[[The Market|*]] -1 floor: houses; [[Depot]] and [[Bank]]; [[Ore Wagon]]s; knight's guild; shops, [[Colossus]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Kazordoon Entrance}}</td>\n  <td>[[Kazordoon Entrance|*]] -2 floor: city entrance/exit; [[Ore Wagon]]s; [[Dwacatra]] entrance</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Lower Barracks}}</td>\n  <td>[[Lower Barracks|*]] -2 floor: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Shops Street}}</td>\n  <td>[[Shops Street|*]] -2 floor: shops; tavern; guildhalls; [[Ore Wagon]]s</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Mushroom Alley}}</td>\n  <td>[[Mushroom Alley|*]] -3 floor: mushroom farm; way to Brewery; way to shops, to temple, to Technomancers, and to city entrance/exit; city mine entrance and way to [[Steam Boat]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Temple Road}}</td>\n  <td>[[Temple Road|*]] -4, -5 floors: [[Temple]]; Dwarven fellowships; [[Game Room]]s; [[Blessing|Blessers]]; [[Wedding]] room; way to [[Gnomegate]] and [[The Spike]]</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Tunnel Gardens}}</td>\n  <td>[[Tunnel Gardens|*]] -4, -5 floors: houses</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Technomancer Lane}}</td>\n  <td>[[Technomancer Lane|*]] -5 floor: [[Technomancer]]s</td>\n</tr>\n</table>\n<br />\nSome Kazordoon buildings and NPCs lie outside the city beyond named streets:<br/>\n* [[Rapanaio]], -7 floors underground in City Mines\n* [[Brodrosch]], [[Steamship]], -8 floors underground in City Mines\n'''North:'''\n* [[Lost Cavern]]\n* [[Hill Hideout]]\n* [[Uzon]], Magic Carpet\n'''West:'''\n* [[Budrik]], -1 underground in a mine entrance\n* [[A Dwarven Ghost]], -5 floors underground in [[Budrik]]'s mine\n* [[Riddler]], [[Paradox Tower]], +6 floors above ground\n'''South:'''\n* [[Wyda]]\n* [[MacNoodles]]\n* [[Wally]], [[Postal Service Headquarters]]\n* [[Kevin]], [[Postal Service Headquarters]] (second floor)\n* [[Wolftower]]\n* [[Riverspring]]\n* [[Adrenius]], [[Desert Dungeon]]\n* [[Hagor]], [[Desert Dungeon]]\n* [[Nemal]], [[Desert Dungeon]]\n* [[Outlaw Camp Street]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Edron",
+      "implemented": "6.4",
+      "name": "Cormaya Street",
+      "notes": "{{StreetStyles|Cormaya Street}} is on the island of [[Cormaya]], south of [[Edron]]. It touches {{StreetStyles|Cormaya Flats}} at the northeast.\n\nBuildings and NPCs from west to east and north to south on the street:\n* [[Pemaret]], [[Boat]] (second floor)\n* [[Cormaya 1]]\n* [[Yoem]], [[Furniture]]\n* [[Cormaya Flats]]\n* [[Cormaya 2]]\n* [[Cormaya House]]\n* [[Cormaya 3]]\n* [[Castle of the White Dragon]]\n* [[Cormaya 4]]\n* [[Cormaya 5]]\n* [[Cormaya 6]]\n* [[Cormaya 7]]\n* [[Cormaya 8]]\n* [[Cormaya 9a]]\n* [[Cormaya 9b]]\n* [[Cormaya 9c]] (second floor)\n* [[Cormaya 9d]] (second floor)\n* [[Cormaya 10]]\n* [[Cormaya 11]]\n* [[Cormaya Garden]] (second floor)\n* [[Gurbasch]] (-8 floor)",
+      "templateType": "Street"
+    },
+    {},
+    {
+      "city": "Svargrond",
+      "implemented": "8.00",
+      "name": "Arena Walk",
+      "notes": "{{StreetStyles|Arena Walk}} is located in the north of the city.",
+      "templateType": "Street"
+    },
+    {
+      "city": "Kazordoon",
+      "floor": "+2",
+      "implemented": "6.1",
+      "name": "Halls of Sorcery",
+      "notes": "{{StreetStyles|Halls of Sorcery}} is located in Kazordoon.",
+      "templateType": "Street"
+    },
+    {
+      "city": "Venore",
+      "implemented": "7.1",
+      "name": "Streets of Venore",
+      "notes": "<table border=\"0\" cellpadding=\"1\" cellspacing=\"0\" >\n<tr>\n  <td>{{StreetStyles|Dagger Alley}}</td>\n  <td>([[Dagger Alley|*]])Runs south from [[Paupers Palace]].</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Dream Street}}</td>\n  <td>([[Dream Street|*]])Runs from north-west entrance past the docks all the way south.</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Elm Street}}</td>\n  <td>([[Elm Street|*]])Running horizontally crossing [[Dream Street]].</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Iron Alley}}</td>\n  <td>([[Iron Alley|*]])Running from the south-west (main) entrance to the east and a bit north until the [[Salvation Street]].</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Loot Lane}}</td>\n  <td>([[Loot Lane|*]])Running vertical between [[Market Street]] and [[Mystic Lane]].</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Lucky Lane}}</td>\n  <td>([[Lucky Lane|*]])Running from south entrance vertically until reaching [[Mystic Lane]] (depot).</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Market Street}}</td>\n  <td>([[Market Street|*]])Running horizontally from [[Silver Street]] (bank) until [[Seagull Walk]]. </td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Mystic Lane}}</td>\n  <td>([[Mystic Lane|*]])Running horizontally from [[Dream Street]] past depot until touching [[Silver Street]] in the east.</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Old Lighthouse}}</td>\n  <td>([[Old Lighthouse (Street)|*]])Small vertical sidewalk from [[Market Street]] in the north.</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Paupers Palace}}</td>\n  <td>([[Paupers Palace|*]])A big flat complex south of depot.</td>\n</tr>\n<tr>\n  <td style=\"width:120px;\">{{StreetStyles|Salvation Street}}</td>\n  <td>([[Salvation Street|*]])Starting at [[Paupers Palace]] running horizontally until guildhall [[Valorous Venore]].</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Seagull Walk}}</td>\n  <td>([[Seagull Walk|*]])Starting at depot it runs north and west almost until the docks.</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Silver Street}}</td>\n  <td>([[Silver Street|*]])Starting in the most north-east corner it runs south and west until [[Iron Alley]].</td>\n</tr>\n<tr>\n  <td>{{StreetStyles|Walk of Flame}}</td>\n  <td>([[Walk of Flame|*]])Starting at the boat it runs south until [[Salvation Street]].</td>\n</tr>\n</table>\n<br/>\nSome Venore buildings and NPCs lie outside the city beyond named streets:<br/>\n'''North-West:'''\n* [[Wyda]]\n'''West:'''\n* '''[[Thaian-Venorean Road]]'''\n* [[Appaloosa]], [[Venore Horse Station]]\n* [[Ottokar]], [[Venore Poor House]] (+1 floor)\n'''East:'''\n* [[Norman The Foreman]]\n* [[Bill The Worker]]\n* [[Bob The Worker]]\n* [[Chuck The Worker]]\n* [[Frank The Plank]]\n* [[George The Boyscout]]\n* [[Jack The Worker]]\n* [[Pat The Worker]]\n* [[Roger The Worker]]\n* [[Scott The Scout]]\n* [[Rafzan]]\n'''South-East:'''\n* [[The Lair]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Rathleton",
+      "implemented": "10.50",
+      "name": "Cistern Avenue",
+      "notes": "{{StreetStyles|Cistern Avenue}} is in the south-west on the first floor (main part of the city). It touches {{StreetStyles|Rathleton Plaza}} in the north and {{StreetStyles|Antimony Lane}} and {{StreetStyles|Vanward Flats}} to the east.<br/>\n<br/>\nBuildings from east to west on the street:<br/>\n\n* [[Bronze Brothers Bastion]]\n* [[Cistern Ave]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Carlin",
+      "name": "Park Lane",
+      "notes": "{{StreetStyles|Park Lane}} is in northwest [[Carlin]]. It touches {{StreetStyles|Theater Avenue}} to the south, and {{StreetStyles|Central Street}} to the east.\n\nBuildings and NPCs from west to east and north to south on the street:\n* [[Eva]], [[Bank]]\n* Park, [[Chess]] and [[Mill]]\n* [[Park Lane 3a]]\n* [[Park Lane 3b]] (second floor)\n* [[Park Lane 4]]\n* [[Park Lane 1a]]\n* [[Park Lane 1b]] (second floor)\n* [[Park Lane 2]]",
+      "templateType": "Street"
+    },
+    {},
+    {
+      "city": "Kazordoon",
+      "floor": "+3",
+      "implemented": "6.1",
+      "name": "Nobility Quarter",
+      "notes": "{{StreetStyles|Nobility Quarter}} is located in Kazordoon.",
+      "templateType": "Street"
+    },
+    {
+      "city": "Carlin",
+      "implemented": "Pre-6.0",
+      "name": "Streets of Carlin",
+      "notes": "{{{!}} border=\"0\" cellpadding=\"1\" cellspacing=\"0\" \n{{!}}-\n{{!}}<span style=\"color: red\">'''Central Street'''</span> {{!}}{{!}} ([[Central Street|*]]) vertical from north entrance to depot\n{{!}}-\n{{!}}<span style=\"color: #99FF00; background-color: gray\">'''Central Plaza'''</span> {{!}}{{!}} ([[Central Plaza|*]]) vertical from depot running south till the [[Magician's Alley]]\n{{!}}-\n{{!}}<span style=\"color: purple\">'''East Lane'''</span> {{!}}{{!}} ([[East Lane|*]]) vertical from the most eastern part of the [[Theater Avenue]] making an angle to the east and then again south a bit\n{{!}}-\n{{!}}<span style=\"color: #FF9999\">'''Harbour Lane'''</span> {{!}}{{!}} ([[Harbour Lane|*]]) vertical from the [[Theater Avenue]] near the temple going south till the harbour and then west under the lake till the [[Magician's Alley]]\n{{!}}-\n{{!}}<span style=\"color: #3333FF\">'''Magician's Alley'''</span> {{!}}{{!}} ([[Magician's Alley|*]]) horizontal from the [[Central Plaza]] going east till the [[Harbour Lane]]\n{{!}}-\n{{!}}<span style=\"color: orange\">'''Northern Street'''</span> {{!}}{{!}} ([[Northern Street|*]]) horizontal from north of depot going east\n{{!}}-\n{{!}}<span style=\"color: #009933\">'''Park Lane'''</span> {{!}}{{!}} ([[Park Lane|*]]) vertical west of bank from [[Theater Avenue]] going north and then east till the [[Central Street]]\n{{!}}-\n{{!}}<span style=\"color: white; background-color: gray\">'''Sea Lane'''</span> {{!}}{{!}} ([[Sea Lane|*]]) vertical from the [[Magician's Alley]] and further south till the sea\n{{!}}-\n{{!}}'''Theater Avenue''' {{!}}{{!}} ([[Theater Avenue|*]]) horizontal from west entrance to east entrance\n{{!}}}\n\nSome Carlin buildings and NPCs lie outside the city beyond named streets:<br/>\n''West:''<br/>\n* [[House of Recreation]]\n* [[Druids Retreat B]]\n* [[Druids Retreat C]]\n* [[Dalbrect]], boat\n\n''North:''<br/>\n* [[Druids Retreat A]]\n* [[Rosebud A]]\n* [[Rosebud B]]\n* [[Rosebud C]]\n* [[Nielson]], ferry\n* '''[[Senja Street]]'''\n* [[Nordic Stronghold]]\n* [[Druids Retreat D]]\n* [[Humphrey]]\n\n''East:''<br/>\n* [[Carlin Graveyard]]\n* [[Moonkeep]]\n* [[Aneus]]\n* '''[[Northport Street]]'''\n* [[Nautic Observer]]\n* [[Thanita]], [[Tower of Whitewatch]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Thais",
+      "implemented": "6.4",
+      "name": "The City Wall",
+      "notes": "{{StreetStyles|The City Wall}} is in east [[Thais]]. It touches {{StreetStyles|Mill Avenue}} at the north, {{StreetStyles|Main Street}} at the middle, and {{StreetStyles|Upper Swamp Lane}} at the south.<br/>\n<br/>\nBuildings and NPCs from west to east and north to south on the street:<br/>\n* [[Miles, The Guard]], north-east outpost  (third floor)\n* [[The City Wall 1a]]\n* [[The City Wall 1b]]  (second floor)\n\n* [[The City Wall 3c]]\n* [[The City Wall 3f]] (second floor)\n* [[The City Wall 3b]]\n* [[The City Wall 3e]] (second floor)\n* [[The City Wall 3a]]\n* [[The City Wall 3d]] (second floor)\n* [[Marvik]], [[Druid|Druid Guild]]  (-1 floor)\n\n* [[Tim, The Guard]], East Gate (second floor)\n* [[The City Wall 5a]]\n* [[The City Wall 5b]] (second floor)\n* [[The City Wall 5c]]\n* [[The City Wall 5d]] (second floor)\n* [[The City Wall 5e]]\n* [[The City Wall 5f]] (second floor)\n\n* [[The City Wall 7a]]\n* [[The City Wall 7b]] (second floor)\n* [[The City Wall 7c]]\n* [[The City Wall 7d]] (second floor)\n* [[The City Wall 7e]]\n* [[The City Wall 7f]] (second floor)\n* [[The City Wall 7g]]\n* [[The City Wall 7h]] (second floor)\n\n* [[The City Wall 9]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Thais",
+      "implemented": "Pre-6.0",
+      "name": "Lower Swamp Lane",
+      "notes": "{{StreetStyles|Lower Swamp Lane}} is in south [[Thais]]. It touches {{StreetStyles|Upper Swamp Lane}} to the north, and {{StreetStyles|Harbour Street}} to the west.<br/>\n<br/>\nBuildings from west to east on the street:<br/>\n* Lookout Tower\n* [[Lower Swamp Lane 1]]\n* [[Lower Swamp Lane 3]]\n* [[Alai Flats]]\nSee [[Upper Swamp Lane]] for the buildings on the north side of {{StreetStyles|Lower Swamp Lane}}.",
+      "templateType": "Street"
+    },
+    {
+      "city": "Venore",
+      "implemented": "7.1",
+      "name": "Iron Alley",
+      "notes": "{{StreetStyles|Iron Alley}} is in south [[Venore]]. It crosses {{StreetStyles|Dream Street}} in the west, {{StreetStyles|Dagger Alley}} then {{StreetStyles|Lucky Lane}} in the middle, {{StreetStyles|Silver Street}} in the east and ends at {{StreetStyles|Salvation Street}} in the north east.<br/>\n<br/>\nBuildings and NPCs from west to east and north to south on the street:<br/>\n* [[Alwin]], south west gate\n* [[Ironhouse]]\n** [[Xed]] (entrance/+1 floor)\n** [[Yanni]] (entrance/+1 floor)\n** [[Romella]] (entrance/+1 floor)\n** [[Abran Ironeye]] (+2 floor)\n* [[Blessed Shield Guildhall]]\n* [[Steel Home]]\n* [[Iron Alley 1]]\n* [[Iron Alley 2]]\n* [[Swamp Watch]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Thais",
+      "implemented": "Pre-6.0",
+      "name": "Farm Lane",
+      "notes": "{{StreetStyles|Farm Lane}} is in east-central [[Thais]]. It touches {{StreetStyles|Main Street}} to the north and {{StreetStyles|Upper Swamp Lane}} to the south.<br/>\n<br/>\nBuildings and NPCs from west to east and north to south on the street:<br/>\n* [[Oswald]]\n* [[Quero]], [[Instrument Shopkeeper NPCs|Instrument Shop]]\n* [[Farm Lane, 1st floor (Shop)]]\n* [[Farm Lane, 2nd Floor (Shop)]]\n* [[Farm Lane, Basement (Shop)]]\n* [[Donald McRonald]], Farm\n* [[Pig (NPC)|Pig]], Farm\n* [[Sherry McRonald]], Farm",
+      "templateType": "Street"
+    },
+    {
+      "city": "Ankrahmun",
+      "implemented": "7.3",
+      "name": "Chameken",
+      "notes": "{{StreetStyles|Chameken}} is located in the south of the city.<br/>\n\nBuildings and NPCs from west to east and north to south on the street:<br/>",
+      "templateType": "Street"
+    },
+    {
+      "city": "Liberty Bay",
+      "implemented": "7.8",
+      "name": "Smuggler Backyard",
+      "notes": "{{StreetStyles|Smuggler Backyard}} is in west [[Liberty Bay]]. It touches {{StreetStyles|Sugar Street}} to the north and {{StreetStyles|Shady Trail}} to the east.\n\nBuildings and NPCs counterclockwise from west to east:\n* [[Smuggler Backyard 1]]\n* [[Smuggler Backyard 2]]\n* [[Smuggler Backyard 3]]\n* [[Smuggler Backyard 4]]\n* [[Smuggler Backyard 5]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Port Hope",
+      "floor": "+1",
+      "implemented": "7.5",
+      "name": "Woodway",
+      "notes": "{{StreetStyles|Woodway}} is on the first floor of [[Port Hope]] on the south side of the river [[Mahaji]], opposite but bordering\n{{StreetStyles|River Homes}} on the north side of the river. It borders {{StreetStyles|Crocodile Bridge}} to the west and {{StreetStyles|Flamingo Flats}} to the east.<br/>\nLadders lead to the lower level with {{StreetStyles|Bamboo Garden}}.\n<br/>\n<br/>\nBuildings and NPCs from west to east and south to north on the street:<br/>\n* [[Woodway 1]]\n* [[Woodway 2]]\n* [[Woodway 3]]\n* [[Woodway 4]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Kazordoon",
+      "floor": "-3",
+      "implemented": "6.1",
+      "name": "Mushroom Alley",
+      "notes": "{{StreetStyles|Mushroom Alley}} is in [[Kazordoon]] on the third underground (-3) floor. It is the only street on this floor.\n<br />One stairs goes up to {{StreetStyles|Kazordoon Entrance}} (-2): south end. Two stairs go up to {{StreetStyles|Shops Street}} (-2): one each on north-east and west end. One stairs goes down to {{StreetStyles|Technomancer Lane}} (-4, -5): west end. One stairs goes down to {{StreetStyles|Temple Road}} (-4): north-east end.<br/>\n<br/>\nBuildings and NPCs from west to east and north to south on the street:<br/>\n\n* stairs to Brewery\n* Mushroom farms\n* [[Kazordoon Fortress]] (inaccessible)\n* [[Iron Guildhall]], entrance on [[Shops Street]] (-2)\n* [[Dwarf Mines]]\n** [[Malech]]\n** [[Dwarven Guard]]s\n** [[Shortsighted Dwarf]] (-5)\n** [[Rapanaio]] (-7)\n** [[Brodosch]] (-8)\n** [[Basilisk]] (-8)\n* [[Dwacatra]], entrance on [[Kazordoon Entrance]] (-2)\n* [[Marble Guildhall]], entrance on [[Shops Street]] (-2)",
+      "templateType": "Street"
+    },
+    {
+      "city": "Kazordoon",
+      "floor": "-2",
+      "implemented": "6.1",
+      "name": "Shops Street",
+      "notes": "{{StreetStyles|Shops Street}} is in [[Kazordoon]] on the second underground (-2) floor. It surrounds {{StreetStyles|Lower Barracks}}. Two stairs go up to {{StreetStyles|The Market}} (-1): one each on west and east end. Two stairs go down to {{StreetStyles|Mushroom Alley}} (-3): one each on west and south end.<br/>\n<br/>\nBuildings and NPCs from west to east and north to south on the street:<br/>\n\n* [[Humgolf]], Rotworms pit\n* [[Iron Guildhall]]\n* [[Ore Wagon]]s to [[Kazordoon Entrance]], [[The Market]], [[Temple Road]], [[Brodrosch]]'s [[Steamship]]\n* [[Ore Wagon]] to locations outside the city: North ([[Dukosch]]), West ([[Pukosch]]), South ([[Lukosch]]), Mountaintop ([[Gewen]])\n* [[Lower Barracks]]\n* [[Marble Guildhall]]\n* [[The Jolly Axeman Tavern]]\n** [[Jimbin]]\n** [[Maryza]]\n** [[Grodrik]]\n** [[Santa]] (during [[Christmas]])\n* [[Armor|Kroox Quality Armor]]\n** [[Kroox]]\n* [[Weapons|Uzgods Fine Weapons]]\n** [[Uzgod]]\n* [[Equipment|Bezils And Nezils Stuff An' Pawn Shop]]\n** [[Bezil]]\n** [[Nezil]]\n* [[Valuables|Tezilas Glittering Gems]]\n** [[Tezila]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Liberty Bay",
+      "implemented": "7.8",
+      "name": "Admiral's Avenue",
+      "notes": "{{StreetStyles|Admiral's Avenue}} is in north [[Liberty Bay]]. It touches {{StreetStyles|Marble Lane}} to the northwest, {{StreetStyles|Sugar Street}} to the southwest, {{StreetStyles|Freedom Street}} to the south, and {{StreetStyles|Ivory Circle}} to the southeast.\n\nBuildings and NPCs from west to east and south to north:<br/>\n'''West:'''\n* [[Admiral's Avenue 1]]\n* [[Admiral's Avenue 2]]\n* [[Percy Silverhand]], Silverhand Manor (2nd level)\n* [[Eleonore]], Silverhand Manor (3rd level, 2nd in Manor)\n* [[Admiral's Avenue 3]]",
+      "templateType": "Street"
+    },
+    {
+      "city": "Ankrahmun",
+      "implemented": "7.3",
+      "name": "Murkhol",
+      "notes": "{{StreetStyles|Murkhol}} is located in the south-west of the city.<br/>\n\nBuildings and NPCs from west to east and north to south on the street:<br/>",
+      "templateType": "Street"
+    },
+    {
+      "city": "Yalahar",
+      "implemented": "8.40",
+      "map": "<imagemap>\nFile:Yalahar Street.png|460px\nrect 328 536 363 607 [[Captain Cookie]]\nrect 364 536 387 587 [[Guide Edna]]\nrect 268 572 291 599 [[Lorietta]]\nrect 388 536 415 611 [[Karith]]\nrect 328 368 351 387 [[Palimuth]]\nrect 320 220 355 251 [[Yalahari (NPC)]]\nrect 308 124 355 207 [[Game Hall]]\nrect 236 448 319 495 [[Depot]]\nrect 272 376 307 399 [[Timothy]]\nrect 250 416 271 439 [[Dorbin]]\nrect 236 416 250 439 [[Orc Berserker]]\nrect 220 368 267 399 [[Radiant Plaza 1]]\nrect 208 340 247 367 [[Radiant Plaza 2]]\nrect 144 364 195 391 [[Radiant Plaza 3]]\nrect 172 396 207 431 [[Radiant Plaza 4]]\nrect 124 272 215 359 [[Sun Palace]]\nrect 188 168 235 203 [[Aureate Court 1]]\nrect 208 208 243 243 [[Aureate Court 2]]\nrect 168 224 203 259 [[Aureate Court 3]]\nrect 136 188 183 235 [[Aureate Court 4]]\nrect 196 107 287 187 [[Halls of Serenity]]\n\nrect 356 468 403 495 [[Pugwah]]\nrect 356 444 376 467 [[Menacing Mummy]]\nrect 384 448 399 467 [[Lisander]]\nrect 404 360 435 391 [[Soilance]]\nrect 408 424 427 432 [[A Grumpy Cyclops]]\nrect 408 424 439 451 [[Morpel]]\nrect 412 460 447 476 [[Znozel]]\nrect 412 476 447 491 [[Redward]]\nrect 500 352 555 395 [[Luminous Arc 1]]\nrect 488 312 523 347 [[Luminous Arc 2]]\nrect 444 300 483 367 [[Luminous Arc 3]]\nrect 452 376 511 459 [[Luminous Arc 4]]\nrect 532 304 559 327 [[Serafin]]\nrect 448 216 531 299 [[Cascade Towers]]\nrect 416 168 504 231 [[Fortune Wing 1]]\nrect 368 180 407 215 [[Fortune Wing 2]]\nrect 356 124 419 179 [[Fortune Wing 3]]\nrect 416 112 447 167 [[Fortune Wing 4]]\n\nrect 4 620 27 647 [[Zarak]]\nrect 663 111 679 131 [[Barry]]\nrect 445 577 463 599 [[Julius]]\ndesc bottom-right\n</imagemap>\n<small>Click on the map to go to specific NPCs and buildings.</small>",
+      "name": "Streets of Yalahar",
+      "notes": "Yalahar is unique amongst cities in that there is only one street that runs throughout the [[Inner City]] in almost a circular shape.\n\n'''Harbour:'''<br/>\n* [[Captain Cookie]], boat deck (second floor)\n* [[Guide Edna]], dock (second floor)\n* [[Temple]]\n** [[Lorietta]], raft\n* [[Karith]], boat helm  (third floor)\n\n'''Central Yalahar:'''<br/>\n*Yalahari central building\n**[[Palimuth]], entrance\n**[[Yalahari (NPC)]]\n**[[Golem Guardian]]\n**[[Servant Golem]]\n*[[Game Rooms#Yalahar|Game Hall]]\n'''West side from South to North:'''<br/>\n*[[Depot]]\n*[[Tibian Explorer Society]]\n**[[Timothy]]\n*[[Furniture|Furniture Shop]]\n**[[Dorbin]]\n**[[Orc Berserker (NPC)]]\n*Shopping Tower\n**[[Oiriz]], [[Valuables|Jewelry Shop]]\n**[[Gree Dee]], [[Equipment|General Equipment Shop]] (second floor)\n**[[Chuckles]], [[Magic|Yalahar Magic Shop]] (third floor)\n**[[Vincent]], [[Distance Weapons|Distance Weapons Shop]] (fifth floor)\n*[[Radiant Plaza 1]]\n*[[Radiant Plaza 2]]\n*[[Radiant Plaza 3]]\n*[[Radiant Plaza 4]]\n*[[Sun Palace]]\n*[[Aureate Court 1]]\n*[[Aureate Court 2]]\n*[[Aureate Court 3]]\n*[[Aureate Court 4]]\n*[[Halls of Serenity]]\n\n'''East side from South to North:'''<br/>\n*[[Food|Tavern]]\n**[[Pugwah]]\n**[[Menacing Mummy]]\n**[[Lisander]]\n*[[Food|\"Delicious Meat and Ham\" Shop]]\n**[[Soilance]]\n*[[Armor|Armors and Weapons Shop]]\n**[[Morpel]]\n**[[A Grumpy Cyclops]]\n*Bank and Post\n**[[Znozel]], [[Bank|BanK of ZnoZeL]]\n**[[Redward]], Post Office (second floor)\n*[[Luminous Arc 1]]\n*[[Luminous Arc 2]]\n*[[Luminous Arc 3]]\n*[[Luminous Arc 4]]\n*[[Food|Serafin's heavenly fruits]]\n**[[Serafin]]\n*[[Cascade Towers]]\n*[[Fortune Wing 1]]\n*[[Fortune Wing 2]]\n*[[Fortune Wing 3]]\n*[[Fortune Wing 4]]\n\n<br/>\nSome Yalahar buildings and NPCs lie outside the city beyond named streets: (west to east around the [[Inner City]])<br/>\n''Note: guards are between the quarters''<br/>\n[[Foreigner Quarter]]:<br/>\n* [[Maris]], boat (second floor)\n* [[Zarak]], [[Knight|Knight Guild]]\n* [[Tony]], guard\n\n[[Arena and Zoo Quarter]]:<br/>\n* [[Tamerin]], druid\n* [[Hal]], guard\n\n[[Alchemist Quarter]]:<br/>\n* [[Bruce]], guard\n\n[[Cemetery Quarter]]:<br/>\n* [[Reed]], guard\n\n[[Magician Quarter]]<br/>\n* [[Ethan]], Residential Area - [[Paladin|Paladin Guild]]\n* [[Lucius]], Residential Area during [[Lightbearer]] event\n* [[Ortheus]], Residential Area (second floor)\n* [[Tamara]], Residential Area - [[Druid|Druid Guild]]\n* [[Tamoril]], Dragon's Hoard island - [[Sorcerer|Sorcerer Guild]]  (third floor)\n* [[Barry]], guard\n\n[[Sunken Quarter]]:<br/>\n* [[Tarak]], ferry\n* [[Maritima]], mermaid  (underwater)\n* [[Oliver]], guard\n\n[[Factory Quarter]]:<br/>\n* [[Peter]], guard\n\n[[Trade Quarter]]:<br/>\n* [[Armenius]], tavern\n* [[Harlow]], boat\n* [[Iriana]], equipment shop near pass\n* [[Jimmy]], assassin thief (third floor)\n* [[Julius]], near gate\n* [[Mr. West]], trade baron (third floor)",
+      "templateType": "Street"
+    },
+    {
+      "city": "Venore",
+      "implemented": "7.1",
+      "name": "Seagull Walk",
+      "notes": "{{StreetStyles|Seagull Walk}} is in northwest [[Venore]]. It touches {{StreetStyles|Dream Street}} to the northwest, {{StreetStyles|Market Street}} to the east, {{StreetStyles|Elm Street}} to the west, and {{StreetStyles|Mystic Lane}} to the south.<br/>\n<br/>\nBuildings and NPCs from north to south and west to east on the street:<br/>\n* [[Seagull Walk 1]]\n* [[Seagull Walk 2]]\n* [[The Hard Rock]]\n** [[Asrak]], The Hard Rock Tavern (-4 floor)\n** [[Urkalio]], The Hard Rock Tavern (-3 floor)\n** [[Maria]], The Hard Rock Tavern (-2 floor)\n** [[A Strange Fellow]], The Hard Rock Tavern (-2 floor)\n** [[Zebron]], The Hard Rock Tavern (-2 floor)\n** [[Santa Claus]], The Hard Rock Tavern during Christmas (-2 floor)\n** [[Messenger of Santa]], The Hard Rock Tavern during Christmas (-2 floor)\n** [[Nurik]], The Hard Rock Tavern (-1 floor)\n** [[Dove]], Depot & Post Office (ground floor)\n** [[Lightfoot]], The Hard Rock Tavern (+1 floor)\n** [[Dustrunner]], The Hard Rock Tavern (+1 floor) \n** [[Boozer]], The Hard Rock Tavern (+2 floor)",
+      "templateType": "Street"
+    },
+    {
+      "city": "Edron",
+      "implemented": "6.4",
+      "name": "Streets of Edron",
+      "notes": "Some Edron NPCs lie outside the city beyond named streets:<br/>\n*[[Eremo]] lives on his [[Eremo's Island|island]] to the east between Edron and Cormaya.\n*[[A Majestic Warwolf]] lives underground in eastern [[Cormaya]].\n*[[Telas]] lives on the mountain south of the entrance to [[Stonehome]].\n*[[Avar Tar]] is by the ramp into the mountain, on the Stonehome side.\n*[[Jerom]] is just north of the ramp into the mountain, on the Stonehome side.\n*[[Chief Grarkharok]] is under the mountain.\n\n{{{!}} border=\"0\" cellpadding=\"1\" cellspacing=\"0\" \n{{!}}-\n{{!}}<span style=\"color: red\">'''Castle Shop'''</span> {{!}}{{!}} ([[Castle Shops|*]]) \n{{!}}-\n{{!}}<span style=\"color: #0CE\">'''Castle Street'''</span> {{!}}{{!}} ([[Castle Street|*]]) \n{{!}}-\n{{!}}<span style=\"color:yellow;background-color: gray\" >'''Castle Flats'''</span> {{!}}{{!}} ([[Castle Flats|*]])\n{{!}}-\n{{!}}<span style=\"color: green\">'''Central Circle'''</span> {{!}}{{!}} ([[Central Circle|*]]) \n{{!}}-\n{{!}}<span style=\"color: #942\">'''Cormaya Street'''</span> {{!}}{{!}} ([[Cormaya Street|*]]) \n{{!}}-\n{{!}}<span style=\"color: white; background-color: gray\">'''Cormaya Flats'''</span> {{!}}{{!}} ([[Cormaya Flats|*]]) \n{{!}}-\n{{!}}<span style=\"color: black\">'''Edron Flats'''</span> {{!}}{{!}} ([[Edron Flats|*]]) \n{{!}}-\n{{!}}<span style=\"color: purple\">'''Magic Academy'''</span> {{!}}{{!}} ([[Magic Academy|*]]) \n{{!}}-\n{{!}}<span style=\"color: #F70\">'''Skylane'''</span> {{!}}{{!}} ([[Skylane|*]]) \n{{!}}-\n{{!}}<span style=\"color: #F99\">'''Stonehome Flats'''</span> {{!}}{{!}} ([[Stonehome Flats|*]])\n{{!}}-\n{{!}}<span style=\"color: #9AD\">'''Stonehome Village'''</span> {{!}}{{!}} ([[Stonehome Village|*]])\n{{!}}-\n{{!}}<span style=\"color: #6F0\">'''Wood Avenue'''</span> {{!}}{{!}} ([[Wood Avenue|*]])\n{{!}}-\n{{!}}}",
+      "templateType": "Street"
+    },
+    {
+      "city": "Kazordoon",
+      "floor": "+4",
+      "implemented": "6.1",
+      "name": "Royal Hall",
+      "notes": "{{StreetStyles|Royal Hall}} is located in Kazordoon.",
+      "templateType": "Street"
+    }
+  ]
+}

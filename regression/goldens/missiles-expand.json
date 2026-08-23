@@ -1,0 +1,551 @@
+{
+  "path": "/api/missiles?expand=true",
+  "status": 200,
+  "body": [
+    {
+      "lightcolor": "65",
+      "lightradius": "5",
+      "missileid": "36",
+      "name": "Energy Ball Missile",
+      "primarytype": "Magical",
+      "shotby": "Certain [[Creature Spells]] such as the [[Drowning|Drowning Bomb]] of [[Leviathan]], [[Sea Serpent]] and [[Young Sea Serpent]].",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "15.25.3a4a52",
+      "missileid": "65",
+      "name": "Firestorm Arrow Missile",
+      "primarytype": "Projectile",
+      "shotby": "[[Firestorm Arrow]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "8.00",
+      "lightcolor": "205",
+      "lightradius": "4",
+      "missileid": "26",
+      "name": "Throwing Axe Missile",
+      "notes": "Looks like the blade of a [[Royal Axe]].",
+      "primarytype": "Magical",
+      "shotby": "[[Brutal Strike]], [[Inflict Wound]], [[Whirlwind Throw]] and certain [[Creature Spells]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "4.0",
+      "missileid": "6",
+      "name": "Poison Arrow Missile",
+      "primarytype": "Projectile",
+      "shotby": "[[Poison Arrow]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "6.0",
+      "lightcolor": "144",
+      "lightradius": "5",
+      "missileid": "11",
+      "name": "Death Missile",
+      "notes": "It is a depiction of a flying [[Skull]]. This missile usually occurs directly followed by the [[Death Effect]] or [[Cloud Effect]]. There is also a similar but [[Death Missile (Large)|larger]] missile: [[File:Death Missile (Large).gif]]",
+      "primarytype": "Magical",
+      "shotby": "[[Death Damage]] [[Runes]] and [[Spells]], using [[Necrotic Rod|Necrotic]] and [[Underworld Rod]]s",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "8.10",
+      "lightcolor": "54",
+      "lightradius": "5",
+      "missileid": "39",
+      "name": "Rocks Missile",
+      "primarytype": "Magical",
+      "shotby": "?",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "3.1",
+      "missileid": "2",
+      "name": "Bolt Missile",
+      "primarytype": "Projectile",
+      "shotby": "[[Bolt]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "8.00",
+      "missileid": "19",
+      "name": "Assassin Star Missile",
+      "primarytype": "Throwing Weapon",
+      "shotby": "[[Assassin Star]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "11.40.5409",
+      "missileid": "57",
+      "name": "Diamond Arrow Missile",
+      "primarytype": "Projectile",
+      "shotby": "[[Diamond Arrow]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "4.0",
+      "lightcolor": "65",
+      "lightradius": "5",
+      "missileid": "5",
+      "name": "Energy Missile",
+      "notes": "This missile can be directly followed by the [[Blue Electricity Effect]].",
+      "primarytype": "Magical",
+      "shotby": "Certain [[Runes]] or [[Spells]] (which?), [[Green Djinn]]'s electric shot, [[Energy Strike]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "4.0",
+      "lightcolor": "206",
+      "lightradius": "5",
+      "missileid": "4",
+      "name": "Fire Missile",
+      "primarytype": "Magical",
+      "shotby": "Certain [[Runes]] or [[Spells]] (which?), [[Flame Strike]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "8.00",
+      "missileid": "23",
+      "name": "Onyx Arrow Missile",
+      "primarytype": "Projectile",
+      "shotby": "[[Onyx Arrow]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "8.10",
+      "lightcolor": "60",
+      "lightradius": "3",
+      "missileid": "40",
+      "name": "Earth Arrow Missile",
+      "primarytype": "Projectile",
+      "shotby": "[[Earth Arrow]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "8.10",
+      "lightcolor": "65",
+      "lightradius": "5",
+      "missileid": "41",
+      "name": "Small Rock Missile",
+      "primarytype": "Magical",
+      "shotby": "?",
+      "templateType": "Missile"
+    },
+    {
+      "lightcolor": "108",
+      "lightradius": "5",
+      "missileid": "32",
+      "name": "Death Missile (Large)",
+      "notes": "It is a depiction of a flying [[Skull]]. This missile usually occurs directly followed by the [[Death Effect]] or [[Cloud Effect]]. There is also a similar but [[Death Missile|smaller]] missile: [[File:Death Missile.gif]]",
+      "primarytype": "Magical",
+      "shotby": "[[Death Damage]] [[Runes]], certain [[Creature Spells]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "8.00",
+      "missileid": "20",
+      "name": "Viper Star Missile",
+      "primarytype": "Throwing Weapon",
+      "shotby": "[[Viper Star]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "8.00",
+      "lightcolor": "205",
+      "lightradius": "4",
+      "missileid": "27",
+      "name": "Throwing Club Missile",
+      "notes": "Looks like the head of a [[Cranial Basher]].",
+      "primarytype": "Magical",
+      "shotby": "[[Brutal Strike]], [[Inflict Wound]], [[Whirlwind Throw]] and certain [[Creature Spells]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "10.55",
+      "missileid": "54",
+      "name": "Simple Arrow Missile",
+      "primarytype": "Projectile",
+      "shotby": "[[Simple Arrow]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "8.00",
+      "lightcolor": "205",
+      "lightradius": "4",
+      "missileid": "25",
+      "name": "Throwing Sword Missile",
+      "notes": "Looks like a moving [[Blacksteel Sword]].",
+      "primarytype": "Magical",
+      "shotby": "[[Brutal Strike]], [[Inflict Wound]], [[Whirlwind Throw]] and certain [[Creature Spells]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "9.40",
+      "missileid": "45",
+      "name": "Vortex Bolt Missile",
+      "primarytype": "Projectile",
+      "shotby": "[[Vortex Bolt]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "7.3",
+      "missileid": "15",
+      "name": "Poison Missile",
+      "primarytype": "Magical",
+      "shotby": "Certain [[Earth Damage]] [[Runes]] and [[Spells]] (which?) and [[Creature Spells]].",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "15.25.3a4a52",
+      "missileid": "66",
+      "name": "Terrastorm Arrow Missile",
+      "primarytype": "Projectile",
+      "shotby": "[[Terrastorm Arrow]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "8.00",
+      "lightcolor": "35",
+      "lightradius": "4",
+      "missileid": "28",
+      "name": "Ethereal Spear Missile",
+      "primarytype": "Magical",
+      "shotby": "[[Ethereal Spear]] or [[Strong Ethereal Spear]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "8.10",
+      "lightcolor": "167",
+      "lightradius": "3",
+      "missileid": "33",
+      "name": "Flash Arrow Missile",
+      "primarytype": "Projectile",
+      "shotby": "[[Flash Arrow]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "6.0",
+      "missileid": "9",
+      "name": "Throwing Knife  Missile",
+      "primarytype": "Throwing Weapon",
+      "shotby": "[[Throwing Knife]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "8.10",
+      "lightcolor": "192",
+      "lightradius": "3",
+      "missileid": "34",
+      "name": "Flaming Arrow Missile",
+      "primarytype": "Projectile",
+      "shotby": "[[Flaming Arrow]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "8.00",
+      "missileid": "21",
+      "name": "Royal Spear Missile",
+      "primarytype": "Throwing Weapon",
+      "shotby": "[[Royal Spear]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "6.6",
+      "missileid": "14",
+      "name": "Power Bolt Missile",
+      "notes": "It's the missile of a moving [[Power Bolt]].",
+      "primarytype": "Projectile",
+      "shotby": "[[Power Bolt]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "9.60",
+      "missileid": "50",
+      "name": "Drill Bolt Missile",
+      "primarytype": "Projectile",
+      "shotby": "[[Drill Bolt]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "11.40.5409",
+      "missileid": "58",
+      "name": "Spectral Bolt Missile",
+      "primarytype": "Projectile",
+      "shotby": "[[Spectral Bolt]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "8.10",
+      "missileid": "42",
+      "name": "Throwing Cake Missile",
+      "notes": "This missile is followed by the [[Cream Cake Effect]]: [[File:Cream Cake Effect.gif]]",
+      "primarytype": "Throwing Weapon",
+      "shotby": "[[Undead Jester]]'s attack and probably by throwing a [[Throwing Cake]].",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "8.00",
+      "missileid": "22",
+      "name": "Sniper Arrow Missile",
+      "primarytype": "Projectile",
+      "shotby": "[[Sniper Arrow]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "3.1",
+      "missileid": "3",
+      "name": "Arrow Missile",
+      "primarytype": "Projectile",
+      "shotby": "[[Arrow]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "8.10",
+      "lightcolor": "143",
+      "lightradius": "3",
+      "missileid": "35",
+      "name": "Shiver Arrow Missile",
+      "primarytype": "Projectile",
+      "shotby": "[[Shiver Arrow]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "8.10",
+      "lightcolor": "205",
+      "lightradius": "5",
+      "missileid": "31",
+      "name": "Holy Missile (Appearance)",
+      "notes": "It usually appears before the [[Holy Effect]] and the [[Holy Cross Effect]].",
+      "primarytype": "Magical",
+      "shotby": "Certain [[Runes]] or [[Spells]] (which?)",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "11.40.5409",
+      "missileid": "56",
+      "name": "Leaf Star Missile",
+      "primarytype": "Throwing Weapon",
+      "shotby": "[[Leaf Star]]",
+      "templateType": "Missile"
+    },
+    {
+      "lightcolor": "31",
+      "lightradius": "5",
+      "missileid": "30",
+      "name": "Earth Missile (Appearance)",
+      "primarytype": "Magical",
+      "shotby": "Some [[Runes]] or [[Spells]] (which?)",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "9.60",
+      "missileid": "49",
+      "name": "Crystalline Arrow Missile",
+      "primarytype": "Projectile",
+      "shotby": "[[Crystalline Arrow]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "3.1",
+      "missileid": "1",
+      "name": "Spear Missile",
+      "primarytype": "Throwing Weapon",
+      "shotby": "[[Spear]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "4.0",
+      "missileid": "7",
+      "name": "Burst Arrow Missile",
+      "primarytype": "Projectile",
+      "shotby": "[[Burst Arrow]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "8.10",
+      "lightcolor": "205",
+      "lightradius": "5",
+      "missileid": "38",
+      "name": "Holy Missile (Small)",
+      "notes": "It's a smaller version of the [[Holy Missile (Appearance)]].",
+      "primarytype": "Magical",
+      "shotby": "?",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "6.5",
+      "missileid": "13",
+      "name": "Snowball Missile",
+      "notes": "It's the missile of a moving [[Snowball]].",
+      "primarytype": "Throwing Weapon",
+      "shotby": "[[Snowball]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "8.10",
+      "lightcolor": "143",
+      "lightradius": "5",
+      "missileid": "37",
+      "name": "Ice Shard Missile",
+      "primarytype": "Magical",
+      "shotby": "?",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "9.40",
+      "missileid": "44",
+      "name": "Tarsal Arrow Missile",
+      "primarytype": "Projectile",
+      "shotby": "[[Tarsal Arrow]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "8.00",
+      "lightcolor": "205",
+      "lightradius": "2",
+      "missileid": "18",
+      "name": "Enchanted Spear Missile",
+      "primarytype": "Throwing Weapon",
+      "shotby": "[[Enchanted Spear]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "9.60",
+      "missileid": "51",
+      "name": "Envenomed Arrow Missile",
+      "primarytype": "Projectile",
+      "shotby": "[[Envenomed Arrow]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "9.60",
+      "missileid": "48",
+      "name": "Prismatic Bolt Missile",
+      "primarytype": "Projectile",
+      "shotby": "[[Prismatic Bolt]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "15.25.3a4a52",
+      "missileid": "67",
+      "name": "Froststorm Arrow Missile",
+      "primarytype": "Projectile",
+      "shotby": "[[Froststorm Arrow]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "13.40.54ea79",
+      "missileid": "61",
+      "name": "Candy Cane Missle",
+      "primarytype": "Throwing Weapon",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "10.50",
+      "missileid": "53",
+      "name": "Glooth Spear Missile",
+      "primarytype": "Throwing Weapon",
+      "shotby": "[[Glooth Spear]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "7.9",
+      "missileid": "16",
+      "name": "Infernal Bolt Missile",
+      "primarytype": "Projectile",
+      "shotby": "[[Infernal Bolt]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "8.00",
+      "missileid": "24",
+      "name": "Piercing Bolt Missile",
+      "primarytype": "Projectile",
+      "shotby": "[[Piercing Bolt]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "6.4",
+      "missileid": "12",
+      "name": "Stone Missile",
+      "notes": "It's the missile of a moving [[Stone (Medium)]].",
+      "primarytype": "Other",
+      "shotby": "[[Dwarf Geomancer]]s, [[Behemoth]]s, [[Destroyer]]s, [[Juggernaut]]s",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "6.0",
+      "missileid": "10",
+      "name": "Small Stone Missile",
+      "primarytype": "Throwing Weapon",
+      "shotby": "[[Small Stone]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "15.25.3a4a52",
+      "missileid": "64",
+      "name": "Thunderstorm Arrow Missile",
+      "primarytype": "Projectile",
+      "shotby": "[[Thunderstorm Arrow]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "13.40.54ea79",
+      "missileid": "62",
+      "name": "Cherry Bomb Missle",
+      "primarytype": "Throwing Weapon",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "8.10",
+      "lightcolor": "143",
+      "lightradius": "5",
+      "missileid": "29",
+      "name": "Ice Missile",
+      "primarytype": "Magical",
+      "shotby": "[[Avalanche Rune]], [[Icicle Rune]], [[Ice Strike]], [[Strong Ice Strike]], [[Ultimate Ice Strike]] and some [[Creature Spells]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "8.00",
+      "missileid": "17",
+      "name": "Hunting Spear Missile",
+      "primarytype": "Throwing Weapon",
+      "shotby": "[[Hunting Spear]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "15.25.3a4a52",
+      "missileid": "64",
+      "name": "Shatterstorm Arrow Missile",
+      "primarytype": "Projectile",
+      "shotby": "[[Shatterstorm Arrow]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "15.24.95dcf3",
+      "missileid": "63",
+      "name": "Bottle Missile",
+      "primarytype": "Throwing Weapon",
+      "shotby": "[[Sea Captain]], [[Pirate Cook]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "11.40.5409",
+      "missileid": "59",
+      "name": "Royal Star Missile",
+      "primarytype": "Throwing Weapon",
+      "shotby": "[[Royal Star]]",
+      "templateType": "Missile"
+    },
+    {
+      "implemented": "5.0",
+      "missileid": "8",
+      "name": "Throwing Star Missile",
+      "primarytype": "Throwing Weapon",
+      "shotby": "[[Throwing Star]]",
+      "templateType": "Missile"
+    }
+  ]
+}

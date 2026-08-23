@@ -1,0 +1,274 @@
+{
+  "path": "/api/loot/Ferumbras",
+  "status": 200,
+  "body": {
+    "kills": "143",
+    "loot": [
+      {
+        "amount": "1",
+        "itemName": "Spellbook of Dark Mysteries",
+        "times": "1",
+        "total": "1"
+      },
+      {
+        "amount": "1",
+        "itemName": "Nightmare Blade",
+        "times": "2",
+        "total": "2"
+      },
+      {
+        "amount": "1",
+        "itemName": "Obsidian Truncheon",
+        "times": "1",
+        "total": "1"
+      },
+      {
+        "amount": "7-34",
+        "itemName": "Platinum Coin",
+        "times": "10",
+        "total": "178"
+      },
+      {
+        "amount": "1-9",
+        "itemName": "Black Pearl",
+        "times": "31",
+        "total": "163"
+      },
+      {
+        "amount": "2-16",
+        "itemName": "Small Sapphire",
+        "times": "13",
+        "total": "124"
+      },
+      {
+        "amount": "1",
+        "itemName": "Chaos Mace",
+        "times": "7",
+        "total": "7"
+      },
+      {
+        "amount": "1",
+        "itemName": "Demonrage Sword",
+        "times": "1",
+        "total": "1"
+      },
+      {
+        "amount": "1",
+        "itemName": "Greenwood Coat",
+        "times": "4",
+        "total": "4"
+      },
+      {
+        "amount": "1",
+        "itemName": "Gold Ingot",
+        "times": "14",
+        "total": "14"
+      },
+      {
+        "amount": "1",
+        "itemName": "Haunted Blade",
+        "times": "4",
+        "total": "4"
+      },
+      {
+        "amount": "1",
+        "itemName": "Soul Orb",
+        "times": "53",
+        "total": "53"
+      },
+      {
+        "amount": "1",
+        "itemName": "Demon Shield",
+        "times": "4",
+        "total": "4"
+      },
+      {
+        "amount": "1",
+        "itemName": "Divine Plate",
+        "times": "1",
+        "total": "1"
+      },
+      {
+        "amount": "1-16",
+        "itemName": "Small Emerald",
+        "times": "14",
+        "total": "114"
+      },
+      {
+        "amount": "6-346",
+        "itemName": "Gold Coin",
+        "times": "101",
+        "total": "13052"
+      },
+      {
+        "amount": "1",
+        "itemName": "Phoenix Shield",
+        "times": "1",
+        "total": "1"
+      },
+      {
+        "itemName": "Golden Legs",
+        "times": "3",
+        "total": "2"
+      },
+      {
+        "amount": "1",
+        "itemName": "Giant Shimmering Pearl",
+        "times": "22",
+        "total": "22"
+      },
+      {
+        "amount": "1",
+        "itemName": "Spellbook of Lost Souls",
+        "times": "1",
+        "total": "1"
+      },
+      {
+        "amount": "1-19",
+        "itemName": "Small Topaz",
+        "times": "16",
+        "total": "154"
+      },
+      {
+        "amount": "1",
+        "itemName": "Glacier Kilt",
+        "times": "5",
+        "total": "5"
+      },
+      {
+        "amount": "2-19",
+        "itemName": "Small Diamond",
+        "times": "22",
+        "total": "236"
+      },
+      {
+        "amount": "1",
+        "itemName": "Jade Hammer",
+        "times": "3",
+        "total": "3"
+      },
+      {
+        "amount": "1",
+        "itemName": "Skullcrusher",
+        "times": "2",
+        "total": "2"
+      },
+      {
+        "amount": "1-9",
+        "itemName": "White Pearl",
+        "times": "18",
+        "total": "91"
+      },
+      {
+        "amount": "2-19",
+        "itemName": "Small Amethyst",
+        "times": "15",
+        "total": "157"
+      },
+      {
+        "amount": "1",
+        "itemName": "Lightning Legs",
+        "times": "4",
+        "total": "4"
+      },
+      {
+        "amount": "1",
+        "itemName": "Shadow Sceptre",
+        "times": "3",
+        "total": "3"
+      },
+      {
+        "amount": "1",
+        "itemName": "Spellbook of Mind Control",
+        "times": "1",
+        "total": "1"
+      },
+      {
+        "amount": "1",
+        "itemName": "Berserker",
+        "times": "2",
+        "total": "2"
+      },
+      {
+        "amount": "1",
+        "itemName": "Runed Sword",
+        "times": "2",
+        "total": "2"
+      },
+      {
+        "amount": "1",
+        "itemName": "Golden Armor",
+        "times": "7",
+        "total": "7"
+      },
+      {
+        "amount": "1",
+        "itemName": "Terra Legs",
+        "times": "3",
+        "total": "3"
+      },
+      {
+        "amount": "1",
+        "itemName": "Red Gem",
+        "times": "12",
+        "total": "12"
+      },
+      {
+        "amount": "1",
+        "itemName": "Demonwing Axe",
+        "times": "1",
+        "total": "1"
+      },
+      {
+        "itemName": "Magma Legs",
+        "times": "6",
+        "total": "5"
+      },
+      {
+        "amount": "1",
+        "itemName": "Ferumbras' Hat",
+        "times": "2",
+        "total": "2"
+      },
+      {
+        "amount": "1",
+        "itemName": "Bloody Edge",
+        "times": "3",
+        "total": "3"
+      },
+      {
+        "amount": "1",
+        "itemName": "Emerald Bangle",
+        "times": "52",
+        "total": "52"
+      },
+      {
+        "amount": "1",
+        "itemName": "Great Shield",
+        "times": "1",
+        "total": "1"
+      },
+      {
+        "amount": "1",
+        "itemName": "Blue Gem",
+        "times": "10",
+        "total": "10"
+      },
+      {
+        "amount": "1",
+        "itemName": "Mastermind Shield",
+        "times": "1",
+        "total": "1"
+      },
+      {
+        "amount": "1",
+        "itemName": "Green Gem",
+        "times": "5",
+        "total": "5"
+      }
+    ],
+    "name": "Ferumbras",
+    "pageName": "Loot_Statistics:Ferumbras",
+    "version": "12.86.11580"
+  }
+}
