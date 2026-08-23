@@ -1,5 +1,6 @@
 package com.tibiawiki.domain.objects;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,7 @@ public class Percentage {
         this.value = value;
     }
 
+    @JsonCreator
     public static Percentage of(String value) {
         return new Percentage(value);
     }

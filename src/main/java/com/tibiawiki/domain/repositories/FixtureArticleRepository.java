@@ -107,7 +107,7 @@ public class FixtureArticleRepository implements ArticleRepository {
         }
         try {
             return JsonMapper.builder().build().readValue(file.toFile(), CATEGORIES_TYPE);
-        } catch (IOException e) {
+        } catch (RuntimeException e) {
             throw new IllegalStateException("Unable to read " + file.toAbsolutePath(), e);
         }
     }
