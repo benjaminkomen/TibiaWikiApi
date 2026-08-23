@@ -15,6 +15,10 @@ terminal. Then execute: `./gradlew bootRun` and open your browser on http://loca
 You can now access the REST resources using your browser or any REST client such as Postman or curl from your command line.
 E.g. navigating to http://localhost:8080/api/corpses should give you a list of corpses.
 
+Process health (no Fandom/wiki calls): `GET /actuator/health`,
+`/actuator/health/liveness`, `/actuator/health/readiness`, and `/actuator/info`.
+Cloud Run probe settings are documented in [`docker/README.md`](docker/README.md).
+
 ## API regression
 
 A Bun-based black-box harness in [`regression/`](regression/README.md) snapshots HTTP JSON

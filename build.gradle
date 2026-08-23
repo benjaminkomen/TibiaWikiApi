@@ -48,6 +48,7 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-webmvc:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-jackson:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
     implementation "io.github.fastily:jwiki:1.11.0"
     implementation "org.slf4j:slf4j-api:${slf4jVersion}"
     implementation "net.logstash.logback:logstash-logback-encoder:9.0"
@@ -161,6 +162,11 @@ configurations {
 
 springBoot {
     buildInfo()
+}
+
+bootJar {
+    // Stable name so the Dockerfile does not hardcode app-<version>.jar
+    archiveFileName = 'TibiaWikiApi.jar'
 }
 
 idea {
