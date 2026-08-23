@@ -86,6 +86,8 @@ java {
 compileKotlin {
     compilerOptions {
         freeCompilerArgs.add("-Xjsr305=strict")
+        // Spring Boot 4.1 / Kotlin 2.3+: apply constructor annotations to param + property
+        freeCompilerArgs.add("-Xannotation-default-target=param-property")
         jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_25)
     }
 }
@@ -93,6 +95,8 @@ compileKotlin {
 compileTestKotlin {
     compilerOptions {
         freeCompilerArgs.add("-Xjsr305=strict")
+        // Spring Boot 4.1 / Kotlin 2.3+: apply constructor annotations to param + property
+        freeCompilerArgs.add("-Xannotation-default-target=param-property")
         jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_25)
     }
 }
