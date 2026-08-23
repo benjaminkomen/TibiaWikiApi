@@ -1,0 +1,5 @@
+{
+  "path": "/api/creatures/ThisDoesNotExistXYZ123",
+  "status": 404,
+  "body": null
+}

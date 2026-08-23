@@ -1,0 +1,9 @@
+{
+  "name": "tibiawiki-api-regression",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "capture": "bun src/capture.ts",
+    "test": "bun src/test.ts"
+  }
+}

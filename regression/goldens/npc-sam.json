@@ -1,0 +1,24 @@
+{
+  "path": "/api/npcs/Sam",
+  "status": 200,
+  "body": {
+    "buysell": "yes",
+    "city": "Thais",
+    "gender": "Male",
+    "implemented": "2.0",
+    "job": "Artisan",
+    "job2": "Weapon Shopkeeper",
+    "job3": "Armor Shopkeeper",
+    "location": "[[Temple Street]] in [[Thais]].",
+    "name": "Sam",
+    "notes": "Sam is the Blacksmith of [[Thais]]. His real name is Samuel, but he prefers to be called Sam. He was named after his grandfather.\nHe sells and buys many weapons and armors. Sam is one of the few [[NPC]]s that buys magic plate armors. The only way to sell it to him is by typing \"Sell magic plate armor\".\nHis neighbor in Thais is [[Frodo]], innkeeper of the Frodo's Hut, which is clearly an [[Allusions#Samwise Gamgee|allusion]] to the J.R.R. Tolkien's novel [[wikipedia:The Lord of the Rings|The Lord of The Rings]] where [[Frodo]] and Sam are the main plot characters. He was the first NPC to see the Tibian light of day.\nPart of the [[Sam's Old Backpack Quest]], the [[Knight Outfits Quest]], and mission 9 of [[What a Foolish Quest]].",
+    "posx": "126.104",
+    "posy": "125.199",
+    "posz": "7",
+    "race": "Human",
+    "sounds": [
+      "Hello there, adventurer! Need a deal in weapons or armor? I'm your man!"
+    ],
+    "templateType": "NPC"
+  }
+}

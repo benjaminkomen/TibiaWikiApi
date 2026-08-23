@@ -1,0 +1,72 @@
+[
+  {
+    "id": "corpses",
+    "path": "/api/corpses",
+    "description": "List of corpse names"
+  },
+  {
+    "id": "creatures",
+    "path": "/api/creatures",
+    "description": "List of creature names"
+  },
+  {
+    "id": "achievements",
+    "path": "/api/achievements",
+    "description": "List of achievement names"
+  },
+  {
+    "id": "spells",
+    "path": "/api/spells",
+    "description": "List of spell names"
+  },
+  {
+    "id": "items",
+    "path": "/api/items",
+    "description": "List of item names"
+  },
+  {
+    "id": "corpses-expand",
+    "path": "/api/corpses?expand=true",
+    "description": "Full corpse objects (expand=true)"
+  },
+  {
+    "id": "achievements-expand",
+    "path": "/api/achievements?expand=true",
+    "description": "Full achievement objects (expand=true)"
+  },
+  {
+    "id": "spells-expand",
+    "path": "/api/spells?expand=true",
+    "description": "Full spell objects (expand=true)"
+  },
+  {
+    "id": "creature-dragon",
+    "path": "/api/creatures/Dragon",
+    "description": "Creature detail: Dragon"
+  },
+  {
+    "id": "item-carlin-sword",
+    "path": "/api/items/Carlin_Sword",
+    "description": "Item detail: Carlin Sword"
+  },
+  {
+    "id": "npc-sam",
+    "path": "/api/npcs/Sam",
+    "description": "NPC detail: Sam"
+  },
+  {
+    "id": "spell-light-healing",
+    "path": "/api/spells/Light_Healing",
+    "description": "Spell detail: Light Healing"
+  },
+  {
+    "id": "corpse-dead-rat",
+    "path": "/api/corpses/Dead_Rat",
+    "description": "Corpse detail: Dead Rat"
+  },
+  {
+    "id": "creature-missing",
+    "path": "/api/creatures/ThisDoesNotExistXYZ123",
+    "description": "Missing creature (records the live 404 response)"
+  }
+]
