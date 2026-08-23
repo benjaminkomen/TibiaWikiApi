@@ -49,7 +49,6 @@ Refresh goldens with `bun run capture` **only** against the fixture-backed serve
 
 ## Boundaries
 
-- Keep `.github/dependabot.yml`. Dependabot stays; do not delete it in favor of Renovate.
 - Do not expand into unrelated open/draft feature work unless tasked.
 - Prefer the fixtures profile over hitting the production wiki during routine PR work.
 
