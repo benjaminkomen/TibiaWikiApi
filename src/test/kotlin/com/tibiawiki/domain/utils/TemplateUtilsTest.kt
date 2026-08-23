@@ -29,7 +29,7 @@ class TemplateUtilsTest {
                 | implemented  = 9.6
                 | achievementid = 319
                 | relatedpages = [[Muck Remover]], [[Mucus Plug]]
-                """.trimIndent()
+                """.trimIndent().trimStart() + "\n"
             )
         )
     }
@@ -133,7 +133,7 @@ class TemplateUtilsTest {
             | implemented  = 9.6
             | achievementid = 319
             | relatedpages = [[Muck Remover]], [[Mucus Plug]]
-            }}"""
+            }}""".trimIndent().trimStart()
         private val INPUT_EMPTY_LOWERLEVELS = """
             | name            = Hero Cave
             | image           = Hero
@@ -160,7 +160,7 @@ class TemplateUtilsTest {
             | bestloot5       =\s
             | map             = Hero Cave 3.png
             | map2            = Hero Cave 6.png
-            """
+            """.trimIndent().trimStart()
         private val INPUT_ONE_LOWER_LEVEL = """
             | name            = Hero Cave
             | image           = Hero
@@ -199,7 +199,7 @@ class TemplateUtilsTest {
             | bestloot5       =\s
             | map             = Hero Cave 3.png
             | map2            = Hero Cave 6.png
-            """
+            """.trimIndent().trimStart()
         private val INPUT_MULTIPLE_LOWER_LEVELS = """
             | name            = Hero Cave
             | image           = Hero
@@ -262,6 +262,6 @@ class TemplateUtilsTest {
             | bestloot5       =\s
             | map             = Hero Cave 3.png
             | map2            = Hero Cave 6.png
-            """
+            """.trimIndent().trimStart()
     }
 }

@@ -10,7 +10,6 @@ import org.hamcrest.Matchers.`is`
 import org.json.JSONObject
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.mockito.ArgumentMatchers.any
 import org.mockito.ArgumentMatchers.anyList
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
@@ -26,12 +25,11 @@ class RetrieveCreaturesTest {
     @BeforeEach
     fun setup() {
         articleRepository = mock(ArticleRepository::class.java)
-        articleFactory = mock(ArticleFactory::class.java)
+        articleFactory = ArticleFactory()
         jsonFactory = mock(JsonFactory::class.java)
         target = RetrieveCreatures(articleRepository, articleFactory, jsonFactory)
 
-        doReturn(SOME_ARTICLE_CONTENT).`when`(articleFactory).extractInfoboxPartOfArticle(any(String::class.java))
-        doReturn(SOME_JSON_OBJECT).`when`(jsonFactory).convertInfoboxPartOfArticleToJson(any(String::class.java))
+        doReturn(SOME_JSON_OBJECT).`when`(jsonFactory).convertInfoboxPartOfArticleToJson("")
     }
 
     @Test

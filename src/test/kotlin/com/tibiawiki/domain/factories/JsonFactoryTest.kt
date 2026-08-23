@@ -174,7 +174,7 @@ class JsonFactoryTest {
                         |{{Loot Item|Amber with a Bug|common}}
                         |{{Loot Item|Brass Button}}
                         }}
-                        """
+                        """.trimIndent().trimStart()
             )
         )
         val result = target.enhanceJsonObject(inputJsonObject)
@@ -570,7 +570,7 @@ class JsonFactoryTest {
             |Bear Paw, times:1043, amount:1, total:1043
             |Honeycomb, times:250, amount:1, total:249
             }}
-        """.trimIndent()
+        """.trimIndent().trimStart() + "\n"
         private val INFOBOX_CREATURE_TEXT = """
             {{Infobox Creature|List={{{1|}}}|GetValue={{{GetValue|}}}
             | name           = Dragon
@@ -643,7 +643,7 @@ class JsonFactoryTest {
             }}
             | history        = Dragons are
             }}
-        """.trimIndent()
+        """.trimIndent().trimStart() + "\n"
         private val INFOBOX_CREATURE_EMPTY_LOOT_TEXT = """
             {{Infobox Creature|List={{{1|}}}|GetValue={{{GetValue|}}}
             | name          = Freed Soul
@@ -655,8 +655,8 @@ class JsonFactoryTest {
             | summon        = --
             | convince      = --
             | illusionable  = no
-            | creatureclass =\s
-            | primarytype   =\s
+            | creatureclass =${" "}
+            | primarytype   =${" "}
             | isboss        = no
             | abilities     = [[Melee]] (0-?), [[Drown Damage|Drown Bomb]] on self (4000-8000) (damages boss only)
             | implemented   = 11.40
@@ -665,7 +665,7 @@ class JsonFactoryTest {
             | location      = [[The Souldespoiler]]'s room.
             | loot          = {{Loot Table}}
             }}
-        """.trimIndent()
+        """.trimIndent().trimStart() + "\n"
         private val INFOBOX_HUNT_TEXT = """
             {{Infobox Hunt|List={{{1|}}}|GetValue={{{GetValue|}}}
             | name         = Hero Cave
@@ -683,7 +683,7 @@ class JsonFactoryTest {
             | defknights   = 75
             | defpaladins  = 1
             | defmages     = 1
-            | lowerlevels  =\s
+            | lowerlevels  =${" "}
                 {{Infobox Hunt Skills
                 | areaname    = Demons
                 | lvlknights  = 130
@@ -718,7 +718,7 @@ class JsonFactoryTest {
             | map          = Hero Cave 3.png
             | map2         = Hero Cave 6.png
             }}
-        """.trimIndent()
+        """.trimIndent().trimStart() + "\n"
         private val INFOBOX_ITEM_TEXT = """
             {{Infobox Object|List={{{1|}}}|GetValue={{{GetValue|}}}
             | name          = Carlin Sword
@@ -728,6 +728,7 @@ class JsonFactoryTest {
             | itemid        = 3283
             | objectclass   = Weapons
             | flavortext    = Foobar
+            | sounds        = {{Sound List|}}
             | pickupable    = yes
             | usable        = yes
             | levelrequired = 0
@@ -747,9 +748,9 @@ class JsonFactoryTest {
             | npcpricerook  = 0
             | buyfrom       = Baltim, Brengus, Cedrik,
             | sellto        = Baltim, Brengus, Cedrik, Esrik,
-            | notes         = If you have one of these\s
+            | notes         = If you have one of these${" "}
             }}
-        """.trimIndent()
+        """.trimIndent().trimStart() + "\n"
         private val INFOBOX_KEY_TEXT = """
             {{Infobox Key|List={{{1|}}}|GetValue={{{GetValue|}}}
             | number       = 4055
@@ -765,17 +766,17 @@ class JsonFactoryTest {
             | shortnotes   = Access to the [[Panpipe Quest]].
             | longnotes    = Allows you to open the door ([https://tibia.wikia.com/wiki/Mapper?coords=127.131,125.129,8,3,1,1 here]) to the [[Panpipe Quest]].
             }}
-        """.trimIndent()
+        """.trimIndent().trimStart() + "\n"
         private val INFOBOX_TEXT_SPACE = """
             {{Infobox Achievement|List={{{1|}}}|GetValue={{{GetValue|}}}
             | name         = Goo Goo Dancer
             }}
-        """.trimIndent()
+        """.trimIndent().trimStart() + "\n"
         private val INFOBOX_TEXT_UNDERSCORE = """
             {{Infobox_Hunt|List={{{1|}}}|GetValue={{{GetValue|}}}
             | name         = Goo Goo Dancer
             }}
-        """.trimIndent()
+        """.trimIndent().trimStart() + "\n"
         private val INFOBOX_TEXT_WRONG = "{{Infobax_Hunt  \n|List={{{1|}}}|GetValue={{{GetValue|}}}"
         private val INFOBOX_ACHIEVEMENT_TEXT = """
             {{Infobox Achievement|List={{{1|}}}|GetValue={{{GetValue|}}}
@@ -790,7 +791,7 @@ class JsonFactoryTest {
             | achievementid = 319
             | relatedpages  = [[Muck Remover]], [[Mucus Plug]]
             }}
-        """.trimIndent()
+        """.trimIndent().trimStart() + "\n"
         private val INFOBOX_BOOK_TEXT = """
             {{Infobox Book|List={{{1|}}}|GetValue={{{GetValue|}}}
             | booktype     = Book (Brown)
@@ -802,7 +803,7 @@ class JsonFactoryTest {
             | relatedpages = [[Rope]], [[Shovel]]
             | text         = Dungeon Survival Guide<br><br>Don't explore the dungeons before you tested your skills in the training cellars of our academy. You will find dungeons somewhere in the wilderness. Don't enter dungeons without equipment. Especially a rope and a shovel will prove valuable. Make sure you have a supply of torches with you, while wandering into the unknown. It's wise to travel the dungeons in groups and not alone. For more help read all the books of the academy before you begin exploring. Traveling in the dungeons will reward the cautious and brave, but punish the reckless.
             }}
-        """.trimIndent()
+        """.trimIndent().trimStart() + "\n"
         private val INFOBOX_BUILDING_TEXT = """
             {{Infobox Building|List={{{1|}}}|GetValue={{{GetValue|}}}
             | name         = Theater Avenue 8b
@@ -822,10 +823,10 @@ class JsonFactoryTest {
             | floors       = 1
             | rooms        = 1
             | furnishings  = 1 [[Wall Lamp]].
-            | notes        =\s
+            | notes        =${" "}
             | image        = [[File:Theater Avenue 8b.png]]
             }}
-        """.trimIndent()
+        """.trimIndent().trimStart() + "\n"
         private val INFOBOX_CORPSE_TEXT = """
             {{Infobox Corpse|List={{{1|}}}|GetValue={{{GetValue|}}}
             | name         = Dead Rat
@@ -844,7 +845,7 @@ class JsonFactoryTest {
             | notes        = These corpses are commonly used by low level players on [[Rookgaard]] to earn some gold for better [[equipment]]. Only fresh corpses are accepted, rotted corpses are ignored.
             | implemented  = Pre-6.0
             }}
-        """.trimIndent()
+        """.trimIndent().trimStart() + "\n"
         private val INFOBOX_LOCATION_TEXT = """
             {{Infobox Geography
             | implemented  = Pre-6.0
@@ -855,7 +856,7 @@ class JsonFactoryTest {
             | map          = [[File:Map_thais.jpg]]
             | map2         = [[File:Thais.PNG]]
             }}
-        """.trimIndent()
+        """.trimIndent().trimStart() + "\n"
         private val INFOBOX_MISSILE_TEXT = """
             {{Infobox Missile|List={{{1|}}}|GetValue={{{GetValue|}}}
             | name         = Throwing Cake Missile
@@ -865,7 +866,7 @@ class JsonFactoryTest {
             | shotby       = [[Undead Jester]]'s attack and probably by throwing a [[Throwing Cake]].
             | notes        = This missile is followed by the [[Cream Cake Effect]]: [[File:Cream Cake Effect.gif]]
             }}
-        """.trimIndent()
+        """.trimIndent().trimStart() + "\n"
         private val INFOBOX_EFFECT_TEXT = """
             {{Infobox Effect|List={{{1|}}}|GetValue={{{GetValue|}}}
             | name         = Fireball Effect
@@ -876,7 +877,7 @@ class JsonFactoryTest {
             | causes       = *[[Fireball]] and [[Great Fireball]];
             | effect       = [[Fire Damage]] on target or nothing.
             }}
-        """.trimIndent()
+        """.trimIndent().trimStart() + "\n"
         private val INFOBOX_MOUNT_TEXT = """
             {{Infobox Mount|List={{{1|}}}|GetValue={{{GetValue|}}}
             | name          = Donkey
@@ -886,7 +887,7 @@ class JsonFactoryTest {
             | implemented   = 9.1
             | notes         = Go to [[Incredibly Old Witch]]'s house,
             }}
-        """.trimIndent()
+        """.trimIndent().trimStart() + "\n"
         private val INFOBOX_NPC_TEXT = """
             {{Infobox NPC|List={{{1|}}}|GetValue={{{GetValue|}}}
             | name         = Sam
@@ -907,7 +908,7 @@ class JsonFactoryTest {
             | implemented  = Pre-6.0
             | notes        = Sam is the Blacksmith of [[Thais]].
             }}
-        """.trimIndent()
+        """.trimIndent().trimStart() + "\n"
         private val INFOBOX_OBJECT_TEXT = """
             {{Infobox Object|List={{{1|}}}|GetValue={{{GetValue|}}}
             | name         = Blueberry Bush
@@ -919,7 +920,7 @@ class JsonFactoryTest {
             | notes        = They are the source of the [[blueberry|blueberries]].
             | notes2       = <br />{{JSpoiler|After using [[Blueberry]] Bushes 500 times,
             }}
-        """.trimIndent()
+        """.trimIndent().trimStart() + "\n"
         private val INFOBOX_OUTFIT_TEXT = """
             {{Infobox Outfit|List={{{1|}}}|GetValue={{{GetValue|}}}
             | name         = Pirate
@@ -932,7 +933,7 @@ class JsonFactoryTest {
             | artwork      = Pirate Outfits Artwork.jpg
             | notes        = Pirate outfits are perfect for swabbing the deck or walking the plank. Quite dashing and great for sailing.
             }}
-        """.trimIndent()
+        """.trimIndent().trimStart() + "\n"
         private val INFOBOX_QUEST_TEXT = """
             {{Infobox Quest|List={{{1|}}}|GetValue={{{GetValue|}}}
             | name         = The Paradox Tower Quest
@@ -948,7 +949,7 @@ class JsonFactoryTest {
             | legend       = Surpass the wrath of a madman and subject yourself to his twisted taunting.
             | implemented  = 6.61-6.97
             }}
-        """.trimIndent()
+        """.trimIndent().trimStart() + "\n"
         private val INFOBOX_STREET_TEXT = """
             {{Infobox Street
             | name         = Sugar Street
@@ -956,7 +957,7 @@ class JsonFactoryTest {
             | city         = Liberty Bay
             | notes        = {{StreetStyles|Sugar Street}} is in west
             }}
-        """.trimIndent()
+        """.trimIndent().trimStart() + "\n"
         private val INFOBOX_SPELL_TEXT = """
             {{Infobox Spell|List={{{1|}}}|GetValue={{{GetValue|}}}
             | name          = Light Healing
@@ -975,6 +976,6 @@ class JsonFactoryTest {
             | effect        = Restores a small amount of [[HP|health]]. (Cures [[paralysis]].)
             | notes         = A weak, but popular healing spell.
             }}
-        """.trimIndent()
+        """.trimIndent().trimStart() + "\n"
     }
 }

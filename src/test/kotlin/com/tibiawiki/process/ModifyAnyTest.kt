@@ -11,10 +11,6 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.json.JSONObject
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.mockito.ArgumentMatchers.any
-import org.mockito.ArgumentMatchers.anyList
-import org.mockito.ArgumentMatchers.anyString
-import org.mockito.ArgumentMatchers.eq
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
 import java.util.Optional
@@ -39,11 +35,12 @@ class ModifyAnyTest {
     @Test
     fun testModify_Success() {
         val someAchievement = makeAchievement()
-        doReturn("").`when`(articleRepository).getArticle(anyString())
-        doReturn(SOME_JSON_OBJECT).`when`(wikiObjectFactory).createJSONObject(eq(someAchievement), anyString())
-        doReturn("").`when`(jsonFactory).convertJsonToInfoboxPartOfArticle(any(JSONObject::class.java), anyList())
-        doReturn(Optional.of("")).`when`(articleFactory).insertInfoboxPartOfArticle(anyString(), anyString())
-        doReturn(true).`when`(articleRepository).modifyArticle(anyString(), anyString(), anyString())
+        val name = someAchievement.name.orEmpty()
+        doReturn("").`when`(articleRepository).getArticle(name)
+        doReturn(SOME_JSON_OBJECT).`when`(wikiObjectFactory).createJSONObject(someAchievement, someAchievement.getTemplateType())
+        doReturn("").`when`(jsonFactory).convertJsonToInfoboxPartOfArticle(SOME_JSON_OBJECT, someAchievement.fieldOrder())
+        doReturn(Optional.of("")).`when`(articleFactory).insertInfoboxPartOfArticle("", "")
+        doReturn(true).`when`(articleRepository).modifyArticle(name, "", "[test] editing the page")
 
         val result: Try<WikiObject> = target.modify(someAchievement, "[test] editing the page")
 
@@ -53,11 +50,11 @@ class ModifyAnyTest {
     @Test
     fun testModify_Failure() {
         val someAchievement = makeAchievement()
-        doReturn("").`when`(articleRepository).getArticle(anyString())
-        doReturn(SOME_JSON_OBJECT).`when`(wikiObjectFactory).createJSONObject(eq(someAchievement), anyString())
-        doReturn("").`when`(jsonFactory).convertJsonToInfoboxPartOfArticle(any(JSONObject::class.java), anyList())
-        doReturn(Optional.empty<String>()).`when`(articleFactory).insertInfoboxPartOfArticle(anyString(), anyString())
-        doReturn(false).`when`(articleRepository).modifyArticle(anyString(), anyString(), anyString())
+        val name = someAchievement.name.orEmpty()
+        doReturn("").`when`(articleRepository).getArticle(name)
+        doReturn(SOME_JSON_OBJECT).`when`(wikiObjectFactory).createJSONObject(someAchievement, someAchievement.getTemplateType())
+        doReturn("").`when`(jsonFactory).convertJsonToInfoboxPartOfArticle(SOME_JSON_OBJECT, someAchievement.fieldOrder())
+        doReturn(Optional.empty<String>()).`when`(articleFactory).insertInfoboxPartOfArticle("", "")
 
         val result: Try<WikiObject> = target.modify(someAchievement, "[test] editing the page")
 
