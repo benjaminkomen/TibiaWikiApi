@@ -1,5 +1,6 @@
 package com.tibiawiki.adapters.rest
 
+import com.tibiawiki.domain.ArticleNotFoundException
 import com.tibiawiki.domain.enums.InfoboxTemplate
 import com.tibiawiki.process.RetrieveByTemplate
 import org.hamcrest.MatcherAssert.assertThat
@@ -8,6 +9,7 @@ import org.hamcrest.Matchers.`is`
 import org.json.JSONObject
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
 import org.springframework.http.HttpStatus
@@ -39,32 +41,32 @@ class CategoryCollectionControllersTest {
     @Test
     fun imbuements() {
         val c = ImbuementsController(retrieve)
-        assertListAndDetail(c.getImbuements(false), c.getImbuements(true), c.getImbuementsByName("Foo"), c.getImbuementsByName("Missing"))
+        assertListAndDetail(c.getImbuements(false), c.getImbuements(true), c.getImbuementsByName("Foo"), { c.getImbuementsByName("Missing") })
     }
 
     @Test
     fun updates() {
         val c = UpdatesController(retrieve)
-        assertListAndDetail(c.getUpdates(false), c.getUpdates(true), c.getUpdatesByName("Foo"), c.getUpdatesByName("Missing"))
+        assertListAndDetail(c.getUpdates(false), c.getUpdates(true), c.getUpdatesByName("Foo"), { c.getUpdatesByName("Missing") })
     }
 
     @Test
     fun worlds() {
         val c = WorldsController(retrieve)
-        assertListAndDetail(c.getWorlds(false), c.getWorlds(true), c.getWorldsByName("Foo"), c.getWorldsByName("Missing"))
+        assertListAndDetail(c.getWorlds(false), c.getWorlds(true), c.getWorldsByName("Foo"), { c.getWorldsByName("Missing") })
     }
 
     @Test
     fun familiars() {
         val c = FamiliarsController(retrieve)
-        assertListAndDetail(c.getFamiliars(false), c.getFamiliars(true), c.getFamiliarsByName("Foo"), c.getFamiliarsByName("Missing"))
+        assertListAndDetail(c.getFamiliars(false), c.getFamiliars(true), c.getFamiliarsByName("Foo"), { c.getFamiliarsByName("Missing") })
     }
 
     private fun assertListAndDetail(
         list: ResponseEntity<Any>,
         expanded: ResponseEntity<Any>,
         found: ResponseEntity<String>,
-        missing: ResponseEntity<String>
+        missing: () -> ResponseEntity<String>
     ) {
         assertThat(list.statusCode, `is`(HttpStatus.OK))
         assertThat(list.body, `is`(names))
@@ -72,6 +74,6 @@ class CategoryCollectionControllersTest {
         @Suppress("UNCHECKED_CAST")
         assertThat((expanded.body as Iterable<Any>).toList(), hasSize(1))
         assertThat(found.statusCode, `is`(HttpStatus.OK))
-        assertThat(missing.statusCode, `is`(HttpStatus.NOT_FOUND))
+        assertThrows<ArticleNotFoundException> { missing() }
     }
 }
