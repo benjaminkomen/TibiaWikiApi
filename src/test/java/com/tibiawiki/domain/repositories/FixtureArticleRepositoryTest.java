@@ -11,7 +11,7 @@ class FixtureArticleRepositoryTest {
 
     @Test
     void loadsWikiTitlesFromDiskAndNormalizesUnderscores() {
-        FixtureArticleRepository repo = new FixtureArticleRepository("regression/fixtures");
+        FixtureArticleRepository repo = new FixtureArticleRepository("src/test/resources/wiki-fixtures");
 
         assertThat(repo.getPageNamesFromCategory("Creatures").get(0), is("Dragon"));
         assertThat(repo.getArticle("Dragon"), notNullValue());

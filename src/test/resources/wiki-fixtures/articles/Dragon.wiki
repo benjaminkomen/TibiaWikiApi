@@ -1,0 +1,3 @@
+{{Infobox Creature
+| name = Dragon
+}}

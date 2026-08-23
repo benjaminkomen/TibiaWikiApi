@@ -1,0 +1,4 @@
+{{Loot2
+|name=Ferumbras
+|kills=1
+}}
