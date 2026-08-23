@@ -1,0 +1,25 @@
+name: API regression
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  regression:
+    name: Compare goldens to tibiawiki.dev
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: regression
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Compare live API to committed goldens
+        env:
+          BASE_URL: https://tibiawiki.dev
+        run: bun run test

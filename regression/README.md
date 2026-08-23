@@ -35,6 +35,14 @@ Requests are spaced (`REQUEST_GAP_MS`, default 400) and transient HTTP 5xx /
 network errors are retried (`FETCH_RETRIES`, default 6) so a brief production
 blip does not fail the whole run.
 
+## CI
+
+The **API regression** GitHub Actions workflow (`.github/workflows/regression.yml`)
+runs `BASE_URL=https://tibiawiki.dev bun run test` on pushes and pull requests to
+`master`. That check compares production to the committed goldens; it does not
+boot the Java app from the PR. Refresh goldens with `bun run capture` when the
+live API change is expected.
+
 ## Current goldens
 
 The committed files in `goldens/` were captured from **`https://tibiawiki.dev`**

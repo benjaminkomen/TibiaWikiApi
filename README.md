@@ -19,6 +19,7 @@ E.g. navigating to http://localhost:8080/api/corpses should give you a list of c
 
 A Bun-based black-box harness in [`regression/`](regression/README.md) snapshots live HTTP JSON
 and compares later responses to those goldens. It is not part of the Gradle/Java tests.
+GitHub Actions runs `bun run test` against https://tibiawiki.dev on every push and pull request.
 
 ```bash
 cd regression
