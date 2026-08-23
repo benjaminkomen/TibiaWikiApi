@@ -130,7 +130,8 @@ class WikiCallSupport(
             return when (error) {
                 is ExpandTooLargeException -> error
                 is WikiUnavailableException -> error
-                is RuntimeException -> WikiUnavailableException("$operation failed", error)
+                is IOException, is TimeoutException -> WikiUnavailableException("$operation failed", error)
+                is RuntimeException -> error
                 else -> WikiUnavailableException("$operation failed", error)
             }
         }
