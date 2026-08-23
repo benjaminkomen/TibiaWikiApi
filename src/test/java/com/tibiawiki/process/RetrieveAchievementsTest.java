@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.tibiawiki.process.RetrieveAchievements.CATEGORY_LISTS;
+import static com.tibiawiki.process.RetrieveAny.CATEGORY_LISTS;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
