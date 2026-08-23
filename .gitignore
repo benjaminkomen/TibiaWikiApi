@@ -15,6 +15,7 @@ target/
 build/
 out/
 !application.properties
+!application-fixtures.properties
 !system.properties
 .gradle/
 !src/test/resources/credentials.properties
