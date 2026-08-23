@@ -41,7 +41,7 @@ gcloud run services update tibiawikiapi \
 
 Related endpoints (same process, still no wiki I/O):
 
-- `GET /actuator/health` — `{"status":"UP"}` when the process is healthy
+- `GET /actuator/health` — `status: UP` plus the `liveness`/`readiness` groups
 - `GET /actuator/info` — build coordinates from `bootJar` `buildInfo()`
 
 Startup can take a while on the default profile because `JwikiArticleRepository`
