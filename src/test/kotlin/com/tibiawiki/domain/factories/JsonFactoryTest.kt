@@ -429,8 +429,8 @@ class JsonFactoryTest {
         assertThat(result.get("cooldown2"), `is`("1"))
         assertThat(result.get("cooldown3"), `is`("1"))
         assertThat(result.get("secondarygroup"), `is`("Support"))
-        assertThat(result.has("zoltanonly"), `is`(false))
-        assertThat(result.has("d-tha"), `is`(false))
+        assertThat(result.containsKey("zoltanonly"), `is`(false))
+        assertThat(result.containsKey("d-tha"), `is`(false))
     }
 
     @Test
@@ -657,8 +657,8 @@ class JsonFactoryTest {
         assertThat(result.get("posz7"), `is`("6"))
         assertThat(result.get("geolabel7"), `is`("Harbour"))
         assertThat(result.get("buysell"), `is`("yes"))
-        assertThat(result.has("buys"), `is`(false))
-        assertThat(result.has("sells"), `is`(false))
+        assertThat(result.containsKey("buys"), `is`(false))
+        assertThat(result.containsKey("sells"), `is`(false))
     }
 
     private fun makeNPC(): NPC {

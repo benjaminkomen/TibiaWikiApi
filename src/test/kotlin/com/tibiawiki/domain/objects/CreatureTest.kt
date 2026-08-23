@@ -7,7 +7,6 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.containsString
 import org.hamcrest.Matchers.instanceOf
 import org.hamcrest.Matchers.`is`
-import org.json.JSONObject
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import tools.jackson.databind.json.JsonMapper
@@ -39,9 +38,9 @@ class CreatureTest {
     fun jsonFactoryGetSurfacesNewWikiParameters() {
         val json = jsonFactory.convertInfoboxPartOfArticleToJson(LIVE_SHAPE_INFOBOX)
 
-        assertThat(json.getString("mitigation"), `is`("2.45"))
-        assertThat(json.getString("cooldown"), `is`("20"))
-        assertThat(json.getString("maxbattlelength"), `is`("15"))
+        assertThat(json["mitigation"], `is`("2.45"))
+        assertThat(json["cooldown"], `is`("20"))
+        assertThat(json["maxbattlelength"], `is`("15"))
     }
 
     @Test
@@ -61,9 +60,9 @@ class CreatureTest {
         val creature = WikiObjectFixtures.bossCreature()
         val json = wikiObjectFactory.createJSONObject(creature, creature.getTemplateType())
 
-        assertThat(json.getString("mitigation"), `is`("2.45"))
-        assertThat(json.getString("cooldown"), `is`("20"))
-        assertThat(json.getString("maxbattlelength"), `is`("15"))
+        assertThat(json["mitigation"], `is`("2.45"))
+        assertThat(json["cooldown"], `is`("20"))
+        assertThat(json["maxbattlelength"], `is`("15"))
 
         val infobox = jsonFactory.convertJsonToInfoboxPartOfArticle(json, creature.fieldOrder())
 
@@ -80,13 +79,14 @@ class CreatureTest {
         assertThat(keys.indexOf("maxdmg") < keys.indexOf("maxbattlelength"), `is`(true))
     }
 
-    private fun liveShapeCreatureJson(): JSONObject {
-        return JSONObject()
-            .put("templateType", "Creature")
-            .put("name", "Ferumbras")
-            .put("mitigation", "2.45")
-            .put("cooldown", "20")
-            .put("maxbattlelength", "15")
+    private fun liveShapeCreatureJson(): Map<String, Any> {
+        return mapOf(
+            "templateType" to "Creature",
+            "name" to "Ferumbras",
+            "mitigation" to "2.45",
+            "cooldown" to "20",
+            "maxbattlelength" to "15"
+        )
     }
 
     companion object {

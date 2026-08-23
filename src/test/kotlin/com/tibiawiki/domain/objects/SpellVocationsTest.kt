@@ -7,7 +7,6 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.contains
 import org.hamcrest.Matchers.instanceOf
 import org.hamcrest.Matchers.`is`
-import org.json.JSONObject
 import org.junit.jupiter.api.Test
 import tools.jackson.databind.json.JsonMapper
 
@@ -32,10 +31,11 @@ class SpellVocationsTest {
         JacksonConfiguration().jsonMapperBuilderCustomizer().customize(builder)
         val factory = WikiObjectFactory(builder.build())
 
-        val json = JSONObject()
-            .put("templateType", "Spell")
-            .put("name", "Light Healing")
-            .put("voc", "[[Monk]]s")
+        val json = mapOf(
+            "templateType" to "Spell",
+            "name" to "Light Healing",
+            "voc" to "[[Monk]]s"
+        )
 
         val result = factory.createWikiObject(json)
 

@@ -51,14 +51,15 @@ class WikiObjectFactoryTest {
     fun testCreateWikiObject_CharmPopulatesName() {
         target = WikiObjectFactory(realMapper())
 
-        val json = JSONObject()
-            .put("templateType", "Charm")
-            .put("name", "Adrenaline Burst")
-            .put("actualname", "adrenaline burst")
-            .put("type", "Minor")
-            .put("cost", "100 / 150 / 225")
-            .put("effect", "Boosts damage for a short time.")
-            .put("implemented", "11.50.6055")
+        val json = mapOf(
+            "templateType" to "Charm",
+            "name" to "Adrenaline Burst",
+            "actualname" to "adrenaline burst",
+            "type" to "Minor",
+            "cost" to "100 / 150 / 225",
+            "effect" to "Boosts damage for a short time.",
+            "implemented" to "11.50.6055"
+        )
         val result = target.createWikiObject(json)
 
         assertThat(result, instanceOf(Charm::class.java))
@@ -75,10 +76,11 @@ class WikiObjectFactoryTest {
     fun testCreateWikiObject_CharmAcceptsMinorType() {
         target = WikiObjectFactory(realMapper())
 
-        val json = JSONObject()
-            .put("templateType", "Charm")
-            .put("name", "Adrenaline Burst")
-            .put("type", "Minor")
+        val json = mapOf(
+            "templateType" to "Charm",
+            "name" to "Adrenaline Burst",
+            "type" to "Minor"
+        )
         val result = target.createWikiObject(json)
 
         assertThat(result, instanceOf(Charm::class.java))
@@ -90,11 +92,12 @@ class WikiObjectFactoryTest {
     fun testCreateWikiObject_MissilePopulatesName() {
         target = WikiObjectFactory(realMapper())
 
-        val json = JSONObject()
-            .put("templateType", "Missile")
-            .put("name", "Throwing Cake Missile")
-            .put("missileid", 42)
-            .put("implemented", "7.9")
+        val json = mapOf(
+            "templateType" to "Missile",
+            "name" to "Throwing Cake Missile",
+            "missileid" to 42,
+            "implemented" to "7.9"
+        )
         val result = target.createWikiObject(json)
 
         assertThat(result, instanceOf(Missile::class.java))

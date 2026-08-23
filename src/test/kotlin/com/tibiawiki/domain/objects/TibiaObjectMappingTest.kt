@@ -8,7 +8,6 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.hasItems
 import org.hamcrest.Matchers.instanceOf
 import org.hamcrest.Matchers.`is`
-import org.json.JSONObject
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import tools.jackson.databind.json.JsonMapper
@@ -26,16 +25,17 @@ class TibiaObjectMappingTest {
 
     @Test
     fun mapsLiveInfoboxObjectParametersAndWeaponTypes() {
-        val wikiJson = JSONObject()
-            .put("templateType", "Object")
-            .put("objectclass", "Weapons")
-            .put("weapontype", "Wand")
-            .put("slot", "two-handed")
-            .put("augments", "{{Augments|Critical Extra Damage +4%}}")
-            .put("task_item", "yes")
-            .put("wrappable", "yes")
-            .put("cooldown", "2")
-            .put("basepower", "56")
+        val wikiJson = mapOf(
+            "templateType" to "Object",
+            "objectclass" to "Weapons",
+            "weapontype" to "Wand",
+            "slot" to "two-handed",
+            "augments" to "{{Augments|Critical Extra Damage +4%}}",
+            "task_item" to "yes",
+            "wrappable" to "yes",
+            "cooldown" to "2",
+            "basepower" to "56"
+        )
 
         val result = wikiObjectFactory.createWikiObject(wikiJson)
 
@@ -100,10 +100,11 @@ class TibiaObjectMappingTest {
     }
 
     private fun mapWeaponType(weapontype: String): WeaponType? {
-        val wikiJson = JSONObject()
-            .put("templateType", "Object")
-            .put("objectclass", "Weapons")
-            .put("weapontype", weapontype)
+        val wikiJson = mapOf(
+            "templateType" to "Object",
+            "objectclass" to "Weapons",
+            "weapontype" to weapontype
+        )
         return (wikiObjectFactory.createWikiObject(wikiJson) as TibiaObject).weapontype
     }
 }

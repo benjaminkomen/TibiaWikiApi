@@ -20,17 +20,17 @@ class CharmTest {
         val minor = mapper.readValue(MINOR_JSON, Charm::class.java)
         assertThat(minor.type, `is`(Charm.Type.Minor))
         assertThat(minor.cost, `is`(TIERED_MINOR_COST))
-        assertThat(wikiObjectFactory.createJSONObject(minor, "Charm").getString("type"), `is`("Minor"))
+        assertThat(wikiObjectFactory.createJSONObject(minor, "Charm")["type"].toString(), `is`("Minor"))
 
         val major = mapper.readValue(MAJOR_JSON, Charm::class.java)
         assertThat(major.type, `is`(Charm.Type.Major))
-        assertThat(wikiObjectFactory.createJSONObject(major, "Charm").getString("type"), `is`("Major"))
+        assertThat(wikiObjectFactory.createJSONObject(major, "Charm")["type"].toString(), `is`("Major"))
     }
 
     @Test
     fun fixtureInfoboxMapsToMinorWithoutStrippingType() {
         val json = JsonFactory().convertInfoboxPartOfArticleToJson(adrenalineBurstInfobox)
-        val charm = productionMapper().readValue(json.toString(), Charm::class.java)
+        val charm = productionMapper().convertValue(json, Charm::class.java)
 
         assertThat(charm.type, `is`(Charm.Type.Minor))
         assertThat(charm.cost, `is`(TIERED_MINOR_COST))

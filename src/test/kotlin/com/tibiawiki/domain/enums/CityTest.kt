@@ -11,7 +11,6 @@ import org.hamcrest.Matchers.instanceOf
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.notNullValue
 import org.hamcrest.Matchers.nullValue
-import org.json.JSONObject
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import tools.jackson.databind.ObjectMapper
@@ -93,18 +92,20 @@ class CityTest {
         assertThat(result.name, `is`("Hometown NPC"))
     }
 
-    private fun npcJson(city: String): JSONObject {
-        return JSONObject()
-            .put("templateType", "NPC")
-            .put("name", "Hometown NPC")
-            .put("city", city)
+    private fun npcJson(city: String): Map<String, Any> {
+        return mapOf(
+            "templateType" to "NPC",
+            "name" to "Hometown NPC",
+            "city" to city
+        )
     }
 
-    private fun cityJson(templateType: String, name: String): JSONObject {
-        return JSONObject()
-            .put("templateType", templateType)
-            .put("name", name)
-            .put("city", "Issavi")
+    private fun cityJson(templateType: String, name: String): Map<String, Any> {
+        return mapOf(
+            "templateType" to templateType,
+            "name" to name,
+            "city" to "Issavi"
+        )
     }
 
     companion object {
