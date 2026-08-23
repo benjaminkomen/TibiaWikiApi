@@ -2,8 +2,6 @@ package com.tibiawiki.domain.factories
 
 import tools.jackson.databind.json.JsonMapper
 import tools.jackson.databind.ObjectMapper
-import com.tibiawiki.domain.enums.Article
-import com.tibiawiki.domain.enums.YesNo
 import com.tibiawiki.domain.objects.Achievement
 import com.tibiawiki.domain.objects.Book
 import com.tibiawiki.domain.objects.Building
@@ -25,9 +23,6 @@ import com.tibiawiki.domain.objects.WikiObjectFixtures
 import org.json.JSONArray
 import org.json.JSONObject
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Disabled
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.`when`
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.instanceOf
 import org.hamcrest.Matchers.`is`
@@ -312,7 +307,6 @@ class JsonFactoryTest {
         assertThat(result, `is`(INFOBOX_MOUNT_TEXT))
     }
 
-    @Disabled // TODO: fix test
     @Test
     fun testConvertJsonToInfoboxPartOfArticle_Object() {
         val tibiaObject = makeTibiaObject()
@@ -494,20 +488,14 @@ class JsonFactoryTest {
     }
 
     private fun makeTibiaObject(): TibiaObject {
-        val mock = mock(TibiaObject::class.java)
-        `when`(mock.name).thenReturn("Blueberry Bush")
-        `when`(mock.article).thenReturn(Article.A)
-        `when`(mock.objectclass).thenReturn("Bushes")
-        `when`(mock.walkable).thenReturn(YesNo.NO_LOWERCASE)
-        `when`(mock.location).thenReturn("Can be found all around [[Tibia]].")
-        `when`(mock.notes).thenReturn("They are the source of the [[blueberry|blueberries]].")
-        `when`(mock.notes2).thenReturn("<br />{{JSpoiler|After using [[Blueberry]] Bushes 500 times,")
-        `when`(mock.implemented).thenReturn("7.1")
-        return mock
+        return WikiObjectFixtures.tibiaObject()
     }
 
+    @Suppress("UNCHECKED_CAST")
     private fun makeTibiaObjectJson(tibiaObject: TibiaObject): JSONObject {
-        return JSONObject(objectMapper.convertValue(tibiaObject, Map::class.java)).put("templateType", "Object")
+        val properties = (objectMapper.convertValue(tibiaObject, Map::class.java) as Map<String, Any?>)
+            .filterValues { it != null }
+        return JSONObject(properties).put("templateType", "Object")
     }
 
     private fun makeCreature(): Creature {

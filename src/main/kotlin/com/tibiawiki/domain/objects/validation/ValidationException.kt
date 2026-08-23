@@ -7,7 +7,7 @@ class ValidationException : RuntimeException {
         validationResults = emptyList()
     }
 
-    constructor(messsage: String) : super(messsage) {
+    constructor(message: String) : super(message) {
         validationResults = emptyList()
     }
 

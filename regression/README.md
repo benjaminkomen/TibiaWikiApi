@@ -85,7 +85,7 @@ tests — not by hammering Fandom.
 
 `.github/workflows/api-regression.yml` on push/PR to `master`:
 
-1. JDK 17 + Bun
+1. JDK 25 + Bun
 2. `SPRING_PROFILES_ACTIVE=fixtures ./gradlew bootRun`
 3. wait for `http://localhost:8080/api/corpses`
 4. `cd regression && bun run test`
@@ -96,7 +96,9 @@ On failure the workflow uploads `boot-fixtures.log` and `regression-test.log`.
 
 Every resource in the root README table has a name-list GET and the documented
 example detail GET. Underscore encoding is used for spaces (and parentheses in
-the book example).
+the book example). `/api/v2/loot` has the same list + Ferumbras detail coverage
+as `/api/loot` (v2 returns `loot2` / `loot2_rc` parts instead of a single loot2
+object).
 
 Missing: `/api/creatures/ThisDoesNotExistXYZ123` (fixture has no such article →
 **404**, empty body).

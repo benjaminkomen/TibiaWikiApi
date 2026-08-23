@@ -404,6 +404,24 @@ object WikiObjectFixtures {
     }
 
     @JvmStatic
+    fun tibiaObject(): TibiaObject {
+        val result = TibiaObject(
+            itemid = null,
+            sounds = null,
+            droppedby = null,
+            objectclass = "Bushes",
+            walkable = YesNo.NO_LOWERCASE,
+            location = "Can be found all around [[Tibia]].",
+            notes2 = "<br />{{JSpoiler|After using [[Blueberry]] Bushes 500 times,"
+        )
+        ReflectionTestUtils.setField(result, "name", "Blueberry Bush")
+        ReflectionTestUtils.setField(result, "article", Article.A)
+        ReflectionTestUtils.setField(result, "implemented", "7.1")
+        ReflectionTestUtils.setField(result, "notes", "They are the source of the [[blueberry|blueberries]].")
+        return result
+    }
+
+    @JvmStatic
     fun spell(): Spell = Spell(
         name = "Light Healing",
         type = SpellType.Instant,
