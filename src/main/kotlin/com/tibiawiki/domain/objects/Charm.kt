@@ -4,11 +4,12 @@ import com.tibiawiki.domain.enums.InfoboxTemplate
 
 data class Charm(
     val type: Type,
-    val cost: Int, // number of charm points
+    val cost: String, // charm points; wiki uses a single int or tiered "100 / 150 / 225"
     val effect: String,
 ) : WikiObject() {
     enum class Type {
-        Offensive, Defensive, Passive
+        Minor,
+        Major
     }
 
     override fun fieldOrder(): List<String> {

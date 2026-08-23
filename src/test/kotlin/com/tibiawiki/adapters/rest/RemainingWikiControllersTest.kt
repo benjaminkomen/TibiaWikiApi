@@ -51,7 +51,7 @@ class RemainingWikiControllersTest {
         doReturn(Stream.of(json)).`when`(retrieve).charmsJSON
         doReturn(Optional.of(json)).`when`(retrieve).getCharmJSON("Foo")
         doReturn(Optional.empty<JSONObject>()).`when`(retrieve).getCharmJSON("Missing")
-        val body = Charm(Charm.Type.Offensive, 100, "crit")
+        val body = Charm(Charm.Type.Minor, "100 / 150 / 225", "crit")
         stubModify(body)
         val c = CharmsController(retrieve, modifyAny)
         assertStandard(c.getCharms(false), c.getCharms(true), c.getCharmsByName("Foo"), c.getCharmsByName("Missing"), c.putCharm(body, "edit"))
