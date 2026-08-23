@@ -29,25 +29,16 @@ class CategoryCollectionControllersTest {
         doReturn(names).`when`(retrieve).names(InfoboxTemplate.UPDATE)
         doReturn(names).`when`(retrieve).names(InfoboxTemplate.WORLD)
         doReturn(names).`when`(retrieve).names(InfoboxTemplate.FAMILIAR)
-<<<<<<< HEAD
         doReturn(names).`when`(retrieve).names(InfoboxTemplate.FANSITE)
         doReturn(names).`when`(retrieve).names(InfoboxTemplate.CIPSOFT_MEMBER)
-        doReturn(Stream.of(json)).`when`(retrieve).asJson(InfoboxTemplate.IMBUEMENT)
-        doReturn(Stream.of(json)).`when`(retrieve).asJson(InfoboxTemplate.UPDATE)
-        doReturn(Stream.of(json)).`when`(retrieve).asJson(InfoboxTemplate.WORLD)
-        doReturn(Stream.of(json)).`when`(retrieve).asJson(InfoboxTemplate.FAMILIAR)
-        doReturn(Stream.of(json)).`when`(retrieve).asJson(InfoboxTemplate.FANSITE)
-        doReturn(Stream.of(json)).`when`(retrieve).asJson(InfoboxTemplate.CIPSOFT_MEMBER)
-        doReturn(Optional.of(json)).`when`(retrieve).getJson("Foo")
-        doReturn(Optional.empty<WikiJson>()).`when`(retrieve).getJson("Missing")
-=======
         doReturn(listOf(json)).`when`(retrieve).asJson(InfoboxTemplate.IMBUEMENT)
         doReturn(listOf(json)).`when`(retrieve).asJson(InfoboxTemplate.UPDATE)
         doReturn(listOf(json)).`when`(retrieve).asJson(InfoboxTemplate.WORLD)
         doReturn(listOf(json)).`when`(retrieve).asJson(InfoboxTemplate.FAMILIAR)
+        doReturn(listOf(json)).`when`(retrieve).asJson(InfoboxTemplate.FANSITE)
+        doReturn(listOf(json)).`when`(retrieve).asJson(InfoboxTemplate.CIPSOFT_MEMBER)
         doReturn(json).`when`(retrieve).getJson("Foo")
         doReturn(null).`when`(retrieve).getJson("Missing")
->>>>>>> 7782b20 (Replace Optional, Stream, and Vavr Try on the process boundary)
     }
 
     @Test
