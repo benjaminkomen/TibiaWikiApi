@@ -4,5 +4,8 @@ enum class WeaponType {
     Axe,
     Club,
     Sword,
-    Distance
+    Distance,
+    Wand,
+    Rod,
+    Fist
 }
