@@ -190,8 +190,9 @@ jacoco {
 jacocoTestReport {
     dependsOn check
     // Default jacocoTestReport only reads the unit-test exec file. Integration tests
-    // already run via check, so merge both execution dumps for Sonar coverage.
-    executionData.from tasks.named('integrationTest')
+    // already run via check; merge both Jacoco dumps for Sonar coverage.
+    executionData.from layout.buildDirectory.file("jacoco/test.exec")
+    executionData.from layout.buildDirectory.file("jacoco/integrationTest.exec")
 
     reports {
         xml.required = true
