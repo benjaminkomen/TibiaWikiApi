@@ -1,5 +1,6 @@
 package com.tibiawiki.adapters.rest
 
+import com.tibiawiki.config.WikiWriteApiDocs
 import com.tibiawiki.domain.enums.InfoboxTemplate
 import com.tibiawiki.domain.objects.Fansite
 import com.tibiawiki.domain.objects.WikiObject
@@ -65,7 +66,8 @@ class FansitesController(
         value = [
             ApiResponse(responseCode = "200", description = "the changed fansite"),
             ApiResponse(responseCode = "400", description = "the provided changed fansite is not valid"),
-            ApiResponse(responseCode = "401", description = "not authorized to edit without providing credentials")
+            ApiResponse(responseCode = "401", description = WikiWriteApiDocs.UNAUTHORIZED),
+            ApiResponse(responseCode = "403", description = WikiWriteApiDocs.FORBIDDEN)
         ]
     )
     fun putFansite(@RequestBody fansite: Fansite, @RequestHeader("X-WIKI-Edit-Summary") editSummary: String?): ResponseEntity<WikiObject> {

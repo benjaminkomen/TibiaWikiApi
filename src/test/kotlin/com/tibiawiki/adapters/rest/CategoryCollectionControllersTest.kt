@@ -2,6 +2,7 @@ package com.tibiawiki.adapters.rest
 
 import com.tibiawiki.domain.ArticleNotFoundException
 import com.tibiawiki.domain.enums.InfoboxTemplate
+import com.tibiawiki.process.ModifyAny
 import com.tibiawiki.process.RetrieveByTemplate
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.hasSize
@@ -30,10 +31,14 @@ class CategoryCollectionControllersTest {
         doReturn(names).`when`(retrieve).names(InfoboxTemplate.UPDATE)
         doReturn(names).`when`(retrieve).names(InfoboxTemplate.WORLD)
         doReturn(names).`when`(retrieve).names(InfoboxTemplate.FAMILIAR)
+        doReturn(names).`when`(retrieve).names(InfoboxTemplate.FANSITE)
+        doReturn(names).`when`(retrieve).names(InfoboxTemplate.CIPSOFT_MEMBER)
         doReturn(Stream.of(json)).`when`(retrieve).asJson(InfoboxTemplate.IMBUEMENT)
         doReturn(Stream.of(json)).`when`(retrieve).asJson(InfoboxTemplate.UPDATE)
         doReturn(Stream.of(json)).`when`(retrieve).asJson(InfoboxTemplate.WORLD)
         doReturn(Stream.of(json)).`when`(retrieve).asJson(InfoboxTemplate.FAMILIAR)
+        doReturn(Stream.of(json)).`when`(retrieve).asJson(InfoboxTemplate.FANSITE)
+        doReturn(Stream.of(json)).`when`(retrieve).asJson(InfoboxTemplate.CIPSOFT_MEMBER)
         doReturn(Optional.of(json)).`when`(retrieve).getJson("Foo")
         doReturn(Optional.empty<JSONObject>()).`when`(retrieve).getJson("Missing")
     }
@@ -41,25 +46,49 @@ class CategoryCollectionControllersTest {
     @Test
     fun imbuements() {
         val c = ImbuementsController(retrieve)
-        assertListAndDetail(c.getImbuements(false), c.getImbuements(true), c.getImbuementsByName("Foo"), { c.getImbuementsByName("Missing") })
+        assertListAndDetail(c.getImbuements(false), c.getImbuements(true), c.getImbuementsByName("Foo")) {
+            c.getImbuementsByName("Missing")
+        }
     }
 
     @Test
     fun updates() {
         val c = UpdatesController(retrieve)
-        assertListAndDetail(c.getUpdates(false), c.getUpdates(true), c.getUpdatesByName("Foo"), { c.getUpdatesByName("Missing") })
+        assertListAndDetail(c.getUpdates(false), c.getUpdates(true), c.getUpdatesByName("Foo")) {
+            c.getUpdatesByName("Missing")
+        }
     }
 
     @Test
     fun worlds() {
         val c = WorldsController(retrieve)
-        assertListAndDetail(c.getWorlds(false), c.getWorlds(true), c.getWorldsByName("Foo"), { c.getWorldsByName("Missing") })
+        assertListAndDetail(c.getWorlds(false), c.getWorlds(true), c.getWorldsByName("Foo")) {
+            c.getWorldsByName("Missing")
+        }
     }
 
     @Test
     fun familiars() {
         val c = FamiliarsController(retrieve)
-        assertListAndDetail(c.getFamiliars(false), c.getFamiliars(true), c.getFamiliarsByName("Foo"), { c.getFamiliarsByName("Missing") })
+        assertListAndDetail(c.getFamiliars(false), c.getFamiliars(true), c.getFamiliarsByName("Foo")) {
+            c.getFamiliarsByName("Missing")
+        }
+    }
+
+    @Test
+    fun fansites() {
+        val c = FansitesController(retrieve, mock(ModifyAny::class.java))
+        assertListAndDetail(c.getFansites(false), c.getFansites(true), c.getFansitesByName("Foo")) {
+            c.getFansitesByName("Missing")
+        }
+    }
+
+    @Test
+    fun cipsoftMembers() {
+        val c = CipsoftMembersController(retrieve, mock(ModifyAny::class.java))
+        assertListAndDetail(c.getCipsoftMembers(false), c.getCipsoftMembers(true), c.getCipsoftMembersByName("Foo")) {
+            c.getCipsoftMembersByName("Missing")
+        }
     }
 
     private fun assertListAndDetail(

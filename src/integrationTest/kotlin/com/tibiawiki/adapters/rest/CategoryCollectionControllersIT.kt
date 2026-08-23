@@ -67,6 +67,26 @@ class CategoryCollectionControllersIT(
         )
     }
 
+    @Test
+    fun fansitesListExpandAndDetail() {
+        assertCollection(
+            path = "/api/fansites",
+            template = InfoboxTemplate.FANSITE,
+            pageName = "TibiaWiki",
+            infobox = INFOBOX_FANSITE
+        )
+    }
+
+    @Test
+    fun cipsoftMembersListExpandAndDetail() {
+        assertCollection(
+            path = "/api/cipsoftmembers",
+            template = InfoboxTemplate.CIPSOFT_MEMBER,
+            pageName = "Knightmare",
+            infobox = INFOBOX_CIPSOFT_MEMBER
+        )
+    }
+
     private fun assertCollection(
         path: String,
         template: InfoboxTemplate,
@@ -135,6 +155,22 @@ class CategoryCollectionControllersIT(
             {{Infobox Familiar|List={{{1|}}}|GetValue={{{GetValue|}}}
             | name         = Grovebeast
             | implemented  = 11.40
+            }}
+            """.trimIndent()
+        private val INFOBOX_FANSITE =
+            """
+            {{Infobox Fansite|List={{{1|}}}|GetValue={{{GetValue|}}}
+            | name         = TibiaWiki
+            | url          = https://tibia.fandom.com
+            | type         = Official
+            }}
+            """.trimIndent()
+        private val INFOBOX_CIPSOFT_MEMBER =
+            """
+            {{Infobox Cipsoft_Member|List={{{1|}}}|GetValue={{{GetValue|}}}
+            | name         = Knightmare
+            | actualname   = Stephan
+            | job          = Content Designer
             }}
             """.trimIndent()
     }
