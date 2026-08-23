@@ -8,6 +8,7 @@ enum class City(
 ) : Description {
     AB_DENDRIEL("Ab'Dendriel"),
     ANKRAHMUN("Ankrahmun"),
+    BOUNAC("Bounac"),
     CARLIN("Carlin"),
     CORMAYA("Cormaya"),
     DARASHIA("Darashia"),
@@ -18,8 +19,10 @@ enum class City(
     GNOMEGATE("Gnomegate"),
     GRAY_BEACH("Gray Beach"),
     ISLAND_OF_DESTINY("Island of Destiny"),
+    ISSAVI("Issavi"),
     KAZORDOON("Kazordoon"),
     LIBERTY_BAY("Liberty Bay"),
+    MARAPUR("Marapur"),
     MELUNA("Meluna"),
     NOSTALGIA("Nostalgia"),
     PORT_HOPE("Port Hope"),
