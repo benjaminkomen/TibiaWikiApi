@@ -6,8 +6,6 @@ import com.tibiawiki.domain.factories.ArticleFactory
 import com.tibiawiki.domain.factories.JsonFactory
 import com.tibiawiki.domain.repositories.ArticleRepository
 import org.springframework.stereotype.Component
-import java.util.Optional
-import java.util.stream.Stream
 
 /**
  * Shared list/expand/detail retrieval for wiki categories that follow the
@@ -28,11 +26,11 @@ class RetrieveByTemplate(
         return category.filter { page -> page !in listsCategory }
     }
 
-    fun asJson(template: InfoboxTemplate): Stream<WikiJson> {
+    fun asJson(template: InfoboxTemplate): List<WikiJson> {
         return getArticlesFromInfoboxTemplateAsJSON(names(template))
     }
 
-    fun getJson(pageName: String): Optional<WikiJson> {
+    fun getJson(pageName: String): WikiJson? {
         return getArticleAsJSON(pageName)
     }
 }

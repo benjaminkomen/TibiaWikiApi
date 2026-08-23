@@ -7,6 +7,7 @@ import com.tibiawiki.domain.objects.WikiObject
 import com.tibiawiki.domain.objects.WikiObjectFixtures
 import com.tibiawiki.domain.enums.InfoboxTemplate
 import com.tibiawiki.process.ModifyAny
+import com.tibiawiki.process.ModifyResult
 import com.tibiawiki.process.RetrieveBuildings
 import com.tibiawiki.process.RetrieveByTemplate
 import com.tibiawiki.process.RetrieveCharms
@@ -22,7 +23,6 @@ import com.tibiawiki.process.RetrieveOutfits
 import com.tibiawiki.process.RetrieveQuests
 import com.tibiawiki.process.RetrieveSpells
 import com.tibiawiki.process.RetrieveStreets
-import io.vavr.control.Try
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.hasSize
 import org.hamcrest.Matchers.`is`
@@ -33,8 +33,6 @@ import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import java.util.Optional
-import java.util.stream.Stream
 
 class RemainingWikiControllersTest {
 
@@ -51,9 +49,9 @@ class RemainingWikiControllersTest {
     fun fansites() {
         val retrieve = mock(RetrieveByTemplate::class.java)
         doReturn(names).`when`(retrieve).names(InfoboxTemplate.FANSITE)
-        doReturn(Stream.of(json)).`when`(retrieve).asJson(InfoboxTemplate.FANSITE)
-        doReturn(Optional.of(json)).`when`(retrieve).getJson("Foo")
-        doReturn(Optional.empty<WikiJson>()).`when`(retrieve).getJson("Missing")
+        doReturn(listOf(json)).`when`(retrieve).asJson(InfoboxTemplate.FANSITE)
+        doReturn(json).`when`(retrieve).getJson("Foo")
+        doReturn(null).`when`(retrieve).getJson("Missing")
         val body = WikiObjectFixtures.fansite()
         stubModify(body)
         val c = FansitesController(retrieve, modifyAny)
@@ -64,9 +62,9 @@ class RemainingWikiControllersTest {
     fun cipsoftMembers() {
         val retrieve = mock(RetrieveByTemplate::class.java)
         doReturn(names).`when`(retrieve).names(InfoboxTemplate.CIPSOFT_MEMBER)
-        doReturn(Stream.of(json)).`when`(retrieve).asJson(InfoboxTemplate.CIPSOFT_MEMBER)
-        doReturn(Optional.of(json)).`when`(retrieve).getJson("Foo")
-        doReturn(Optional.empty<WikiJson>()).`when`(retrieve).getJson("Missing")
+        doReturn(listOf(json)).`when`(retrieve).asJson(InfoboxTemplate.CIPSOFT_MEMBER)
+        doReturn(json).`when`(retrieve).getJson("Foo")
+        doReturn(null).`when`(retrieve).getJson("Missing")
         val body = WikiObjectFixtures.cipsoftMember()
         stubModify(body)
         val c = CipsoftMembersController(retrieve, modifyAny)
@@ -83,9 +81,9 @@ class RemainingWikiControllersTest {
     fun charms() {
         val retrieve = mock(RetrieveCharms::class.java)
         doReturn(names).`when`(retrieve).charmsList
-        doReturn(Stream.of(json)).`when`(retrieve).charmsJSON
-        doReturn(Optional.of(json)).`when`(retrieve).getCharmJSON("Foo")
-        doReturn(Optional.empty<WikiJson>()).`when`(retrieve).getCharmJSON("Missing")
+        doReturn(listOf(json)).`when`(retrieve).charmsJSON
+        doReturn(json).`when`(retrieve).getCharmJSON("Foo")
+        doReturn(null).`when`(retrieve).getCharmJSON("Missing")
         val body = WikiObjectFixtures.charm()
         stubModify(body)
         val c = CharmsController(retrieve, modifyAny)
@@ -96,9 +94,9 @@ class RemainingWikiControllersTest {
     fun buildings() {
         val retrieve = mock(RetrieveBuildings::class.java)
         doReturn(names).`when`(retrieve).buildingsList
-        doReturn(Stream.of(json)).`when`(retrieve).buildingsJSON
-        doReturn(Optional.of(json)).`when`(retrieve).getBuildingJSON("Foo")
-        doReturn(Optional.empty<WikiJson>()).`when`(retrieve).getBuildingJSON("Missing")
+        doReturn(listOf(json)).`when`(retrieve).buildingsJSON
+        doReturn(json).`when`(retrieve).getBuildingJSON("Foo")
+        doReturn(null).`when`(retrieve).getBuildingJSON("Missing")
         val body = WikiObjectFixtures.building()
         stubModify(body)
         val c = BuildingsController(retrieve, modifyAny)
@@ -109,9 +107,9 @@ class RemainingWikiControllersTest {
     fun corpses() {
         val retrieve = mock(RetrieveCorpses::class.java)
         doReturn(names).`when`(retrieve).corpsesList
-        doReturn(Stream.of(json)).`when`(retrieve).corpsesJSON
-        doReturn(Optional.of(json)).`when`(retrieve).getCorpseJSON("Foo")
-        doReturn(Optional.empty<WikiJson>()).`when`(retrieve).getCorpseJSON("Missing")
+        doReturn(listOf(json)).`when`(retrieve).corpsesJSON
+        doReturn(json).`when`(retrieve).getCorpseJSON("Foo")
+        doReturn(null).`when`(retrieve).getCorpseJSON("Missing")
         val body = WikiObjectFixtures.corpse()
         stubModify(body)
         val c = CorpsesController(retrieve, modifyAny)
@@ -122,9 +120,9 @@ class RemainingWikiControllersTest {
     fun effects() {
         val retrieve = mock(RetrieveEffects::class.java)
         doReturn(names).`when`(retrieve).effectsList
-        doReturn(Stream.of(json)).`when`(retrieve).effectsJSON
-        doReturn(Optional.of(json)).`when`(retrieve).getEffectJSON("Foo")
-        doReturn(Optional.empty<WikiJson>()).`when`(retrieve).getEffectJSON("Missing")
+        doReturn(listOf(json)).`when`(retrieve).effectsJSON
+        doReturn(json).`when`(retrieve).getEffectJSON("Foo")
+        doReturn(null).`when`(retrieve).getEffectJSON("Missing")
         val body = WikiObjectFixtures.effect()
         stubModify(body)
         val c = EffectsController(retrieve, modifyAny)
@@ -135,9 +133,9 @@ class RemainingWikiControllersTest {
     fun keys() {
         val retrieve = mock(RetrieveKeys::class.java)
         doReturn(names).`when`(retrieve).keysList
-        doReturn(Stream.of(json)).`when`(retrieve).keysJSON
-        doReturn(Optional.of(json)).`when`(retrieve).getKeyJSON("Foo")
-        doReturn(Optional.empty<WikiJson>()).`when`(retrieve).getKeyJSON("Missing")
+        doReturn(listOf(json)).`when`(retrieve).keysJSON
+        doReturn(json).`when`(retrieve).getKeyJSON("Foo")
+        doReturn(null).`when`(retrieve).getKeyJSON("Missing")
         val body = WikiObjectFixtures.key()
         stubModify(body)
         val c = KeysController(retrieve, modifyAny)
@@ -148,9 +146,9 @@ class RemainingWikiControllersTest {
     fun locations() {
         val retrieve = mock(RetrieveLocations::class.java)
         doReturn(names).`when`(retrieve).locationsList
-        doReturn(Stream.of(json)).`when`(retrieve).locationsJSON
-        doReturn(Optional.of(json)).`when`(retrieve).getLocationJSON("Foo")
-        doReturn(Optional.empty<WikiJson>()).`when`(retrieve).getLocationJSON("Missing")
+        doReturn(listOf(json)).`when`(retrieve).locationsJSON
+        doReturn(json).`when`(retrieve).getLocationJSON("Foo")
+        doReturn(null).`when`(retrieve).getLocationJSON("Missing")
         val body = WikiObjectFixtures.location()
         stubModify(body)
         val c = LocationsController(retrieve, modifyAny)
@@ -161,9 +159,9 @@ class RemainingWikiControllersTest {
     fun missiles() {
         val retrieve = mock(RetrieveMissiles::class.java)
         doReturn(names).`when`(retrieve).missilesList
-        doReturn(Stream.of(json)).`when`(retrieve).missilesJSON
-        doReturn(Optional.of(json)).`when`(retrieve).getMissileJSON("Foo")
-        doReturn(Optional.empty<WikiJson>()).`when`(retrieve).getMissileJSON("Missing")
+        doReturn(listOf(json)).`when`(retrieve).missilesJSON
+        doReturn(json).`when`(retrieve).getMissileJSON("Foo")
+        doReturn(null).`when`(retrieve).getMissileJSON("Missing")
         val body = WikiObjectFixtures.missile()
         stubModify(body)
         val c = MissilesController(retrieve, modifyAny)
@@ -174,9 +172,9 @@ class RemainingWikiControllersTest {
     fun mounts() {
         val retrieve = mock(RetrieveMounts::class.java)
         doReturn(names).`when`(retrieve).mountsList
-        doReturn(Stream.of(json)).`when`(retrieve).mountsJSON
-        doReturn(Optional.of(json)).`when`(retrieve).getMountJSON("Foo")
-        doReturn(Optional.empty<WikiJson>()).`when`(retrieve).getMountJSON("Missing")
+        doReturn(listOf(json)).`when`(retrieve).mountsJSON
+        doReturn(json).`when`(retrieve).getMountJSON("Foo")
+        doReturn(null).`when`(retrieve).getMountJSON("Missing")
         val body = WikiObjectFixtures.mount()
         stubModify(body)
         val c = MountsController(retrieve, modifyAny)
@@ -187,9 +185,9 @@ class RemainingWikiControllersTest {
     fun npcs() {
         val retrieve = mock(RetrieveNPCs::class.java)
         doReturn(names).`when`(retrieve).getNPCsList()
-        doReturn(Stream.of(json)).`when`(retrieve).getNPCsJSON()
-        doReturn(Optional.of(json)).`when`(retrieve).getNPCJSON("Foo")
-        doReturn(Optional.empty<WikiJson>()).`when`(retrieve).getNPCJSON("Missing")
+        doReturn(listOf(json)).`when`(retrieve).getNPCsJSON()
+        doReturn(json).`when`(retrieve).getNPCJSON("Foo")
+        doReturn(null).`when`(retrieve).getNPCJSON("Missing")
         val body = WikiObjectFixtures.npc()
         stubModify(body)
         val c = NPCsController(retrieve, modifyAny)
@@ -200,9 +198,9 @@ class RemainingWikiControllersTest {
     fun objects() {
         val retrieve = mock(RetrieveObjects::class.java)
         doReturn(names).`when`(retrieve).objectsList
-        doReturn(Stream.of(json)).`when`(retrieve).objectsJSON
-        doReturn(Optional.of(json)).`when`(retrieve).getObjectJSON("Foo")
-        doReturn(Optional.empty<WikiJson>()).`when`(retrieve).getObjectJSON("Missing")
+        doReturn(listOf(json)).`when`(retrieve).objectsJSON
+        doReturn(json).`when`(retrieve).getObjectJSON("Foo")
+        doReturn(null).`when`(retrieve).getObjectJSON("Missing")
         val body = WikiObjectFixtures.tibiaObject()
         stubModify(body)
         val c = ObjectsController(retrieve, modifyAny)
@@ -213,9 +211,9 @@ class RemainingWikiControllersTest {
     fun outfits() {
         val retrieve = mock(RetrieveOutfits::class.java)
         doReturn(names).`when`(retrieve).outfitsList
-        doReturn(Stream.of(json)).`when`(retrieve).outfitsJSON
-        doReturn(Optional.of(json)).`when`(retrieve).getOutfitJSON("Foo")
-        doReturn(Optional.empty<WikiJson>()).`when`(retrieve).getOutfitJSON("Missing")
+        doReturn(listOf(json)).`when`(retrieve).outfitsJSON
+        doReturn(json).`when`(retrieve).getOutfitJSON("Foo")
+        doReturn(null).`when`(retrieve).getOutfitJSON("Missing")
         val body = WikiObjectFixtures.outfit()
         stubModify(body)
         val c = OutfitsController(retrieve, modifyAny)
@@ -226,9 +224,9 @@ class RemainingWikiControllersTest {
     fun quests() {
         val retrieve = mock(RetrieveQuests::class.java)
         doReturn(names).`when`(retrieve).questsList
-        doReturn(Stream.of(json)).`when`(retrieve).questsJSON
-        doReturn(Optional.of(json)).`when`(retrieve).getQuestJSON("Foo")
-        doReturn(Optional.empty<WikiJson>()).`when`(retrieve).getQuestJSON("Missing")
+        doReturn(listOf(json)).`when`(retrieve).questsJSON
+        doReturn(json).`when`(retrieve).getQuestJSON("Foo")
+        doReturn(null).`when`(retrieve).getQuestJSON("Missing")
         val body = WikiObjectFixtures.quest()
         stubModify(body)
         val c = QuestsController(retrieve, modifyAny)
@@ -239,9 +237,9 @@ class RemainingWikiControllersTest {
     fun spells() {
         val retrieve = mock(RetrieveSpells::class.java)
         doReturn(names).`when`(retrieve).spellsList
-        doReturn(Stream.of(json)).`when`(retrieve).spellsJSON
-        doReturn(Optional.of(json)).`when`(retrieve).getSpellJSON("Foo")
-        doReturn(Optional.empty<WikiJson>()).`when`(retrieve).getSpellJSON("Missing")
+        doReturn(listOf(json)).`when`(retrieve).spellsJSON
+        doReturn(json).`when`(retrieve).getSpellJSON("Foo")
+        doReturn(null).`when`(retrieve).getSpellJSON("Missing")
         val body = WikiObjectFixtures.spell()
         stubModify(body)
         val c = SpellsController(retrieve, modifyAny)
@@ -252,9 +250,9 @@ class RemainingWikiControllersTest {
     fun streets() {
         val retrieve = mock(RetrieveStreets::class.java)
         doReturn(names).`when`(retrieve).streetsList
-        doReturn(Stream.of(json)).`when`(retrieve).streetsJSON
-        doReturn(Optional.of(json)).`when`(retrieve).getStreetJSON("Foo")
-        doReturn(Optional.empty<WikiJson>()).`when`(retrieve).getStreetJSON("Missing")
+        doReturn(listOf(json)).`when`(retrieve).streetsJSON
+        doReturn(json).`when`(retrieve).getStreetJSON("Foo")
+        doReturn(null).`when`(retrieve).getStreetJSON("Missing")
         val body = WikiObjectFixtures.street()
         stubModify(body)
         val c = StreetsController(retrieve, modifyAny)
@@ -275,7 +273,7 @@ class RemainingWikiControllersTest {
     }
 
     private fun stubModify(wikiObject: WikiObject) {
-        doReturn(Try.success(wikiObject)).`when`(modifyAny).modify(wikiObject, "edit")
+        doReturn(ModifyResult.Success(wikiObject)).`when`(modifyAny).modify(wikiObject, "edit")
     }
 
     private fun assertStandard(

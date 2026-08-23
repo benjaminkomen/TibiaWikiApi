@@ -6,8 +6,6 @@ import com.tibiawiki.domain.factories.ArticleFactory
 import com.tibiawiki.domain.factories.JsonFactory
 import com.tibiawiki.domain.repositories.ArticleRepository
 import org.springframework.stereotype.Component
-import java.util.Optional
-import java.util.stream.Stream
 
 @Component
 class RetrieveAchievements(
@@ -23,10 +21,10 @@ class RetrieveAchievements(
             return category.filter { page -> page !in listsCategory }
         }
 
-    val achievementsJSON: Stream<WikiJson>
+    val achievementsJSON: List<WikiJson>
         get() = getArticlesFromInfoboxTemplateAsJSON(achievementsList)
 
-    fun getAchievementJSON(pageName: String): Optional<WikiJson> {
+    fun getAchievementJSON(pageName: String): WikiJson? {
         return getArticleAsJSON(pageName)
     }
 }

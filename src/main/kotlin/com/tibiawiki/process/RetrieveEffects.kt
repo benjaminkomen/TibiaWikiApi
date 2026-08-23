@@ -6,8 +6,6 @@ import com.tibiawiki.domain.factories.ArticleFactory
 import com.tibiawiki.domain.factories.JsonFactory
 import com.tibiawiki.domain.repositories.ArticleRepository
 import org.springframework.stereotype.Component
-import java.util.Optional
-import java.util.stream.Stream
 
 @Component
 class RetrieveEffects(
@@ -23,10 +21,10 @@ class RetrieveEffects(
             return category.filter { page -> page !in listsCategory }
         }
 
-    val effectsJSON: Stream<WikiJson>
+    val effectsJSON: List<WikiJson>
         get() = getArticlesFromInfoboxTemplateAsJSON(effectsList)
 
-    fun getEffectJSON(pageName: String): Optional<WikiJson> {
+    fun getEffectJSON(pageName: String): WikiJson? {
         return getArticleAsJSON(pageName)
     }
 }

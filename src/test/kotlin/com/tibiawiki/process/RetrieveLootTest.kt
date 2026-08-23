@@ -7,6 +7,7 @@ import com.tibiawiki.domain.repositories.ArticleRepository
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.hasSize
 import org.hamcrest.Matchers.`is`
+import org.hamcrest.Matchers.nullValue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.anyList
@@ -28,7 +29,7 @@ class RetrieveLootTest {
     fun testGetLootJSON_ZeroResults() {
         stubLootCategory(emptyList())
 
-        val result = target.getLootJSONObject().toList()
+        val result = target.getLootJSONObject()
 
         assertThat(result, hasSize(0))
     }
@@ -40,7 +41,7 @@ class RetrieveLootTest {
         stubLootCategory(names)
         doReturn(pages).`when`(articleRepository).getArticlesFromCategory(anyList())
 
-        val result = target.getLootJSONObject().toList()
+        val result = target.getLootJSONObject()
 
         assertThat(result, hasSize(2))
         assertThat(result[0]["name"], `is`("Amazon"))
@@ -52,7 +53,16 @@ class RetrieveLootTest {
 
         val result = target.getLootJSONObject(SOME_PAGE_NAME)
 
-        assertThat(result.orElseThrow()["name"], `is`("Amazon"))
+        assertThat(result!!["name"], `is`("Amazon"))
+    }
+
+    @Test
+    fun testGetLootJSONObjectByName_Missing() {
+        doReturn(null).`when`(articleRepository).getArticle(SOME_PAGE_NAME)
+
+        val result = target.getLootJSONObject(SOME_PAGE_NAME)
+
+        assertThat(result, nullValue())
     }
 
     @Test
@@ -62,7 +72,7 @@ class RetrieveLootTest {
         stubLootCategory(names)
         doReturn(pages).`when`(articleRepository).getArticlesFromCategory(anyList())
 
-        val result = target.getAllLootPartsJSON().toList()
+        val result = target.getAllLootPartsJSON()
 
         assertThat(result, hasSize(2))
         assertThat(result[0].containsKey("loot2"), `is`(true))
@@ -74,7 +84,7 @@ class RetrieveLootTest {
 
         val result = target.getAllLootPartsJSON(SOME_PAGE_NAME)
 
-        assertThat(result.orElseThrow().containsKey("loot2"), `is`(true))
+        assertThat(result!!.containsKey("loot2"), `is`(true))
     }
 
     @Test

@@ -6,8 +6,6 @@ import com.tibiawiki.domain.factories.ArticleFactory
 import com.tibiawiki.domain.factories.JsonFactory
 import com.tibiawiki.domain.repositories.ArticleRepository
 import org.springframework.stereotype.Component
-import java.util.Optional
-import java.util.stream.Stream
 
 @Component
 class RetrieveNPCs(
@@ -22,11 +20,11 @@ class RetrieveNPCs(
         return category.filter { page -> page !in listsCategory }
     }
 
-    fun getNPCsJSON(): Stream<WikiJson> {
+    fun getNPCsJSON(): List<WikiJson> {
         return getArticlesFromInfoboxTemplateAsJSON(getNPCsList())
     }
 
-    fun getNPCJSON(pageName: String): Optional<WikiJson> {
+    fun getNPCJSON(pageName: String): WikiJson? {
         return getArticleAsJSON(pageName)
     }
 }

@@ -6,8 +6,6 @@ import com.tibiawiki.domain.factories.JsonFactory
 import com.tibiawiki.domain.objects.WikiNamespace
 import com.tibiawiki.domain.repositories.ArticleRepository
 import org.springframework.stereotype.Component
-import java.util.Optional
-import java.util.stream.Stream
 
 @Component
 class RetrieveLoot(
@@ -23,50 +21,48 @@ class RetrieveLoot(
         )
     }
 
-    fun getLootJSONObject(): Stream<WikiJson> {
+    fun getLootJSONObject(): List<WikiJson> {
         return getArticlesFromLoot2TemplateAsJSONObject(getLootList())
     }
 
-    fun getLootJSONObject(pageName: String): Optional<WikiJson> {
+    fun getLootJSONObject(pageName: String): WikiJson? {
         return getLootArticleAsJSON(pageName)
     }
 
-    fun getAllLootPartsJSON(): Stream<WikiJson> {
+    fun getAllLootPartsJSON(): List<WikiJson> {
         return getArticlesFromAllLootTemplatesAsJSON(getLootList())
     }
 
-    fun getAllLootPartsJSON(pageName: String): Optional<WikiJson> {
+    fun getAllLootPartsJSON(pageName: String): WikiJson? {
         return getAllLootPartsAsJSON(pageName)
     }
 
-    private fun getArticlesFromLoot2TemplateAsJSONObject(pageNames: List<String>): Stream<WikiJson> {
-        return Stream.of(pageNames)
-            .flatMap { lst -> articleRepository.getArticlesFromCategory(lst).entries.stream() }
+    private fun getArticlesFromLoot2TemplateAsJSONObject(pageNames: List<String>): List<WikiJson> {
+        return articleRepository.getArticlesFromCategory(pageNames).entries
             .map { e ->
                 val lootPartOfArticle = articleFactory.extractLootPartOfArticle(e)
                 jsonFactory.convertLootPartOfArticleToJson(e.key, lootPartOfArticle)
             }
     }
 
-    private fun getArticlesFromAllLootTemplatesAsJSON(pageNames: List<String>): Stream<WikiJson> {
-        return Stream.of(pageNames)
-            .flatMap { lst -> articleRepository.getArticlesFromCategory(lst).entries.stream() }
+    private fun getArticlesFromAllLootTemplatesAsJSON(pageNames: List<String>): List<WikiJson> {
+        return articleRepository.getArticlesFromCategory(pageNames).entries
             .map { e ->
                 val lootPartOfArticle = articleFactory.extractAllLootPartsOfArticle(e)
                 jsonFactory.convertAllLootPartsOfArticleToJson(e.key, lootPartOfArticle)
             }
     }
 
-    private fun getLootArticleAsJSON(pageName: String): Optional<WikiJson> {
-        return Optional.ofNullable(articleRepository.getArticle(pageName))
-            .map { articleContent -> articleFactory.extractLootPartOfArticle(pageName, articleContent) }
-            .map { lootPartOfArticle -> jsonFactory.convertLootPartOfArticleToJson(pageName, lootPartOfArticle) }
+    private fun getLootArticleAsJSON(pageName: String): WikiJson? {
+        val articleContent = articleRepository.getArticle(pageName) ?: return null
+        val lootPartOfArticle = articleFactory.extractLootPartOfArticle(pageName, articleContent)
+        return jsonFactory.convertLootPartOfArticleToJson(pageName, lootPartOfArticle)
     }
 
-    private fun getAllLootPartsAsJSON(pageName: String): Optional<WikiJson> {
-        return Optional.ofNullable(articleRepository.getArticle(pageName))
-            .map { articleContent -> articleFactory.extractAllLootPartsOfArticle(pageName, articleContent) }
-            .map { lootPartsOfArticle -> jsonFactory.convertAllLootPartsOfArticleToJson(pageName, lootPartsOfArticle) }
+    private fun getAllLootPartsAsJSON(pageName: String): WikiJson? {
+        val articleContent = articleRepository.getArticle(pageName) ?: return null
+        val lootPartsOfArticle = articleFactory.extractAllLootPartsOfArticle(pageName, articleContent)
+        return jsonFactory.convertAllLootPartsOfArticleToJson(pageName, lootPartsOfArticle)
     }
 
     companion object {

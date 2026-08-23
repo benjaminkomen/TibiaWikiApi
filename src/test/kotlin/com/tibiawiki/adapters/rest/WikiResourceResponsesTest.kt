@@ -3,14 +3,12 @@ package com.tibiawiki.adapters.rest
 import com.tibiawiki.domain.ArticleNotFoundException
 import com.tibiawiki.domain.objects.WikiObject
 import com.tibiawiki.domain.objects.validation.ValidationException
-import io.vavr.control.Try
+import com.tibiawiki.process.ModifyResult
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.http.HttpStatus
-import java.util.Optional
-import java.util.stream.Stream
 
 class WikiResourceResponsesTest {
 
@@ -18,8 +16,8 @@ class WikiResourceResponsesTest {
     fun listReturnsNamesWhenExpandIsNullOrFalse() {
         val names = listOf("foo", "bar")
 
-        val withoutExpand = WikiResourceResponses.list(null, { Stream.of(emptyMap()) }, { names })
-        val collapsed = WikiResourceResponses.list(false, { Stream.of(emptyMap()) }, { names })
+        val withoutExpand = WikiResourceResponses.list(null, { listOf(emptyMap()) }, { names })
+        val collapsed = WikiResourceResponses.list(false, { listOf(emptyMap()) }, { names })
 
         assertThat(withoutExpand.statusCode, `is`(HttpStatus.OK))
         assertThat(withoutExpand.body, `is`(names))
@@ -30,7 +28,7 @@ class WikiResourceResponsesTest {
     fun listReturnsMappedJsonWhenExpandIsTrue() {
         val json = mapOf("name" to "Dragon")
 
-        val result = WikiResourceResponses.list(true, { Stream.of(json) }, { listOf("unused") })
+        val result = WikiResourceResponses.list(true, { listOf(json) }, { listOf("unused") })
 
         assertThat(result.statusCode, `is`(HttpStatus.OK))
         @Suppress("UNCHECKED_CAST")
@@ -40,7 +38,7 @@ class WikiResourceResponsesTest {
 
     @Test
     fun jsonOrNotFoundReturnsWikiJson() {
-        val found = WikiResourceResponses.jsonOrNotFound(Optional.of(mapOf("name" to "Book")))
+        val found = WikiResourceResponses.jsonOrNotFound(mapOf("name" to "Book"))
 
         assertThat(found.statusCode, `is`(HttpStatus.OK))
         assertThat(found.body!!["name"], `is`("Book"))
@@ -49,7 +47,7 @@ class WikiResourceResponsesTest {
     @Test
     fun jsonOrNotFoundThrowsWhenMissingOrEmpty() {
         assertThrows<ArticleNotFoundException> {
-            WikiResourceResponses.jsonOrNotFound(Optional.empty())
+            WikiResourceResponses.jsonOrNotFound(null)
         }
         assertThrows<ArticleNotFoundException> {
             WikiResourceResponses.jsonOrNotFound(emptyMap())
@@ -60,18 +58,18 @@ class WikiResourceResponsesTest {
     fun modifyMapsSuccessAndRethrowsValidationOrNotFound() {
         val wikiObject = WikiObject.WikiObjectImpl()
 
-        val ok = WikiResourceResponses.modify(Try.success(wikiObject))
+        val ok = WikiResourceResponses.modify(ModifyResult.Success(wikiObject))
         assertThat(ok.statusCode, `is`(HttpStatus.OK))
         assertThat(ok.body, `is`(wikiObject))
 
         assertThrows<ValidationException> {
-            WikiResourceResponses.modify(Try.failure(ValidationException("invalid")))
+            WikiResourceResponses.modify(ModifyResult.Failure(ValidationException("invalid")))
         }
         assertThrows<ArticleNotFoundException> {
-            WikiResourceResponses.modify(Try.failure(ArticleNotFoundException("Missing")))
+            WikiResourceResponses.modify(ModifyResult.Failure(ArticleNotFoundException("Missing")))
         }
 
-        val serverError = WikiResourceResponses.modify(Try.failure(IllegalStateException("boom")))
+        val serverError = WikiResourceResponses.modify(ModifyResult.Failure(IllegalStateException("boom")))
         assertThat(serverError.statusCode, `is`(HttpStatus.INTERNAL_SERVER_ERROR))
     }
 }

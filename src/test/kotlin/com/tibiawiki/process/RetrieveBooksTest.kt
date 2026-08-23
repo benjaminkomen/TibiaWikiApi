@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.anyList
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
-import java.util.Optional
 
 class RetrieveBooksTest {
 
@@ -59,9 +58,9 @@ class RetrieveBooksTest {
     fun testGetBookJSON() {
         doReturn("").`when`(articleRepository).getArticle(SOME_PAGE_NAME)
 
-        val result: Optional<Map<String, Any>> = target.getBookJSON(SOME_PAGE_NAME)
+        val result: Map<String, Any>? = target.getBookJSON(SOME_PAGE_NAME)
 
-        assertThat(result.orElseThrow(), `is`(SOME_JSON_OBJECT))
+        assertThat(result!!, `is`(SOME_JSON_OBJECT))
     }
 
     companion object {

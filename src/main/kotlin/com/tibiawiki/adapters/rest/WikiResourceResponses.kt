@@ -4,11 +4,9 @@ import com.tibiawiki.domain.ArticleNotFoundException
 import com.tibiawiki.domain.WikiJson
 import com.tibiawiki.domain.objects.WikiObject
 import com.tibiawiki.domain.objects.validation.ValidationException
-import io.vavr.control.Try
+import com.tibiawiki.process.ModifyResult
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import java.util.Optional
-import java.util.stream.Stream
 
 /**
  * Shared HTTP mapping for the near-identical wiki list/detail/modify endpoints.
@@ -19,19 +17,15 @@ object WikiResourceResponses {
 
     fun list(
         expand: Boolean?,
-        expanded: () -> Stream<out WikiJson>,
+        expanded: () -> List<WikiJson>,
         names: () -> List<String>
     ): ResponseEntity<Any> {
         val body = if (expand == true) {
-            expanded().toList()
+            expanded()
         } else {
             names()
         }
         return ResponseEntity.ok().body(body)
-    }
-
-    fun jsonOrNotFound(json: Optional<out WikiJson>): ResponseEntity<WikiJson> {
-        return jsonOrNotFound(json.orElse(null))
     }
 
     fun jsonOrNotFound(json: WikiJson?): ResponseEntity<WikiJson> {
@@ -41,14 +35,16 @@ object WikiResourceResponses {
         return ResponseEntity.ok().body(json)
     }
 
-    fun modify(result: Try<WikiObject>): ResponseEntity<WikiObject> {
-        if (result.isSuccess) {
-            return ResponseEntity.ok().body(result.get())
-        }
-        when (val cause = result.cause) {
-            is ValidationException -> throw cause
-            is ArticleNotFoundException -> throw cause
-            else -> return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()
+    fun modify(result: ModifyResult): ResponseEntity<WikiObject> {
+        return when (result) {
+            is ModifyResult.Success -> ResponseEntity.ok().body(result.wikiObject)
+            is ModifyResult.Failure -> {
+                when (val cause = result.cause) {
+                    is ValidationException -> throw cause
+                    is ArticleNotFoundException -> throw cause
+                    else -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()
+                }
+            }
         }
     }
 }

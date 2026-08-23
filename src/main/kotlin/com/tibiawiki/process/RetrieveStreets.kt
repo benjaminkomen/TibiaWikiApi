@@ -6,8 +6,6 @@ import com.tibiawiki.domain.factories.ArticleFactory
 import com.tibiawiki.domain.factories.JsonFactory
 import com.tibiawiki.domain.repositories.ArticleRepository
 import org.springframework.stereotype.Component
-import java.util.Optional
-import java.util.stream.Stream
 
 @Component
 class RetrieveStreets(
@@ -23,10 +21,10 @@ class RetrieveStreets(
             return category.filter { page -> page !in listsCategory }
         }
 
-    val streetsJSON: Stream<WikiJson>
+    val streetsJSON: List<WikiJson>
         get() = getArticlesFromInfoboxTemplateAsJSON(streetsList)
 
-    fun getStreetJSON(pageName: String): Optional<WikiJson> {
+    fun getStreetJSON(pageName: String): WikiJson? {
         return getArticleAsJSON(pageName)
     }
 }

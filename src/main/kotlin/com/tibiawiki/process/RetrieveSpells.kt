@@ -6,8 +6,6 @@ import com.tibiawiki.domain.factories.ArticleFactory
 import com.tibiawiki.domain.factories.JsonFactory
 import com.tibiawiki.domain.repositories.ArticleRepository
 import org.springframework.stereotype.Component
-import java.util.Optional
-import java.util.stream.Stream
 
 @Component
 class RetrieveSpells(
@@ -23,10 +21,10 @@ class RetrieveSpells(
             return category.filter { page -> page !in listsCategory }
         }
 
-    val spellsJSON: Stream<WikiJson>
+    val spellsJSON: List<WikiJson>
         get() = getArticlesFromInfoboxTemplateAsJSON(spellsList)
 
-    fun getSpellJSON(pageName: String): Optional<WikiJson> {
+    fun getSpellJSON(pageName: String): WikiJson? {
         return getArticleAsJSON(pageName)
     }
 }

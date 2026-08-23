@@ -6,8 +6,6 @@ import com.tibiawiki.domain.factories.ArticleFactory
 import com.tibiawiki.domain.factories.JsonFactory
 import com.tibiawiki.domain.repositories.ArticleRepository
 import org.springframework.stereotype.Component
-import java.util.Optional
-import java.util.stream.Stream
 
 @Component
 class RetrieveCharms(
@@ -23,10 +21,10 @@ class RetrieveCharms(
             return category.filter { page -> page !in listsCategory }
         }
 
-    val charmsJSON: Stream<WikiJson>
+    val charmsJSON: List<WikiJson>
         get() = getArticlesFromInfoboxTemplateAsJSON(charmsList)
 
-    fun getCharmJSON(pageName: String): Optional<WikiJson> {
+    fun getCharmJSON(pageName: String): WikiJson? {
         return getArticleAsJSON(pageName)
     }
 }

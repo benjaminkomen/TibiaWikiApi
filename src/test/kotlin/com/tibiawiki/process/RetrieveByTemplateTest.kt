@@ -14,7 +14,6 @@ import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.never
 import org.mockito.Mockito.verify
-import java.util.Optional
 
 class RetrieveByTemplateTest {
 
@@ -84,9 +83,9 @@ class RetrieveByTemplateTest {
     fun getJson() {
         doReturn("").`when`(articleRepository).getArticle(SOME_PAGE_NAME)
 
-        val result: Optional<Map<String, Any>> = target.getJson(SOME_PAGE_NAME)
+        val result: Map<String, Any>? = target.getJson(SOME_PAGE_NAME)
 
-        assertThat(result.orElseThrow(), `is`(SOME_JSON_OBJECT))
+        assertThat(result, `is`(SOME_JSON_OBJECT))
     }
 
     companion object {

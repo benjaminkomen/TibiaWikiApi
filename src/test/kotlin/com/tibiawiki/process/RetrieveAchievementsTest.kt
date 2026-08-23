@@ -7,12 +7,12 @@ import com.tibiawiki.domain.repositories.ArticleRepository
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.hasSize
 import org.hamcrest.Matchers.`is`
+import org.hamcrest.Matchers.nullValue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.anyList
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
-import java.util.Optional
 
 class RetrieveAchievementsTest {
 
@@ -59,9 +59,18 @@ class RetrieveAchievementsTest {
     fun testGetAchievementJSON() {
         doReturn("").`when`(articleRepository).getArticle(SOME_PAGE_NAME)
 
-        val result: Optional<Map<String, Any>> = target.getAchievementJSON(SOME_PAGE_NAME)
+        val result: Map<String, Any>? = target.getAchievementJSON(SOME_PAGE_NAME)
 
-        assertThat(result.orElseThrow(), `is`(SOME_JSON_OBJECT))
+        assertThat(result!!, `is`(SOME_JSON_OBJECT))
+    }
+
+    @Test
+    fun testGetAchievementJSON_Missing() {
+        doReturn(null).`when`(articleRepository).getArticle(SOME_PAGE_NAME)
+
+        val result: Map<String, Any>? = target.getAchievementJSON(SOME_PAGE_NAME)
+
+        assertThat(result, nullValue())
     }
 
     companion object {

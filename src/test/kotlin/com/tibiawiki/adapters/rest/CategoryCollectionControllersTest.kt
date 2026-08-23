@@ -15,8 +15,6 @@ import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import java.util.Optional
-import java.util.stream.Stream
 
 class CategoryCollectionControllersTest {
 
@@ -31,6 +29,7 @@ class CategoryCollectionControllersTest {
         doReturn(names).`when`(retrieve).names(InfoboxTemplate.UPDATE)
         doReturn(names).`when`(retrieve).names(InfoboxTemplate.WORLD)
         doReturn(names).`when`(retrieve).names(InfoboxTemplate.FAMILIAR)
+<<<<<<< HEAD
         doReturn(names).`when`(retrieve).names(InfoboxTemplate.FANSITE)
         doReturn(names).`when`(retrieve).names(InfoboxTemplate.CIPSOFT_MEMBER)
         doReturn(Stream.of(json)).`when`(retrieve).asJson(InfoboxTemplate.IMBUEMENT)
@@ -41,6 +40,14 @@ class CategoryCollectionControllersTest {
         doReturn(Stream.of(json)).`when`(retrieve).asJson(InfoboxTemplate.CIPSOFT_MEMBER)
         doReturn(Optional.of(json)).`when`(retrieve).getJson("Foo")
         doReturn(Optional.empty<WikiJson>()).`when`(retrieve).getJson("Missing")
+=======
+        doReturn(listOf(json)).`when`(retrieve).asJson(InfoboxTemplate.IMBUEMENT)
+        doReturn(listOf(json)).`when`(retrieve).asJson(InfoboxTemplate.UPDATE)
+        doReturn(listOf(json)).`when`(retrieve).asJson(InfoboxTemplate.WORLD)
+        doReturn(listOf(json)).`when`(retrieve).asJson(InfoboxTemplate.FAMILIAR)
+        doReturn(json).`when`(retrieve).getJson("Foo")
+        doReturn(null).`when`(retrieve).getJson("Missing")
+>>>>>>> 7782b20 (Replace Optional, Stream, and Vavr Try on the process boundary)
     }
 
     @Test

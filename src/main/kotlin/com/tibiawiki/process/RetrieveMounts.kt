@@ -6,8 +6,6 @@ import com.tibiawiki.domain.factories.ArticleFactory
 import com.tibiawiki.domain.factories.JsonFactory
 import com.tibiawiki.domain.repositories.ArticleRepository
 import org.springframework.stereotype.Component
-import java.util.Optional
-import java.util.stream.Stream
 
 @Component
 class RetrieveMounts(
@@ -23,10 +21,10 @@ class RetrieveMounts(
             return category.filter { page -> page !in listsCategory }
         }
 
-    val mountsJSON: Stream<WikiJson>
+    val mountsJSON: List<WikiJson>
         get() = getArticlesFromInfoboxTemplateAsJSON(mountsList)
 
-    fun getMountJSON(pageName: String): Optional<WikiJson> {
+    fun getMountJSON(pageName: String): WikiJson? {
         return getArticleAsJSON(pageName)
     }
 }
