@@ -13,12 +13,16 @@ import com.tibiawiki.domain.enums.Rarity
 import com.tibiawiki.domain.enums.Spawntype
 import com.tibiawiki.domain.enums.SpellSubclass
 import com.tibiawiki.domain.enums.SpellType
+import com.tibiawiki.domain.enums.Hands
+import com.tibiawiki.domain.enums.ObjectClass
+import com.tibiawiki.domain.enums.WeaponType
 import com.tibiawiki.domain.enums.YesNo
+import org.springframework.test.util.ReflectionTestUtils
 import java.math.BigDecimal
 import java.math.RoundingMode
 
 /**
- * Java-callable constructors replacing Lombok builders in remaining Java tests.
+ * Shared WikiObject constructors for unit and integration tests.
  */
 object WikiObjectFixtures {
 
@@ -364,6 +368,40 @@ object WikiObjectFixtures {
         map = "Hero Cave 3.png",
         map2 = "Hero Cave 6.png"
     )
+
+    @JvmStatic
+    fun item(): TibiaObject {
+        val result = TibiaObject(
+            itemid = listOf(3283),
+            objectclass = ObjectClass.WEAPONS.description,
+            flavortext = "Foobar",
+            pickupable = YesNo.YES_LOWERCASE,
+            usable = YesNo.YES_LOWERCASE,
+            levelrequired = 0,
+            hands = Hands.One,
+            weapontype = WeaponType.Sword,
+            attack = "15",
+            defense = 13,
+            defensemod = "+1",
+            enchantable = YesNo.NO_LOWERCASE,
+            weight = BigDecimal.valueOf(40.00).setScale(2, RoundingMode.HALF_UP),
+            marketable = YesNo.YES_LOWERCASE,
+            droppedby = mutableListOf("Grorlam", "Stone Golem"),
+            value = "118",
+            npcvalue = "118",
+            npcprice = "473",
+            npcvaluerook = "0",
+            npcpricerook = "0",
+            buyfrom = "Baltim, Brengus, Cedrik,",
+            sellto = "Baltim, Brengus, Cedrik, Esrik,"
+        )
+        ReflectionTestUtils.setField(result, "name", "Carlin Sword")
+        ReflectionTestUtils.setField(result, "article", Article.A)
+        ReflectionTestUtils.setField(result, "actualname", "carlin sword")
+        ReflectionTestUtils.setField(result, "plural", "?")
+        ReflectionTestUtils.setField(result, "notes", "If you have one of these ")
+        return result
+    }
 
     @JvmStatic
     fun spell(): Spell = Spell(
