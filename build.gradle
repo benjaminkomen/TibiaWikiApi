@@ -1,8 +1,8 @@
 buildscript {
     ext {
-        // 2.7.18 is the last 2.x line that supports Gradle 8 (required to run on JDK 21)
-        springBootVersion = '2.7.18'
-        // Kotlin 1.9.20+ is required for jvmTarget 21
+        // Last OSS 3.x line (3.5.16, June 2026). Jakarta EE 9+ / Spring Framework 6.
+        springBootVersion = '3.5.16'
+        // Boot 3.5.16 BOM still manages Kotlin 1.9.25
         kotlinVersion = '1.9.25'
     }
     dependencies {
@@ -41,12 +41,13 @@ repositories {
 }
 
 ext {
-    slf4jVersion = '1.7.36'
-    junitVersion = '5.8.2'
+    // Versions aligned with the Spring Boot 3.5.16 BOM unless noted
+    slf4jVersion = '2.0.18'
+    junitVersion = '5.12.2'
     lombokVersion = '1.18.38'
-    jacksonVersion = '2.13.2'
+    jacksonVersion = '2.21.4'
     jacocoVersion = "0.8.12"
-    mockitoVersion = "5.14.2"
+    mockitoVersion = "5.17.0"
 }
 
 dependencies {
@@ -59,9 +60,9 @@ dependencies {
     implementation "io.github.fastily:jwiki:1.10.0"
     implementation "org.slf4j:slf4j-api:${slf4jVersion}"
     implementation "net.logstash.logback:logstash-logback-encoder:7.1.1"
-    implementation "ch.qos.logback:logback-classic:1.2.11"
-    implementation "org.springframework.cloud:spring-cloud-gcp-starter-logging:1.2.8.RELEASE"
-    implementation "org.codehaus.janino:janino:3.1.7"
+    // logback-classic comes from spring-boot-starter (1.5.34 on Boot 3.5.16)
+    implementation "com.google.cloud:spring-cloud-gcp-starter-logging:7.4.10"
+    implementation "org.codehaus.janino:janino:3.1.12"
     implementation "org.json:json:20220320"
     implementation "com.google.guava:guava:31.1-jre"
     implementation "io.vavr:vavr:0.10.4"
@@ -75,8 +76,7 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
 
-    implementation "io.swagger.core.v3:swagger-annotations:2.2.0"
-    implementation "org.springdoc:springdoc-openapi-ui:1.6.8"
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.17"
 }
 
 java {
@@ -141,6 +141,14 @@ sourceSets {
 configurations {
     integrationTestImplementation.extendsFrom implementation
     integrationTestImplementation.extendsFrom testImplementation
+    // Jackson 2.21 / springdoc pull Kotlin 2.1 artifacts; Boot 3.5.16 still compiles with 1.9.25
+    all {
+        resolutionStrategy.eachDependency { details ->
+            if (details.requested.group == 'org.jetbrains.kotlin') {
+                details.useVersion kotlinVersion
+            }
+        }
+    }
 }
 
 springBoot {
