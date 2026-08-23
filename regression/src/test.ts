@@ -20,7 +20,7 @@ async function main(): Promise<void> {
     if (!existsSync(file)) {
       failed += 1;
       console.error(
-        `FAIL  ${endpoint.id}  missing golden goldens/${endpoint.id}.json (run bun capture)`,
+        `FAIL  ${endpoint.id}  missing golden goldens/${endpoint.id}.json (run bun run capture)`,
       );
       continue;
     }
@@ -46,7 +46,7 @@ async function main(): Promise<void> {
 
   if (failed > 0) {
     console.error(
-      `\n${failed} endpoint(s) differed. Wiki data can drift; refresh goldens with bun capture if the change is expected.`,
+      `\n${failed} endpoint(s) differed. Wiki data can drift; refresh goldens with bun run capture if the change is expected.`,
     );
     process.exit(1);
   }

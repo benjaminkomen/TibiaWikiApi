@@ -4,26 +4,28 @@ Black-box HTTP snapshots for the TibiaWiki JSON API. This folder is **not** part
 the Gradle/Java test suite — run it with [Bun](https://bun.sh) against a live server.
 
 Wiki article data can go slightly stale. That is accepted. Refreshing goldens is
-intentional: run `capture` when you want a new baseline.
+intentional: run `bun run capture` when you want a new baseline.
 
 ## Commands
 
 | Script | What it does |
 | --- | --- |
-| `bun capture` | GET each case in `endpoints.json` and write `goldens/<id>.json` as `{ path, status, body }` |
-| `bun test` | GET each case, normalize JSON, compare to the committed golden, print a short diff, exit non-zero on mismatch |
+| `bun run capture` | GET each case in `endpoints.json` and write `goldens/<id>.json` as `{ path, status, body }` |
+| `bun run test` | GET each case, normalize JSON, compare to the committed golden, print a short diff, exit non-zero on mismatch |
+
+Use `bun run test` (not `bun test`). Bare `bun test` is Bun's built-in test runner and will not execute this script.
 
 `BASE_URL` selects the server (default `http://localhost:8080`).
 
 ```bash
 # against a local bootRun (see the repo root README)
 cd regression
-bun capture
-bun test
+bun run capture
+bun run test
 
 # against production
-BASE_URL=https://tibiawiki.dev bun capture
-BASE_URL=https://tibiawiki.dev bun test
+BASE_URL=https://tibiawiki.dev bun run capture
+BASE_URL=https://tibiawiki.dev bun run test
 ```
 
 JSON bodies are normalized with a recursive stable key sort and pretty-printed

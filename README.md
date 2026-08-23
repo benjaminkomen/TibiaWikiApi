@@ -22,10 +22,10 @@ and compares later responses to those goldens. It is not part of the Gradle/Java
 
 ```bash
 cd regression
-BASE_URL=https://tibiawiki.dev bun test
+BASE_URL=https://tibiawiki.dev bun run test
 ```
 
-Use `bun capture` to refresh goldens. See [`regression/README.md`](regression/README.md) for local `bootRun` vs production.
+Use `bun run capture` to refresh goldens. See [`regression/README.md`](regression/README.md) for local `bootRun` vs production.
 
 ## Query parameters
 For all resources the query parameter `?expand=true` can be appended to get a full list of JSON objects
