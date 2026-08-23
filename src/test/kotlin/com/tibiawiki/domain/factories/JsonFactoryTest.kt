@@ -470,6 +470,29 @@ class JsonFactoryTest {
         val npc = makeNPC()
         val result = target.convertJsonToInfoboxPartOfArticle(makeNPCJson(npc), npc.fieldOrder())
         assertThat(result, `is`(INFOBOX_NPC_TEXT))
+        assertThat(result.contains("| buys"), `is`(false))
+        assertThat(result.contains("| sells"), `is`(false))
+    }
+
+    @Test
+    fun testConvertInfoboxPartOfArticleToJson_NPC_currentTemplate() {
+        val result = target.convertInfoboxPartOfArticleToJson(INFOBOX_NPC_CURRENT_TEMPLATE_TEXT)
+
+        assertThat(result.get("templateType"), `is`("NPC"))
+        assertThat(result.get("name"), `is`("Sam"))
+        assertThat(result.get("subarea"), `is`("Temple Street"))
+        assertThat(result.get("geolabel"), `is`("Shop"))
+        assertThat(result.get("posx6"), `is`("126.200"))
+        assertThat(result.get("posy6"), `is`("125.250"))
+        assertThat(result.get("posz6"), `is`("7"))
+        assertThat(result.get("geolabel6"), `is`("Depot"))
+        assertThat(result.get("posx7"), `is`("126.300"))
+        assertThat(result.get("posy7"), `is`("125.300"))
+        assertThat(result.get("posz7"), `is`("6"))
+        assertThat(result.get("geolabel7"), `is`("Harbour"))
+        assertThat(result.get("buysell"), `is`("yes"))
+        assertThat(result.has("buys"), `is`(false))
+        assertThat(result.has("sells"), `is`(false))
     }
 
     private fun makeNPC(): NPC {
@@ -884,17 +907,41 @@ class JsonFactoryTest {
             | job3         = Armor Shopkeeper
             | location     = [[Temple Street]] in [[Thais]].
             | city         = Thais
+            | subarea      = Temple Street
             | posx         = 126.104
             | posy         = 125.200
             | posz         = 7
+            | geolabel     = Shop
+            | posx6        = 126.200
+            | posy6        = 125.250
+            | posz6        = 7
+            | geolabel6    = Depot
+            | posx7        = 126.300
+            | posy7        = 125.300
+            | posz7        = 6
+            | geolabel7    = Harbour
             | gender       = Male
             | race         = Human
             | buysell      = yes
-            | buys         = {{Price to Sell |Axe
-            | sells        = {{Price to Buy |Axe
             | sounds       = {{Sound List|Hello there, adventurer! Need a deal in weapons or armor? I'm your man!}}
             | implemented  = Pre-6.0
             | notes        = Sam is the Blacksmith of [[Thais]].
+            }}
+        """.trimIndent().trimStart() + "\n"
+        private val INFOBOX_NPC_CURRENT_TEMPLATE_TEXT = """
+            {{Infobox NPC|List={{{1|}}}|GetValue={{{GetValue|}}}
+            | name         = Sam
+            | subarea      = Temple Street
+            | geolabel     = Shop
+            | posx6        = 126.200
+            | posy6        = 125.250
+            | posz6        = 7
+            | geolabel6    = Depot
+            | posx7        = 126.300
+            | posy7        = 125.300
+            | posz7        = 6
+            | geolabel7    = Harbour
+            | buysell      = yes
             }}
         """.trimIndent().trimStart() + "\n"
         private val INFOBOX_OBJECT_TEXT = """
