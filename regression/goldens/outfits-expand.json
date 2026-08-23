@@ -3,11 +3,20 @@
   "status": 200,
   "body": [
     {
+      "artwork": "Pirate Outfits Artwork.jpg",
+      "artwork2": "Pirate Outfits Artwork 2.jpg",
+      "artwork3": "Pirate Outfits Artwork 3.jpg",
+      "female_id": "155",
       "implemented": "7.8",
+      "labels": "Quest",
+      "lightcolor": "94",
+      "lightradius": "3",
+      "male_id": "151",
       "name": "Pirate",
       "notes": "Pirate outfits are perfect for swabbing the deck.",
       "premium": "yes",
       "primarytype": "Quest",
+      "store": "no",
       "templateType": "Outfit"
     }
   ]

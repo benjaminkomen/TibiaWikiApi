@@ -156,10 +156,14 @@ object WikiObjectFixtures {
 
     fun mount(): Mount = Mount(
         name = "Donkey",
+        actualname = "donkey",
         speed = 10,
         tamingMethod = "Use a [[Bag of Apple Slices]] on a creature transformed into Donkey.",
         implemented = "9.1",
         achievement = "Loyal Lad",
+        colourisable = YesNo.NO_LOWERCASE,
+        pricecurrency = "Tibia Coins",
+        mountId = 387,
         notes = "Go to [[Incredibly Old Witch]]'s house,"
     )
 
@@ -302,9 +306,15 @@ object WikiObjectFixtures {
         premium = YesNo.YES_LOWERCASE,
         outfit = "premium, see [[Pirate Outfits Quest]].",
         addons = "premium, see [[Pirate Outfits Quest]].",
+        store = "no",
         achievement = "Swashbuckler",
+        maleId = 151,
+        femaleId = 155,
         implemented = "7.8",
         artwork = "Pirate Outfits Artwork.jpg",
+        artwork2 = "Pirate Outfits Artwork 2.jpg",
+        artwork3 = "Pirate Outfits Artwork 3.jpg",
+        labels = "Quest",
         notes = "Pirate outfits are perfect for swabbing the deck or walking the plank. Quite dashing and great for sailing."
     )
 

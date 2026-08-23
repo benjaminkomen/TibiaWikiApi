@@ -892,8 +892,12 @@ class JsonFactoryTest {
         private val INFOBOX_MOUNT_TEXT = """
             {{Infobox Mount|List={{{1|}}}|GetValue={{{GetValue|}}}
             | name          = Donkey
+            | actualname    = donkey
             | speed         = 10
             | taming_method = Use a [[Bag of Apple Slices]] on a creature transformed into Donkey.
+            | pricecurrency = Tibia Coins
+            | colourisable  = no
+            | mount_id      = 387
             | achievement   = Loyal Lad
             | implemented   = 9.1
             | notes         = Go to [[Incredibly Old Witch]]'s house,
@@ -963,9 +967,15 @@ class JsonFactoryTest {
             | premium      = yes
             | outfit       = premium, see [[Pirate Outfits Quest]].
             | addons       = premium, see [[Pirate Outfits Quest]].
+            | store        = no
             | achievement  = Swashbuckler
+            | male_id      = 151
+            | female_id    = 155
             | implemented  = 7.8
             | artwork      = Pirate Outfits Artwork.jpg
+            | artwork2     = Pirate Outfits Artwork 2.jpg
+            | artwork3     = Pirate Outfits Artwork 3.jpg
+            | labels       = Quest
             | notes        = Pirate outfits are perfect for swabbing the deck or walking the plank. Quite dashing and great for sailing.
             }}
         """.trimIndent().trimStart() + "\n"

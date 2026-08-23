@@ -1,5 +1,6 @@
 package com.tibiawiki.domain.objects
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.tibiawiki.domain.enums.InfoboxTemplate
 import com.tibiawiki.domain.enums.Status
 import com.tibiawiki.domain.enums.YesNo
@@ -16,9 +17,17 @@ data class Outfit(
     val outfit: String? = null,
     val addons: String? = null,
     val bought: YesNo? = null,
+    val store: String? = null,
     val fulloutfitprice: Int? = null,
     val achievement: String? = null,
-    val artwork: String? = null
+    @JsonProperty("male_id") val maleId: Int? = null,
+    @JsonProperty("female_id") val femaleId: Int? = null,
+    val lightradius: Int? = null,
+    val lightcolor: Int? = null,
+    val artwork: String? = null,
+    val artwork2: String? = null,
+    val artwork3: String? = null,
+    val labels: String? = null
 ) : WikiObject(
     name = name,
     implemented = implemented,
@@ -32,8 +41,28 @@ data class Outfit(
 
     override fun fieldOrder(): List<String> {
         return listOf(
-            "name", "primarytype", "secondarytype", "premium", "outfit", "addons", "bought",
-            "fulloutfitprice", "achievement", "implemented", "artwork", "notes", "history", "status"
+            "name",
+            "primarytype",
+            "secondarytype",
+            "premium",
+            "outfit",
+            "addons",
+            "bought",
+            "store",
+            "fulloutfitprice",
+            "achievement",
+            "male_id",
+            "female_id",
+            "lightcolor",
+            "lightradius",
+            "implemented",
+            "artwork",
+            "artwork2",
+            "artwork3",
+            "labels",
+            "notes",
+            "history",
+            "status"
         )
     }
 }

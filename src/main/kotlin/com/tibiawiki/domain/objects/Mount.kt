@@ -7,6 +7,7 @@ import com.tibiawiki.domain.enums.YesNo
 
 data class Mount(
     override val name: String? = null,
+    override val actualname: String? = null,
     override val implemented: String? = null,
     override val notes: String? = null,
     override val history: String? = null,
@@ -16,12 +17,16 @@ data class Mount(
     val bought: YesNo? = null,
     val tournament: YesNo? = null,
     val price: Int? = null,
+    val pricecurrency: String? = null,
+    val colourisable: YesNo? = null,
+    @JsonProperty("mount_id") val mountId: Int? = null,
     val achievement: String? = null,
     val lightradius: Int? = null,
     val lightcolor: Int? = null,
     val artwork: String? = null
 ) : WikiObject(
     name = name,
+    actualname = actualname,
     implemented = implemented,
     notes = notes,
     history = history,
@@ -33,8 +38,24 @@ data class Mount(
 
     override fun fieldOrder(): List<String> {
         return listOf(
-            "name", "speed", "taming_method", "bought", "tournament", "price", "achievement", "lightcolor",
-            "lightradius", "implemented", "artwork", "notes", "history", "status"
+            "name",
+            "actualname",
+            "speed",
+            "taming_method",
+            "bought",
+            "tournament",
+            "price",
+            "pricecurrency",
+            "colourisable",
+            "mount_id",
+            "achievement",
+            "lightcolor",
+            "lightradius",
+            "implemented",
+            "artwork",
+            "notes",
+            "history",
+            "status"
         )
     }
 }
