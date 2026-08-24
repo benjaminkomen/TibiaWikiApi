@@ -9,7 +9,9 @@ import com.tibiawiki.domain.objects.Charm
 import com.tibiawiki.domain.objects.Corpse
 import com.tibiawiki.domain.objects.Creature
 import com.tibiawiki.domain.objects.Effect
+import com.tibiawiki.domain.objects.Familiar
 import com.tibiawiki.domain.objects.HuntingPlace
+import com.tibiawiki.domain.objects.Imbuement
 import com.tibiawiki.domain.objects.Key
 import com.tibiawiki.domain.objects.Location
 import com.tibiawiki.domain.objects.Missile
@@ -20,7 +22,9 @@ import com.tibiawiki.domain.objects.Quest
 import com.tibiawiki.domain.objects.Spell
 import com.tibiawiki.domain.objects.Street
 import com.tibiawiki.domain.objects.TibiaObject
+import com.tibiawiki.domain.objects.Update
 import com.tibiawiki.domain.objects.WikiObject
+import com.tibiawiki.domain.objects.World
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "templateType", visible = true)
 @JsonSubTypes(
@@ -31,7 +35,9 @@ import com.tibiawiki.domain.objects.WikiObject
     JsonSubTypes.Type(value = Corpse::class, name = "Corpse"),
     JsonSubTypes.Type(value = Creature::class, name = "Creature"),
     JsonSubTypes.Type(value = Effect::class, name = "Effect"),
+    JsonSubTypes.Type(value = Familiar::class, name = "Familiar"),
     JsonSubTypes.Type(value = HuntingPlace::class, name = "Hunt"),
+    JsonSubTypes.Type(value = Imbuement::class, name = "Imbuement"),
     JsonSubTypes.Type(value = TibiaObject::class, name = "Item"),
     JsonSubTypes.Type(value = Key::class, name = "Key"),
     JsonSubTypes.Type(value = Location::class, name = "Geography"),
@@ -42,6 +48,8 @@ import com.tibiawiki.domain.objects.WikiObject
     JsonSubTypes.Type(value = Quest::class, name = "Quest"),
     JsonSubTypes.Type(value = Spell::class, name = "Spell"),
     JsonSubTypes.Type(value = Street::class, name = "Street"),
+    JsonSubTypes.Type(value = Update::class, name = "Update"),
+    JsonSubTypes.Type(value = World::class, name = "World"),
     JsonSubTypes.Type(value = TibiaObject::class, name = "Object")
 )
 abstract class WikiObjectMixin : WikiObject()

@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service
  * because it uses a custom namespace and different article extractors.
  *
  * [pageNames] / [articlesAsJSON] / [articleAsJSON] are the generic names.
- * [names] / [asJson] / [getJson] are aliases used by dedicated collection
- * controllers that landed before this generalization.
+ * [names] / [asJson] / [getJson] remain as aliases for dedicated fansite
+ * and CipSoft-member controllers until those PUT collections are folded.
  */
 @Service
 class RetrieveByTemplate(

@@ -2,8 +2,12 @@ package com.tibiawiki.config
 
 import com.tibiawiki.domain.objects.Achievement
 import com.tibiawiki.domain.objects.Charm
+import com.tibiawiki.domain.objects.Familiar
+import com.tibiawiki.domain.objects.Imbuement
 import com.tibiawiki.domain.objects.Missile
+import com.tibiawiki.domain.objects.Update
 import com.tibiawiki.domain.objects.WikiObject
+import com.tibiawiki.domain.objects.World
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.instanceOf
 import org.hamcrest.Matchers.`is`
@@ -57,6 +61,37 @@ class JacksonConfigurationTest {
         val missile = wikiObject as Missile
         assertThat(missile.name, `is`("Throwing Cake Missile"))
         assertThat(missile.missileid, `is`(42))
+    }
+
+    @Test
+    fun mixinDeserializesFoldedGetOnlyTypes() {
+        val mapper = configuredMapper()
+
+        val world = mapper.readValue(
+            """{"templateType":"World","name":"Antica","pvpType":"Open PvP"}""",
+            WikiObject::class.java
+        )
+        val update = mapper.readValue(
+            """{"templateType":"Update","name":"Summer Update 2020","date":"July 13, 2020"}""",
+            WikiObject::class.java
+        )
+        val familiar = mapper.readValue(
+            """{"templateType":"Familiar","name":"Grovebeast"}""",
+            WikiObject::class.java
+        )
+        val imbuement = mapper.readValue(
+            """{"templateType":"Imbuement","name":"Powerful Strike","prefix":"Powerful"}""",
+            WikiObject::class.java
+        )
+
+        assertThat(world, instanceOf(World::class.java))
+        assertThat((world as World).pvpType, `is`("Open PvP"))
+        assertThat(update, instanceOf(Update::class.java))
+        assertThat((update as Update).date, `is`("July 13, 2020"))
+        assertThat(familiar, instanceOf(Familiar::class.java))
+        assertThat((familiar as Familiar).name, `is`("Grovebeast"))
+        assertThat(imbuement, instanceOf(Imbuement::class.java))
+        assertThat((imbuement as Imbuement).prefix, `is`("Powerful"))
     }
 
     private fun configuredMapper(): ObjectMapper {

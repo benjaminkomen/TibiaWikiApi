@@ -488,6 +488,56 @@ object WikiObjectFixtures {
     )
 
     @JvmStatic
+    fun world(): World = World(
+        name = "Antica",
+        location = "Europe",
+        pvpType = "Open PvP",
+        implemented = "7.0"
+    )
+
+    @JvmStatic
+    fun update(): Update = Update(
+        name = "Summer Update 2020",
+        date = "July 13, 2020",
+        implemented = "12.40"
+    )
+
+    @JvmStatic
+    fun familiar(): Familiar = Familiar(
+        name = "Grovebeast",
+        implemented = "11.40"
+    )
+
+    @JvmStatic
+    fun bladesparkFamiliar(): Familiar = Familiar(
+        name = "Bladespark",
+        article = Article.A,
+        actualname = "bladespark",
+        plural = "bladesparks",
+        voc = "[[Paladin]]s",
+        type = "Instant",
+        words = "utevo gran res sac",
+        mana = 2000,
+        cooldown = 30,
+        premium = YesNo.YES_LOWERCASE,
+        implemented = "11.80.7048"
+    )
+
+    @JvmStatic
+    fun imbuement(): Imbuement = Imbuement(
+        name = "Powerful Strike",
+        prefix = "Powerful",
+        type = "Strike",
+        imbuement = "Strike",
+        category = "Skill",
+        effect = "Critical Extra Damage",
+        amount = "3",
+        effectpercent = "15",
+        slot = "weapons",
+        implemented = "11.02"
+    )
+
+    @JvmStatic
     fun fansite(): Fansite = Fansite(
         name = "TibiaWiki",
         logo = "TibiaWiki Logo.png",

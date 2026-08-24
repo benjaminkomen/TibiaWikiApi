@@ -25,52 +25,12 @@ class CategoryCollectionControllersTest {
     @BeforeEach
     fun setup() {
         retrieve = mock(RetrieveByTemplate::class.java)
-        doReturn(names).`when`(retrieve).names(InfoboxTemplate.IMBUEMENT)
-        doReturn(names).`when`(retrieve).names(InfoboxTemplate.UPDATE)
-        doReturn(names).`when`(retrieve).names(InfoboxTemplate.WORLD)
-        doReturn(names).`when`(retrieve).names(InfoboxTemplate.FAMILIAR)
         doReturn(names).`when`(retrieve).names(InfoboxTemplate.FANSITE)
         doReturn(names).`when`(retrieve).names(InfoboxTemplate.CIPSOFT_MEMBER)
-        doReturn(listOf(json)).`when`(retrieve).asJson(InfoboxTemplate.IMBUEMENT)
-        doReturn(listOf(json)).`when`(retrieve).asJson(InfoboxTemplate.UPDATE)
-        doReturn(listOf(json)).`when`(retrieve).asJson(InfoboxTemplate.WORLD)
-        doReturn(listOf(json)).`when`(retrieve).asJson(InfoboxTemplate.FAMILIAR)
         doReturn(listOf(json)).`when`(retrieve).asJson(InfoboxTemplate.FANSITE)
         doReturn(listOf(json)).`when`(retrieve).asJson(InfoboxTemplate.CIPSOFT_MEMBER)
         doReturn(json).`when`(retrieve).getJson("Foo")
         doReturn(null).`when`(retrieve).getJson("Missing")
-    }
-
-    @Test
-    fun imbuements() {
-        val c = ImbuementsController(retrieve)
-        assertListAndDetail(c.getImbuements(false), c.getImbuements(true), c.getImbuementsByName("Foo")) {
-            c.getImbuementsByName("Missing")
-        }
-    }
-
-    @Test
-    fun updates() {
-        val c = UpdatesController(retrieve)
-        assertListAndDetail(c.getUpdates(false), c.getUpdates(true), c.getUpdatesByName("Foo")) {
-            c.getUpdatesByName("Missing")
-        }
-    }
-
-    @Test
-    fun worlds() {
-        val c = WorldsController(retrieve)
-        assertListAndDetail(c.getWorlds(false), c.getWorlds(true), c.getWorldsByName("Foo")) {
-            c.getWorldsByName("Missing")
-        }
-    }
-
-    @Test
-    fun familiars() {
-        val c = FamiliarsController(retrieve)
-        assertListAndDetail(c.getFamiliars(false), c.getFamiliars(true), c.getFamiliarsByName("Foo")) {
-            c.getFamiliarsByName("Missing")
-        }
     }
 
     @Test
