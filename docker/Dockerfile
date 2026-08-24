@@ -24,4 +24,5 @@ USER 65532:65532
 
 # Exec-form JSON + `exec`: sh expands $PORT, then the JVM is PID 1 so Cloud Run
 # SIGTERM reaches Spring Boot. Drop the Java 8 -Djava.security.egd leftover.
-ENTRYPOINT ["sh", "-c", "exec java -Dserver.address=0.0.0.0 -Dserver.port=${PORT:-8080} -jar /project/TibiaWikiApi.jar"]
+# $$ escapes Dockerfile build-time ENV substitution so Cloud Run can override PORT.
+ENTRYPOINT ["sh", "-c", "exec java -Dserver.address=0.0.0.0 -Dserver.port=$${PORT:-8080} -jar /project/TibiaWikiApi.jar"]
