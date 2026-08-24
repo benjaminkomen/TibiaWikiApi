@@ -151,31 +151,25 @@ class WikiCallSupportTest {
         val thirdEntered = AtomicBoolean(false)
         WikiCallSupport(properties).use { calls ->
             val first = Thread {
-                calls.call("a") {
+                calls.call<Unit>("a") {
                     inFlight.countDown()
                     release.await()
-                    "ok"
                 }
-                Unit
             }
             val second = Thread {
-                calls.call("b") {
+                calls.call<Unit>("b") {
                     inFlight.countDown()
                     release.await()
-                    "ok"
                 }
-                Unit
             }
             first.start()
             second.start()
             try {
                 assertThat(inFlight.await(2, TimeUnit.SECONDS), `is`(true))
                 val third = Thread {
-                    calls.call("c") {
+                    calls.call<Unit>("c") {
                         thirdEntered.set(true)
-                        "ok"
                     }
-                    Unit
                 }
                 third.start()
                 val queued = waitUntil { calls.threadPoolExecutor().queue.size == 1 }
@@ -205,25 +199,21 @@ class WikiCallSupportTest {
         val hold = CountDownLatch(1)
         WikiCallSupport(properties).use { calls ->
             val worker = Thread {
-                calls.call("a") {
+                calls.call<Unit>("a") {
                     workerStarted.countDown()
                     hold.await()
-                    "1"
                 }
-                Unit
             }
             worker.start()
             try {
                 assertThat(workerStarted.await(2, TimeUnit.SECONDS), `is`(true))
                 val queued = Thread {
-                    calls.call("b") { "2" }
-                    Unit
+                    calls.call<Unit>("b") { }
                 }
                 queued.start()
                 assertThat(waitUntil { calls.threadPoolExecutor().queue.size == 1 }, `is`(true))
                 val thrown = assertThrows<WikiUnavailableException> {
-                    calls.call("c") { "3" }
-                    Unit
+                    calls.call<Unit>("c") { }
                 }
                 assertThat(thrown.message!!.contains("saturated"), `is`(true))
                 assertThat(thrown.retryable, `is`(false))
