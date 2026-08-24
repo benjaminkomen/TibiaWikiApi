@@ -5,19 +5,26 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.DisposableBean
 import java.io.IOException
 import java.time.Duration
+import java.util.concurrent.ArrayBlockingQueue
 import java.util.concurrent.Callable
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
+import java.util.concurrent.RejectedExecutionException
 import java.util.concurrent.ThreadLocalRandom
+import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
+import java.util.concurrent.atomic.AtomicInteger
 import kotlin.math.min
 
 /**
  * Timeouts and retries with full jitter around jwiki I/O. jwiki's OkHttp client
  * hardcodes a 2-minute read timeout and does not accept a custom client, so
  * the deadline is enforced here.
+ *
+ * Wiki work runs on a fixed [ThreadPoolExecutor] (`wiki-io-*` daemons). The
+ * pool is sized from [WikiClientProperties.Io] so concurrent `?expand=true`
+ * cannot spawn an unbounded cached thread pool.
  */
 class WikiCallSupport(
     private val properties: WikiClientProperties,
@@ -27,9 +34,7 @@ class WikiCallSupport(
 ) : DisposableBean, AutoCloseable {
 
     private val executor: ExecutorService? = if (enabled) {
-        Executors.newCachedThreadPool { runnable ->
-            Thread(runnable, "wiki-io").apply { isDaemon = true }
-        }
+        newBoundedIoPool(properties)
     } else {
         null
     }
@@ -79,7 +84,15 @@ class WikiCallSupport(
         if (timeout.isZero || timeout.isNegative) {
             return block()
         }
-        val future = executor!!.submit(Callable { block() })
+        val future = try {
+            executor!!.submit(Callable { block() })
+        } catch (e: RejectedExecutionException) {
+            throw WikiUnavailableException(
+                "$operation rejected: wiki I/O pool saturated",
+                e,
+                retryable = false
+            )
+        }
         try {
             return future.get(timeout.toMillis(), TimeUnit.MILLISECONDS)
         } catch (e: TimeoutException) {
@@ -92,6 +105,11 @@ class WikiCallSupport(
             Thread.currentThread().interrupt()
             throw e
         }
+    }
+
+    internal fun threadPoolExecutor(): ThreadPoolExecutor {
+        return executor as? ThreadPoolExecutor
+            ?: error("wiki I/O executor is disabled")
     }
 
     private fun jitterDelay(attempt: Int): Duration {
@@ -117,6 +135,7 @@ class WikiCallSupport(
                 when (current) {
                     is ExpandTooLargeException -> return false
                     is InterruptedException -> return false
+                    is RejectedExecutionException -> return false
                     is TimeoutException -> return true
                     is IOException -> return true
                     is WikiUnavailableException -> return current.retryable
@@ -130,10 +149,29 @@ class WikiCallSupport(
             return when (error) {
                 is ExpandTooLargeException -> error
                 is WikiUnavailableException -> error
+                is RejectedExecutionException ->
+                    WikiUnavailableException("$operation rejected: wiki I/O pool saturated", error, retryable = false)
                 is IOException, is TimeoutException -> WikiUnavailableException("$operation failed", error)
                 is RuntimeException -> error
                 else -> WikiUnavailableException("$operation failed", error)
             }
+        }
+
+        private fun newBoundedIoPool(properties: WikiClientProperties): ThreadPoolExecutor {
+            val threads = properties.io.threads.coerceAtLeast(1)
+            val queueCapacity = properties.io.queueCapacity.coerceAtLeast(1)
+            val seq = AtomicInteger()
+            return ThreadPoolExecutor(
+                threads,
+                threads,
+                0L,
+                TimeUnit.MILLISECONDS,
+                ArrayBlockingQueue(queueCapacity),
+                { runnable ->
+                    Thread(runnable, "wiki-io-${seq.incrementAndGet()}").apply { isDaemon = true }
+                },
+                ThreadPoolExecutor.AbortPolicy()
+            )
         }
     }
 }

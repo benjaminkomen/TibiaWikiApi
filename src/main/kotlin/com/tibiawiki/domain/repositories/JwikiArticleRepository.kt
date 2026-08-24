@@ -3,6 +3,7 @@ package com.tibiawiki.domain.repositories
 import com.tibiawiki.config.WikiClientProperties
 import com.tibiawiki.domain.objects.WikiNamespace
 import com.tibiawiki.domain.utils.PropertiesUtil
+import com.tibiawiki.domain.wiki.ExpandConcurrencyLimiter
 import com.tibiawiki.domain.wiki.ExpandTooLargeException
 import com.tibiawiki.domain.wiki.WikiCallSupport
 import com.tibiawiki.domain.wiki.WikiFactory
@@ -32,6 +33,11 @@ class JwikiArticleRepository @Autowired constructor(
     private val cache: WikiResponseCache,
     private val calls: WikiCallSupport
 ) : ArticleRepository {
+
+    private val expandLimiter = ExpandConcurrencyLimiter(
+        properties.expand.maxConcurrent,
+        properties.expand.acquireTimeout
+    )
 
     private var isDebugEnabled = false
 
@@ -74,14 +80,16 @@ class JwikiArticleRepository @Autowired constructor(
             }
         }
         if (missing.isNotEmpty()) {
-            val fetched = calls.call("getArticles") {
-                MQuery.getPageText(wiki(), missing)
-            }
-            for (pageName in missing) {
-                val text = fetched[pageName]?.takeIf { it.isNotEmpty() }
-                cache.putArticle(pageName, text)
-                if (text != null) {
-                    result[pageName] = text
+            expandLimiter.withPermit {
+                val fetched = calls.call("getArticles") {
+                    MQuery.getPageText(wiki(), missing)
+                }
+                for (pageName in missing) {
+                    val text = fetched[pageName]?.takeIf { it.isNotEmpty() }
+                    cache.putArticle(pageName, text)
+                    if (text != null) {
+                        result[pageName] = text
+                    }
                 }
             }
         }

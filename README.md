@@ -28,6 +28,8 @@ The default Spring profile talks to TibiaWiki on Fandom. That hop is treated as 
 - Each wiki call has a timeout (`wiki.call-timeout`, default 20s) and is retried with full jitter
 - Category member lists and single-page wikitext are cached in-process (`wiki.cache.ttl`, default 60s)
 - `?expand=true` is served from that cache and rejected with HTTP 413 if the category is larger than `wiki.expand.max-pages` (default 5000)
+- Wiki I/O uses a fixed thread pool (`wiki.io.threads`, default 2) sized for Cloud Run 1Gi / ~1 vCPU; a full queue (`wiki.io.queue-capacity`, default 32) is rejected with HTTP 503
+- Concurrent bulk expands are limited per instance (`wiki.expand.max-concurrent`, default 2) so one replica cannot stampede Fandom or OOM
 - The jwiki `Wiki` client is created on first use, so a Fandom outage does not fail process start
 - Set `wiki.warm-on-startup=true` on Cloud Run min-instances to build `Wiki` at boot instead of on the first request
 
