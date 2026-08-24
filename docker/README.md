@@ -21,8 +21,12 @@ docker run -it -e PORT=8080 -p 8080:8080 tibiawikiapi
 ```
 
 The image runs as uid/gid `65532`. Cloud Run sets `PORT`; the entrypoint
-expands it and `exec`s `java` so the JVM is PID 1 (SIGTERM reaches Spring Boot)
-and Tomcat binds `0.0.0.0`.
+expands `$PORT` (`ENV PORT=8080` when unset) and `exec`s `java` so the JVM is
+PID 1 (SIGTERM reaches Spring Boot) and Tomcat binds `0.0.0.0`.
+
+The Dockerfile writes `$$PORT` so Docker stores a single `$PORT` for the shell.
+Do not use `$${PORT:-8080}`: at runtime `sh` expands `$$` to PID 1, leaving
+`1{PORT:-8080}`, and the process fails Cloud Run startup probes.
 
 The image build uses the Gradle wrapper and `settings.gradle.kts`. It does **not**
 need a `GITHUB_TOKEN`: `jwiki` is resolved from Maven Central.
