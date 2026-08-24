@@ -56,7 +56,10 @@ class HuntingPlacesController(
     }
 
     @GetMapping(value = ["/**"], produces = [MediaType.APPLICATION_JSON_VALUE]) // accept special characters such as slashes in path
-    @Operation(summary = "Get a specific hunting place by name")
+    @Operation(
+        summary = "Get a specific hunting place by name",
+        description = BY_NAME_OPENAPI_NOTE
+    )
     @ApiResponses(
         value = [
             ApiResponse(responseCode = "200", description = "huntingPlace with specified name found"),
@@ -81,5 +84,14 @@ class HuntingPlacesController(
     )
     fun putHuntingPlace(@RequestBody huntingPlace: HuntingPlace, @RequestHeader("X-WIKI-Edit-Summary") editSummary: String?): ResponseEntity<WikiObject> {
         return WikiResourceResponses.modify(modifyAny.modify(huntingPlace, editSummary))
+    }
+
+    companion object {
+        // Catch-all path so titles with slashes work. Do not invent a fake {name}
+        // path parameter in OpenAPI — document the slashy names instead.
+        const val BY_NAME_OPENAPI_NOTE =
+            "Wiki titles may contain slashes (for example Tiquanda/Bandit Caves). " +
+                "The remainder of the path after /api/huntingplaces/ is the name; " +
+                "this mapping is /** so OpenAPI does not invent a single {name} path parameter."
     }
 }
