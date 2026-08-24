@@ -1,0 +1,29 @@
+# Build context is the repo root (`docker build -f ./docker/Dockerfile .` /
+# Cloud Build). Docker only reads this file at the context root.
+
+.git
+.github
+.cursor
+.idea
+*.iml
+
+# Not needed to produce bootJar
+regression
+src/test
+src/integrationTest
+docs
+scripts
+
+*.md
+LICENSE
+AGENTS.md
+.editorconfig
+
+# Local / CI output
+build
+.gradle
+out
+target
+
+cloudbuild.yaml
+cloudbuild-pr.yaml
