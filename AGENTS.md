@@ -78,12 +78,15 @@ One concern per layer. Keep history linear: each tip must contain the parent tip
 
 ## Deploy
 
-`scripts/deploy.sh` builds the image, deploys to Cloud Run (`tibiawikiapi-246008`, `europe-west1`), waits until the **new revision is Ready**, then runs `cd regression && bun run smoke:docs` against `https://tibiawiki.dev` (`BASE_URL` override is documented in the script). `bun` is required for that smoke.
+Merge-to-prod is `cloudbuild.yaml` (not PR CI): tag `$COMMIT_SHA` and `:latest`, `gcloud run deploy` with env/probe flags (`LOGGING_JSON=true`, `WIKI_WRITE_ENABLED=false`, startup/liveness), wait until the **new revision is Ready**, then `cd regression && bun run smoke:docs` against the **revision URL** (Swagger + actuator only; no wiki/Fandom paths). `gcloud run deploy` already sends 100% to the new revision; do not add `gcloud alpha run services update-traffic --to-latest`. Flags and the Ready-then-smoke gate live in `scripts/cloud-run-release.sh`.
 
-- Image build success is not deploy success. The Cloud Run revision must be Ready (startup probe passed); then docs/health smoke must pass against the live URL.
+`scripts/deploy.sh` is the **ops** path: builds `:latest`, then the same release script, with `smoke:docs` against `https://tibiawiki.dev` (`BASE_URL` override is documented in the script). `bun` is required for that smoke.
+
+- Image build success is not deploy success. The Cloud Run revision must be Ready (startup probe passed); then docs/health smoke must pass.
 - If deploy or Ready fails, do not smoke; exit non-zero. The previous revision may still be serving traffic.
+- If smoke fails after Ready, Cloud Build / the script still fail; the new revision may already be serving 100%.
 - Do not declare success from build logs or “looks fine.” User screenshots of Swagger UI and health beat agent claims.
-- This live smoke is **ops** (`deploy.sh` only). PR/CI verification still uses fixtures and must not hit Fandom or tibiawiki.dev.
+- Live `https://tibiawiki.dev` smoke is **ops** (`deploy.sh` only). PR/CI verification still uses fixtures and must not hit Fandom or tibiawiki.dev.
 
 ## PR / verify
 
@@ -94,4 +97,4 @@ Before considering work done:
 3. If you change API responses, controllers, wiki parsing, fixtures, or goldens, run fixture regression as above.
 4. If you touch OpenAPI/springdoc/Swagger or controllers that affect the public catalog, run `cd regression && bun run smoke:docs` (and/or `SwaggerUiIT`). OpenAPI must stay 3.0.x; WikiCategory paths must be enumerated (no generic `{category}` template only).
 5. For multi-PR dependency work, use a formal GitHub PR stack ([Stacked PRs](#stacked-prs)).
-6. Deploy success is a Ready revision **then** prod `smoke:docs`, not image build alone (see [Deploy](#deploy)).
+6. Deploy success is a Ready revision **then** `smoke:docs` (Cloud Build: revision URL; ops `deploy.sh`: tibiawiki.dev), not image build alone (see [Deploy](#deploy)).

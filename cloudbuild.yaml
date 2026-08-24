@@ -1,22 +1,66 @@
+# Merge-to-prod: tag $COMMIT_SHA and :latest, deploy with production env/probes,
+# wait until the new revision is Ready, then smoke:docs against the revision URL
+# (Swagger + actuator only — no wiki/Fandom paths). Live https://tibiawiki.dev
+# smoke stays ops-only (scripts/deploy.sh); do not add it here or to PR CI.
+#
+# gcloud run deploy already sends 100% to the new revision once it is Ready.
+# The previous `gcloud alpha run services update-traffic --to-latest` step is
+# omitted on purpose: it is redundant after a successful deploy, and --to-latest
+# can send traffic to latestCreated before Ready.
+#
+# Gradle image build + 36×10s startup probe + smoke needs more than the default
+# 10m Cloud Build timeout.
+timeout: 2400s
+
 steps:
   # build the container image (jwiki is Maven Central; no GitHub Packages token)
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/tibiawikiapi', '-f', './docker/Dockerfile', '.']
+    args:
+      - 'build'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/tibiawikiapi:$COMMIT_SHA'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/tibiawikiapi:latest'
+      - '-f'
+      - './docker/Dockerfile'
+      - '.'
 
-  # push the container image to Container Registry
+  # SHA tag must be in the registry before gcloud run deploy (images: pushes after steps).
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/tibiawikiapi-246008/tibiawikiapi']
+    args: ['push', 'gcr.io/$PROJECT_ID/tibiawikiapi:$COMMIT_SHA']
 
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/tibiawikiapi:latest']
 
-    # Deploy container image to Cloud Run
-    # Startup/liveness hit Actuator probe groups (no Fandom). Memory/concurrency
-    # stay at 1Gi until expand-cache metrics justify a change (issue #399).
+  # Deploy + Ready wait + bun smoke:docs against the revision URL.
+  # Startup/liveness hit Actuator probe groups (no Fandom). Memory/concurrency
+  # stay at 1Gi until expand-cache metrics justify a change (issue #399).
+  # Flags live in scripts/cloud-run-release.sh (same path as scripts/deploy.sh).
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['run', 'deploy', 'tibiawikiapi', '--image', 'gcr.io/tibiawikiapi-246008/tibiawikiapi', '--region', 'europe-west1', '--platform', 'managed', '--memory', '1Gi', '--project', 'tibiawikiapi-246008', '--update-env-vars', 'LOGGING_JSON=true,WIKI_WRITE_ENABLED=false', '--startup-probe=httpGet.path=/actuator/health/readiness,timeoutSeconds=4,periodSeconds=10,failureThreshold=36', '--liveness-probe=httpGet.path=/actuator/health/liveness,timeoutSeconds=4,periodSeconds=30,failureThreshold=3', '--quiet']
-
-    # Serve traffic from new revision
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['alpha', 'run', 'services', 'update-traffic', 'tibiawikiapi', '--region', 'europe-west1', '--platform', 'managed', '--to-latest']
+    entrypoint: bash
+    env:
+      - 'IMAGE=gcr.io/$PROJECT_ID/tibiawikiapi:$COMMIT_SHA'
+      - 'PROJECT=$PROJECT_ID'
+    args:
+      - '-c'
+      - |
+        set -euo pipefail
+        if ! command -v bun >/dev/null 2>&1; then
+          echo "Installing bun for revision-URL smoke:docs (Swagger + actuator only)..."
+          curl -fsSL -o /tmp/bun.zip https://github.com/oven-sh/bun/releases/latest/download/bun-linux-x64.zip
+          python3 -c "import zipfile; zipfile.ZipFile('/tmp/bun.zip').extractall('/tmp/bun-extract')"
+          BUN_BIN="$$(find /tmp/bun-extract -type f -name bun | head -n 1)"
+          if [[ -z "$$BUN_BIN" ]]; then
+            echo "ERROR: bun binary not found after download" >&2
+            exit 1
+          fi
+          chmod +x "$$BUN_BIN"
+          export PATH="$$(dirname "$$BUN_BIN"):$$PATH"
+        fi
+        bun --version
+        ./scripts/cloud-run-release.sh
+    timeout: 900s
 
 images:
-  - gcr.io/tibiawikiapi-246008/tibiawikiapi
+  - 'gcr.io/$PROJECT_ID/tibiawikiapi:$COMMIT_SHA'
+  - 'gcr.io/$PROJECT_ID/tibiawikiapi:latest'
