@@ -43,11 +43,14 @@ class WikiCallSupport(
         if (!enabled) {
             return block()
         }
+        val executor = checkNotNull(this.executor) {
+            "enabled WikiCallSupport must have an I/O executor"
+        }
         val maxAttempts = properties.retry.maxAttempts.coerceAtLeast(1)
         var lastError: Throwable? = null
         for (attempt in 0 until maxAttempts) {
             try {
-                return invokeWithTimeout(operation, block)
+                return invokeWithTimeout(executor, operation, block)
             } catch (e: InterruptedException) {
                 Thread.currentThread().interrupt()
                 throw WikiUnavailableException("$operation interrupted", e)
@@ -79,13 +82,17 @@ class WikiCallSupport(
         executor?.shutdownNow()
     }
 
-    private fun <T> invokeWithTimeout(operation: String, block: () -> T): T {
+    private fun <T> invokeWithTimeout(
+        executor: ExecutorService,
+        operation: String,
+        block: () -> T
+    ): T {
         val timeout = properties.callTimeout
         if (timeout.isZero || timeout.isNegative) {
             return block()
         }
         val future = try {
-            executor!!.submit(Callable { block() })
+            executor.submit(Callable { block() })
         } catch (e: RejectedExecutionException) {
             throw WikiUnavailableException(
                 "$operation rejected: wiki I/O pool saturated",

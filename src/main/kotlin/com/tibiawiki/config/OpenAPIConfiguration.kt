@@ -9,7 +9,6 @@ import io.swagger.v3.oas.models.security.SecurityRequirement
 import io.swagger.v3.oas.models.security.SecurityScheme
 import io.swagger.v3.oas.models.servers.Server
 import org.springdoc.core.customizers.OpenApiCustomizer
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.info.BuildProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -20,7 +19,7 @@ import io.swagger.v3.oas.models.responses.ApiResponse as OpenApiResponse
 class OpenAPIConfiguration {
 
     @Bean
-    fun customOpenAPI(@Autowired buildProperties: BuildProperties): OpenAPI {
+    fun customOpenAPI(buildProperties: BuildProperties): OpenAPI {
         return OpenAPI()
             .addServersItem(Server().url("/"))
             .components(
