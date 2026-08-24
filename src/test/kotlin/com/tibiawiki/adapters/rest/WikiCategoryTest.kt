@@ -1,7 +1,11 @@
 package com.tibiawiki.adapters.rest
 
 import com.tibiawiki.domain.enums.InfoboxTemplate
+import com.tibiawiki.domain.objects.Familiar
+import com.tibiawiki.domain.objects.Imbuement
 import com.tibiawiki.domain.objects.TibiaObject
+import com.tibiawiki.domain.objects.Update
+import com.tibiawiki.domain.objects.World
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.nullValue
@@ -15,22 +19,26 @@ class WikiCategoryTest {
         assertThat(WikiCategory.fromPath("items")?.template, `is`(InfoboxTemplate.ITEM))
         assertThat(WikiCategory.fromPath("objects")?.template, `is`(InfoboxTemplate.OBJECT))
         assertThat(WikiCategory.fromPath("locations")?.template, `is`(InfoboxTemplate.GEOGRAPHY))
+        assertThat(WikiCategory.fromPath("familiars")?.template, `is`(InfoboxTemplate.FAMILIAR))
+        assertThat(WikiCategory.fromPath("imbuements")?.template, `is`(InfoboxTemplate.IMBUEMENT))
+        assertThat(WikiCategory.fromPath("updates")?.template, `is`(InfoboxTemplate.UPDATE))
+        assertThat(WikiCategory.fromPath("worlds")?.template, `is`(InfoboxTemplate.WORLD))
         assertThat(WikiCategory.fromPath("huntingplaces"), nullValue())
         assertThat(WikiCategory.fromPath("loot"), nullValue())
         assertThat(WikiCategory.fromPath("pages"), nullValue())
-        // Issue #408/#439 collections stay on dedicated RetrieveByTemplate controllers
-        assertThat(WikiCategory.fromPath("imbuements"), nullValue())
-        assertThat(WikiCategory.fromPath("updates"), nullValue())
-        assertThat(WikiCategory.fromPath("worlds"), nullValue())
-        assertThat(WikiCategory.fromPath("familiars"), nullValue())
+        // PUT collections stay on dedicated controllers until a follow-up fold
         assertThat(WikiCategory.fromPath("fansites"), nullValue())
         assertThat(WikiCategory.fromPath("cipsoftmembers"), nullValue())
     }
 
     @Test
-    fun itemsAndObjectsShareTibiaObjectForPutCompatibility() {
+    fun wikiObjectTypesMatchSharedAndFoldedCollections() {
         assertThat(WikiCategory.ITEMS.wikiObjectType, `is`(TibiaObject::class))
         assertThat(WikiCategory.OBJECTS.wikiObjectType, `is`(TibiaObject::class))
+        assertThat(WikiCategory.WORLDS.wikiObjectType, `is`(World::class))
+        assertThat(WikiCategory.UPDATES.wikiObjectType, `is`(Update::class))
+        assertThat(WikiCategory.FAMILIARS.wikiObjectType, `is`(Familiar::class))
+        assertThat(WikiCategory.IMBUEMENTS.wikiObjectType, `is`(Imbuement::class))
     }
 
     @Test
@@ -38,6 +46,7 @@ class WikiCategoryTest {
         assertThat(WikiCategory.entries.map { it.path }.toSet().size, `is`(WikiCategory.entries.size))
         assertThat(WikiCategory.entries.map { it.template }.toSet().size, `is`(WikiCategory.entries.size))
         assertThat(WikiCategory.PATHS, `is`(WikiCategory.entries.map { it.path }))
+        assertThat(WikiCategory.PATH_PATTERN, `is`(WikiCategory.PATHS.joinToString("|")))
     }
 
     @Test
@@ -48,8 +57,9 @@ class WikiCategoryTest {
             `is`(
                 listOf(
                     "achievements", "books", "buildings", "charms", "corpses", "creatures",
-                    "effects", "items", "keys", "locations", "missiles", "mounts", "npcs",
-                    "objects", "outfits", "quests", "spells", "streets"
+                    "effects", "familiars", "imbuements", "items", "keys", "locations", "missiles",
+                    "mounts", "npcs", "objects", "outfits", "quests", "spells", "streets", "updates",
+                    "worlds"
                 )
             )
         )

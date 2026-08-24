@@ -55,8 +55,8 @@ class WikiCategoryOpenApiCustomizerTest {
             assertThat(byName.get.operationId, `is`("getWikiObjectByName_${category.path}"))
         }
 
-        assertThat(openApi.paths["/api/worlds"], not(nullValue()))
-        assertThat(openApi.paths["/api/worlds"]!!.get.tags, contains("Worlds"))
+        assertThat(openApi.paths["/api/huntingplaces"], not(nullValue()))
+        assertThat(openApi.paths["/api/huntingplaces"]!!.get.tags, contains("Hunting Places"))
 
         val tagNames = openApi.tags.map { it.name }
         assertThat(tagNames, not(hasItem(WikiCategoryOpenApiCustomizer.GENERIC_TAG)))
@@ -70,13 +70,11 @@ class WikiCategoryOpenApiCustomizerTest {
         val openApi = OpenAPI().paths(
             Paths()
                 .addPathItem(
-                    "/api/{category:achievements|books|buildings|charms|corpses|creatures|effects|" +
-                        "items|keys|locations|missiles|mounts|npcs|objects|outfits|quests|spells|streets}",
+                    "/api/{category:${WikiCategory.PATH_PATTERN}}",
                     collectionPathItem()
                 )
                 .addPathItem(
-                    "/api/{category:achievements|books|buildings|charms|corpses|creatures|effects|" +
-                        "items|keys|locations|missiles|mounts|npcs|objects|outfits|quests|spells|streets}/{name}",
+                    "/api/{category:${WikiCategory.PATH_PATTERN}}/{name}",
                     byNamePathItem()
                 )
         )
@@ -94,12 +92,12 @@ class WikiCategoryOpenApiCustomizerTest {
     @Test
     fun leavesSpecUnchangedWhenTemplatesAreMissing() {
         val openApi = OpenAPI().paths(
-            Paths().addPathItem("/api/worlds", dedicatedWorlds())
+            Paths().addPathItem("/api/huntingplaces", dedicatedHuntingPlaces())
         )
 
         WikiCategoryOpenApiCustomizer().customise(openApi)
 
-        assertThat(openApi.paths.keys, contains("/api/worlds"))
+        assertThat(openApi.paths.keys, contains("/api/huntingplaces"))
         assertThat(openApi.paths.containsKey("/api/achievements"), `is`(false))
     }
 
@@ -136,10 +134,10 @@ class WikiCategoryOpenApiCustomizerTest {
                 Paths()
                     .addPathItem("/api/{category}", collectionPathItem())
                     .addPathItem("/api/{category}/{name}", byNamePathItem())
-                    .addPathItem("/api/worlds", dedicatedWorlds())
+                    .addPathItem("/api/huntingplaces", dedicatedHuntingPlaces())
             )
             .addTagsItem(Tag().name(WikiCategoryOpenApiCustomizer.GENERIC_TAG))
-            .addTagsItem(Tag().name("Worlds"))
+            .addTagsItem(Tag().name("Hunting Places"))
     }
 
     private fun collectionPathItem(): PathItem {
@@ -172,11 +170,11 @@ class WikiCategoryOpenApiCustomizerTest {
         return PathItem().get(get)
     }
 
-    private fun dedicatedWorlds(): PathItem {
+    private fun dedicatedHuntingPlaces(): PathItem {
         val get = Operation()
-            .operationId("getWorlds")
-            .summary("Get a list of game worlds")
-            .addTagsItem("Worlds")
+            .operationId("getHuntingPlaces")
+            .summary("Get a list of hunting places")
+            .addTagsItem("Hunting Places")
         get.responses = ApiResponses().addApiResponse("200", ApiResponse().description("ok"))
         return PathItem().get(get)
     }

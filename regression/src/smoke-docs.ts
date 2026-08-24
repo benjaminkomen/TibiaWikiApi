@@ -16,6 +16,8 @@ const WIKI_CATEGORIES: ReadonlyArray<{ path: string; tag: string }> = [
   { path: "corpses", tag: "Corpses" },
   { path: "creatures", tag: "Creatures" },
   { path: "effects", tag: "Effects" },
+  { path: "familiars", tag: "Familiars" },
+  { path: "imbuements", tag: "Imbuements" },
   { path: "items", tag: "Items" },
   { path: "keys", tag: "Keys" },
   { path: "locations", tag: "Locations" },
@@ -27,6 +29,8 @@ const WIKI_CATEGORIES: ReadonlyArray<{ path: string; tag: string }> = [
   { path: "quests", tag: "Quests" },
   { path: "spells", tag: "Spells" },
   { path: "streets", tag: "Streets" },
+  { path: "updates", tag: "Updates" },
+  { path: "worlds", tag: "Worlds" },
 ];
 const REQUIRED_INDEX_MARKERS = [
   'id="swagger-ui"',

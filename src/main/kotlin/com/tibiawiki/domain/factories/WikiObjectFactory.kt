@@ -8,7 +8,9 @@ import com.tibiawiki.domain.objects.Charm
 import com.tibiawiki.domain.objects.Corpse
 import com.tibiawiki.domain.objects.Creature
 import com.tibiawiki.domain.objects.Effect
+import com.tibiawiki.domain.objects.Familiar
 import com.tibiawiki.domain.objects.HuntingPlace
+import com.tibiawiki.domain.objects.Imbuement
 import com.tibiawiki.domain.objects.Key
 import com.tibiawiki.domain.objects.Location
 import com.tibiawiki.domain.objects.Missile
@@ -19,7 +21,9 @@ import com.tibiawiki.domain.objects.Quest
 import com.tibiawiki.domain.objects.Spell
 import com.tibiawiki.domain.objects.Street
 import com.tibiawiki.domain.objects.TibiaObject
+import com.tibiawiki.domain.objects.Update
 import com.tibiawiki.domain.objects.WikiObject
+import com.tibiawiki.domain.objects.World
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import tools.jackson.databind.ObjectMapper
@@ -60,8 +64,10 @@ class WikiObjectFactory(
             TEMPLATE_TYPE_CORPSE -> mapJsonToObject(wikiObjectJson, Corpse::class.java)
             TEMPLATE_TYPE_CREATURE -> mapJsonToObject(wikiObjectJson, Creature::class.java)
             TEMPLATE_TYPE_EFFECT -> mapJsonToObject(wikiObjectJson, Effect::class.java)
+            TEMPLATE_TYPE_FAMILIAR -> mapJsonToObject(wikiObjectJson, Familiar::class.java)
             TEMPLATE_TYPE_LOCATION -> mapJsonToObject(wikiObjectJson, Location::class.java)
             TEMPLATE_TYPE_HUNTING_PLACE -> mapJsonToObject(wikiObjectJson, HuntingPlace::class.java)
+            TEMPLATE_TYPE_IMBUEMENT -> mapJsonToObject(wikiObjectJson, Imbuement::class.java)
             TEMPLATE_TYPE_ITEM, TEMPLATE_TYPE_OBJECT -> mapJsonToObject(wikiObjectJson, TibiaObject::class.java)
             TEMPLATE_TYPE_KEY -> mapJsonToObject(wikiObjectJson, Key::class.java)
             TEMPLATE_TYPE_MISSILE -> mapJsonToObject(wikiObjectJson, Missile::class.java)
@@ -71,6 +77,8 @@ class WikiObjectFactory(
             TEMPLATE_TYPE_QUEST -> mapJsonToObject(wikiObjectJson, Quest::class.java)
             TEMPLATE_TYPE_SPELL -> mapJsonToObject(wikiObjectJson, Spell::class.java)
             TEMPLATE_TYPE_STREET -> mapJsonToObject(wikiObjectJson, Street::class.java)
+            TEMPLATE_TYPE_UPDATE -> mapJsonToObject(wikiObjectJson, Update::class.java)
+            TEMPLATE_TYPE_WORLD -> mapJsonToObject(wikiObjectJson, World::class.java)
             else -> {
                 log.warn("object type '{}' not supported, terminating..", templateType)
                 null
@@ -108,8 +116,10 @@ class WikiObjectFactory(
         private const val TEMPLATE_TYPE_CORPSE = "Corpse"
         private const val TEMPLATE_TYPE_CREATURE = "Creature"
         private const val TEMPLATE_TYPE_EFFECT = "Effect"
+        private const val TEMPLATE_TYPE_FAMILIAR = "Familiar"
         private const val TEMPLATE_TYPE_LOCATION = "Geography"
         private const val TEMPLATE_TYPE_HUNTING_PLACE = "Hunt"
+        private const val TEMPLATE_TYPE_IMBUEMENT = "Imbuement"
         private const val TEMPLATE_TYPE_MOUNT = "Mount"
         private const val TEMPLATE_TYPE_ITEM = "Item"
         private const val TEMPLATE_TYPE_KEY = "Key"
@@ -120,5 +130,7 @@ class WikiObjectFactory(
         private const val TEMPLATE_TYPE_QUEST = "Quest"
         private const val TEMPLATE_TYPE_SPELL = "Spell"
         private const val TEMPLATE_TYPE_STREET = "Street"
+        private const val TEMPLATE_TYPE_UPDATE = "Update"
+        private const val TEMPLATE_TYPE_WORLD = "World"
     }
 }

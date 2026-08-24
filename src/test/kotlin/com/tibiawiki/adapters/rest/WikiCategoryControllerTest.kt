@@ -3,8 +3,12 @@ package com.tibiawiki.adapters.rest
 import com.tibiawiki.domain.ArticleNotFoundException
 import com.tibiawiki.domain.enums.InfoboxTemplate
 import com.tibiawiki.domain.objects.Achievement
+import com.tibiawiki.domain.objects.Familiar
+import com.tibiawiki.domain.objects.Imbuement
+import com.tibiawiki.domain.objects.Update
 import com.tibiawiki.domain.objects.WikiObject
 import com.tibiawiki.domain.objects.WikiObjectFixtures
+import com.tibiawiki.domain.objects.World
 import com.tibiawiki.process.ModifyAny
 import com.tibiawiki.process.ModifyResult
 import com.tibiawiki.process.RetrieveByTemplate
@@ -78,6 +82,19 @@ class WikiCategoryControllerTest {
     }
 
     @Test
+    fun foldedGetOnlyCollectionsUseTheirInfoboxTemplates() {
+        doReturn(names).`when`(retrieveByTemplate).pageNames(InfoboxTemplate.WORLD)
+        doReturn(names).`when`(retrieveByTemplate).pageNames(InfoboxTemplate.UPDATE)
+        doReturn(names).`when`(retrieveByTemplate).pageNames(InfoboxTemplate.FAMILIAR)
+        doReturn(names).`when`(retrieveByTemplate).pageNames(InfoboxTemplate.IMBUEMENT)
+
+        assertThat(controller.getWikiObjects("worlds", false).body, `is`(names))
+        assertThat(controller.getWikiObjects("updates", false).body, `is`(names))
+        assertThat(controller.getWikiObjects("familiars", false).body, `is`(names))
+        assertThat(controller.getWikiObjects("imbuements", false).body, `is`(names))
+    }
+
+    @Test
     fun unknownCategoryIsNotFound() {
         val list = controller.getWikiObjects("not-a-category", false)
         val detail = controller.getWikiObjectByName("not-a-category", "Foo")
@@ -104,6 +121,29 @@ class WikiCategoryControllerTest {
         assertThat(captured, hasSize(1))
         assertThat(captured[0] is Achievement, `is`(true))
         assertThat((captured[0] as Achievement).name, `is`(WikiObjectFixtures.achievement().name))
+    }
+
+    @Test
+    fun putDeserializesFoldedGetOnlyTypes() {
+        val captured = mutableListOf<WikiObject>()
+        org.mockito.Mockito.doAnswer { invocation ->
+            captured.add(invocation.getArgument(0))
+            ModifyResult.Success(invocation.getArgument(0))
+        }.`when`(modifyAny).modify(
+            org.mockito.ArgumentMatchers.any<WikiObject>() ?: WikiObject.WikiObjectImpl(),
+            org.mockito.ArgumentMatchers.eq("edit") ?: "edit"
+        )
+
+        controller.putWikiObject("worlds", mapper.valueToTree(WikiObjectFixtures.world()), "edit")
+        controller.putWikiObject("updates", mapper.valueToTree(WikiObjectFixtures.update()), "edit")
+        controller.putWikiObject("familiars", mapper.valueToTree(WikiObjectFixtures.familiar()), "edit")
+        controller.putWikiObject("imbuements", mapper.valueToTree(WikiObjectFixtures.imbuement()), "edit")
+
+        assertThat(captured, hasSize(4))
+        assertThat(captured[0] is World, `is`(true))
+        assertThat(captured[1] is Update, `is`(true))
+        assertThat(captured[2] is Familiar, `is`(true))
+        assertThat(captured[3] is Imbuement, `is`(true))
     }
 
     @Test

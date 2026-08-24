@@ -2,9 +2,13 @@ package com.tibiawiki.domain.factories
 
 import com.tibiawiki.config.JacksonConfiguration
 import com.tibiawiki.domain.objects.Charm
+import com.tibiawiki.domain.objects.Familiar
+import com.tibiawiki.domain.objects.Imbuement
 import com.tibiawiki.domain.objects.Missile
+import com.tibiawiki.domain.objects.Update
 import com.tibiawiki.domain.objects.WikiObject
 import com.tibiawiki.domain.objects.WikiObjectFixtures
+import com.tibiawiki.domain.objects.World
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.instanceOf
 import org.hamcrest.Matchers.`is`
@@ -142,6 +146,58 @@ class WikiObjectFactoryTest {
         assertThat(result.get("templateType"), `is`("Missile"))
         assertThat(result.get("name"), `is`("Throwing Cake Missile"))
         assertThat(result.get("missileid"), `is`(42))
+    }
+
+    @Test
+    fun createWikiObject_FoldedGetOnlyTypes() {
+        target = WikiObjectFactory(realMapper())
+
+        val world = target.createWikiObject(
+            mapOf("templateType" to "World", "name" to "Antica", "location" to "Europe", "pvpType" to "Open PvP")
+        )
+        val update = target.createWikiObject(
+            mapOf("templateType" to "Update", "name" to "Summer Update 2020", "date" to "July 13, 2020")
+        )
+        val familiar = target.createWikiObject(
+            mapOf(
+                "templateType" to "Familiar",
+                "name" to "Bladespark",
+                "voc" to "[[Paladin]]s",
+                "mana" to "2000",
+                "cooldown" to "30",
+                "premium" to "yes"
+            )
+        )
+        val imbuement = target.createWikiObject(
+            mapOf(
+                "templateType" to "Imbuement",
+                "name" to "Powerful Strike",
+                "prefix" to "Powerful",
+                "type" to "Strike",
+                "amount" to "3"
+            )
+        )
+
+        assertThat(world, instanceOf(World::class.java))
+        assertThat((world as World).location, `is`("Europe"))
+        assertThat(update, instanceOf(Update::class.java))
+        assertThat((update as Update).date, `is`("July 13, 2020"))
+        assertThat(familiar, instanceOf(Familiar::class.java))
+        val bladespark = familiar as Familiar
+        assertThat(bladespark.mana, `is`(2000))
+        assertThat(bladespark.vocations.map { it.description }, `is`(listOf("paladin")))
+        assertThat(imbuement, instanceOf(Imbuement::class.java))
+        assertThat((imbuement as Imbuement).prefix, `is`("Powerful"))
+    }
+
+    @Test
+    fun createJSONObject_FoldedGetOnlyTypesIncludeName() {
+        target = WikiObjectFactory(realMapper())
+
+        assertThat(target.createJSONObject(WikiObjectFixtures.world(), "World")["name"], `is`("Antica"))
+        assertThat(target.createJSONObject(WikiObjectFixtures.update(), "Update")["name"], `is`("Summer Update 2020"))
+        assertThat(target.createJSONObject(WikiObjectFixtures.familiar(), "Familiar")["name"], `is`("Grovebeast"))
+        assertThat(target.createJSONObject(WikiObjectFixtures.imbuement(), "Imbuement")["prefix"], `is`("Powerful"))
     }
 
     private fun makeAchievement(): WikiObject = WikiObjectFixtures.namedAchievement("Goo Goo Dancer")

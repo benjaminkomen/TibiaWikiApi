@@ -26,7 +26,7 @@ import tools.jackson.databind.ObjectMapper
 
 @Tag(name = "Wiki Categories")
 @RestController
-@RequestMapping("/api/{category:achievements|books|buildings|charms|corpses|creatures|effects|items|keys|locations|missiles|mounts|npcs|objects|outfits|quests|spells|streets}")
+@RequestMapping("/api/{category:" + WikiCategory.PATH_PATTERN + "}")
 class WikiCategoryController(
     private val retrieveByTemplate: RetrieveByTemplate,
     private val modifyAny: ModifyAny,
@@ -98,11 +98,12 @@ class WikiCategoryController(
 @Target(AnnotationTarget.VALUE_PARAMETER)
 @Retention(AnnotationRetention.RUNTIME)
 @Parameter(
-    description = "Wiki category collection path. Hunting places and loot stay on dedicated controllers.",
+    description = "Wiki category collection path. Hunting places, loot, fansites, and CipSoft members stay on dedicated controllers.",
     schema = Schema(
         allowableValues = [
-            "achievements", "books", "buildings", "charms", "corpses", "creatures", "effects", "items",
-            "keys", "locations", "missiles", "mounts", "npcs", "objects", "outfits", "quests", "spells", "streets"
+            "achievements", "books", "buildings", "charms", "corpses", "creatures", "effects", "familiars",
+            "imbuements", "items", "keys", "locations", "missiles", "mounts", "npcs", "objects", "outfits",
+            "quests", "spells", "streets", "updates", "worlds"
         ]
     )
 )

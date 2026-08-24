@@ -125,7 +125,8 @@ class SwaggerUiIT(
         assertThat(achievementsPut.getJSONObject("responses").has("403"), `is`(true))
         assertThat(achievementsPut.toString(), containsString(WikiWriteApiDocs.SECURITY_SCHEME))
 
-        assertThat(pathKeys, hasItem("/api/worlds"))
+        assertThat(pathKeys, hasItem("/api/huntingplaces"))
+        assertThat(pathKeys, hasItem("/api/fansites"))
         assertThat(tagNames, not(hasItem("Wiki Categories")))
     }
 
