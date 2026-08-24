@@ -1,6 +1,7 @@
 package com.tibiawiki.config
 
 import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.Matchers.hasSize
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.nullValue
 import org.junit.jupiter.api.Test
@@ -49,6 +50,16 @@ class LoggingJsonEnvironmentPostProcessorTest {
             environment.getProperty(STRUCTURED),
             `is`(LoggingJsonEnvironmentPostProcessor.GCP_CONSOLE_FORMATTER)
         )
+    }
+
+    @Test
+    fun isRegisteredOnceInSpringFactories() {
+        val registrations = javaClass.classLoader
+            .getResources("META-INF/spring.factories")
+            .toList()
+            .map { it.readText() }
+            .filter { it.contains("com.tibiawiki.config.LoggingJsonEnvironmentPostProcessor") }
+        assertThat(registrations, hasSize(1))
     }
 
     @Test

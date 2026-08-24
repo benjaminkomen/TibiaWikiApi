@@ -1,3 +1,6 @@
-# Boot 4.1 loads EPPs from spring.factories (org.springframework.boot.EnvironmentPostProcessor).
+# Boot 4.1 registers EnvironmentPostProcessor from spring.factories
+# (org.springframework.boot.EnvironmentPostProcessor). Do not also list this
+# class in META-INF/spring/*.imports — that was a Boot 3 hedge and ran the
+# processor more than once.
 org.springframework.boot.EnvironmentPostProcessor=\
 com.tibiawiki.config.LoggingJsonEnvironmentPostProcessor
