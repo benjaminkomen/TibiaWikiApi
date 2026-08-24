@@ -150,7 +150,7 @@ idea {
     }
 }
 
-val integrationTest by tasks.registering(Test::class) {
+val integrationTest = tasks.register<Test>("integrationTest") {
     description = "Runs the integration tests."
     group = "verification"
     testClassesDirs = integrationTestSourceSet.output.classesDirs
