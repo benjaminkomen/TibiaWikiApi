@@ -29,6 +29,7 @@ do it **once**, single-threaded, with sleeps — there is no automated live job.
 | --- | --- |
 | `bun run capture` | GET each case in `endpoints.json` and write `goldens/<id>.json` as `{ path, status, body }` |
 | `bun run test` | GET each case, normalize JSON, compare to the committed golden, print a short diff, exit non-zero on mismatch |
+| `bun run smoke:docs` | HTTP content checks for Swagger UI, `/api-docs` (OpenAPI **3.0.n**), and actuator health. Not a golden compare. |
 
 Use `bun run test` (not `bun test`). Bare `bun test` is Bun's built-in test runner and will not execute this script.
 
@@ -40,6 +41,7 @@ Use `bun run test` (not `bun test`). Bare `bun test` is Bun's built-in test runn
 # other terminal
 ./regression/scripts/wait-for-api.sh
 cd regression
+bun run smoke:docs # Swagger UI + OpenAPI 3.0 + health (no goldens)
 bun run capture    # refresh goldens from the fixture-backed server
 bun run test
 
@@ -47,6 +49,19 @@ bun run test
 ./gradlew bootRun
 cd regression
 BASE_URL=http://localhost:8080 bun run test
+```
+
+`smoke:docs` is a semantic health check for humans/ops as well as CI. It fails if
+`/api-docs` is missing `openapi` or is **3.1.x** (some Swagger UI builds only
+accept `openapi: 3.0.n` and show "valid version field"), if initializer still
+advertises Petstore, or if swagger-config does not point at this service's
+`/api-docs`. Status-200 HTML alone is not enough.
+
+Point it at production **manually** (never from GitHub Actions or other CI):
+
+```bash
+cd regression
+BASE_URL=https://tibiawiki.dev bun run smoke:docs
 ```
 
 JSON bodies are normalized with a recursive stable key sort and pretty-printed
@@ -100,9 +115,14 @@ Representative pages (fixtures profile only):
 1. JDK 25 + Bun
 2. `SPRING_PROFILES_ACTIVE=fixtures ./gradlew bootRun`
 3. wait for `http://localhost:8080/api/corpses`
-4. `cd regression && bun run test`
+4. `cd regression && bun run smoke:docs` (docs/UI + OpenAPI 3.0 + health)
+5. `cd regression && bun run test` (wiki goldens)
 
-On failure the workflow uploads `boot-fixtures.log` and `regression-test.log`.
+Steps 4 and 5 both run after the API is up; docs smoke does not depend on
+goldens. On failure the workflow uploads `boot-fixtures.log`,
+`regression-smoke-docs.log`, and `regression-test.log`.
+
+CI never sets `BASE_URL=https://tibiawiki.dev`.
 
 ## Coverage
 

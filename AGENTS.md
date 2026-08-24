@@ -42,6 +42,7 @@ Never call live Fandom or https://tibiawiki.dev from CI or agent verification. C
 ```bash
 ./regression/scripts/boot-fixtures.sh    # repo root; leave running
 ./regression/scripts/wait-for-api.sh     # waits on http://localhost:8080/api/corpses
+cd regression && bun run smoke:docs      # Swagger UI / OpenAPI 3.0 / health
 cd regression && bun run test            # not `bun test` (that is Bun’s built-in runner)
 ```
 
