@@ -156,6 +156,7 @@ class WikiCallSupportTest {
                     release.await()
                     "ok"
                 }
+                Unit
             }
             val second = Thread {
                 calls.call("b") {
@@ -163,6 +164,7 @@ class WikiCallSupportTest {
                     release.await()
                     "ok"
                 }
+                Unit
             }
             first.start()
             second.start()
@@ -173,6 +175,7 @@ class WikiCallSupportTest {
                         thirdEntered.set(true)
                         "ok"
                     }
+                    Unit
                 }
                 third.start()
                 val queued = waitUntil { calls.threadPoolExecutor().queue.size == 1 }
@@ -207,17 +210,20 @@ class WikiCallSupportTest {
                     hold.await()
                     "1"
                 }
+                Unit
             }
             worker.start()
             try {
                 assertThat(workerStarted.await(2, TimeUnit.SECONDS), `is`(true))
                 val queued = Thread {
                     calls.call("b") { "2" }
+                    Unit
                 }
                 queued.start()
                 assertThat(waitUntil { calls.threadPoolExecutor().queue.size == 1 }, `is`(true))
                 val thrown = assertThrows<WikiUnavailableException> {
                     calls.call("c") { "3" }
+                    Unit
                 }
                 assertThat(thrown.message!!.contains("saturated"), `is`(true))
                 assertThat(thrown.retryable, `is`(false))

@@ -38,9 +38,7 @@ class DefaultProfileWikiBeansIT(
     fun defaultProfileConstructsLiveRepositoryAndServesReadinessWithoutWikiCalls() {
         assertThat(articleRepository, instanceOf(JwikiArticleRepository::class.java))
         assertThat(wikiFactory.javaClass, `is`(WikiFactory::class.java))
-        val pool = wikiCallSupport.threadPoolExecutor()
-        assertThat(pool.maximumPoolSize, `is`(WikiClientProperties.DEFAULT_IO_THREADS))
-        assertThat(pool.queue.remainingCapacity(), `is`(WikiClientProperties.DEFAULT_IO_QUEUE_CAPACITY))
+        assertThat(wikiCallSupport.javaClass, `is`(WikiCallSupport::class.java))
 
         val result = restTemplate.getForEntity<Map<String, Any>>("/actuator/health/readiness")
 

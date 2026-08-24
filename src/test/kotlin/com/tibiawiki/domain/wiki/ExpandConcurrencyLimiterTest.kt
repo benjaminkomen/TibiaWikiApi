@@ -20,14 +20,13 @@ class ExpandConcurrencyLimiterTest {
             limiter.withPermit {
                 started.countDown()
                 hold.await()
-                "ok"
             }
         }
         worker.start()
         try {
             assertThat(started.await(2, TimeUnit.SECONDS), `is`(true))
             val thrown = assertThrows<WikiUnavailableException> {
-                limiter.withPermit { "nope" }
+                limiter.withPermit { error("should not run") }
             }
             assertThat(thrown.message!!.contains("concurrency limit"), `is`(true))
             assertThat(thrown.retryable, `is`(true))
