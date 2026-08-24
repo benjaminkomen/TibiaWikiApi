@@ -54,8 +54,11 @@ BASE_URL=http://localhost:8080 bun run test
 `smoke:docs` is a semantic health check for humans/ops as well as CI. It fails if
 `/api-docs` is missing `openapi` or is **3.1.x** (some Swagger UI builds only
 accept `openapi: 3.0.n` and show "valid version field"), if initializer still
-advertises Petstore, or if swagger-config does not point at this service's
-`/api-docs`. Status-200 HTML alone is not enough.
+advertises Petstore, if swagger-config does not point at this service's
+`/api-docs`, or if wiki catalog collections are still published only as the
+generic `/api/{category}` template (each `WikiCategory` path must appear as
+`/api/achievements`, `/api/items`, … with its own tag). Status-200 HTML alone
+is not enough.
 
 Point it at production **manually** (never from GitHub Actions or other CI):
 

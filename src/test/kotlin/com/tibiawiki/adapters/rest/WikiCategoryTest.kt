@@ -39,4 +39,19 @@ class WikiCategoryTest {
         assertThat(WikiCategory.entries.map { it.template }.toSet().size, `is`(WikiCategory.entries.size))
         assertThat(WikiCategory.PATHS, `is`(WikiCategory.entries.map { it.path }))
     }
+
+    @Test
+    fun pathsStayInSyncWithDocsSmokeList() {
+        // Keep regression/src/smoke-docs.ts WIKI_CATEGORIES in sync with this list.
+        assertThat(
+            WikiCategory.PATHS,
+            `is`(
+                listOf(
+                    "achievements", "books", "buildings", "charms", "corpses", "creatures",
+                    "effects", "items", "keys", "locations", "missiles", "mounts", "npcs",
+                    "objects", "outfits", "quests", "spells", "streets"
+                )
+            )
+        )
+    }
 }
