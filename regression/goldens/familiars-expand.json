@@ -1,0 +1,28 @@
+{
+  "path": "/api/familiars?expand=true",
+  "status": 200,
+  "body": [
+    {
+      "implemented": "11.40",
+      "name": "Grovebeast",
+      "templateType": "Familiar"
+    },
+    {
+      "actualname": "bladespark",
+      "article": "a",
+      "cooldown": "30",
+      "implemented": "11.80.7048",
+      "mana": "2000",
+      "name": "Bladespark",
+      "plural": "bladesparks",
+      "premium": "yes",
+      "templateType": "Familiar",
+      "type": "Instant",
+      "voc": "[[Paladin]]s",
+      "vocations": [
+        "paladin"
+      ],
+      "words": "utevo gran res sac"
+    }
+  ]
+}

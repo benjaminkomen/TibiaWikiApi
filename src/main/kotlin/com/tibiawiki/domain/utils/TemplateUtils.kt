@@ -14,7 +14,6 @@ object TemplateUtils {
     private const val REGEX_PARAMETER_LOWER_LEVELS_REMOVE = "\\|\\s+?lowerlevels\\s*?=((.*?\\{\\{.*?}})+)"
     private const val LOWER_LEVELS = "lowerlevels"
 
-    @JvmStatic
     fun getBetweenOuterBalancedBrackets(text: String, start: String): Optional<String> {
         return Optional.ofNullable(getStartingAndEndingCurlyBrackets(text, start))
             .map { text.substring(it._1(), it._2()) }
@@ -24,7 +23,6 @@ object TemplateUtils {
      * @return two strings, the first is the substring of the provided text before the start of the balanced brackets,
      * the second is the substring after the start of the balanced brackets.
      */
-    @JvmStatic
     fun getBeforeAndAfterOuterBalancedBrackets(text: String, start: String): Optional<Tuple2<String, String>> {
         return Optional.ofNullable(getStartingAndEndingCurlyBrackets(text, start))
             .map { Tuple.of(text.substring(0, it._1()), text.substring(it._2())) }
@@ -35,7 +33,6 @@ object TemplateUtils {
      * of a \n character.
      * Remove the last line of the input string, that is, everything after the last occurrence of two }} characters.
      */
-    @JvmStatic
     fun removeFirstAndLastLine(text: String?): String {
         return text
             ?.let { it.substring(it.indexOf('\n') + 1) }
@@ -46,7 +43,6 @@ object TemplateUtils {
             .orEmpty()
     }
 
-    @JvmStatic
     fun removeStartAndEndOfTemplate(text: String): String? {
         if (text.length < 2) {
             return null
@@ -60,17 +56,14 @@ object TemplateUtils {
         return null
     }
 
-    @JvmStatic
     fun splitInfoboxByParameter(infoboxTemplatePartOfArticle: String?): MutableMap<String, String?> {
         return splitByParameter(infoboxTemplatePartOfArticle, REGEX_PARAMETER_INFOBOX_LINE)
     }
 
-    @JvmStatic
     fun splitLootByParameter(lootTemplatePartOfArticle: String?): MutableMap<String, String?> {
         return splitByParameter(lootTemplatePartOfArticle, REGEX_PARAMETER_LOOT_LINE)
     }
 
-    @JvmStatic
     fun splitByParameter(infoboxTemplatePartOfArticle: String?, regex: String): MutableMap<String, String?> {
         if (infoboxTemplatePartOfArticle.isNullOrEmpty()) {
             return HashMap()
@@ -109,7 +102,6 @@ object TemplateUtils {
         return keyValuePair
     }
 
-    @JvmStatic
     fun splitByCommaAndTrim(input: String?): List<String> {
         return sequenceOf(input)
             .filterNotNull()
@@ -118,7 +110,6 @@ object TemplateUtils {
             .toList()
     }
 
-    @JvmStatic
     fun extractLowerLevels(infoboxTemplatePartOfArticleSanitized: String?): Optional<Map<String, String>> {
         if (infoboxTemplatePartOfArticleSanitized.isNullOrEmpty()) {
             return Optional.empty()
@@ -140,7 +131,6 @@ object TemplateUtils {
         }
     }
 
-    @JvmStatic
     fun removeLowerLevels(infoboxTemplatePartOfArticleSanitized: String?): String {
         return infoboxTemplatePartOfArticleSanitized
             ?.let { Pattern.compile(REGEX_PARAMETER_LOWER_LEVELS_REMOVE, Pattern.DOTALL).matcher(it) }

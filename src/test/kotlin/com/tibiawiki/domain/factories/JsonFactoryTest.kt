@@ -5,7 +5,10 @@ import tools.jackson.databind.ObjectMapper
 import com.tibiawiki.domain.objects.Achievement
 import com.tibiawiki.domain.objects.Book
 import com.tibiawiki.domain.objects.Building
+import com.tibiawiki.domain.objects.Charm
+import com.tibiawiki.domain.objects.CipsoftMember
 import com.tibiawiki.domain.objects.Corpse
+import com.tibiawiki.domain.objects.Fansite
 import com.tibiawiki.domain.objects.Creature
 import com.tibiawiki.domain.objects.Effect
 import com.tibiawiki.domain.objects.HuntingPlace
@@ -16,6 +19,9 @@ import com.tibiawiki.domain.objects.Mount
 import com.tibiawiki.domain.objects.NPC
 import com.tibiawiki.domain.objects.Outfit
 import com.tibiawiki.domain.objects.Quest
+import com.tibiawiki.domain.enums.SpellSubclass
+import com.tibiawiki.domain.enums.SpellType
+import com.tibiawiki.domain.enums.YesNo
 import com.tibiawiki.domain.objects.Spell
 import com.tibiawiki.domain.objects.Street
 import com.tibiawiki.domain.objects.TibiaObject
@@ -42,8 +48,8 @@ class JsonFactoryTest {
 
     @Test
     fun testConvertInfoboxPartOfArticleToJson_NullOrEmpty() {
-        assertThat(target.convertInfoboxPartOfArticleToJson(null), instanceOf(JSONObject::class.java))
-        assertThat(target.convertInfoboxPartOfArticleToJson(""), instanceOf(JSONObject::class.java))
+        assertThat(target.convertInfoboxPartOfArticleToJson(null), instanceOf(Map::class.java))
+        assertThat(target.convertInfoboxPartOfArticleToJson(""), instanceOf(Map::class.java))
     }
 
     @Test
@@ -80,11 +86,13 @@ class JsonFactoryTest {
         assertThat(result.get("skknights"), `is`("75"))
         assertThat(result.get("skpaladins"), `is`("80"))
         assertThat(result.get("defknights"), `is`("75"))
-        assertThat(result.get("lowerlevels"), instanceOf(JSONArray::class.java))
-        assertThat(((result.get("lowerlevels") as JSONArray).get(0) as JSONObject).get("areaname"), `is`("Demons"))
-        assertThat(((result.get("lowerlevels") as JSONArray).get(0) as JSONObject).get("lvlknights"), `is`("130"))
-        assertThat(((result.get("lowerlevels") as JSONArray).get(0) as JSONObject).get("lvlpaladins"), `is`("130"))
-        assertThat(((result.get("lowerlevels") as JSONArray).get(0) as JSONObject).get("lvlmages"), `is`("130"))
+        assertThat(result.get("lowerlevels"), instanceOf(List::class.java))
+        @Suppress("UNCHECKED_CAST")
+        val lowerLevels = result.get("lowerlevels") as List<Map<String, Any>>
+        assertThat(lowerLevels[0]["areaname"], `is`("Demons"))
+        assertThat(lowerLevels[0]["lvlknights"], `is`("130"))
+        assertThat(lowerLevels[0]["lvlpaladins"], `is`("130"))
+        assertThat(lowerLevels[0]["lvlmages"], `is`("130"))
         assertThat(result.get("exp"), `is`("Good"))
         assertThat(result.get("loot"), `is`("Good"))
         assertThat(result.get("bestloot"), `is`("Reins"))
@@ -94,8 +102,8 @@ class JsonFactoryTest {
 
     @Test
     fun testConvertLootPartOfArticleToJson_NullOrEmpty() {
-        assertThat(target.convertLootPartOfArticleToJson("", null), instanceOf(JSONObject::class.java))
-        assertThat(target.convertLootPartOfArticleToJson("", ""), instanceOf(JSONObject::class.java))
+        assertThat(target.convertLootPartOfArticleToJson("", null), instanceOf(Map::class.java))
+        assertThat(target.convertLootPartOfArticleToJson("", ""), instanceOf(Map::class.java))
     }
 
     @Test
@@ -141,6 +149,24 @@ class JsonFactoryTest {
         val result = target.enhanceJsonObject(inputJsonObject)
         assertThat((result.get("sounds") as JSONArray).get(0), `is`("FCHHHHH"))
         assertThat((result.get("sounds") as JSONArray).get(1), `is`("GROOAAARRR"))
+    }
+
+    @Test
+    fun testEnhanceJsonObject_VocIncludingMonk() {
+        val inputJsonObject = JSONObject(
+            mapOf(
+                "name" to "Light Healing",
+                "templateType" to "Spell",
+                "voc" to "[[Paladin]]s, [[Druid]]s, [[Sorcerer]]s and [[Monk]]s"
+            )
+        )
+        val result = target.enhanceJsonObject(inputJsonObject)
+        assertThat(result.get("voc"), `is`("[[Paladin]]s, [[Druid]]s, [[Sorcerer]]s and [[Monk]]s"))
+        val vocations = result.get("vocations") as JSONArray
+        assertThat(vocations.get(0), `is`("paladin"))
+        assertThat(vocations.get(1), `is`("druid"))
+        assertThat(vocations.get(2), `is`("sorcerer"))
+        assertThat(vocations.get(3), `is`("monk"))
     }
 
     @Test
@@ -222,7 +248,9 @@ class JsonFactoryTest {
 
     @Test
     fun testConvertJsonToInfoboxPartOfArticle_Empty() {
-        assertThat(target.convertJsonToInfoboxPartOfArticle(null, emptyList()), `is`(""))
+        assertThat(target.convertJsonToInfoboxPartOfArticle(null as Map<String, *>?, emptyList()), `is`(""))
+        assertThat(target.convertJsonToInfoboxPartOfArticle(emptyMap<String, Any>(), emptyList()), `is`(""))
+        assertThat(target.convertJsonToInfoboxPartOfArticle(null as JSONObject?, emptyList()), `is`(""))
         assertThat(target.convertJsonToInfoboxPartOfArticle(JSONObject(), emptyList()), `is`(""))
 
         val jsonWithNoTemplateType = makeAchievementJson(makeAchievement())
@@ -249,6 +277,13 @@ class JsonFactoryTest {
         val building = makeBuilding()
         val result = target.convertJsonToInfoboxPartOfArticle(makeBuildingJson(building), building.fieldOrder())
         assertThat(result, `is`(INFOBOX_BUILDING_TEXT))
+    }
+
+    @Test
+    fun testConvertJsonToInfoboxPartOfArticle_Charm() {
+        val charm = makeCharm()
+        val result = target.convertJsonToInfoboxPartOfArticle(makeCharmJson(charm), charm.fieldOrder())
+        assertThat(result, `is`(INFOBOX_CHARM_TEXT))
     }
 
     @Test
@@ -336,6 +371,128 @@ class JsonFactoryTest {
     }
 
     @Test
+    fun testConvertJsonToInfoboxPartOfArticle_SpellOmitsRetiredKeysWhenAbsent() {
+        val spell = Spell(
+            name = "Light Healing",
+            type = SpellType.Instant,
+            subclass = SpellSubclass.Healing,
+            words = "exura",
+            mana = 20,
+            cooldown = 1,
+            cooldown2 = 1,
+            cooldown3 = 1,
+            cooldowngroup = 1,
+            secondarygroup = SpellSubclass.Support,
+            levelrequired = 8,
+            premium = YesNo.NO_LOWERCASE,
+            voc = "[[Monk]]s, [[Paladin]]s, [[Druid]]s and [[Sorcerer]]s",
+            spellid = 1,
+            libraryname = "Light Healing",
+            librarytext = "A weak healing spell.",
+            basepower = 40,
+            wheelspell = YesNo.NO_LOWERCASE,
+            passivespell = YesNo.NO_LOWERCASE,
+            effect = "Restores a small amount of [[HP|health]]."
+        )
+        val result = target.convertJsonToInfoboxPartOfArticle(makeSpellJson(spell), spell.fieldOrder())
+
+        assertThat(result.contains("| spellid"), `is`(true))
+        assertThat(result.contains("| libraryname"), `is`(true))
+        assertThat(result.contains("| librarytext"), `is`(true))
+        assertThat(result.contains("| basepower"), `is`(true))
+        assertThat(result.contains("| wheelspell"), `is`(true))
+        assertThat(result.contains("| passivespell"), `is`(true))
+        assertThat(result.contains("| cooldown2"), `is`(true))
+        assertThat(result.contains("| cooldown3"), `is`(true))
+        assertThat(result.contains("| secondarygroup"), `is`(true))
+        assertThat(result.contains("zoltanonly"), `is`(false))
+        assertThat(result.contains("specialspell"), `is`(false))
+        assertThat(result.contains("conjurespell"), `is`(false))
+        assertThat(result.contains("d-abd"), `is`(false))
+        assertThat(result.contains("d-tha"), `is`(false))
+        assertThat(result.contains("p-abd"), `is`(false))
+        assertThat(result.contains("s-yal"), `is`(false))
+    }
+
+    @Test
+    fun testConvertInfoboxPartOfArticleToJson_SpellSurfacesCurrentWikiKeys() {
+        val result = target.convertInfoboxPartOfArticleToJson(INFOBOX_SPELL_CURRENT_TEXT)
+
+        assertThat(result.get("templateType"), `is`("Spell"))
+        assertThat(result.get("name"), `is`("Light Healing"))
+        assertThat(result.get("spellid"), `is`("1"))
+        assertThat(result.get("libraryname"), `is`("Light Healing"))
+        assertThat(result.get("librarytext"), `is`("A weak healing spell."))
+        assertThat(result.get("basepower"), `is`("40"))
+        assertThat(result.get("wheelspell"), `is`("no"))
+        assertThat(result.get("passivespell"), `is`("no"))
+        assertThat(result.get("cooldown2"), `is`("1"))
+        assertThat(result.get("cooldown3"), `is`("1"))
+        assertThat(result.get("secondarygroup"), `is`("Support"))
+        assertThat(result.containsKey("zoltanonly"), `is`(false))
+        assertThat(result.containsKey("d-tha"), `is`(false))
+    }
+
+    @Test
+    fun testConvertJsonToInfoboxPartOfArticle_SpellKeepsRetiredKeysWhenPresent() {
+        val spell = Spell(
+            name = "Light Healing",
+            zoltanonly = YesNo.YES_LOWERCASE,
+            specialspell = YesNo.NO_LOWERCASE,
+            conjurespell = YesNo.NO_LOWERCASE,
+            druidAbDendriel = "[[Maealil]]",
+            paladinAbDendriel = "[[Maealil]]"
+        )
+        val result = target.convertJsonToInfoboxPartOfArticle(makeSpellJson(spell), spell.fieldOrder())
+
+        assertThat(result.contains("| zoltanonly"), `is`(true))
+        assertThat(result.contains("| specialspell"), `is`(true))
+        assertThat(result.contains("| conjurespell"), `is`(true))
+        assertThat(result.contains("| d-abd"), `is`(true))
+        assertThat(result.contains("| p-abd"), `is`(true))
+    }
+
+    @Test
+    fun testConvertJsonToInfoboxPartOfArticle_Fansite() {
+        val fansite = makeFansite()
+        val result = target.convertJsonToInfoboxPartOfArticle(makeFansiteJson(fansite), fansite.fieldOrder())
+        assertThat(result, `is`(INFOBOX_FANSITE_TEXT))
+    }
+
+    @Test
+    fun testConvertJsonToInfoboxPartOfArticle_CipsoftMember() {
+        val cipsoftMember = makeCipsoftMember()
+        val result = target.convertJsonToInfoboxPartOfArticle(makeCipsoftMemberJson(cipsoftMember), cipsoftMember.fieldOrder())
+        assertThat(result, `is`(INFOBOX_CIPSOFT_MEMBER_TEXT))
+    }
+
+    @Test
+    fun testConvertInfoboxPartOfArticleToJson_InfoboxFansite() {
+        val result = target.convertInfoboxPartOfArticleToJson(INFOBOX_FANSITE_TEXT)
+
+        assertThat(result.get("templateType"), `is`("Fansite"))
+        assertThat(result.get("name"), `is`("TibiaWiki"))
+        assertThat(result.get("logo"), `is`("TibiaWiki Logo.png"))
+        assertThat(result.get("url"), `is`("https://tibia.fandom.com"))
+        assertThat(result.get("language"), `is`("English"))
+        assertThat(result.get("type"), `is`("Official"))
+        assertThat(result.get("implemented"), `is`("8.00"))
+        assertThat(result.get("fansiteitem"), `is`("TibiaWiki Gem"))
+        assertThat(result.get("itemworth"), `is`("5000"))
+    }
+
+    @Test
+    fun testConvertInfoboxPartOfArticleToJson_InfoboxCipsoftMember() {
+        val result = target.convertInfoboxPartOfArticleToJson(INFOBOX_CIPSOFT_MEMBER_TEXT)
+
+        assertThat(result.get("templateType"), `is`("Cipsoft_Member"))
+        assertThat(result.get("name"), `is`("Knightmare"))
+        assertThat(result.get("actualname"), `is`("Stephan"))
+        assertThat(result.get("job"), `is`("Content Designer"))
+        assertThat(result.get("implemented"), `is`("6.0"))
+    }
+
+    @Test
     fun testConvertLootPartOfArticleToJson_Loot2Bear() {
         val result = target.convertLootPartOfArticleToJson("Loot Statistics:Bear", LOOT_BEAR_TEXT)
 
@@ -344,27 +501,28 @@ class JsonFactoryTest {
         assertThat(result.get("name"), `is`("Bear"))
 
         val loot = result.get("loot")
-        assertThat(loot, instanceOf(JSONArray::class.java))
+        assertThat(loot, instanceOf(List::class.java))
 
-        val lootArray = loot as JSONArray
-        assertThat((lootArray.get(0) as JSONObject).get("itemName"), `is`("Empty"))
-        assertThat((lootArray.get(0) as JSONObject).get("times"), `is`("24777"))
+        @Suppress("UNCHECKED_CAST")
+        val lootArray = loot as List<Map<String, Any>>
+        assertThat(lootArray[0]["itemName"], `is`("Empty"))
+        assertThat(lootArray[0]["times"], `is`("24777"))
 
-        assertThat((lootArray.get(1) as JSONObject).get("itemName"), `is`("Ham"))
-        assertThat((lootArray.get(1) as JSONObject).get("times"), `is`("10581"))
+        assertThat(lootArray[1]["itemName"], `is`("Ham"))
+        assertThat(lootArray[1]["times"], `is`("10581"))
 
-        assertThat((lootArray.get(2) as JSONObject).get("itemName"), `is`("Bear Paw"))
-        assertThat((lootArray.get(2) as JSONObject).get("times"), `is`("1043"))
-        assertThat((lootArray.get(2) as JSONObject).get("amount"), `is`("1"))
-        assertThat((lootArray.get(2) as JSONObject).get("total"), `is`("1043"))
+        assertThat(lootArray[2]["itemName"], `is`("Bear Paw"))
+        assertThat(lootArray[2]["times"], `is`("1043"))
+        assertThat(lootArray[2]["amount"], `is`("1"))
+        assertThat(lootArray[2]["total"], `is`("1043"))
 
-        assertThat((lootArray.get(3) as JSONObject).get("itemName"), `is`("Honeycomb"))
-        assertThat((lootArray.get(3) as JSONObject).get("times"), `is`("250"))
-        assertThat((lootArray.get(3) as JSONObject).get("amount"), `is`("1"))
-        assertThat((lootArray.get(3) as JSONObject).get("total"), `is`("249"))
+        assertThat(lootArray[3]["itemName"], `is`("Honeycomb"))
+        assertThat(lootArray[3]["times"], `is`("250"))
+        assertThat(lootArray[3]["amount"], `is`("1"))
+        assertThat(lootArray[3]["total"], `is`("249"))
 
-        assertThat((lootArray.get(4) as JSONObject).get("itemName"), `is`("Meat"))
-        assertThat((lootArray.get(4) as JSONObject).get("times"), `is`("21065"))
+        assertThat(lootArray[4]["itemName"], `is`("Meat"))
+        assertThat(lootArray[4]["times"], `is`("21065"))
     }
 
     private fun makeAchievement(): Achievement {
@@ -385,6 +543,14 @@ class JsonFactoryTest {
 
     private fun makeBuilding(): Building {
         return WikiObjectFixtures.building()
+    }
+
+    private fun makeCharm(): Charm {
+        return WikiObjectFixtures.charm()
+    }
+
+    private fun makeCharmJson(charm: Charm): JSONObject {
+        return JSONObject(objectMapper.convertValue(charm, Map::class.java)).put("templateType", "Charm")
     }
 
     private fun makeBuildingJson(building: Building): JSONObject {
@@ -470,6 +636,29 @@ class JsonFactoryTest {
         val npc = makeNPC()
         val result = target.convertJsonToInfoboxPartOfArticle(makeNPCJson(npc), npc.fieldOrder())
         assertThat(result, `is`(INFOBOX_NPC_TEXT))
+        assertThat(Regex("""\| buys\s+=""").containsMatchIn(result), `is`(false))
+        assertThat(Regex("""\| sells\s+=""").containsMatchIn(result), `is`(false))
+    }
+
+    @Test
+    fun testConvertInfoboxPartOfArticleToJson_NPC_currentTemplate() {
+        val result = target.convertInfoboxPartOfArticleToJson(INFOBOX_NPC_CURRENT_TEMPLATE_TEXT)
+
+        assertThat(result.get("templateType"), `is`("NPC"))
+        assertThat(result.get("name"), `is`("Sam"))
+        assertThat(result.get("subarea"), `is`("Temple Street"))
+        assertThat(result.get("geolabel"), `is`("Shop"))
+        assertThat(result.get("posx6"), `is`("126.200"))
+        assertThat(result.get("posy6"), `is`("125.250"))
+        assertThat(result.get("posz6"), `is`("7"))
+        assertThat(result.get("geolabel6"), `is`("Depot"))
+        assertThat(result.get("posx7"), `is`("126.300"))
+        assertThat(result.get("posy7"), `is`("125.300"))
+        assertThat(result.get("posz7"), `is`("6"))
+        assertThat(result.get("geolabel7"), `is`("Harbour"))
+        assertThat(result.get("buysell"), `is`("yes"))
+        assertThat(result.containsKey("buys"), `is`(false))
+        assertThat(result.containsKey("sells"), `is`(false))
     }
 
     private fun makeNPC(): NPC {
@@ -544,6 +733,22 @@ class JsonFactoryTest {
 
     private fun makeStreetJson(street: Street): JSONObject {
         return JSONObject(objectMapper.convertValue(street, Map::class.java)).put("templateType", "Street")
+    }
+
+    private fun makeFansite(): Fansite {
+        return WikiObjectFixtures.fansite()
+    }
+
+    private fun makeFansiteJson(fansite: Fansite): JSONObject {
+        return JSONObject(objectMapper.convertValue(fansite, Map::class.java)).put("templateType", "Fansite")
+    }
+
+    private fun makeCipsoftMember(): CipsoftMember {
+        return WikiObjectFixtures.cipsoftMember()
+    }
+
+    private fun makeCipsoftMemberJson(cipsoftMember: CipsoftMember): JSONObject {
+        return JSONObject(objectMapper.convertValue(cipsoftMember, Map::class.java)).put("templateType", "Cipsoft_Member")
     }
 
     companion object {
@@ -815,6 +1020,15 @@ class JsonFactoryTest {
             | image        = [[File:Theater Avenue 8b.png]]
             }}
         """.trimIndent().trimStart() + "\n"
+        private val INFOBOX_CHARM_TEXT = """
+            {{Infobox Charm|List={{{1|}}}|GetValue={{{GetValue|}}}
+            | name         = Adrenaline Burst
+            | type         = Minor
+            | cost         = 100 / 150 / 225
+            | effect       = Boosts damage for a short time.
+            | implemented  = 11.50.6055
+            }}
+        """.trimIndent().trimStart() + "\n"
         private val INFOBOX_CORPSE_TEXT = """
             {{Infobox Corpse|List={{{1|}}}|GetValue={{{GetValue|}}}
             | name         = Dead Rat
@@ -869,8 +1083,12 @@ class JsonFactoryTest {
         private val INFOBOX_MOUNT_TEXT = """
             {{Infobox Mount|List={{{1|}}}|GetValue={{{GetValue|}}}
             | name          = Donkey
+            | actualname    = donkey
             | speed         = 10
             | taming_method = Use a [[Bag of Apple Slices]] on a creature transformed into Donkey.
+            | pricecurrency = Tibia Coins
+            | colourisable  = no
+            | mount_id      = 387
             | achievement   = Loyal Lad
             | implemented   = 9.1
             | notes         = Go to [[Incredibly Old Witch]]'s house,
@@ -884,17 +1102,41 @@ class JsonFactoryTest {
             | job3         = Armor Shopkeeper
             | location     = [[Temple Street]] in [[Thais]].
             | city         = Thais
+            | subarea      = Temple Street
             | posx         = 126.104
             | posy         = 125.200
             | posz         = 7
+            | geolabel     = Shop
+            | posx6        = 126.200
+            | posy6        = 125.250
+            | posz6        = 7
+            | geolabel6    = Depot
+            | posx7        = 126.300
+            | posy7        = 125.300
+            | posz7        = 6
+            | geolabel7    = Harbour
             | gender       = Male
             | race         = Human
             | buysell      = yes
-            | buys         = {{Price to Sell |Axe
-            | sells        = {{Price to Buy |Axe
             | sounds       = {{Sound List|Hello there, adventurer! Need a deal in weapons or armor? I'm your man!}}
             | implemented  = Pre-6.0
             | notes        = Sam is the Blacksmith of [[Thais]].
+            }}
+        """.trimIndent().trimStart() + "\n"
+        private val INFOBOX_NPC_CURRENT_TEMPLATE_TEXT = """
+            {{Infobox NPC|List={{{1|}}}|GetValue={{{GetValue|}}}
+            | name         = Sam
+            | subarea      = Temple Street
+            | geolabel     = Shop
+            | posx6        = 126.200
+            | posy6        = 125.250
+            | posz6        = 7
+            | geolabel6    = Depot
+            | posx7        = 126.300
+            | posy7        = 125.300
+            | posz7        = 6
+            | geolabel7    = Harbour
+            | buysell      = yes
             }}
         """.trimIndent().trimStart() + "\n"
         private val INFOBOX_OBJECT_TEXT = """
@@ -916,9 +1158,15 @@ class JsonFactoryTest {
             | premium      = yes
             | outfit       = premium, see [[Pirate Outfits Quest]].
             | addons       = premium, see [[Pirate Outfits Quest]].
+            | store        = no
             | achievement  = Swashbuckler
+            | male_id      = 151
+            | female_id    = 155
             | implemented  = 7.8
             | artwork      = Pirate Outfits Artwork.jpg
+            | artwork2     = Pirate Outfits Artwork 2.jpg
+            | artwork3     = Pirate Outfits Artwork 3.jpg
+            | labels       = Quest
             | notes        = Pirate outfits are perfect for swabbing the deck or walking the plank. Quite dashing and great for sailing.
             }}
         """.trimIndent().trimStart() + "\n"
@@ -963,6 +1211,50 @@ class JsonFactoryTest {
             | spellcost     = 0
             | effect        = Restores a small amount of [[HP|health]]. (Cures [[paralysis]].)
             | notes         = A weak, but popular healing spell.
+            }}
+        """.trimIndent().trimStart() + "\n"
+        private val INFOBOX_SPELL_CURRENT_TEXT = """
+            {{Infobox Spell|List={{{1|}}}|GetValue={{{GetValue|}}}
+            | name           = Light Healing
+            | type           = Instant
+            | subclass       = Healing
+            | words          = exura
+            | mana           = 20
+            | cooldown       = 1
+            | cooldown2      = 1
+            | cooldown3      = 1
+            | cooldowngroup  = 1
+            | secondarygroup = Support
+            | levelrequired  = 8
+            | premium        = no
+            | voc            = [[Monk]]s, [[Paladin]]s, [[Druid]]s and [[Sorcerer]]s
+            | spellid        = 1
+            | libraryname    = Light Healing
+            | librarytext    = A weak healing spell.
+            | basepower      = 40
+            | wheelspell     = no
+            | passivespell   = no
+            | effect         = Restores a small amount of [[HP|health]].
+            }}
+        """.trimIndent().trimStart() + "\n"
+        private val INFOBOX_FANSITE_TEXT = """
+            {{Infobox Fansite|List={{{1|}}}|GetValue={{{GetValue|}}}
+            | name         = TibiaWiki
+            | logo         = TibiaWiki Logo.png
+            | url          = https://tibia.fandom.com
+            | language     = English
+            | type         = Official
+            | implemented  = 8.00
+            | fansiteitem  = TibiaWiki Gem
+            | itemworth    = 5000
+            }}
+        """.trimIndent().trimStart() + "\n"
+        private val INFOBOX_CIPSOFT_MEMBER_TEXT = """
+            {{Infobox Cipsoft_Member|List={{{1|}}}|GetValue={{{GetValue|}}}
+            | name         = Knightmare
+            | actualname   = Stephan
+            | job          = Content Designer
+            | implemented  = 6.0
             }}
         """.trimIndent().trimStart() + "\n"
     }

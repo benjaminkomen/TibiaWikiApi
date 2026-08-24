@@ -1,6 +1,10 @@
 {{Infobox Mount|List={{{1|}}}|GetValue={{{GetValue|}}}
 | name          = Donkey
+| actualname    = donkey
 | speed         = 10
 | taming_method = Use a [[Bag of Apple Slices]].
+| colourisable  = no
+| pricecurrency = Tibia Coins
+| mount_id      = 387
 | implemented   = 9.1
 }}

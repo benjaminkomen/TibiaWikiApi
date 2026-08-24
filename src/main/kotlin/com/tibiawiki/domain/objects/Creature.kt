@@ -24,6 +24,7 @@ data class Creature(
     @JsonProperty("hp") val hitPoints: String? = null,
     @JsonProperty("exp") val experiencePoints: String? = null,
     val armor: String? = null,
+    val mitigation: String? = null,
     val summon: String? = null,
     val convince: String? = null,
     val illusionable: YesNo? = null,
@@ -38,11 +39,13 @@ data class Creature(
     val spawntype: List<Spawntype>? = null,
     val isboss: YesNo? = null,
     val bosstiaryclass: String? = null,
+    val cooldown: String? = null,
     val isarenaboss: YesNo? = null,
     val isevent: YesNo? = null,
     val abilities: String? = null,
     val usedelements: String? = null,
     val maxdmg: String? = null,
+    val maxbattlelength: String? = null,
     val lightradius: Int? = null,
     val lightcolor: Int? = null,
     val pushable: YesNo? = null,
@@ -86,14 +89,14 @@ data class Creature(
 
     override fun fieldOrder(): List<String> {
         return listOf(
-            "name", "article", "actualname", "plural", "hp", "exp", "armor", "summon", "convince",
+            "name", "article", "actualname", "plural", "hp", "exp", "armor", "mitigation", "summon", "convince",
             "illusionable", "creatureclass", "primarytype", "secondarytype", "bestiaryclass", "bestiarylevel",
-            "occurrence", "attacktype", "usespells", "spawntype", "isboss", "bosstiaryclass", "isarenaboss", "isevent",
-            "abilities", "usedelements", "maxdmg", "lightradius", "lightcolor", "pushable",
-            "pushobjects", "walksaround", "walksthrough", "paraimmune", "senseinvis", "physicalDmgMod", "earthDmgMod",
-            "fireDmgMod", "deathDmgMod", "energyDmgMod", "holyDmgMod", "iceDmgMod", "hpDrainDmgMod", "drownDmgMod",
-            "healMod", "bestiaryname", "bestiarytext", "sounds", "implemented", "race_id", "notes", "behaviour", "runsat",
-            "speed", "strategy", "location", "loot", "history", "status"
+            "occurrence", "attacktype", "usespells", "spawntype", "isboss", "bosstiaryclass", "cooldown",
+            "isarenaboss", "isevent", "abilities", "usedelements", "maxdmg", "maxbattlelength", "lightradius",
+            "lightcolor", "pushable", "pushobjects", "walksaround", "walksthrough", "paraimmune", "senseinvis",
+            "physicalDmgMod", "earthDmgMod", "fireDmgMod", "deathDmgMod", "energyDmgMod", "holyDmgMod", "iceDmgMod",
+            "hpDrainDmgMod", "drownDmgMod", "healMod", "bestiaryname", "bestiarytext", "sounds", "implemented",
+            "race_id", "notes", "behaviour", "runsat", "speed", "strategy", "location", "loot", "history", "status"
         )
     }
 }

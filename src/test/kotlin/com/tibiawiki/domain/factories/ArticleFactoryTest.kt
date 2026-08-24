@@ -2,7 +2,6 @@ package com.tibiawiki.domain.factories
 
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
-import org.hamcrest.Matchers.notNullValue
 import org.hamcrest.Matchers.nullValue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -100,8 +99,30 @@ class ArticleFactoryTest {
     fun testExtractAllLootPartsOfArticle_BothLoot2AndLoot2RCTemplateInArticleText() {
         var result = target.extractAllLootPartsOfArticle("Unknown", SOME_TEXT_BOTH_LOOT2_AND_LOOT2_RC_TEMPLATE)
 
-        assertThat(result.get("loot2_rc"), notNullValue())
-        assertThat(result.get("loot2"), notNullValue())
+        assertThat(result.get("loot2"), `is`(SOME_TEXT_ONLY_LOOT2_TEMPLATE))
+        assertThat(result.get("loot2_rc"), `is`(SOME_TEXT_ONLY_LOOT2_RC_TEMPLATE))
+    }
+
+    @Test
+    fun testExtractLootPartOfArticle_OnlyLoot2RcTemplate() {
+        val result = target.extractLootPartOfArticle("Unknown", SOME_TEXT_ONLY_LOOT2_RC_TEMPLATE)
+
+        assertThat(result, `is`(""))
+    }
+
+    @Test
+    fun testExtractLootPartOfArticle_Loot2RcFirstThenLoot2() {
+        val result = target.extractLootPartOfArticle("Unknown", SOME_TEXT_LOOT2_RC_THEN_LOOT2)
+
+        assertThat(result, `is`(SOME_TEXT_LOOT2_FROM_RC_FIRST))
+    }
+
+    @Test
+    fun testExtractAllLootPartsOfArticle_Loot2RcFirstThenLoot2() {
+        var result = target.extractAllLootPartsOfArticle("Unknown", SOME_TEXT_LOOT2_RC_THEN_LOOT2)
+
+        assertThat(result.get("loot2"), `is`(SOME_TEXT_LOOT2_FROM_RC_FIRST))
+        assertThat(result.get("loot2_rc"), `is`(SOME_TEXT_LOOT2_RC_FROM_RC_FIRST))
     }
 
     @Test
@@ -146,18 +167,6 @@ class ArticleFactoryTest {
             |Honeycomb, times:250, amount:1, total:249
             }}
         """.trimIndent().trimStart()
-        private val SOME_TEXT_ONLY_LOOT2_RC_TEMPLATE = """
-            {{Loot2_RC
-            |version=8.6
-            |kills=52807
-            |name=Bear
-            |Empty, times:24777
-            |Meat, times:21065
-            |Ham, times:10581
-            |Bear Paw, times:1043, amount:1, total:1043
-            |Honeycomb, times:250, amount:1, total:249
-            }}
-        """.trimIndent().trimStart()
         private val SOME_TEXT_BOTH_LOOT2_AND_LOOT2_RC_TEMPLATE = """
             __NOWYSIWYG__
 
@@ -174,13 +183,54 @@ class ArticleFactoryTest {
 
             {{Loot2_RC
             |version=8.6
-            |kills=52807
+            |kills=12
             |name=Bear
-            |Empty, times:24777
-            |Meat, times:21065
-            |Ham, times:10581
-            |Bear Paw, times:1043, amount:1, total:1043
-            |Honeycomb, times:250, amount:1, total:249
+            |Honeycomb, times:3, amount:1, total:3
+            }}
+        """.trimIndent().trimStart()
+        private val SOME_TEXT_ONLY_LOOT2_RC_TEMPLATE = """
+            {{Loot2_RC
+            |version=8.6
+            |kills=12
+            |name=Bear
+            |Honeycomb, times:3, amount:1, total:3
+            }}
+        """.trimIndent().trimStart()
+        private val SOME_TEXT_LOOT2_FROM_RC_FIRST = """
+            {{Loot2
+            |version=8.6
+            |kills=500
+            |name=Demon
+            |Gold Coin, times:400, amount:1-200, total:40000
+            |Fire Axe, times:10, amount:1, total:10
+            }}
+        """.trimIndent().trimStart()
+        private val SOME_TEXT_LOOT2_RC_FROM_RC_FIRST = """
+            {{Loot2_RC
+            |version=8.6
+            |kills=2
+            |name=Demon
+            |Magic Plate Armor, times:1, amount:1, total:1
+            |Demon Shield, times:1, amount:1, total:1
+            }}
+        """.trimIndent().trimStart()
+        private val SOME_TEXT_LOOT2_RC_THEN_LOOT2 = """
+            __NOWYSIWYG__
+
+            {{Loot2_RC
+            |version=8.6
+            |kills=2
+            |name=Demon
+            |Magic Plate Armor, times:1, amount:1, total:1
+            |Demon Shield, times:1, amount:1, total:1
+            }}
+
+            {{Loot2
+            |version=8.6
+            |kills=500
+            |name=Demon
+            |Gold Coin, times:400, amount:1-200, total:40000
+            |Fire Axe, times:10, amount:1, total:10
             }}
         """.trimIndent().trimStart()
         private val SOME_TEXT_INFOBOX_WITH_BEFORE_AND_AFTER = """

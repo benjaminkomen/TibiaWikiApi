@@ -1,14 +1,25 @@
 package com.tibiawiki.domain.objects
 
 import com.fasterxml.jackson.annotation.JsonGetter
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.tibiawiki.domain.enums.Article
 import com.tibiawiki.domain.enums.DamageElement
 import com.tibiawiki.domain.enums.Hands
 import com.tibiawiki.domain.enums.InfoboxTemplate
+import com.tibiawiki.domain.enums.Status
 import com.tibiawiki.domain.enums.WeaponType
 import com.tibiawiki.domain.enums.YesNo
 import java.math.BigDecimal
 
 data class TibiaObject(
+    override val name: String? = null,
+    override val article: Article? = null,
+    override val actualname: String? = null,
+    override val plural: String? = null,
+    override val implemented: String? = null,
+    override val notes: String? = null,
+    override val history: String? = null,
+    override val status: Status? = null,
     val itemid: List<Int>? = emptyList(),
     // Wiki infobox still serializes these keys; dropping them would break GET/PUT JSON.
     @Suppress("kotlin:S1133")
@@ -43,6 +54,7 @@ data class TibiaObject(
     val mlrequired: Int? = null,
     val hands: Hands? = null,
     val weapontype: WeaponType? = null,
+    val slot: String? = null,
     val attack: String? = null,
     @get:JsonGetter("fire_attack") val fireAttack: Int? = null,
     @get:JsonGetter("earth_attack") val earthAttack: Int? = null,
@@ -65,20 +77,25 @@ data class TibiaObject(
     @get:JsonGetter("hpleech_ch") val hitpointLeechChance: Percentage? = null,
     @get:JsonGetter("hpleech_am") val hitpointLeechAmount: Percentage? = null,
     val manacost: Int? = null,
+    val basepower: Int? = null,
     val damagetype: DamageElement? = null,
     val damagerange: String? = null,
     val upgradeclass: Int? = null,
     val attrib: String? = null,
+    val augments: String? = null,
     val charges: Int? = null,
     val armor: Int? = null,
     val resist: String? = null,
     val weight: BigDecimal? = null,
     val stackable: YesNo? = null,
     val marketable: YesNo? = null,
+    @JsonProperty("task_item") val taskItem: YesNo? = null,
     val consumable: YesNo? = null,
     val regenseconds: Int? = null,
     val hangable: YesNo? = null,
+    val wrappable: YesNo? = null,
     val duration: String? = null,
+    val cooldown: Int? = null,
     val destructible: YesNo? = null,
     val rotatable: YesNo? = null,
     val mapcolor: Int? = null,
@@ -95,7 +112,16 @@ data class TibiaObject(
     val fansite: String? = null,
     val location: String? = null,
     val notes2: String? = null,
-) : WikiObject() {
+) : WikiObject(
+    name = name,
+    article = article,
+    actualname = actualname,
+    plural = plural,
+    implemented = implemented,
+    notes = notes,
+    history = history,
+    status = status
+) {
     override fun fieldOrder(): MutableList<String> {
         return mutableListOf(
             "name",
@@ -131,6 +157,7 @@ data class TibiaObject(
             "mlrequired",
             "hands",
             "weapontype",
+            "slot",
             "attack",
             "fire_attack",
             "earth_attack",
@@ -153,20 +180,25 @@ data class TibiaObject(
             "hpleech_ch",
             "hpleech_am",
             "manacost",
+            "basepower",
             "damagetype",
             "damagerange",
             "upgradeclass",
             "attrib",
+            "augments",
             "charges",
             "armor",
             "resist",
             "weight",
             "stackable",
             "marketable",
+            "task_item",
             "consumable",
             "regenseconds",
             "hangable",
+            "wrappable",
             "duration",
+            "cooldown",
             "destructible",
             "rotatable",
             "mapcolor",

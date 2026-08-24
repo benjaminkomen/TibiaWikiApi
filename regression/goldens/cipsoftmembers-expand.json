@@ -1,0 +1,14 @@
+{
+  "path": "/api/cipsoftmembers?expand=true",
+  "status": 200,
+  "body": [
+    {
+      "actualname": "Stephan",
+      "implemented": "6.0",
+      "job": "Content Designer",
+      "name": "Knightmare",
+      "status": "active",
+      "templateType": "Cipsoft_Member"
+    }
+  ]
+}

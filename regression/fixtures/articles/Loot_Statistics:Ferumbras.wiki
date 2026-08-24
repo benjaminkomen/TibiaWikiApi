@@ -5,3 +5,11 @@
 |Gold Coin, times:100, amount:1-105, total:5000
 |Platinum Coin, times:10, amount:7-34, total:178
 }}
+
+{{Loot2_RC
+|version=8.6
+|kills=1
+|name=Ferumbras
+|Blue Gem, times:1, amount:1, total:1
+|Golden Armor, times:1, amount:1, total:1
+}}

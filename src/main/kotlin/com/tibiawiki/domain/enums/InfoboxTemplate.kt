@@ -15,9 +15,11 @@ enum class InfoboxTemplate(
     CORPSE("Corpse", "Corpses"),
     CREATURE("Creature", "Creatures"),
     EFFECT("Effect", "Effects"),
+    FAMILIAR("Familiar", "Familiars"),
     FANSITE("Fansite", "Tibia_Fansites"),
     GEOGRAPHY("Geography", "Locations"),
     HUNT("Hunt", "Hunting Places"),
+    IMBUEMENT("Imbuement", "Imbuements"),
     ITEM("Item", "Pickupable Objects"),
     KEY("Key", "Keys"),
     LOOT("Loot2", "Loot Statistics"),
@@ -30,7 +32,7 @@ enum class InfoboxTemplate(
     SPELL("Spell", "Spells"),
     STREET("Street", "Streets"),
     UPDATE("Update", "Updates"),
-    WORLD("World", "Gameworlds");
+    WORLD("World", "Game Worlds");
 
     override val templateDescription: String
         get() = "Template:Infobox_$templateName"

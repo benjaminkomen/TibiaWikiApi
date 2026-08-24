@@ -1,21 +1,18 @@
-FROM gradle:9.7.1-jdk25 as builder
+FROM gradle:9.7.1-jdk25 AS builder
 
 # Copy local code to the container image.
 WORKDIR /app
-COPY build.gradle .
+COPY gradlew settings.gradle build.gradle ./
+COPY gradle ./gradle
 COPY src ./src
 
-ARG GITHUB_TOKEN
-ENV GITHUB_TOKEN=${GITHUB_TOKEN}
-
-# Produce the boot jar only. Unit/IT coverage runs in GitHub Actions;
-# this image does not copy test fixtures or a settings.gradle (WORKDIR
-# name "app" keeps the artifact at app-2.0.0.jar).
-RUN gradle bootJar --no-daemon
+# Produce the boot jar only. Unit/IT coverage runs in GitHub Actions.
+# bootJar archiveFileName is TibiaWikiApi.jar (see build.gradle).
+RUN chmod +x gradlew && ./gradlew bootJar --no-daemon
 
 FROM eclipse-temurin:25.0.4_7-jre
 RUN mkdir /project
-COPY --from=builder /app/build/libs/app-2.0.0.jar /project/TibiaWikiApi.jar
+COPY --from=builder /app/build/libs/TibiaWikiApi.jar /project/TibiaWikiApi.jar
 WORKDIR /project
 
 # Run the web service on container startup.

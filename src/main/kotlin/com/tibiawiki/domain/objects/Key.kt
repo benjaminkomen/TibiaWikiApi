@@ -1,5 +1,6 @@
 package com.tibiawiki.domain.objects
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.tibiawiki.domain.enums.InfoboxTemplate
 import com.tibiawiki.domain.enums.KeyType
 import com.tibiawiki.domain.enums.Status
@@ -28,6 +29,16 @@ data class Key(
 ) {
     override fun getTemplateType(): String {
         return InfoboxTemplate.KEY.templateName
+    }
+
+    @JsonIgnore
+    override fun articleTitle(): String {
+        val keyNumber = number?.trim().orEmpty()
+        return when {
+            keyNumber.isEmpty() -> ""
+            keyNumber.startsWith("Key ") -> keyNumber
+            else -> "Key $keyNumber"
+        }
     }
 
     override fun fieldOrder(): List<String> {

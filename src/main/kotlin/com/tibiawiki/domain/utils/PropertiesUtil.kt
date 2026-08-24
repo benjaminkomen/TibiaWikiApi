@@ -5,10 +5,8 @@ import org.slf4j.LoggerFactory
 object PropertiesUtil {
     private val LOG = LoggerFactory.getLogger(PropertiesUtil::class.java)
 
-    @JvmStatic
     fun getUsername(): String? = getProperty("username")
 
-    @JvmStatic
     fun getPassword(): String? = getProperty("password")
 
     private fun getProperty(propertyName: String): String? {

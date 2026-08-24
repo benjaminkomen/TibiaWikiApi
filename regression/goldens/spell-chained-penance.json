@@ -1,0 +1,22 @@
+{
+  "path": "/api/spells/Chained_Penance",
+  "status": 200,
+  "body": {
+    "cooldown": "4",
+    "effect": "Deals holy damage that can jump to nearby enemies.",
+    "implemented": "15.00.249ccc",
+    "levelrequired": "8",
+    "mana": "180",
+    "name": "Chained Penance",
+    "premium": "no",
+    "spellid": "280",
+    "subclass": "Attack",
+    "templateType": "Spell",
+    "type": "Instant",
+    "voc": "[[Monk]]s",
+    "vocations": [
+      "monk"
+    ],
+    "words": "exori mas nia"
+  }
+}

@@ -1,0 +1,83 @@
+package com.tibiawiki.domain.objects
+
+import com.tibiawiki.config.JacksonConfiguration
+import com.tibiawiki.domain.factories.JsonFactory
+import com.tibiawiki.domain.factories.WikiObjectFactory
+import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.Matchers.hasItems
+import org.hamcrest.Matchers.`is`
+import org.junit.jupiter.api.Test
+import tools.jackson.databind.json.JsonMapper
+
+class CharmTest {
+
+    @Test
+    fun typedPathKeepsMinorAndMajor() {
+        val mapper = productionMapper()
+        val wikiObjectFactory = WikiObjectFactory(mapper)
+
+        val minor = mapper.readValue(MINOR_JSON, Charm::class.java)
+        assertThat(minor.type, `is`(Charm.Type.Minor))
+        assertThat(minor.cost, `is`(TIERED_MINOR_COST))
+        assertThat(wikiObjectFactory.createJSONObject(minor, "Charm")["type"].toString(), `is`("Minor"))
+
+        val major = mapper.readValue(MAJOR_JSON, Charm::class.java)
+        assertThat(major.type, `is`(Charm.Type.Major))
+        assertThat(wikiObjectFactory.createJSONObject(major, "Charm")["type"].toString(), `is`("Major"))
+    }
+
+    @Test
+    fun fixtureInfoboxMapsToMinorWithoutStrippingType() {
+        val json = JsonFactory().convertInfoboxPartOfArticleToJson(adrenalineBurstInfobox)
+        val charm = productionMapper().convertValue(json, Charm::class.java) as Charm
+
+        assertThat(json["status"], `is`("active"))
+        assertThat(charm.type, `is`(Charm.Type.Minor))
+        assertThat(charm.cost, `is`(TIERED_MINOR_COST))
+        assertThat(charm.status?.description?.lowercase(), `is`("active"))
+    }
+
+    @Test
+    fun nameAndParentFieldsArePopulated() {
+        val charm = WikiObjectFixtures.charm()
+
+        assertThat(charm.name, `is`("Adrenaline Burst"))
+        assertThat(charm.implemented, `is`("11.50.6055"))
+        assertThat(charm.getTemplateType(), `is`("Charm"))
+        assertThat(
+            charm.fieldOrder(),
+            hasItems("name", "actualname", "implemented", "notes", "history", "status")
+        )
+    }
+
+    @Test
+    fun typeAcceptsMinorAndMajor() {
+        val minor = Charm(name = "Adrenaline Burst", type = Charm.Type.Minor)
+        val major = Charm(name = "Wound", type = Charm.Type.Major)
+
+        assertThat(minor.type, `is`(Charm.Type.Minor))
+        assertThat(major.type, `is`(Charm.Type.Major))
+    }
+
+    private fun productionMapper() = JsonMapper.builder()
+        .also { JacksonConfiguration().jsonMapperBuilderCustomizer().customize(it) }
+        .build()
+
+    companion object {
+        private const val TIERED_MINOR_COST = "100 / 150 / 225"
+        private const val MINOR_JSON =
+            "{\"templateType\":\"Charm\",\"type\":\"Minor\",\"cost\":\"100 / 150 / 225\",\"effect\":\"boost\"}"
+        private const val MAJOR_JSON =
+            "{\"templateType\":\"Charm\",\"type\":\"Major\",\"cost\":\"600 / 900 / 3000\",\"effect\":\"aoe\"}"
+        private val adrenalineBurstInfobox = """
+            {{Infobox Charm
+            | name         = Adrenaline Burst
+            | type         = Minor
+            | cost         = 100 / 150 / 225
+            | effect       = Boosts damage for a short time.
+            | implemented  = 11.50.6055
+            | status       = active
+            }}
+        """.trimIndent()
+    }
+}

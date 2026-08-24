@@ -1,0 +1,11 @@
+{
+  "path": "/api/worlds/Antica",
+  "status": 200,
+  "body": {
+    "implemented": "7.0",
+    "location": "Europe",
+    "name": "Antica",
+    "pvpType": "Open PvP",
+    "templateType": "World"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "path": "/api/v2/loot/Demon",
+  "status": 200,
+  "body": {
+    "loot2": {
+      "kills": "500",
+      "loot": [
+        {
+          "amount": "1",
+          "itemName": "Fire Axe",
+          "times": "10",
+          "total": "10"
+        },
+        {
+          "amount": "1-200",
+          "itemName": "Gold Coin",
+          "times": "400",
+          "total": "40000"
+        }
+      ],
+      "name": "Demon",
+      "pageName": "Loot_Statistics:Demon",
+      "version": "8.6"
+    },
+    "loot2_rc": {
+      "kills": "2",
+      "loot": [
+        {
+          "amount": "1",
+          "itemName": "Magic Plate Armor",
+          "times": "1",
+          "total": "1"
+        },
+        {
+          "amount": "1",
+          "itemName": "Demon Shield",
+          "times": "1",
+          "total": "1"
+        }
+      ],
+      "name": "Demon",
+      "pageName": "Loot_Statistics:Demon",
+      "version": "8.6"
+    }
+  }
+}

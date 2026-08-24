@@ -2,12 +2,12 @@
   "path": "/api/charms/Adrenaline_Burst",
   "status": 200,
   "body": {
-    "cost": "100",
+    "cost": "100 / 150 / 225",
     "effect": "Boosts damage for a short time.",
     "implemented": "11.50.6055",
     "name": "Adrenaline Burst",
     "status": "active",
     "templateType": "Charm",
-    "type": "Offensive"
+    "type": "Minor"
   }
 }

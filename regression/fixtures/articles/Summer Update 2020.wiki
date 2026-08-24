@@ -1,0 +1,5 @@
+{{Infobox Update|List={{{1|}}}|GetValue={{{GetValue|}}}
+| name          = Summer Update 2020
+| implemented   = 12.40
+| date          = July 13, 2020
+}}

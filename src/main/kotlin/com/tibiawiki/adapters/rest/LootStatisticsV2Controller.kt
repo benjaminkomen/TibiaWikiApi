@@ -1,5 +1,6 @@
 package com.tibiawiki.adapters.rest
 
+import com.tibiawiki.domain.WikiJson
 import com.tibiawiki.process.RetrieveLoot
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
@@ -41,7 +42,7 @@ class LootStatisticsV2Controller(
 
     @GetMapping(value = ["/{name}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(summary = "Get a specific loot statistics page by creature name")
-    fun getLootByName(@PathVariable("name") name: String): ResponseEntity<String> {
+    fun getLootByName(@PathVariable("name") name: String): ResponseEntity<WikiJson> {
         return WikiResourceResponses.jsonOrNotFound(retrieveLoot.getAllLootPartsJSON("Loot_Statistics:$name"))
     }
 }

@@ -2,6 +2,10 @@ package com.tibiawiki.domain.objects
 
 import com.fasterxml.jackson.annotation.JsonBackReference
 
+/**
+ * Per-area Hunt skill table. Same knight / paladin / mage columns as [HuntingPlace];
+ * no Monk fields until the wiki Infobox Hunt Skills template adds them.
+ */
 data class HuntingPlaceSkills(
     val areaname: String? = null,
     val lvlknights: String? = null,
@@ -17,7 +21,6 @@ data class HuntingPlaceSkills(
     val huntingPlace: HuntingPlace? = null
 ) {
     companion object {
-        @JvmStatic
         fun fieldOrder(): List<String> {
             return listOf(
                 "areaname",

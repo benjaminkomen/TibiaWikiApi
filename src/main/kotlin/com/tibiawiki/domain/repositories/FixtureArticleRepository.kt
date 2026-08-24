@@ -1,6 +1,6 @@
 package com.tibiawiki.domain.repositories
 
-import io.github.fastily.jwiki.core.NS
+import com.tibiawiki.domain.objects.WikiNamespace
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Profile
@@ -40,7 +40,7 @@ class FixtureArticleRepository(
         return categories[categoryName].orEmpty().toList()
     }
 
-    override fun getPageNamesFromCategory(categoryName: String, namespace: NS): List<String> {
+    override fun getPageNamesFromCategory(categoryName: String, namespace: WikiNamespace): List<String> {
         return getPageNamesFromCategory(categoryName)
     }
 
@@ -112,7 +112,6 @@ class FixtureArticleRepository(
             return loaded.toMap()
         }
 
-        @JvmStatic
         fun resolveFixturesDir(configured: String): Path {
             val given = Path.of(configured)
             if (isFixturesDir(given)) {

@@ -1,6 +1,7 @@
 package com.tibiawiki.adapters.rest
 
 import com.tibiawiki.domain.RetrieveWikiPages
+import com.tibiawiki.domain.WikiJson
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
@@ -31,10 +32,7 @@ class WikiPageController(
             )
         ]
     )
-    fun getWikiPageByTitle(@PathVariable("title") title: String): ResponseEntity<String> {
-        return retrieveWikiPages.getWikiPageJSON(title)
-            ?.takeIf { it.isEmpty.not() }
-            ?.let { ResponseEntity.ok().body(it.toString(2)) }
-            ?: ResponseEntity.notFound().build()
+    fun getWikiPageByTitle(@PathVariable("title") title: String): ResponseEntity<WikiJson> {
+        return WikiResourceResponses.jsonOrNotFound(retrieveWikiPages.getWikiPageJSON(title))
     }
 }

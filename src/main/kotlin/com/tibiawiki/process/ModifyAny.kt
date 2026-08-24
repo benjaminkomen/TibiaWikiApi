@@ -1,12 +1,12 @@
 package com.tibiawiki.process
 
+import com.tibiawiki.domain.ArticleNotFoundException
 import com.tibiawiki.domain.factories.ArticleFactory
 import com.tibiawiki.domain.factories.JsonFactory
 import com.tibiawiki.domain.factories.WikiObjectFactory
 import com.tibiawiki.domain.objects.WikiObject
 import com.tibiawiki.domain.objects.validation.ValidationException
 import com.tibiawiki.domain.repositories.ArticleRepository
-import io.vavr.control.Try
 import org.springframework.stereotype.Component
 
 /**
@@ -23,36 +23,34 @@ class ModifyAny(
     private val articleRepository: ArticleRepository
 ) {
 
-    fun modify(wikiObject: WikiObject, editSummary: String?): Try<WikiObject> {
-        val originalWikiObject = articleRepository.getArticle(wikiObject.name ?: "") ?: ""
+    fun modify(wikiObject: WikiObject, editSummary: String?): ModifyResult {
+        val validationFailure = validate(wikiObject)
+        if (validationFailure != null) {
+            return validationFailure
+        }
 
-        return validate(wikiObject)
-            .map { wikiObj -> wikiObjectFactory.createJSONObject(wikiObj, wikiObj.getTemplateType()) }
-            .map { json -> jsonFactory.convertJsonToInfoboxPartOfArticle(json, wikiObject.fieldOrder()) }
-            .map { s -> articleFactory.insertInfoboxPartOfArticle(originalWikiObject, s) }
-            .flatMap { s ->
-                if (s.isEmpty) {
-                    Try.failure(IllegalArgumentException("Could not find required text in article"))
-                } else {
-                    Try.success(s.get())
-                }
-            }
-            .map { s -> articleRepository.modifyArticle(wikiObject.name ?: "", s, editSummary) }
-            .flatMap { b ->
-                if (b) {
-                    Try.success(wikiObject)
-                } else {
-                    Try.failure(ValidationException("Unable to edit wikiObject."))
-                }
-            }
+        val title = wikiObject.articleTitle()
+        val originalWikiObject = articleRepository.getArticle(title)
+            ?: return ModifyResult.Failure(ArticleNotFoundException(title))
+        val json = wikiObjectFactory.createJSONObject(wikiObject, wikiObject.getTemplateType())
+        val infobox = jsonFactory.convertJsonToInfoboxPartOfArticle(json, wikiObject.fieldOrder())
+        val updatedArticle = articleFactory.insertInfoboxPartOfArticle(originalWikiObject, infobox).orElse(null)
+            ?: return ModifyResult.Failure(IllegalArgumentException("Could not find required text in article"))
+
+        val edited = articleRepository.modifyArticle(title, updatedArticle, editSummary)
+        return if (edited) {
+            ModifyResult.Success(wikiObject)
+        } else {
+            ModifyResult.Failure(ValidationException("Unable to edit wikiObject."))
+        }
     }
 
-    private fun validate(wikiObject: WikiObject): Try<WikiObject> {
+    private fun validate(wikiObject: WikiObject): ModifyResult.Failure? {
         val validationResults = wikiObject.validate()
         return if (validationResults.isEmpty()) {
-            Try.success(wikiObject)
+            null
         } else {
-            Try.failure(ValidationException.fromResults(validationResults))
+            ModifyResult.Failure(ValidationException.fromResults(validationResults))
         }
     }
 }

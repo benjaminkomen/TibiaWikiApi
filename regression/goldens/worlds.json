@@ -1,0 +1,7 @@
+{
+  "path": "/api/worlds",
+  "status": 200,
+  "body": [
+    "Antica"
+  ]
+}

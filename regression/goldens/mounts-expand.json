@@ -3,8 +3,12 @@
   "status": 200,
   "body": [
     {
+      "actualname": "donkey",
+      "colourisable": "no",
       "implemented": "9.1",
+      "mount_id": "387",
       "name": "Donkey",
+      "pricecurrency": "Tibia Coins",
       "speed": "10",
       "taming_method": "Use a [[Bag of Apple Slices]].",
       "templateType": "Mount"

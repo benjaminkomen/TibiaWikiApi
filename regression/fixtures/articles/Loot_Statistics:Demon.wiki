@@ -1,0 +1,15 @@
+{{Loot2_RC
+|version=8.6
+|kills=2
+|name=Demon
+|Magic Plate Armor, times:1, amount:1, total:1
+|Demon Shield, times:1, amount:1, total:1
+}}
+
+{{Loot2
+|version=8.6
+|kills=500
+|name=Demon
+|Gold Coin, times:400, amount:1-200, total:40000
+|Fire Axe, times:10, amount:1, total:10
+}}

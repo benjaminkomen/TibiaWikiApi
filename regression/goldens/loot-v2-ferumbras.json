@@ -21,6 +21,26 @@
       "name": "Ferumbras",
       "pageName": "Loot_Statistics:Ferumbras",
       "version": "8.6"
+    },
+    "loot2_rc": {
+      "kills": "1",
+      "loot": [
+        {
+          "amount": "1",
+          "itemName": "Blue Gem",
+          "times": "1",
+          "total": "1"
+        },
+        {
+          "amount": "1",
+          "itemName": "Golden Armor",
+          "times": "1",
+          "total": "1"
+        }
+      ],
+      "name": "Ferumbras",
+      "pageName": "Loot_Statistics:Ferumbras",
+      "version": "8.6"
     }
   }
 }

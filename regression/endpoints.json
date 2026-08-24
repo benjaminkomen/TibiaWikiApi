@@ -20,6 +20,11 @@
     "description": "List of charm names"
   },
   {
+    "id": "cipsoftmembers",
+    "path": "/api/cipsoftmembers",
+    "description": "List of CipSoft member names"
+  },
+  {
     "id": "corpses",
     "path": "/api/corpses",
     "description": "List of corpse names"
@@ -33,6 +38,11 @@
     "id": "effects",
     "path": "/api/effects",
     "description": "List of effect names"
+  },
+  {
+    "id": "fansites",
+    "path": "/api/fansites",
+    "description": "List of fansite names"
   },
   {
     "id": "huntingplaces",
@@ -100,6 +110,26 @@
     "description": "List of street names"
   },
   {
+    "id": "familiars",
+    "path": "/api/familiars",
+    "description": "List of familiar names"
+  },
+  {
+    "id": "imbuements",
+    "path": "/api/imbuements",
+    "description": "List of imbuement names"
+  },
+  {
+    "id": "updates",
+    "path": "/api/updates",
+    "description": "List of update names"
+  },
+  {
+    "id": "worlds",
+    "path": "/api/worlds",
+    "description": "List of game world names"
+  },
+  {
     "id": "achievements-expand",
     "path": "/api/achievements?expand=true",
     "description": "Full achievement objects (expand=true)"
@@ -110,6 +140,11 @@
     "description": "Full charm objects (expand=true)"
   },
   {
+    "id": "cipsoftmembers-expand",
+    "path": "/api/cipsoftmembers?expand=true",
+    "description": "Full CipSoft member objects (expand=true)"
+  },
+  {
     "id": "corpses-expand",
     "path": "/api/corpses?expand=true",
     "description": "Full corpse objects (expand=true)"
@@ -118,6 +153,11 @@
     "id": "effects-expand",
     "path": "/api/effects?expand=true",
     "description": "Full effect objects (expand=true)"
+  },
+  {
+    "id": "fansites-expand",
+    "path": "/api/fansites?expand=true",
+    "description": "Full fansite objects (expand=true)"
   },
   {
     "id": "huntingplaces-expand",
@@ -165,6 +205,26 @@
     "description": "Full street objects (expand=true)"
   },
   {
+    "id": "familiars-expand",
+    "path": "/api/familiars?expand=true",
+    "description": "Full familiar objects (expand=true)"
+  },
+  {
+    "id": "imbuements-expand",
+    "path": "/api/imbuements?expand=true",
+    "description": "Full imbuement objects (expand=true)"
+  },
+  {
+    "id": "updates-expand",
+    "path": "/api/updates?expand=true",
+    "description": "Full update objects (expand=true)"
+  },
+  {
+    "id": "worlds-expand",
+    "path": "/api/worlds?expand=true",
+    "description": "Full world objects (expand=true)"
+  },
+  {
     "id": "achievement-goo-goo-dancer",
     "path": "/api/achievements/Goo_Goo_Dancer",
     "description": "Achievement detail: Goo Goo Dancer"
@@ -185,6 +245,11 @@
     "description": "Charm detail: Adrenaline Burst"
   },
   {
+    "id": "cipsoftmember-knightmare",
+    "path": "/api/cipsoftmembers/Knightmare",
+    "description": "CipSoft member detail: Knightmare"
+  },
+  {
     "id": "corpse-dead-rat",
     "path": "/api/corpses/Dead_Rat",
     "description": "Corpse detail: Dead Rat"
@@ -198,6 +263,11 @@
     "id": "effect-blue-electricity-effect",
     "path": "/api/effects/Blue_Electricity_Effect",
     "description": "Effect detail: Blue Electricity Effect"
+  },
+  {
+    "id": "fansite-tibiawiki",
+    "path": "/api/fansites/TibiaWiki",
+    "description": "Fansite detail: TibiaWiki"
   },
   {
     "id": "huntingplace-hero-cave",
@@ -222,7 +292,12 @@
   {
     "id": "loot-ferumbras",
     "path": "/api/loot/Ferumbras",
-    "description": "Loot statistics detail: Ferumbras"
+    "description": "Loot statistics detail: Ferumbras (Loot2 then Loot2_RC)"
+  },
+  {
+    "id": "loot-demon",
+    "path": "/api/loot/Demon",
+    "description": "Loot statistics detail: Demon (Loot2_RC first, then Loot2)"
   },
   {
     "id": "loot-v2",
@@ -233,6 +308,16 @@
     "id": "loot-v2-ferumbras",
     "path": "/api/v2/loot/Ferumbras",
     "description": "Loot statistics v2 detail: Ferumbras (loot2 / loot2_rc)"
+  },
+  {
+    "id": "loot-v2-demon",
+    "path": "/api/v2/loot/Demon",
+    "description": "Loot statistics v2 detail: Demon (Loot2_RC first, then Loot2)"
+  },
+  {
+    "id": "page-dragon",
+    "path": "/api/pages/Dragon",
+    "description": "Wiki page by title: Dragon"
   },
   {
     "id": "missile-throwing-cake",
@@ -267,12 +352,57 @@
   {
     "id": "spell-light-healing",
     "path": "/api/spells/Light_Healing",
-    "description": "Spell detail: Light Healing"
+    "description": "Spell detail: Light Healing (spellid + Monks)"
+  },
+  {
+    "id": "spell-chained-penance",
+    "path": "/api/spells/Chained_Penance",
+    "description": "Spell detail: Chained Penance (Monk-only)"
+  },
+  {
+    "id": "page-powerful-strike",
+    "path": "/api/pages/Powerful_Strike",
+    "description": "Wiki page detail: Powerful Strike (Infobox Imbuement)"
+  },
+  {
+    "id": "page-bladespark",
+    "path": "/api/pages/Bladespark",
+    "description": "Wiki page detail: Bladespark (Infobox Familiar)"
+  },
+  {
+    "id": "loot-dragon",
+    "path": "/api/loot/Dragon",
+    "description": "Loot statistics v1 detail: Dragon (RC-first article)"
+  },
+  {
+    "id": "loot-v2-dragon",
+    "path": "/api/v2/loot/Dragon",
+    "description": "Loot statistics v2 detail: Dragon (RC-first, loot2 / loot2_rc)"
   },
   {
     "id": "street-sugar-street",
     "path": "/api/streets/Sugar_Street",
     "description": "Street detail: Sugar Street"
+  },
+  {
+    "id": "familiar-grovebeast",
+    "path": "/api/familiars/Grovebeast",
+    "description": "Familiar detail: Grovebeast"
+  },
+  {
+    "id": "imbuement-powerful-strike",
+    "path": "/api/imbuements/Powerful_Strike",
+    "description": "Imbuement detail: Powerful Strike"
+  },
+  {
+    "id": "update-summer-2020",
+    "path": "/api/updates/Summer_Update_2020",
+    "description": "Update detail: Summer Update 2020"
+  },
+  {
+    "id": "world-antica",
+    "path": "/api/worlds/Antica",
+    "description": "World detail: Antica"
   },
   {
     "id": "creature-missing",

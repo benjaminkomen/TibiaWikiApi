@@ -17,7 +17,6 @@ import com.tibiawiki.domain.enums.Hands
 import com.tibiawiki.domain.enums.ObjectClass
 import com.tibiawiki.domain.enums.WeaponType
 import com.tibiawiki.domain.enums.YesNo
-import org.springframework.test.util.ReflectionTestUtils
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -26,8 +25,6 @@ import java.math.RoundingMode
  */
 object WikiObjectFixtures {
 
-    @JvmStatic
-    @JvmOverloads
     fun achievement(
         name: String? = "Goo Goo Dancer",
         description: String? = "Seeing a mucus plug makes your heart dance and you can't resist to see what it hides. Goo goo away!",
@@ -52,10 +49,8 @@ object WikiObjectFixtures {
         relatedpages = relatedpages
     )
 
-    @JvmStatic
     fun namedAchievement(name: String): Achievement = Achievement(name = name)
 
-    @JvmStatic
     fun book(): Book = Book(
         booktype = BookType.BOOK_BROWN,
         title = "Dungeon Survival Guide",
@@ -72,7 +67,6 @@ object WikiObjectFixtures {
             " the dungeons will reward the cautious and brave, but punish the reckless."
     )
 
-    @JvmStatic
     fun building(): Building = Building(
         name = "Theater Avenue 8b",
         implemented = "Pre-6.0",
@@ -95,7 +89,6 @@ object WikiObjectFixtures {
         image = "[[File:Theater Avenue 8b.png]]"
     )
 
-    @JvmStatic
     fun corpse(): Corpse = Corpse(
         name = "Dead Rat",
         article = Article.A,
@@ -116,7 +109,6 @@ object WikiObjectFixtures {
             " for better [[equipment]]. Only fresh corpses are accepted, rotted corpses are ignored."
     )
 
-    @JvmStatic
     fun effect(): Effect = Effect(
         name = "Fireball Effect",
         effectid = listOf(7, 82),
@@ -127,7 +119,6 @@ object WikiObjectFixtures {
         effect = "[[Fire Damage]] on target or nothing."
     )
 
-    @JvmStatic
     fun key(): Key = Key(
         number = "4055",
         aka = "Panpipe Quest Key",
@@ -141,6 +132,15 @@ object WikiObjectFixtures {
         origin = "Hidden in a rock south of the Desert Dungeon entrance.",
         shortnotes = "Access to the [[Panpipe Quest]].",
         longnotes = "Allows you to open the door ([https://tibia.wikia.com/wiki/Mapper?coords=127.131,125.129,8,3,1,1 here]) to the [[Panpipe Quest]]."
+    )
+
+    @JvmStatic
+    fun charm(): Charm = Charm(
+        name = "Adrenaline Burst",
+        type = Charm.Type.Minor,
+        cost = "100 / 150 / 225",
+        effect = "Boosts damage for a short time.",
+        implemented = "11.50.6055"
     )
 
     @JvmStatic
@@ -164,17 +164,19 @@ object WikiObjectFixtures {
         notes = "This missile is followed by the [[Cream Cake Effect]]: [[File:Cream Cake Effect.gif]]"
     )
 
-    @JvmStatic
     fun mount(): Mount = Mount(
         name = "Donkey",
+        actualname = "donkey",
         speed = 10,
         tamingMethod = "Use a [[Bag of Apple Slices]] on a creature transformed into Donkey.",
         implemented = "9.1",
         achievement = "Loyal Lad",
+        colourisable = YesNo.NO_LOWERCASE,
+        pricecurrency = "Tibia Coins",
+        mountId = 387,
         notes = "Go to [[Incredibly Old Witch]]'s house,"
     )
 
-    @JvmStatic
     fun npc(): NPC = NPC(
         name = "Sam",
         implemented = "Pre-6.0",
@@ -182,9 +184,19 @@ object WikiObjectFixtures {
         job2 = "Weapon Shopkeeper",
         job3 = "Armor Shopkeeper",
         location = "[[Temple Street]] in [[Thais]].",
+        subarea = "Temple Street",
         posx = BigDecimal.valueOf(126.104).setScale(3, RoundingMode.HALF_UP),
         posy = BigDecimal.valueOf(125.200).setScale(3, RoundingMode.HALF_UP),
         posz = 7,
+        geolabel = "Shop",
+        posx6 = BigDecimal.valueOf(126.200).setScale(3, RoundingMode.HALF_UP),
+        posy6 = BigDecimal.valueOf(125.250).setScale(3, RoundingMode.HALF_UP),
+        posz6 = 7,
+        geolabel6 = "Depot",
+        posx7 = BigDecimal.valueOf(126.300).setScale(3, RoundingMode.HALF_UP),
+        posy7 = BigDecimal.valueOf(125.300).setScale(3, RoundingMode.HALF_UP),
+        posz7 = 6,
+        geolabel7 = "Harbour",
         gender = Gender.MALE,
         race = "Human",
         city = City.THAIS,
@@ -195,10 +207,30 @@ object WikiObjectFixtures {
         notes = "Sam is the Blacksmith of [[Thais]]."
     )
 
-    @JvmStatic
     fun creature(): Creature = creatureWithLoot(dragonLoot())
 
     @JvmStatic
+    fun bossCreature(): Creature = Creature(
+        name = "Ferumbras",
+        actualname = "Ferumbras",
+        hitPoints = "50000",
+        experiencePoints = "12000",
+        armor = "50",
+        mitigation = "2.45",
+        summon = "--",
+        convince = "--",
+        illusionable = YesNo.NO_LOWERCASE,
+        creatureclass = "Demons",
+        primarytype = "Sorcerers",
+        isboss = YesNo.YES_LOWERCASE,
+        bosstiaryclass = "Nemesis",
+        cooldown = "20",
+        isarenaboss = YesNo.NO_LOWERCASE,
+        maxdmg = "2300",
+        maxbattlelength = "15",
+        location = "[[Kharos]]."
+    )
+
     fun creatureWithEmptyLoot(): Creature = Creature(
         name = "Freed Soul",
         article = Article.A,
@@ -220,7 +252,6 @@ object WikiObjectFixtures {
         loot = emptyList()
     )
 
-    @JvmStatic
     fun creatureWithLoot(loot: List<LootItem>): Creature = Creature(
         name = "Dragon",
         article = Article.A,
@@ -277,7 +308,6 @@ object WikiObjectFixtures {
         history = "Dragons are"
     )
 
-    @JvmStatic
     fun dragonLoot(): List<LootItem> = listOf(
         LootItem(itemName = "Gold Coin", amount = "0-105"),
         LootItem(itemName = "Dragon Ham", amount = "0-3"),
@@ -302,20 +332,24 @@ object WikiObjectFixtures {
         LootItem(itemName = "Dragonbone Staff", rarity = Rarity.VERY_RARE)
     )
 
-    @JvmStatic
     fun outfit(): Outfit = Outfit(
         name = "Pirate",
         primarytype = "Quest",
         premium = YesNo.YES_LOWERCASE,
         outfit = "premium, see [[Pirate Outfits Quest]].",
         addons = "premium, see [[Pirate Outfits Quest]].",
+        store = "no",
         achievement = "Swashbuckler",
+        maleId = 151,
+        femaleId = 155,
         implemented = "7.8",
         artwork = "Pirate Outfits Artwork.jpg",
+        artwork2 = "Pirate Outfits Artwork 2.jpg",
+        artwork3 = "Pirate Outfits Artwork 3.jpg",
+        labels = "Quest",
         notes = "Pirate outfits are perfect for swabbing the deck or walking the plank. Quite dashing and great for sailing."
     )
 
-    @JvmStatic
     fun huntingPlace(): HuntingPlace = HuntingPlace(
         name = "Hero Cave",
         image = "Hero",
@@ -369,59 +403,50 @@ object WikiObjectFixtures {
         map2 = "Hero Cave 6.png"
     )
 
-    @JvmStatic
-    fun item(): TibiaObject {
-        val result = TibiaObject(
-            itemid = listOf(3283),
-            objectclass = ObjectClass.WEAPONS.description,
-            flavortext = "Foobar",
-            pickupable = YesNo.YES_LOWERCASE,
-            usable = YesNo.YES_LOWERCASE,
-            levelrequired = 0,
-            hands = Hands.One,
-            weapontype = WeaponType.Sword,
-            attack = "15",
-            defense = 13,
-            defensemod = "+1",
-            enchantable = YesNo.NO_LOWERCASE,
-            weight = BigDecimal.valueOf(40.00).setScale(2, RoundingMode.HALF_UP),
-            marketable = YesNo.YES_LOWERCASE,
-            droppedby = mutableListOf("Grorlam", "Stone Golem"),
-            value = "118",
-            npcvalue = "118",
-            npcprice = "473",
-            npcvaluerook = "0",
-            npcpricerook = "0",
-            buyfrom = "Baltim, Brengus, Cedrik,",
-            sellto = "Baltim, Brengus, Cedrik, Esrik,"
-        )
-        ReflectionTestUtils.setField(result, "name", "Carlin Sword")
-        ReflectionTestUtils.setField(result, "article", Article.A)
-        ReflectionTestUtils.setField(result, "actualname", "carlin sword")
-        ReflectionTestUtils.setField(result, "plural", "?")
-        ReflectionTestUtils.setField(result, "notes", "If you have one of these ")
-        return result
-    }
+    fun item(): TibiaObject = TibiaObject(
+        name = "Carlin Sword",
+        article = Article.A,
+        actualname = "carlin sword",
+        plural = "?",
+        notes = "If you have one of these ",
+        itemid = listOf(3283),
+        objectclass = ObjectClass.WEAPONS.description,
+        flavortext = "Foobar",
+        pickupable = YesNo.YES_LOWERCASE,
+        usable = YesNo.YES_LOWERCASE,
+        levelrequired = 0,
+        hands = Hands.One,
+        weapontype = WeaponType.Sword,
+        attack = "15",
+        defense = 13,
+        defensemod = "+1",
+        enchantable = YesNo.NO_LOWERCASE,
+        weight = BigDecimal.valueOf(40.00).setScale(2, RoundingMode.HALF_UP),
+        marketable = YesNo.YES_LOWERCASE,
+        droppedby = mutableListOf("Grorlam", "Stone Golem"),
+        value = "118",
+        npcvalue = "118",
+        npcprice = "473",
+        npcvaluerook = "0",
+        npcpricerook = "0",
+        buyfrom = "Baltim, Brengus, Cedrik,",
+        sellto = "Baltim, Brengus, Cedrik, Esrik,"
+    )
 
-    @JvmStatic
-    fun tibiaObject(): TibiaObject {
-        val result = TibiaObject(
-            itemid = null,
-            sounds = null,
-            droppedby = null,
-            objectclass = "Bushes",
-            walkable = YesNo.NO_LOWERCASE,
-            location = "Can be found all around [[Tibia]].",
-            notes2 = "<br />{{JSpoiler|After using [[Blueberry]] Bushes 500 times,"
-        )
-        ReflectionTestUtils.setField(result, "name", "Blueberry Bush")
-        ReflectionTestUtils.setField(result, "article", Article.A)
-        ReflectionTestUtils.setField(result, "implemented", "7.1")
-        ReflectionTestUtils.setField(result, "notes", "They are the source of the [[blueberry|blueberries]].")
-        return result
-    }
+    fun tibiaObject(): TibiaObject = TibiaObject(
+        name = "Blueberry Bush",
+        article = Article.A,
+        implemented = "7.1",
+        notes = "They are the source of the [[blueberry|blueberries]].",
+        itemid = null,
+        sounds = null,
+        droppedby = null,
+        objectclass = "Bushes",
+        walkable = YesNo.NO_LOWERCASE,
+        location = "Can be found all around [[Tibia]].",
+        notes2 = "<br />{{JSpoiler|After using [[Blueberry]] Bushes 500 times,"
+    )
 
-    @JvmStatic
     fun spell(): Spell = Spell(
         name = "Light Healing",
         type = SpellType.Instant,
@@ -440,7 +465,6 @@ object WikiObjectFixtures {
         notes = "A weak, but popular healing spell."
     )
 
-    @JvmStatic
     fun quest(): Quest = Quest(
         name = "The Paradox Tower Quest",
         aka = "Riddler Quest, Mathemagics Quest",
@@ -456,11 +480,30 @@ object WikiObjectFixtures {
         implemented = "6.61-6.97"
     )
 
-    @JvmStatic
     fun street(): Street = Street(
         name = "Sugar Street",
         implemented = "7.8",
         city = City.LIBERTY_BAY,
         notes = "{{StreetStyles|Sugar Street}} is in west"
+    )
+
+    @JvmStatic
+    fun fansite(): Fansite = Fansite(
+        name = "TibiaWiki",
+        logo = "TibiaWiki Logo.png",
+        url = "https://tibia.fandom.com",
+        language = "English",
+        type = "Official",
+        implemented = "8.00",
+        fansiteitem = "TibiaWiki Gem",
+        itemworth = "5000"
+    )
+
+    @JvmStatic
+    fun cipsoftMember(): CipsoftMember = CipsoftMember(
+        name = "Knightmare",
+        actualname = "Stephan",
+        job = "Content Designer",
+        implemented = "6.0"
     )
 }

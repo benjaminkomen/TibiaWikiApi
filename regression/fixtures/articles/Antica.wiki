@@ -1,0 +1,6 @@
+{{Infobox World|List={{{1|}}}|GetValue={{{GetValue|}}}
+| name          = Antica
+| location      = Europe
+| pvpType       = Open PvP
+| implemented   = 7.0
+}}

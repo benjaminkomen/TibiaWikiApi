@@ -24,7 +24,10 @@ import org.springframework.http.HttpStatus
 import org.springframework.test.context.junit.jupiter.SpringExtension
 
 @ExtendWith(SpringExtension::class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(
+    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+    properties = ["wiki.write.enabled=true"]
+)
 @AutoConfigureTestRestTemplate
 class AchievementsControllerIT(
     @Autowired private val restTemplate: TestRestTemplate
@@ -114,6 +117,26 @@ class AchievementsControllerIT(
         val result = restTemplate.exchange("/api/achievements", HttpMethod.PUT, HttpEntity(makeAchievement(), httpHeaders), Void::class.java)
 
         assertEquals(HttpStatus.OK, result.statusCode)
+    }
+
+    @Test
+    fun `given put achievement when name is blank then response is bad request with validation results`() {
+        val editSummary = "[bot] editing during integration test"
+        val httpHeaders = TestUtils.makeHttpHeaders(editSummary)
+
+        val result = restTemplate.exchange(
+            "/api/achievements",
+            HttpMethod.PUT,
+            HttpEntity(makeAchievement().copy(name = "  "), httpHeaders),
+            Map::class.java
+        )
+
+        assertEquals(HttpStatus.BAD_REQUEST, result.statusCode)
+        assertEquals("name is required", result.body?.get("message"))
+        @Suppress("UNCHECKED_CAST")
+        val validationResults = result.body?.get("validationResults") as List<Map<String, Any>>
+        assertEquals("ERROR", validationResults[0]["severity"])
+        assertEquals("name is required", validationResults[0]["description"])
     }
 
     @Test

@@ -1,0 +1,12 @@
+{{Infobox Imbuement|List={{{1|}}}|GetValue={{{GetValue|}}}
+| name           = Powerful Strike
+| prefix         = Powerful
+| type           = Strike
+| imbuement      = Strike
+| implemented    = 11.02
+| category       = Skill
+| effect         = Critical Extra Damage
+| amount         = 3
+| effectpercent  = 15
+| slot           = weapons
+}}

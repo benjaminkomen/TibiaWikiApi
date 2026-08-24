@@ -1,16 +1,14 @@
 package com.tibiawiki.adapters.rest
 
+import com.tibiawiki.domain.ArticleNotFoundException
 import com.tibiawiki.domain.objects.WikiObject
 import com.tibiawiki.domain.objects.validation.ValidationException
-import io.vavr.control.Try
+import com.tibiawiki.process.ModifyResult
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
-import org.hamcrest.Matchers.nullValue
-import org.json.JSONObject
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.springframework.http.HttpStatus
-import java.util.Optional
-import java.util.stream.Stream
 
 class WikiResourceResponsesTest {
 
@@ -18,8 +16,8 @@ class WikiResourceResponsesTest {
     fun listReturnsNamesWhenExpandIsNullOrFalse() {
         val names = listOf("foo", "bar")
 
-        val withoutExpand = WikiResourceResponses.list(null, { Stream.of(JSONObject()) }, { names })
-        val collapsed = WikiResourceResponses.list(false, { Stream.of(JSONObject()) }, { names })
+        val withoutExpand = WikiResourceResponses.list(null, { listOf(emptyMap()) }, { names })
+        val collapsed = WikiResourceResponses.list(false, { listOf(emptyMap()) }, { names })
 
         assertThat(withoutExpand.statusCode, `is`(HttpStatus.OK))
         assertThat(withoutExpand.body, `is`(names))
@@ -28,9 +26,9 @@ class WikiResourceResponsesTest {
 
     @Test
     fun listReturnsMappedJsonWhenExpandIsTrue() {
-        val json = JSONObject().put("name", "Dragon")
+        val json = mapOf("name" to "Dragon")
 
-        val result = WikiResourceResponses.list(true, { Stream.of(json) }, { listOf("unused") })
+        val result = WikiResourceResponses.list(true, { listOf(json) }, { listOf("unused") })
 
         assertThat(result.statusCode, `is`(HttpStatus.OK))
         @Suppress("UNCHECKED_CAST")
@@ -39,27 +37,39 @@ class WikiResourceResponsesTest {
     }
 
     @Test
-    fun jsonOrNotFoundReturnsPrettyJsonOr404() {
-        val found = WikiResourceResponses.jsonOrNotFound(Optional.of(JSONObject().put("name", "Book")))
-        val missing = WikiResourceResponses.jsonOrNotFound(Optional.empty())
+    fun jsonOrNotFoundReturnsWikiJson() {
+        val found = WikiResourceResponses.jsonOrNotFound(mapOf("name" to "Book"))
 
         assertThat(found.statusCode, `is`(HttpStatus.OK))
-        assertThat(found.body!!.contains("Book"), `is`(true))
-        assertThat(missing.statusCode, `is`(HttpStatus.NOT_FOUND))
-        assertThat(missing.body, nullValue())
+        assertThat(found.body!!["name"], `is`("Book"))
     }
 
     @Test
-    fun modifyMapsSuccessValidationFailureAndUnexpectedFailure() {
+    fun jsonOrNotFoundThrowsWhenMissingOrEmpty() {
+        assertThrows<ArticleNotFoundException> {
+            WikiResourceResponses.jsonOrNotFound(null)
+        }
+        assertThrows<ArticleNotFoundException> {
+            WikiResourceResponses.jsonOrNotFound(emptyMap())
+        }
+    }
+
+    @Test
+    fun modifyMapsSuccessAndRethrowsValidationOrNotFound() {
         val wikiObject = WikiObject.WikiObjectImpl()
 
-        val ok = WikiResourceResponses.modify(Try.success(wikiObject))
-        val badRequest = WikiResourceResponses.modify(Try.failure(ValidationException("invalid")))
-        val serverError = WikiResourceResponses.modify(Try.failure(IllegalStateException("boom")))
-
+        val ok = WikiResourceResponses.modify(ModifyResult.Success(wikiObject))
         assertThat(ok.statusCode, `is`(HttpStatus.OK))
         assertThat(ok.body, `is`(wikiObject))
-        assertThat(badRequest.statusCode, `is`(HttpStatus.BAD_REQUEST))
+
+        assertThrows<ValidationException> {
+            WikiResourceResponses.modify(ModifyResult.Failure(ValidationException("invalid")))
+        }
+        assertThrows<ArticleNotFoundException> {
+            WikiResourceResponses.modify(ModifyResult.Failure(ArticleNotFoundException("Missing")))
+        }
+
+        val serverError = WikiResourceResponses.modify(ModifyResult.Failure(IllegalStateException("boom")))
         assertThat(serverError.statusCode, `is`(HttpStatus.INTERNAL_SERVER_ERROR))
     }
 }

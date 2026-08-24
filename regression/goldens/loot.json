@@ -2,6 +2,8 @@
   "path": "/api/loot",
   "status": 200,
   "body": [
-    "Ferumbras"
+    "Demon",
+    "Ferumbras",
+    "Dragon"
   ]
 }

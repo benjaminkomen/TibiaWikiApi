@@ -2,30 +2,142 @@
   "path": "/api/creatures/Dragon",
   "status": 200,
   "body": {
+    "abilities": "[[Melee]] (0-120), [[Fire Wave]] (100-170), [[Great Fireball]] (60-140), [[Self-Healing]] (40-70)",
     "actualname": "dragon",
     "armor": "25",
     "article": "a",
+    "behaviour": "Dragons are",
+    "bestiaryclass": "Dragon",
+    "bestiarylevel": "Medium",
+    "bestiaryname": "dragon",
+    "bestiarytext": "Dragons were",
     "convince": "--",
     "creatureclass": "Reptiles",
+    "deathDmgMod": "100%",
+    "drownDmgMod": "100%?",
+    "earthDmgMod": "20%",
+    "energyDmgMod": "80%",
     "exp": "700",
+    "fireDmgMod": "0%",
+    "history": "Dragons are",
+    "holyDmgMod": "100%",
     "hp": "1000",
+    "hpDrainDmgMod": "100%?",
+    "iceDmgMod": "110%",
     "illusionable": "yes",
-    "implemented": "4.0",
+    "implemented": "Pre-6.0",
+    "isarenaboss": "no",
     "isboss": "no",
-    "location": "[[Thais]]",
+    "location": "[[Thais]] [[Ancient Temple]], [[Darashia Dragon Lair]], [[Mount Sternum Dragon Cave]], [[Mintwallin]], deep in [[Fibula Dungeon]], [[Kazordoon Dragon Lair]] (near [[Dwarf Bridge]]), [[Plains of Havoc]], [[Elven Bane]] castle, [[Maze of Lost Souls]], southern cave and dragon tower in [[Shadowthorn]], [[Orc Fortress]], [[Venore]] [[Dragon Lair]], [[Pits of Inferno]], [[Behemoth Quest]] room in [[Edron]], [[Hero Cave]], deep [[Cyclopolis]], [[Edron Dragon Lair]], [[Goroma]], [[Ankrahmun Dragon Lair]]s, [[Draconia]], [[Dragonblaze Peaks]], some [[Ankrahmun Tombs]], underground of [[Fenrock]] (on the way to [[Beregar]]), [[Krailos Steppe]] and [[Crystal Lakes]].",
     "loot": [
       {
         "amount": "0-105",
         "itemName": "Gold Coin"
       },
       {
+        "amount": "0-3",
         "itemName": "Dragon Ham"
+      },
+      {
+        "itemName": "Steel Shield"
+      },
+      {
+        "itemName": "Crossbow"
+      },
+      {
+        "itemName": "Dragon's Tail"
+      },
+      {
+        "amount": "0-10",
+        "itemName": "Burst Arrow"
+      },
+      {
+        "itemName": "Longsword",
+        "rarity": "semi-rare"
+      },
+      {
+        "itemName": "Steel Helmet",
+        "rarity": "semi-rare"
+      },
+      {
+        "itemName": "Broadsword",
+        "rarity": "semi-rare"
+      },
+      {
+        "itemName": "Plate Legs",
+        "rarity": "semi-rare"
+      },
+      {
+        "itemName": "Green Dragon Leather",
+        "rarity": "rare"
+      },
+      {
+        "itemName": "Wand of Inferno",
+        "rarity": "rare"
+      },
+      {
+        "itemName": "Strong Health Potion",
+        "rarity": "rare"
+      },
+      {
+        "itemName": "Green Dragon Scale",
+        "rarity": "rare"
+      },
+      {
+        "itemName": "Double Axe",
+        "rarity": "rare"
+      },
+      {
+        "itemName": "Dragon Hammer",
+        "rarity": "rare"
+      },
+      {
+        "itemName": "Serpent Sword",
+        "rarity": "rare"
+      },
+      {
+        "itemName": "Small Diamond",
+        "rarity": "very rare"
+      },
+      {
+        "itemName": "Dragon Shield",
+        "rarity": "very rare"
+      },
+      {
+        "itemName": "Life Crystal",
+        "rarity": "very rare"
+      },
+      {
+        "itemName": "Dragonbone Staff",
+        "rarity": "very rare"
       }
     ],
+    "maxdmg": "430",
+    "mitigation": "1.56",
     "name": "Dragon",
+    "notes": "Dragons are",
+    "occurrence": "Common",
+    "paraimmune": "yes",
+    "physicalDmgMod": "100%",
     "plural": "dragons",
     "primarytype": "Dragons",
+    "pushable": "no",
+    "pushobjects": "yes",
+    "runsat": "300",
+    "senseinvis": "yes",
+    "sounds": [
+      "FCHHHHH",
+      "GROOAAARRR"
+    ],
+    "spawntype": [
+      "Regular",
+      "Raid"
+    ],
+    "speed": "86",
+    "strategy": "'''All''' [[player]]s",
     "summon": "--",
-    "templateType": "Creature"
+    "templateType": "Creature",
+    "walksaround": "None",
+    "walksthrough": "Fire, Energy, Poison"
   }
 }

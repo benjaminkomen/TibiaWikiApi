@@ -1,11 +1,11 @@
 package com.tibiawiki.domain.repositories
 
-import io.github.fastily.jwiki.core.NS
+import com.tibiawiki.domain.objects.WikiNamespace
 
 interface ArticleRepository {
     fun getPageNamesFromCategory(categoryName: String): List<String>
 
-    fun getPageNamesFromCategory(categoryName: String, namespace: NS): List<String>
+    fun getPageNamesFromCategory(categoryName: String, namespace: WikiNamespace): List<String>
 
     fun getArticlesFromCategory(pageNames: List<String>): Map<String, String>
 
