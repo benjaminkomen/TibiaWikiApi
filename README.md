@@ -39,12 +39,12 @@ and compares later responses to those goldens. It is not part of the Gradle test
 
 GitHub Actions (`.github/workflows/api-regression.yml`) boots the API with
 `--spring.profiles.active=fixtures` — an in-process wiki repository that reads
-`regression/fixtures/` — then runs `bun run test` against `http://localhost:8080`.
-That job never calls Fandom or tibiawiki.dev.
+`regression/fixtures/` — then runs `bun run smoke:docs` and `bun run test`
+against `http://localhost:8080`. That job never calls Fandom or tibiawiki.dev.
 
 ```bash
 ./regression/scripts/boot-fixtures.sh   # repo root, other terminal
-cd regression && bun run test
+cd regression && bun run smoke:docs && bun run test
 ```
 
 Use `bun run capture` against the fixture-backed server to refresh goldens.

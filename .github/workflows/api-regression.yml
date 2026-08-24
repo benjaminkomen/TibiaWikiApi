@@ -7,7 +7,7 @@ on:
 
 jobs:
   api-regression:
-    name: Fixture-backed golden compare
+    name: Fixture-backed goldens and docs smoke
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -34,9 +34,18 @@ jobs:
           echo $! > boot-fixtures.pid
 
       - name: Wait for localhost:8080
+        id: wait
         run: bash regression/scripts/wait-for-api.sh
 
+      - name: Smoke docs, OpenAPI 3.0, and health
+        if: always() && steps.wait.outcome == 'success'
+        working-directory: regression
+        env:
+          BASE_URL: http://localhost:8080
+        run: bun run smoke:docs | tee ../regression-smoke-docs.log
+
       - name: Compare local API to goldens
+        if: always() && steps.wait.outcome == 'success'
         working-directory: regression
         env:
           BASE_URL: http://localhost:8080
@@ -49,6 +58,7 @@ jobs:
           name: api-regression-logs
           path: |
             boot-fixtures.log
+            regression-smoke-docs.log
             regression-test.log
 
       - name: Stop API
