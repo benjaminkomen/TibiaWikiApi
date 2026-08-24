@@ -33,6 +33,15 @@ steps:
       - './docker/Dockerfile'
       - '.'
 
+  # Boot the image before push/deploy (issue #476). Cloud Run must not be the
+  # first process that runs ENTRYPOINT. Same script as GHA / cloudbuild-pr.
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: bash
+    env:
+      - 'SMOKE_NETWORK=cloudbuild'
+    args: ['scripts/docker-boot-smoke.sh', 'gcr.io/$PROJECT_ID/tibiawikiapi:$COMMIT_SHA']
+    timeout: 600s
+
   # SHA tag must be in the registry before gcloud run deploy (images: pushes after steps).
   # Do not push :latest here — that would move the prod pointer even if Ready/smoke fails.
   - name: 'gcr.io/cloud-builders/docker'

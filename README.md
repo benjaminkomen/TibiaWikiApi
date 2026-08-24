@@ -53,6 +53,25 @@ cd regression && bun run smoke:docs && bun run test
 Use `bun run capture` against the fixture-backed server to refresh goldens.
 See [`regression/README.md`](regression/README.md).
 
+## Docker image boot (CI)
+
+Gradle, ITs, and fixture `smoke:docs` do not run the production container
+entrypoint. GitHub Actions (`.github/workflows/docker-boot.yml`) and the
+Cloud Build PR/prod paths build `docker/Dockerfile` (same context as deploy)
+then `./scripts/docker-boot-smoke.sh`: `docker inspect` must show exec-form
+`java` with no `$`/`$$`/`sh -c`, and `GET /actuator/health/readiness` must
+be 200/`UP` for `PORT=8080` and `PORT=19080`.
+
+Cloud Run `PORT` is bound in Spring (`server.port=${PORT:8080}`), not by a
+shell ENTRYPOINT. See [`docker/README.md`](docker/README.md) and
+[`AGENTS.md`](AGENTS.md).
+
+```bash
+docker build -t tibiawikiapi -f ./docker/Dockerfile .
+./scripts/docker-boot-smoke.sh tibiawikiapi
+# or: BUILD=1 ./scripts/docker-boot-smoke.sh
+```
+
 ## Wiki writes (PUT)
 
 Public Cloud Run leaves `WIKI_WRITE_ENABLED` unset (false). Unauthenticated

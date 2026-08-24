@@ -33,6 +33,22 @@ ENTRYPOINT left `$$` visible to `sh` (PID 1). Do not reintroduce `sh -c` for POR
 After a rebuild, `docker inspect <image>` `Entrypoint` must be a java argv
 array with **no** `$` / `$$`.
 
+CI boots that image so Cloud Run is not the first ENTRYPOINT execution
+(issue #476). Same build as deploy, then the smoke script (readiness on
+`PORT=8080` and `PORT=19080`):
+
+```bash
+docker build -t tibiawikiapi -f ./docker/Dockerfile .
+./scripts/docker-boot-smoke.sh tibiawikiapi
+# or: BUILD=1 ./scripts/docker-boot-smoke.sh
+```
+
+GitHub Actions: `.github/workflows/docker-boot.yml`. Cloud Build runs the
+same script after `docker build` in `cloudbuild-pr.yaml` and
+`cloudbuild.yaml` (before push/deploy). `CloudRunPortBindingTest` asserts
+the Dockerfile text and Spring `server.port=${PORT:8080}`; it does **not**
+replace the image boot.
+
 The image build uses the Gradle wrapper and `settings.gradle.kts`. It does **not**
 need a `GITHUB_TOKEN`: `jwiki` is resolved from Maven Central.
 

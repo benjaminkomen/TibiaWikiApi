@@ -1,0 +1,23 @@
+name: Docker image boot
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  docker-boot:
+    name: Production image boots and is ready
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Build production Dockerfile
+        run: docker build -t tibiawikiapi -f ./docker/Dockerfile .
+
+      - name: Boot smoke (PORT 8080 and 19080)
+        run: bash scripts/docker-boot-smoke.sh tibiawikiapi

@@ -14,6 +14,10 @@ import java.util.Properties
 /**
  * Cloud Run sets `PORT`. Spring must bind it; the image ENTRYPOINT must not
  * expand it through `sh` (issue #473: `$$` → PID 1 → `1PORT`).
+ *
+ * [dockerfileEntrypointIsExecFormJavaWithoutShellOrDollar] reads the Dockerfile
+ * text. [imageBootSmokeAndCiRunTheProductionImage] asserts CI actually builds
+ * and runs the image (issue #476) — this class is not a substitute for that boot.
  */
 class CloudRunPortBindingTest {
 
@@ -45,6 +49,26 @@ class CloudRunPortBindingTest {
         assertThat(entrypoint, not(containsString("sh")))
         assertThat(dockerfile, containsString("ENV PORT=8080"))
         assertThat(dockerfile, containsString("USER 65532:65532"))
+    }
+
+    @Test
+    fun imageBootSmokeAndCiRunTheProductionImage() {
+        val inspectJson = """["java","-Dserver.address=0.0.0.0","-jar","/project/TibiaWikiApi.jar"]"""
+        val script = Files.readString(repoFile("scripts", "docker-boot-smoke.sh"))
+        assertThat(script, containsString(inspectJson))
+        assertThat(script, containsString("/actuator/health/readiness"))
+        assertThat(script, containsString("8080"))
+        assertThat(script, containsString("19080"))
+        assertThat(script, containsString("docker inspect"))
+
+        val gha = Files.readString(repoFile(".github", "workflows", "docker-boot.yml"))
+        assertThat(gha, containsString("docker build -t tibiawikiapi -f ./docker/Dockerfile ."))
+        assertThat(gha, containsString("scripts/docker-boot-smoke.sh"))
+
+        val prBuild = Files.readString(repoFile("cloudbuild-pr.yaml"))
+        assertThat(prBuild, containsString("docker-boot-smoke.sh"))
+        val prodBuild = Files.readString(repoFile("cloudbuild.yaml"))
+        assertThat(prodBuild, containsString("docker-boot-smoke.sh"))
     }
 
     private fun repoFile(vararg parts: String): Path {

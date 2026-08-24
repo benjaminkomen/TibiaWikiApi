@@ -5,6 +5,16 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/$PROJECT_ID/tibiawikiapi:pr-$SHORT_SHA', '-f', './docker/Dockerfile', '.']
 
+  # Fail before merge/push if ENTRYPOINT/PORT wiring cannot bind (issue #476).
+  # Gradle/ITs/Sonar do not run this image. SMOKE_NETWORK=cloudbuild: probe
+  # by container name (host -p is not reachable from this step).
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: bash
+    env:
+      - 'SMOKE_NETWORK=cloudbuild'
+    args: ['scripts/docker-boot-smoke.sh', 'gcr.io/$PROJECT_ID/tibiawikiapi:pr-$SHORT_SHA']
+    timeout: 600s
+
 # Push the PR-specific tag only. Cloud Build's images: push runs after steps;
 # listing an untagged image here would clobber the prod latest pointer.
 images:
