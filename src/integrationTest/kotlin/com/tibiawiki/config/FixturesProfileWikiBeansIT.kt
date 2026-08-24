@@ -3,6 +3,7 @@ package com.tibiawiki.config
 import com.tibiawiki.domain.repositories.ArticleRepository
 import com.tibiawiki.domain.repositories.FixtureArticleRepository
 import com.tibiawiki.domain.repositories.JwikiArticleRepository
+import com.tibiawiki.domain.wiki.WikiCallSupport
 import com.tibiawiki.domain.wiki.WikiFactory
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.instanceOf
@@ -28,6 +29,7 @@ class FixturesProfileWikiBeansIT {
         assertThat(articleRepository, instanceOf(FixtureArticleRepository::class.java))
         assertThat(context.getBeansOfType(JwikiArticleRepository::class.java).isEmpty(), `is`(true))
         assertThat(context.getBeansOfType(WikiFactory::class.java).isEmpty(), `is`(true))
+        assertThat(context.getBeansOfType(WikiCallSupport::class.java).isEmpty(), `is`(true))
         assertThat(context.getBeansOfType(WikiClientConfiguration::class.java).isEmpty(), `is`(true))
     }
 }
