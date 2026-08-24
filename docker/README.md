@@ -24,7 +24,7 @@ The image runs as uid/gid `65532`. Cloud Run sets `PORT`; the entrypoint
 expands it and `exec`s `java` so the JVM is PID 1 (SIGTERM reaches Spring Boot)
 and Tomcat binds `0.0.0.0`.
 
-The image build uses the Gradle wrapper and `settings.gradle`. It does **not**
+The image build uses the Gradle wrapper and `settings.gradle.kts`. It does **not**
 need a `GITHUB_TOKEN`: `jwiki` is resolved from Maven Central.
 
 ## Cloud Run probes
