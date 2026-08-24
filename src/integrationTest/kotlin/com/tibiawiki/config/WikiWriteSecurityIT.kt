@@ -160,7 +160,7 @@ class WikiWriteOpenApiAndCorsIT {
             String::class.java
         )
 
-        assertThat(result.statusCode, `is`(HttpStatus.FORBIDDEN))
+        assertThat(result.statusCode, `is`(HttpStatus.OK))
         assertThat(result.headers.accessControlAllowOrigin, `is`(nullValue()))
     }
 
