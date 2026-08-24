@@ -31,7 +31,7 @@ import kotlin.reflect.KClass
  * REST catalog for standard wiki collections. A new category is a new entry here
  * (plus [InfoboxTemplate] and a [WikiObject] type if those do not already exist).
  *
- * Hunting places (`/**` names) and loot stay on dedicated controllers.
+ * Hunting places (slash-containing names) and loot stay on dedicated controllers.
  * Fansites and CipSoft members stay dedicated until their PUT types are folded.
  */
 enum class WikiCategory(
