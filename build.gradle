@@ -105,6 +105,12 @@ sonar {
         property "sonar.tests", "src/test,src/integrationTest"
         property "sonar.java.coveragePlugin", "jacoco"
         property "sonar.coverage.jacoco.xmlReportPaths", "./build/reports/jacocoTestReport.xml"
+        // CI (`buid.yml`) also passes -Dsonar.qualitygate.wait=true so a red
+        // SonarCloud gate fails the GitHub Build job. Set here too so any
+        // `./gradlew sonar` in GITHUB_ACTIONS is fail-closed.
+        if (System.getenv("GITHUB_ACTIONS") == "true") {
+            property "sonar.qualitygate.wait", "true"
+        }
         // kotlin:S6474 wants gradle/verification-metadata.xml. Generating and
         // committing checksums for every Maven coordinate would churn on each
         // Dependabot bump and is too heavy for this repo; leave the hotspot
