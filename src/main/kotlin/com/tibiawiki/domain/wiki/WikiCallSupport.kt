@@ -4,13 +4,13 @@ import com.tibiawiki.config.WikiClientProperties
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.DisposableBean
 import java.io.IOException
+import java.security.SecureRandom
 import java.time.Duration
 import java.util.concurrent.ArrayBlockingQueue
 import java.util.concurrent.Callable
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.RejectedExecutionException
-import java.util.concurrent.ThreadLocalRandom
 import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
@@ -30,7 +30,7 @@ class WikiCallSupport(
     private val properties: WikiClientProperties,
     private val enabled: Boolean = true,
     private val sleeper: (Duration) -> Unit = { delay -> Thread.sleep(delay.toMillis()) },
-    private val random: () -> Double = { ThreadLocalRandom.current().nextDouble() }
+    private val random: () -> Double = { jitterRandom.nextDouble() }
 ) : DisposableBean, AutoCloseable {
 
     private val executor: ExecutorService? = if (enabled) {
@@ -130,6 +130,9 @@ class WikiCallSupport(
 
     companion object {
         private val LOG = LoggerFactory.getLogger(WikiCallSupport::class.java)
+
+        // Retry jitter only (not crypto/secrets). SecureRandom satisfies kotlin:S2245.
+        private val jitterRandom = SecureRandom()
 
         fun direct(): WikiCallSupport {
             return WikiCallSupport(WikiClientProperties(), enabled = false)

@@ -81,13 +81,9 @@ sonar {
         if (System.getenv("GITHUB_ACTIONS") == "true") {
             property("sonar.qualitygate.wait", "true")
         }
-        // kotlin:S6474 wants gradle/verification-metadata.xml. Generating and
-        // committing checksums for every Maven coordinate would churn on each
-        // Dependabot bump and is too heavy for this repo; leave the hotspot
-        // suppressed rather than adding sonar.coverage.exclusions.
-        property("sonar.issue.ignore.multicriteria", "e1")
-        property("sonar.issue.ignore.multicriteria.e1.ruleKey", "kotlin:S6474")
-        property("sonar.issue.ignore.multicriteria.e1.resourceKey", "**")
+        // kotlin:S6474: checksums live in gradle/verification-metadata.xml.
+        // After a dependency bump, refresh with:
+        // ./gradlew --write-verification-metadata sha256 ktlintCheck jacocoTestReport
     }
 }
 

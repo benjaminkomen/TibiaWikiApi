@@ -29,7 +29,7 @@ object WikiResourceResponses {
     }
 
     fun jsonOrNotFound(json: WikiJson?): ResponseEntity<WikiJson> {
-        if (json == null || json.isEmpty()) {
+        if (json.isNullOrEmpty()) {
             throw ArticleNotFoundException()
         }
         return ResponseEntity.ok().body(json)
