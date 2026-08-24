@@ -1,5 +1,9 @@
 package com.tibiawiki.domain.repositories
 
+import ch.qos.logback.classic.Level
+import ch.qos.logback.classic.Logger
+import ch.qos.logback.classic.spi.ILoggingEvent
+import ch.qos.logback.core.read.ListAppender
 import com.tibiawiki.config.WikiClientProperties
 import com.tibiawiki.domain.objects.WikiNamespace
 import com.tibiawiki.domain.wiki.ExpandTooLargeException
@@ -21,6 +25,7 @@ import org.mockito.Mockito.mock
 import org.mockito.Mockito.never
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
+import org.slf4j.LoggerFactory
 
 class JwikiArticleRepositoryTest {
 
@@ -89,6 +94,34 @@ class JwikiArticleRepositoryTest {
         target.disableDebug()
         doReturn(true).`when`(wiki).edit(anyString(), anyString(), anyString())
         assertThat(target.modifyArticle(SOME_PAGE_NAME, "Foobar", "[bot] formatting pages in uniform way"), `is`(true))
+    }
+
+    @Test
+    fun modifyArticleDoesNotLogWikitextAtInfo() {
+        val logger = LoggerFactory.getLogger(JwikiArticleRepository::class.java) as Logger
+        val appender = ListAppender<ILoggingEvent>()
+        appender.start()
+        logger.addAppender(appender)
+        val previousLevel = logger.level
+        logger.level = Level.INFO
+        try {
+            target.disableDebug()
+            doReturn(true).`when`(wiki).edit(anyString(), anyString(), anyString())
+            val wikitext = "{{Infobox Creature|secret=do-not-log-this-wikitext}}"
+            target.modifyArticle(SOME_PAGE_NAME, wikitext, "[bot] formatting pages in uniform way")
+
+            val messages = appender.list
+                .filter { it.level == Level.INFO }
+                .map { it.formattedMessage }
+            assertThat(messages.any { it.contains(wikitext) }, `is`(false))
+            assertThat(messages.any { it.contains("secret=do-not-log-this-wikitext") }, `is`(false))
+            assertThat(messages.any { it.contains(SOME_PAGE_NAME) }, `is`(true))
+            assertThat(messages.any { it.contains("${wikitext.length} characters") }, `is`(true))
+        } finally {
+            logger.level = previousLevel
+            logger.detachAppender(appender)
+            appender.stop()
+        }
     }
 
     @Test

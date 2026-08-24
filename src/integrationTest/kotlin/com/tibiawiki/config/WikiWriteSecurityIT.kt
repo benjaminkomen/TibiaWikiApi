@@ -48,6 +48,7 @@ class WikiWriteDisabledIT {
 
         assertThat(result.statusCode, `is`(HttpStatus.FORBIDDEN))
         assertThat(result.body!!.contains("Wiki writes are disabled"), `is`(true))
+        assertSecurityHeaders(result.headers)
     }
 
     @Test
@@ -57,6 +58,7 @@ class WikiWriteDisabledIT {
         val result = restTemplate.getForEntity("/api/creatures", String::class.java)
 
         assertThat(result.statusCode, `is`(HttpStatus.OK))
+        assertSecurityHeaders(result.headers)
     }
 }
 
@@ -84,6 +86,7 @@ class WikiWriteTokenIT {
         )
 
         assertThat(result.statusCode, `is`(HttpStatus.UNAUTHORIZED))
+        assertSecurityHeaders(result.headers)
     }
 
     @Test
@@ -180,4 +183,19 @@ class WikiWriteOpenApiAndCorsIT {
         }
         return restTemplate.getForEntity("/v3/api-docs", String::class.java)
     }
+}
+
+private fun assertSecurityHeaders(headers: HttpHeaders) {
+    assertThat(
+        headers.getFirst(SecurityHeadersFilter.CONTENT_TYPE_OPTIONS),
+        `is`(SecurityHeadersFilter.CONTENT_TYPE_OPTIONS_VALUE)
+    )
+    assertThat(
+        headers.getFirst(SecurityHeadersFilter.REFERRER_POLICY),
+        `is`(SecurityHeadersFilter.REFERRER_POLICY_VALUE)
+    )
+    assertThat(
+        headers.getFirst(SecurityHeadersFilter.PERMISSIONS_POLICY),
+        `is`(SecurityHeadersFilter.PERMISSIONS_POLICY_VALUE)
+    )
 }

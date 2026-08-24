@@ -116,7 +116,7 @@ class JwikiArticleRepository @Autowired constructor(
     }
 
     override fun modifyArticle(pageName: String, pageContent: String, editSummary: String?): Boolean {
-        LOG.info("Attempting to publish page {} with new content {}.", pageName, pageContent)
+        LOG.info("Attempting to publish page {} ({} characters).", pageName, pageContent.length)
         val edited = if (isDebugEnabled) {
             true
         } else {
