@@ -87,10 +87,8 @@ class HuntingPlacesController(
     }
 
     companion object {
-        /**
-         * Runtime mapping is `/**` so titles with slashes work. Do not invent a
-         * fake `{name}` path parameter in OpenAPI — document the slashy names.
-         */
+        // Catch-all path so titles with slashes work. Do not invent a fake {name}
+        // path parameter in OpenAPI — document the slashy names instead.
         const val BY_NAME_OPENAPI_NOTE =
             "Wiki titles may contain slashes (for example Tiquanda/Bandit Caves). " +
                 "The remainder of the path after /api/huntingplaces/ is the name; " +
