@@ -11,11 +11,18 @@ the following commands:
 docker build -t tibiawikiapi -f ./docker/Dockerfile .
 ```
 
+Build context is the repository root, so Docker reads the root `.dockerignore`
+(not a file next to this Dockerfile).
+
 - Run it with:
 
 ```bash
 docker run -it -e PORT=8080 -p 8080:8080 tibiawikiapi
 ```
+
+The image runs as uid/gid `65532`. Cloud Run sets `PORT`; the entrypoint
+expands it and `exec`s `java` so the JVM is PID 1 (SIGTERM reaches Spring Boot)
+and Tomcat binds `0.0.0.0`.
 
 The image build uses the Gradle wrapper and `settings.gradle`. It does **not**
 need a `GITHUB_TOKEN`: `jwiki` is resolved from Maven Central.
@@ -44,9 +51,9 @@ Related endpoints (same process, still no wiki I/O):
 - `GET /actuator/health` — `status: UP` plus the `liveness`/`readiness` groups
 - `GET /actuator/info` — build coordinates from `bootJar` `buildInfo()`
 
-Startup can take a while on the default profile because `JwikiArticleRepository`
-talks to Fandom while the Spring context is created. That is independent of
-these probe paths: a passing probe does not mean Fandom is up.
+The default profile constructs `WikiFactory` lazily: process start does not
+call Fandom unless `wiki.warm-on-startup=true`. A passing probe means the
+process is up, not that Fandom is reachable.
 
 ## Image tags (issue #449)
 
