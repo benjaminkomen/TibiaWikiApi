@@ -98,7 +98,7 @@ One concern per layer. Keep history linear: each tip must contain the parent tip
 
 ## Deploy
 
-Merge-to-prod is `cloudbuild.yaml` (not PR CI): tag `$COMMIT_SHA` and `:latest`, `gcloud run deploy` with env/probe flags (`LOGGING_JSON=true`, `WIKI_WRITE_ENABLED=false`, startup/liveness), wait until the **new revision is Ready**, then `cd regression && bun run smoke:docs` against the **revision URL** (Swagger + actuator only; no wiki/Fandom paths). `gcloud run deploy` already sends 100% to the new revision; do not add `gcloud alpha run services update-traffic --to-latest`. Flags and the Ready-then-smoke gate live in `scripts/cloud-run-release.sh`.
+Merge-to-prod is `cloudbuild.yaml` (not PR CI): tag `$COMMIT_SHA` and `:latest`, `gcloud run deploy` with env/probe flags (`LOGGING_JSON=true`, `WIKI_WRITE_ENABLED=false`, startup/liveness), wait until the **new revision is Ready**, then `cd regression && bun run smoke:docs` against the **revision URL if Cloud Run exposes one, else the service URL** (Swagger + actuator only; no wiki/Fandom paths). `gcloud run deploy` already sends 100% to the new revision; do not add `gcloud alpha run services update-traffic --to-latest`. Flags and the Ready-then-smoke gate live in `scripts/cloud-run-release.sh`.
 
 `scripts/deploy.sh` is the **ops** path: builds `$COMMIT_SHA`, then the same release script, with `smoke:docs` against `https://tibiawiki.dev` (`BASE_URL` override is documented in the script). `:latest` is retagged only after Ready + smoke. `bun` is required for that smoke.
 
@@ -119,4 +119,4 @@ Before considering work done:
 4. If you touch OpenAPI/springdoc/Swagger or controllers that affect the public catalog, run `cd regression && bun run smoke:docs` (and/or `SwaggerUiIT`). OpenAPI must stay 3.0.x; WikiCategory paths must be enumerated (no generic `{category}` template only).
 5. If you touch `docker/Dockerfile`, image ENTRYPOINT/CMD, or `server.port` / `PORT` wiring, run `./scripts/docker-boot-smoke.sh` (see [Docker ENTRYPOINT / PORT](#docker-entrypoint--port-critical)). Do not reintroduce a shell ENTRYPOINT for PORT.
 6. For multi-PR dependency work, use a formal GitHub PR stack ([Stacked PRs](#stacked-prs)).
-7. Deploy success is a Ready revision **then** `smoke:docs` (Cloud Build: revision URL; ops `deploy.sh`: tibiawiki.dev), not image build alone (see [Deploy](#deploy)). The image boot smoke must have passed in CI; Cloud Run is not the first boot.
+7. Deploy success is a Ready revision **then** `smoke:docs` (Cloud Build: revision URL or service URL after Ready; ops `deploy.sh`: tibiawiki.dev), not image build alone (see [Deploy](#deploy)). The image boot smoke must have passed in CI; Cloud Run is not the first boot.

@@ -5,7 +5,8 @@
 # This is the single source of truth for Cloud Run deploy flags (F-02).
 # Callers:
 #   cloudbuild.yaml     IMAGE=...:$COMMIT_SHA, BASE_URL unset → smoke the
-#                       revision URL (Swagger + actuator; no wiki/Fandom).
+#                       revision URL if present, else the service URL after
+#                       Ready (Swagger + actuator; no wiki/Fandom).
 #   scripts/deploy.sh   IMAGE=...:$COMMIT_SHA, BASE_URL=https://tibiawiki.dev (ops).
 #                       :latest is retagged only after this script succeeds.
 #
@@ -20,7 +21,9 @@
 #   PROJECT                GCP project (default tibiawikiapi-246008).
 #   REGION                 Cloud Run region (default europe-west1).
 #   SERVICE                Cloud Run service (default tibiawikiapi).
-#   BASE_URL               smoke:docs target. Unset = the new revision URL.
+#   BASE_URL               smoke:docs target. Unset = revision status.url if
+#                          present, else service status.url / status.address.url
+#                          (Cloud Run revisions often omit status.url).
 #   READY_TIMEOUT_SECONDS  Wait for Ready (default 420; probe is 36×10s).
 #   READY_POLL_SECONDS     Poll interval (default 10).
 #
@@ -84,11 +87,17 @@ service_describe_json() {
     --format=json
 }
 
-revision_url() {
+# Prefer a revision-specific URL when Cloud Run exposes one; otherwise the
+# service URL. Called only after wait_for_revision_ready succeeded.
+post_ready_smoke_url() {
   local revision="$1"
-  local status message url
-  read_revision_describe_fields status message url < <(revision_describe_json "$revision" | parse_revision_describe_json)
-  printf '%s' "$(trim "$url")"
+  local rev_json svc_json status message rev_url svc_url latest_ready
+  rev_json="$(revision_describe_json "$revision")"
+  svc_json="$(service_describe_json)"
+  read_revision_describe_fields status message rev_url < <(printf '%s' "$rev_json" | parse_revision_describe_json)
+  svc_url="$(trim "$(printf '%s' "$svc_json" | parse_service_url_json)")"
+  latest_ready="$(trim "$(printf '%s' "$svc_json" | parse_service_latest_ready_json)")"
+  resolve_smoke_url "$(trim "$rev_url")" "$svc_url" "$revision" "$latest_ready"
 }
 
 wait_for_revision_ready() {
@@ -181,17 +190,17 @@ if ! wait_for_revision_ready "$CREATED"; then
   exit 1
 fi
 
-CREATED_URL="$(trim "$(revision_url "$CREATED")")"
+CREATED_URL="$(trim "$(post_ready_smoke_url "$CREATED")")"
 if [[ -z "$CREATED_URL" ]]; then
-  echo "ERROR: could not read status.url for revision ${CREATED}. Skipping smoke." >&2
+  echo "ERROR: could not resolve a smoke URL for revision ${CREATED} (revision status.url empty; service status.url / status.address.url also empty or latestReady is a different revision). Skipping smoke." >&2
   exit 1
 fi
 
 SMOKE_URL="${BASE_URL:-$CREATED_URL}"
 if [[ -n "${BASE_URL:-}" ]]; then
-  echo "Smoke target BASE_URL=${BASE_URL} (ops). Revision URL is ${CREATED_URL}."
+  echo "Smoke target BASE_URL=${BASE_URL} (ops). Resolved Cloud Run URL is ${CREATED_URL}."
 else
-  echo "Smoke target is revision URL ${CREATED_URL} (not tibiawiki.dev)."
+  echo "Smoke target is ${CREATED_URL} (revision URL if present, else service URL; not tibiawiki.dev)."
 fi
 
 run_smoke "$SMOKE_URL"

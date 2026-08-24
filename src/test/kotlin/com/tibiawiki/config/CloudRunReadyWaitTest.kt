@@ -13,6 +13,10 @@ import java.util.concurrent.TimeUnit
  * Cloud Build `gcloud` `--format` projections on `status.conditions[?type=Ready]`
  * return empty (issue #477). Ready-wait must parse JSON and must not treat an
  * unparsed condition as success by itself.
+ *
+ * Cloud Run revisions often omit `status.url`. After Ready, smoke URL
+ * resolution must fall back to the service URL so a Ready deploy cannot fail
+ * with "could not read status.url for revision".
  */
 class CloudRunReadyWaitTest {
 
@@ -23,6 +27,9 @@ class CloudRunReadyWaitTest {
         assertThat(script, containsString("--format=json"))
         assertThat(script, containsString("scripts/lib/cloud-run-ready.sh"))
         assertThat(script, containsString("evaluate_ready_wait"))
+        assertThat(script, containsString("post_ready_smoke_url"))
+        assertThat(script, containsString("parse_service_url_json"))
+        assertThat(script, not(containsString("could not read status.url for revision")))
     }
 
     @Test
@@ -41,6 +48,10 @@ class CloudRunReadyWaitTest {
         assertThat(output, containsString("ok cli_empty_ready_latest_match"))
         assertThat(output, containsString("ok cli_ready_false"))
         assertThat(output, containsString("ok cli_still_starting"))
+        assertThat(output, containsString("ok parse_revision_url_missing"))
+        assertThat(output, containsString("ok parse_service_url"))
+        assertThat(output, containsString("ok resolve_smoke_url_service_fallback"))
+        assertThat(output, containsString("ok resolve_smoke_url_other_latest_ready"))
         assertThat(output, containsString("cloud-run-ready self-test passed"))
     }
 

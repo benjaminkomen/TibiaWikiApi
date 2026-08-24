@@ -1,7 +1,8 @@
 # Merge-to-prod: tag $COMMIT_SHA and :latest, deploy with production env/probes,
 # wait until the new revision is Ready, then smoke:docs against the revision URL
-# (Swagger + actuator only — no wiki/Fandom paths). Live https://tibiawiki.dev
-# smoke stays ops-only (scripts/deploy.sh); do not add it here or to PR CI.
+# if present, else the service URL (Swagger + actuator only — no wiki/Fandom).
+# Live https://tibiawiki.dev smoke stays ops-only (scripts/deploy.sh); do not
+# add it here or to PR CI.
 #
 # gcloud run deploy already sends 100% to the new revision once it is Ready.
 # The previous `gcloud alpha run services update-traffic --to-latest` step is
@@ -47,7 +48,8 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/tibiawikiapi:$COMMIT_SHA']
 
-  # Deploy + Ready wait + bun smoke:docs against the revision URL.
+  # Deploy + Ready wait + bun smoke:docs against the revision URL if present,
+  # else the service URL (revisions often omit status.url).
   # Startup/liveness hit Actuator probe groups (no Fandom). Memory/concurrency
   # stay at 1Gi until expand-cache metrics justify a change (issue #399).
   # Flags live in scripts/cloud-run-release.sh (same path as scripts/deploy.sh).
