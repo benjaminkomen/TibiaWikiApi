@@ -5,16 +5,16 @@ updates:
   schedule:
     interval: daily
     time: "04:00"
-  open-pull-requests-limit: 20
+  open-pull-requests-limit: 5
 - package-ecosystem: github-actions
   directory: "/"
   schedule:
     interval: daily
     time: "04:00"
-  open-pull-requests-limit: 20
+  open-pull-requests-limit: 5
 - package-ecosystem: docker
   directory: "/docker"
   schedule:
     interval: daily
     time: "04:00"
-  open-pull-requests-limit: 20
+  open-pull-requests-limit: 5

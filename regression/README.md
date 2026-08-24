@@ -3,6 +3,10 @@
 Black-box HTTP snapshots for the TibiaWiki JSON API. This folder is **not** part of
 the Gradle test task — Bun compares live HTTP JSON to committed goldens.
 
+Requires **Bun 1.3.14** (pinned in [`.bun-version`](.bun-version) and `package.json`
+`engines.bun`; GitHub Actions uses `oven-sh/setup-bun` with `bun-version-file`,
+not `latest`).
+
 Wiki article data can go slightly stale. That is accepted. Refreshing goldens is
 intentional: run `bun run capture` when you want a new baseline.
 
@@ -115,7 +119,7 @@ Representative pages (fixtures profile only):
 
 `.github/workflows/api-regression.yml` on push/PR to `master`:
 
-1. JDK 25 + Bun
+1. JDK 25 + Bun 1.3.14 (`regression/.bun-version`)
 2. `SPRING_PROFILES_ACTIVE=fixtures ./gradlew bootRun`
 3. wait for `http://localhost:8080/api/corpses`
 4. `cd regression && bun run smoke:docs` (docs/UI + OpenAPI 3.0 + health)

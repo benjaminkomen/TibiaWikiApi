@@ -5,6 +5,9 @@ on:
     branches: [ master ]
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   api-regression:
     name: Fixture-backed goldens and docs smoke
@@ -18,11 +21,13 @@ jobs:
         with:
           java-version: '25'
           distribution: temurin
-          cache: gradle
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
 
       - uses: oven-sh/setup-bun@v2
         with:
-          bun-version: latest
+          bun-version-file: regression/.bun-version
 
       - name: Start fixture-backed API
         env:
