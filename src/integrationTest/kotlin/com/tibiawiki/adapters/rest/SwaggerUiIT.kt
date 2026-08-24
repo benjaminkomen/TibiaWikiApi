@@ -3,6 +3,7 @@ package com.tibiawiki.adapters.rest
 import com.tibiawiki.config.WikiWriteApiDocs
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.containsString
+import org.hamcrest.Matchers.empty
 import org.hamcrest.Matchers.hasItem
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.matchesPattern
@@ -48,6 +49,33 @@ class SwaggerUiIT(
         )
         assertThat(spec.getJSONObject("info").getString("title"), `is`("TibiaWikiApi"))
         assertThat(spec.has("paths") && spec.getJSONObject("paths").length() > 0, `is`(true))
+        val pathKeys = spec.getJSONObject("paths").keys().asSequence().toSet()
+        assertThat(
+            "actuators must stay out of the public spec (springdoc.paths-to-match=/api/**)",
+            pathKeys.filter { it.startsWith("/actuator") },
+            empty()
+        )
+    }
+
+    @Test
+    fun huntingPlaceByNameDocsNoteSlashyTitlesWithoutFakingNameParam() {
+        val result = restTemplate.getForEntity("/api-docs", String::class.java)
+        assertThat(result.statusCode, `is`(HttpStatus.OK))
+
+        val paths = JSONObject(result.body).getJSONObject("paths")
+        val pathKeys = paths.keys().asSequence().toSet()
+        assertThat(pathKeys, hasItem("/api/huntingplaces"))
+        assertThat(pathKeys, not(hasItem("/api/huntingplaces/{name}")))
+
+        val byNameKeys = pathKeys.filter { it.startsWith("/api/huntingplaces/") }
+        assertThat(byNameKeys, not(empty()))
+        val descriptions = byNameKeys.map { key ->
+            paths.getJSONObject(key).getJSONObject("get").optString("description")
+        }
+        assertThat(
+            descriptions.any { it.contains(HuntingPlacesController.BY_NAME_OPENAPI_NOTE) },
+            `is`(true)
+        )
     }
 
     @Test

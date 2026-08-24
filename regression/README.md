@@ -59,10 +59,11 @@ BASE_URL=http://localhost:8080 bun run test
 `/api-docs` is missing `openapi` or is **3.1.x** (some Swagger UI builds only
 accept `openapi: 3.0.n` and show "valid version field"), if initializer still
 advertises Petstore, if swagger-config does not point at this service's
-`/api-docs`, or if wiki catalog collections are still published only as the
+`/api-docs`, if wiki catalog collections are still published only as the
 generic `/api/{category}` template (each `WikiCategory` path must appear as
-`/api/achievements`, `/api/items`, … with its own tag). Status-200 HTML alone
-is not enough.
+`/api/achievements`, `/api/items`, … with its own tag), if `/actuator` paths
+appear in the spec, or if hunting-place by-name docs omit the slashy-name note.
+Status-200 HTML alone is not enough.
 
 Point it at production **manually** (never from GitHub Actions or other CI):
 
@@ -110,7 +111,7 @@ Representative pages (fixtures profile only):
 | Chained Penance | Monk-only spell (`voc=[[Monk]]s`) |
 | Powerful Strike | `Infobox Imbuement` via `/api/pages/Powerful_Strike` |
 | Bladespark | `Infobox Familiar` via `/api/pages/Bladespark` |
-| `Loot_Statistics:Dragon` | `Loot2_RC` **first**, then `Loot2` (v1 vs v2). Today's parser still treats `{{Loot2` as a prefix, so both goldens currently show the RC table; #405 should flip them after the fix. |
+| `Loot_Statistics:Dragon` | `Loot2_RC` **first**, then `Loot2` (v1 vs v2). `#405` made `{{Loot2` an exact template name, so v1 goldens use the regular Loot2 table and v2 exposes both `loot2` and `loot2_rc`. |
 
 `wiki.fixtures.path` / `WIKI_FIXTURES_PATH` defaults to `regression/fixtures`
 (resolved from the repo root).

@@ -298,6 +298,71 @@ function assertWikiCategoryDocs(
   }
 }
 
+const HUNTING_SLASH_NOTE = "Wiki titles may contain slashes";
+
+function assertActuatorsStayOutOfSpec(
+  docsPath: string,
+  spec: { paths?: unknown },
+): void {
+  if (spec.paths === null || typeof spec.paths !== "object") {
+    fail(docsPath, "paths must be an object to check actuator exclusion");
+    return;
+  }
+  const actuatorPaths = Object.keys(spec.paths as Record<string, unknown>).filter((key) =>
+    key.startsWith("/actuator"),
+  );
+  if (actuatorPaths.length > 0) {
+    fail(
+      docsPath,
+      `actuators must stay out of the public spec (springdoc.paths-to-match=/api/**): ${actuatorPaths.join(", ")}`,
+    );
+  } else {
+    ok(`${docsPath}  no /actuator paths`);
+  }
+}
+
+function assertHuntingPlaceSlashNote(
+  docsPath: string,
+  spec: { paths?: unknown },
+): void {
+  if (spec.paths === null || typeof spec.paths !== "object") {
+    fail(docsPath, "paths must be an object to check hunting-place slash note");
+    return;
+  }
+  const paths = spec.paths as Record<string, unknown>;
+  if (!("/api/huntingplaces" in paths)) {
+    fail(docsPath, "missing /api/huntingplaces");
+    return;
+  }
+  if ("/api/huntingplaces/{name}" in paths) {
+    fail(
+      docsPath,
+      "must not invent /api/huntingplaces/{name}; runtime mapping is /** for slashy titles",
+    );
+  }
+  const byNameKeys = Object.keys(paths).filter((key) => key.startsWith("/api/huntingplaces/"));
+  if (byNameKeys.length === 0) {
+    fail(docsPath, "missing hunting-place by-name path (expected /** mapping, not {name})");
+    return;
+  }
+  const descriptions = byNameKeys.map((key) => {
+    const pathItem = paths[key];
+    if (pathItem === null || typeof pathItem !== "object") {
+      return "";
+    }
+    const get = (pathItem as { get?: { description?: unknown } }).get;
+    return typeof get?.description === "string" ? get.description : "";
+  });
+  if (!descriptions.some((description) => description.includes(HUNTING_SLASH_NOTE))) {
+    fail(
+      docsPath,
+      `hunting-place by-name docs must note slashy titles; paths=${byNameKeys.join(", ")}`,
+    );
+  } else {
+    ok(`${docsPath}  hunting-place /** notes slashy names`);
+  }
+}
+
 async function main(): Promise<void> {
   console.log(`Docs / health smoke against ${BASE_URL}`);
 
@@ -428,6 +493,8 @@ async function main(): Promise<void> {
         ok(`${apiDocs.path}  ${pathCount} path(s)`);
       }
       assertWikiCategoryDocs(apiDocs.path, spec);
+      assertActuatorsStayOutOfSpec(apiDocs.path, spec);
+      assertHuntingPlaceSlashNote(apiDocs.path, spec);
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       fail(apiDocs.path, `not JSON: ${message}`);
