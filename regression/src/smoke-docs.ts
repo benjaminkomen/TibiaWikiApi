@@ -299,8 +299,8 @@ async function main(): Promise<void> {
       if (typeof spec.openapi !== "string" || !OPENAPI_30.test(spec.openapi)) {
         fail(
           apiDocs.path,
-          `openapi must match ^3.0.\\d+$ so bundled Swagger UI can render ` +
-            `(3.1.x yields "The provided definition does not specify a valid version field"); ` +
+          `openapi must match ^3.0.\\d+$ (some Swagger UI builds reject 3.1.x ` +
+            `with "The provided definition does not specify a valid version field"); ` +
             `got ${JSON.stringify(spec.openapi)}`,
         );
       } else {

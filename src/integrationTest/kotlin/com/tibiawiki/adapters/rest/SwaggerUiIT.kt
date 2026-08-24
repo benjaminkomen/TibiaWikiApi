@@ -19,10 +19,10 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.junit.jupiter.SpringExtension
 
 /**
- * Swagger UI on tibiawiki.dev failed with:
- * "Unable to render this definition / The provided definition does not specify
- * a valid version field." because `/api-docs` was OpenAPI 3.1.0 and the bundled
- * UI only accepts `openapi: 3.0.n`. This IT is the Gradle smoking gun for that.
+ * Docs/UI wiring that wiki golden compares never see. Status-200 HTML is not
+ * enough: initializer must not advertise Petstore, swagger-config must point
+ * at this service's `/api-docs`, and `openapi` must be 3.0.n so Swagger UI
+ * builds that reject 3.1.x still render (the "valid version field" error).
  */
 @Tag("fixtures")
 @ExtendWith(SpringExtension::class)
