@@ -31,6 +31,8 @@ CI (`buid.yml`) runs:
 
 `jacocoTestReport` depends on `check`, which also runs the `integrationTest` source set. A slice of those ITs (`FixturesProfileIT`) uses `@ActiveProfiles("fixtures")` and the real `FixtureArticleRepository` — no mocks and no Fandom. ktlint is the style checker — do not add a style guide.
 
+Cloud Run uses the **default** profile (live `JwikiArticleRepository`, `LOGGING_JSON=true`). When changing beans, constructors, logging, or Boot config: add or keep a default (or prod-like) profile IT that constructs **real** beans (`DefaultProfileWikiBeansIT`). Fixtures and `@MockitoBean` alone do not cover that path. Prod env flags that affect logging (e.g. `LOGGING_JSON=true`) must be exercised in CI (`LoggingJsonActuatorIT`).
+
 The Bun harness in `regression/` is **not** part of the Gradle `test` task.
 
 ## Fixture regression (critical)
@@ -47,6 +49,8 @@ cd regression && bun run test            # not `bun test` (that is Bun’s built
 ```
 
 Refresh goldens with `bun run capture` **only** against the fixture-backed server (`BASE_URL` default `http://localhost:8080`).
+
+If you touch OpenAPI, springdoc, Swagger, or controllers that affect the public catalog, run `cd regression && bun run smoke:docs` (and/or `SwaggerUiIT`). Status-200 HTML is not enough: OpenAPI must stay **3.0.x** so the bundled UI can render; concrete `WikiCategory` paths must stay enumerated (no generic `{category}` template only).
 
 ## Boundaries
 
@@ -72,10 +76,22 @@ Non-interactive: always pass flags (`submit --auto`, `view --json`, `merge --yes
 
 One concern per layer. Keep history linear: each tip must contain the parent tip.
 
+## Deploy
+
+`scripts/deploy.sh` builds the image, deploys to Cloud Run (`tibiawikiapi-246008`, `europe-west1`), waits until the **new revision is Ready**, then runs `cd regression && bun run smoke:docs` against `https://tibiawiki.dev` (`BASE_URL` override is documented in the script). `bun` is required for that smoke.
+
+- Image build success is not deploy success. The Cloud Run revision must be Ready (startup probe passed); then docs/health smoke must pass against the live URL.
+- If deploy or Ready fails, do not smoke; exit non-zero. The previous revision may still be serving traffic.
+- Do not declare success from build logs or “looks fine.” User screenshots of Swagger UI and health beat agent claims.
+- This live smoke is **ops** (`deploy.sh` only). PR/CI verification still uses fixtures and must not hit Fandom or tibiawiki.dev.
+
 ## PR / verify
 
 Before considering work done:
 
 1. `./gradlew ktlintCheck jacocoTestReport` is green.
-2. If you change API responses, controllers, wiki parsing, fixtures, or goldens, run fixture regression as above.
-3. For multi-PR dependency work, use a formal GitHub PR stack ([Stacked PRs](#stacked-prs)).
+2. If you change beans, constructors, logging, or Boot config, add/keep a default (or prod-like) profile IT with real beans; fixtures/`@MockitoBean` alone is not enough. Prod logging flags (`LOGGING_JSON=true`) must run in CI.
+3. If you change API responses, controllers, wiki parsing, fixtures, or goldens, run fixture regression as above.
+4. If you touch OpenAPI/springdoc/Swagger or controllers that affect the public catalog, run `cd regression && bun run smoke:docs` (and/or `SwaggerUiIT`). OpenAPI must stay 3.0.x; WikiCategory paths must be enumerated (no generic `{category}` template only).
+5. For multi-PR dependency work, use a formal GitHub PR stack ([Stacked PRs](#stacked-prs)).
+6. Deploy success is a Ready revision **then** prod `smoke:docs`, not image build alone (see [Deploy](#deploy)).
