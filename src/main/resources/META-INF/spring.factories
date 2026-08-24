@@ -1,0 +1,3 @@
+# Boot 4.1 loads EPPs from spring.factories (org.springframework.boot.EnvironmentPostProcessor).
+org.springframework.boot.EnvironmentPostProcessor=\
+com.tibiawiki.config.LoggingJsonEnvironmentPostProcessor
