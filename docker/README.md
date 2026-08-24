@@ -20,13 +20,18 @@ Build context is the repository root, so Docker reads the root `.dockerignore`
 docker run -it -e PORT=8080 -p 8080:8080 tibiawikiapi
 ```
 
-The image runs as uid/gid `65532`. Cloud Run sets `PORT`; the entrypoint
-expands `$PORT` (`ENV PORT=8080` when unset) and `exec`s `java` so the JVM is
-PID 1 (SIGTERM reaches Spring Boot) and Tomcat binds `0.0.0.0`.
+The image runs as uid/gid `65532`. `ENTRYPOINT` is exec-form `java` (no `sh
+-c`), so the JVM is PID 1 and Cloud Run SIGTERM reaches Spring Boot. Tomcat
+binds `0.0.0.0` via `-Dserver.address=0.0.0.0`.
 
-The Dockerfile writes `$$PORT` so Docker stores a single `$PORT` for the shell.
-Do not use `$${PORT:-8080}`: at runtime `sh` expands `$$` to PID 1, leaving
-`1{PORT:-8080}`, and the process fails Cloud Run startup probes.
+Cloud Run's `PORT` env is read by Spring (`server.port=${PORT:8080}` in
+`application.properties`). `ENV PORT=8080` is the local default when that env
+is unset. There is **no** shell expansion of `$PORT` / `$$PORT` in ENTRYPOINT.
+Hotfix #474 still produced `1PORT` at runtime because this image's JSON
+ENTRYPOINT left `$$` visible to `sh` (PID 1). Do not reintroduce `sh -c` for PORT.
+
+After a rebuild, `docker inspect <image>` `Entrypoint` must be a java argv
+array with **no** `$` / `$$`.
 
 The image build uses the Gradle wrapper and `settings.gradle.kts`. It does **not**
 need a `GITHUB_TOKEN`: `jwiki` is resolved from Maven Central.
