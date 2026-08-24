@@ -6,6 +6,28 @@ import {
 
 const OPENAPI_30 = /^3\.0\.\d+$/;
 const PETSTORE = /petstore\.swagger\.io/i;
+// Must match WikiCategory.path / WikiCategory.tag in
+// src/main/kotlin/com/tibiawiki/adapters/rest/WikiCategory.kt
+const WIKI_CATEGORIES: ReadonlyArray<{ path: string; tag: string }> = [
+  { path: "achievements", tag: "Achievements" },
+  { path: "books", tag: "Books" },
+  { path: "buildings", tag: "Buildings" },
+  { path: "charms", tag: "Charms" },
+  { path: "corpses", tag: "Corpses" },
+  { path: "creatures", tag: "Creatures" },
+  { path: "effects", tag: "Effects" },
+  { path: "items", tag: "Items" },
+  { path: "keys", tag: "Keys" },
+  { path: "locations", tag: "Locations" },
+  { path: "missiles", tag: "Missiles" },
+  { path: "mounts", tag: "Mounts" },
+  { path: "npcs", tag: "NPCs" },
+  { path: "objects", tag: "Objects" },
+  { path: "outfits", tag: "Outfits" },
+  { path: "quests", tag: "Quests" },
+  { path: "spells", tag: "Spells" },
+  { path: "streets", tag: "Streets" },
+];
 const REQUIRED_INDEX_MARKERS = [
   'id="swagger-ui"',
   "swagger-ui-bundle.js",
@@ -189,6 +211,89 @@ async function assertHealth(path: string): Promise<void> {
   }
 }
 
+function operationTags(pathItem: unknown): string[] {
+  if (pathItem === null || typeof pathItem !== "object") {
+    return [];
+  }
+  const tags = new Set<string>();
+  for (const method of ["get", "put", "post", "delete", "patch"]) {
+    const operation = (pathItem as Record<string, unknown>)[method];
+    if (operation === null || typeof operation !== "object") {
+      continue;
+    }
+    const rawTags = (operation as { tags?: unknown }).tags;
+    if (!Array.isArray(rawTags)) {
+      continue;
+    }
+    for (const tag of rawTags) {
+      if (typeof tag === "string") {
+        tags.add(tag);
+      }
+    }
+  }
+  return [...tags];
+}
+
+function specTagNames(spec: { tags?: unknown }): string[] {
+  if (!Array.isArray(spec.tags)) {
+    return [];
+  }
+  return spec.tags
+    .map((tag) =>
+      tag !== null && typeof tag === "object" && typeof (tag as { name?: unknown }).name === "string"
+        ? (tag as { name: string }).name
+        : null,
+    )
+    .filter((name): name is string => name !== null);
+}
+
+function assertWikiCategoryDocs(
+  docsPath: string,
+  spec: { paths?: unknown; tags?: unknown },
+): void {
+  if (spec.paths === null || typeof spec.paths !== "object") {
+    fail(docsPath, "paths must be an object to check WikiCategory expansions");
+    return;
+  }
+  const paths = spec.paths as Record<string, unknown>;
+  const generic = Object.keys(paths).filter((key) => key.includes("{category"));
+  if (generic.length > 0) {
+    fail(
+      docsPath,
+      `generic /api/{category} template still published (should be concrete WikiCategory paths): ${generic.join(", ")}`,
+    );
+  } else {
+    ok(`${docsPath}  no generic /api/{category} template`);
+  }
+
+  const tags = specTagNames(spec);
+  for (const category of WIKI_CATEGORIES) {
+    const collection = `/api/${category.path}`;
+    const byName = `/api/${category.path}/{name}`;
+    if (!(collection in paths)) {
+      fail(docsPath, `missing concrete path ${collection}`);
+    } else {
+      const collectionTags = operationTags(paths[collection]);
+      if (!collectionTags.includes(category.tag)) {
+        fail(docsPath, `${collection} should be tagged ${category.tag}, got ${JSON.stringify(collectionTags)}`);
+      } else {
+        ok(`${docsPath}  ${collection}  tag=${category.tag}`);
+      }
+    }
+    if (!(byName in paths)) {
+      fail(docsPath, `missing concrete path ${byName}`);
+    } else {
+      const byNameTags = operationTags(paths[byName]);
+      if (!byNameTags.includes(category.tag)) {
+        fail(docsPath, `${byName} should be tagged ${category.tag}, got ${JSON.stringify(byNameTags)}`);
+      }
+    }
+    if (!tags.includes(category.tag)) {
+      fail(docsPath, `tags must include ${category.tag}`);
+    }
+  }
+}
+
 async function main(): Promise<void> {
   console.log(`Docs / health smoke against ${BASE_URL}`);
 
@@ -318,6 +423,7 @@ async function main(): Promise<void> {
       } else {
         ok(`${apiDocs.path}  ${pathCount} path(s)`);
       }
+      assertWikiCategoryDocs(apiDocs.path, spec);
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       fail(apiDocs.path, `not JSON: ${message}`);

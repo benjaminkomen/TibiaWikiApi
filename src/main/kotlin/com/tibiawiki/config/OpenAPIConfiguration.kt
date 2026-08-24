@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.info.BuildProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.core.annotation.Order
 import io.swagger.v3.oas.models.responses.ApiResponse as OpenApiResponse
 
 @Configuration
@@ -51,6 +52,12 @@ class OpenAPIConfiguration {
     }
 
     @Bean
+    fun wikiCategoryOpenApiCustomizer(): OpenApiCustomizer {
+        return WikiCategoryOpenApiCustomizer()
+    }
+
+    @Bean
+    @Order(WIKI_WRITE_CUSTOMIZER_ORDER)
     fun wikiWriteOpenApiCustomizer(): OpenApiCustomizer {
         return OpenApiCustomizer { openApi ->
             openApi.paths?.values?.forEach { pathItem ->
@@ -66,5 +73,9 @@ class OpenAPIConfiguration {
                 put.addSecurityItem(SecurityRequirement().addList(WikiWriteApiDocs.SECURITY_SCHEME))
             }
         }
+    }
+
+    companion object {
+        const val WIKI_WRITE_CUSTOMIZER_ORDER = WikiCategoryOpenApiCustomizer.EXPANSION_ORDER + 1
     }
 }
