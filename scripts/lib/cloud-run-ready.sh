@@ -17,14 +17,56 @@
 # itself: empty/Unknown must be corroborated by latestReadyRevisionName or
 # HTTP readiness. Ready=False always fails closed, even if those fallbacks
 # would otherwise pass.
+#
+# Post-Ready smoke URL (Cloud Build after #482): prefer revision status.url /
+# status.address.url when present; otherwise the service URL. Cloud Run
+# *revisions* often omit status.url; *services* expose it.
 
 trim() {
   printf '%s' "$1" | tr -d '[:space:]'
 }
 
+# Pull status.url, else status.address.url, from a describe JSON status object.
+# Cloud Run *services* expose status.url; *revisions* often omit it (Cloud Build
+# post-deploy smoke failed with empty revision status.url after Ready).
+_cloud_run_status_url_py() {
+  python3 -c '
+import json, sys
+
+raw = sys.stdin.read()
+url = ""
+try:
+    doc = json.loads(raw)
+except json.JSONDecodeError:
+    doc = None
+if isinstance(doc, dict):
+    st = doc.get("status") or {}
+    if isinstance(st, dict):
+        url = st.get("url") or ""
+        if not url:
+            addr = st.get("address") or {}
+            if isinstance(addr, dict):
+                url = addr.get("url") or ""
+sys.stdout.write(str(url).replace("\n", "").replace("\r", "").replace("\t", "") + "\n")
+'
+}
+
+# stdin: gcloud run {revisions|services} describe --format=json
+# stdout: status.url or status.address.url (may be empty).
+parse_describe_url_json() {
+  _cloud_run_status_url_py
+}
+
+# stdin: gcloud run services describe --format=json
+# stdout: status.url or status.address.url (may be empty).
+parse_service_url_json() {
+  _cloud_run_status_url_py
+}
+
 # stdin: gcloud run revisions describe --format=json
 # stdout: three lines — status, message, url (any may be empty).
 # Not TAB-separated: bash IFS=tab collapses empty fields (issue #477 class of bug).
+# url is status.url or status.address.url; revisions often have neither.
 parse_revision_describe_json() {
   python3 -c '
 import json, sys
@@ -39,6 +81,10 @@ if isinstance(doc, dict):
     st = doc.get("status") or {}
     if isinstance(st, dict):
         url = st.get("url") or ""
+        if not url:
+            addr = st.get("address") or {}
+            if isinstance(addr, dict):
+                url = addr.get("url") or ""
         conds = st.get("conditions")
         if isinstance(conds, list):
             for cond in conds:
@@ -103,6 +149,40 @@ try:
 except Exception:
     sys.exit(1)
 ' "$url"
+}
+
+# After Ready wait succeeded: prefer a revision-specific URL if Cloud Run
+# exposed one, else the service URL (status.url / status.address.url).
+# Do not use the service URL when latestReady names a *different* revision
+# (that would smoke whatever is currently serving, not this deploy).
+# Empty latestReady is allowed: Ready wait already returned, and Cloud Run
+# revisions often omit status.url even when the service URL is present.
+resolve_smoke_url() {
+  local revision_url="$1"
+  local service_url="$2"
+  local created="${3:-}"
+  local latest_ready="${4:-}"
+  revision_url="$(trim "$revision_url")"
+  service_url="$(trim "$service_url")"
+  latest_ready="$(trim "$latest_ready")"
+  created="$(trim "$created")"
+
+  if [[ -n "$revision_url" ]]; then
+    printf '%s' "$revision_url"
+    return 0
+  fi
+  if [[ -n "$service_url" ]]; then
+    if [[ -n "$created" && "$latest_ready" == "$created" ]]; then
+      printf '%s' "$service_url"
+      return 0
+    fi
+    # Ready wait already returned; revision JSON often has no URL.
+    if [[ -z "$latest_ready" ]]; then
+      printf '%s' "$service_url"
+      return 0
+    fi
+  fi
+  printf '%s' ""
 }
 
 # Prints one token:
@@ -266,6 +346,86 @@ cloud_run_ready_self_test() {
   else
     echo "ok parse_latest_ready_missing"
   fi
+
+  # Cloud Build #482: revision JSON is Ready but has no status.url.
+  json='{"status":{"conditions":[{"type":"Ready","status":"True","message":"Container started."}]}}'
+  read_revision_describe_fields status message url < <(printf '%s' "$json" | parse_revision_describe_json)
+  if [[ "$status" != "True" || -n "$url" ]]; then
+    echo "FAIL parse_revision_url_missing: status=${status@Q} url=${url@Q}" >&2
+    failed=1
+  else
+    echo "ok parse_revision_url_missing"
+  fi
+
+  json='{"status":{"conditions":[{"type":"Ready","status":"True"}],"address":{"url":"https://rev-address.example"}}}'
+  read_revision_describe_fields status message url < <(printf '%s' "$json" | parse_revision_describe_json)
+  if [[ "$status" != "True" || "$url" != "https://rev-address.example" ]]; then
+    echo "FAIL parse_revision_address_url: status=${status@Q} url=${url@Q}" >&2
+    failed=1
+  else
+    echo "ok parse_revision_address_url"
+  fi
+
+  json='{"status":{"url":"https://tibiawikiapi-191142814790.europe-west1.run.app","latestReadyRevisionName":"tibiawikiapi-00144-wtl"}}'
+  got="$(trim "$(printf '%s' "$json" | parse_service_url_json)")"
+  if [[ "$got" != "https://tibiawikiapi-191142814790.europe-west1.run.app" ]]; then
+    echo "FAIL parse_service_url: got ${got@Q}" >&2
+    failed=1
+  else
+    echo "ok parse_service_url"
+  fi
+
+  json='{"status":{"address":{"url":"https://svc-address.example"},"latestReadyRevisionName":"tibiawikiapi-00144-wtl"}}'
+  got="$(trim "$(printf '%s' "$json" | parse_service_url_json)")"
+  if [[ "$got" != "https://svc-address.example" ]]; then
+    echo "FAIL parse_service_address_url: got ${got@Q}" >&2
+    failed=1
+  else
+    echo "ok parse_service_address_url"
+  fi
+
+  json='{"status":{"latestReadyRevisionName":"tibiawikiapi-00144-wtl"}}'
+  got="$(trim "$(printf '%s' "$json" | parse_service_url_json)")"
+  if [[ -n "$got" ]]; then
+    echo "FAIL parse_service_url_missing: got ${got@Q}" >&2
+    failed=1
+  else
+    echo "ok parse_service_url_missing"
+  fi
+
+  check_smoke_url() {
+    local name="$1"
+    local expected="$2"
+    shift 2
+    got="$(resolve_smoke_url "$@")"
+    if [[ "$got" != "$expected" ]]; then
+      echo "FAIL ${name}: expected ${expected@Q}, got ${got@Q} (rev=$1 svc=$2 created=$3 latest=$4)" >&2
+      failed=1
+    else
+      echo "ok ${name}"
+    fi
+  }
+
+  check_smoke_url resolve_prefers_revision_url \
+    "https://rev.example" \
+    "https://rev.example" "https://svc.example" tibiawikiapi-00144-wtl tibiawikiapi-00144-wtl
+
+  # The #482 failure: Ready=True, latestReady matches, revision status.url empty.
+  check_smoke_url resolve_smoke_url_service_fallback \
+    "https://tibiawikiapi-191142814790.europe-west1.run.app" \
+    "" "https://tibiawikiapi-191142814790.europe-west1.run.app" tibiawikiapi-00144-wtl tibiawikiapi-00144-wtl
+
+  check_smoke_url resolve_smoke_url_unparsed_latest_ready \
+    "https://svc.example" \
+    "" "https://svc.example" tibiawikiapi-00144-wtl ""
+
+  check_smoke_url resolve_smoke_url_other_latest_ready \
+    "" \
+    "" "https://svc.example" tibiawikiapi-00144-wtl tibiawikiapi-00141-zww
+
+  check_smoke_url resolve_smoke_url_both_empty \
+    "" \
+    "" "" tibiawikiapi-00144-wtl tibiawikiapi-00144-wtl
 
   local tmp rc
   tmp="$(mktemp -d)"
