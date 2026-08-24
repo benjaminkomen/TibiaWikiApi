@@ -6,7 +6,8 @@
 # Callers:
 #   cloudbuild.yaml     IMAGE=...:$COMMIT_SHA, BASE_URL unset → smoke the
 #                       revision URL (Swagger + actuator; no wiki/Fandom).
-#   scripts/deploy.sh   IMAGE=:latest, BASE_URL=https://tibiawiki.dev (ops).
+#   scripts/deploy.sh   IMAGE=...:$COMMIT_SHA, BASE_URL=https://tibiawiki.dev (ops).
+#                       :latest is retagged only after this script succeeds.
 #
 # gcloud run deploy already sends 100% traffic to the new revision once it
 # becomes Ready. Do not add `gcloud alpha run services update-traffic

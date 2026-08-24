@@ -10,10 +10,18 @@
 #
 # Gradle image build + 36×10s startup probe + smoke needs more than the default
 # 10m Cloud Build timeout.
+#
+# Image tags (issue #449): Cloud Run deploys $COMMIT_SHA. :latest is a pointer
+# pushed only via images: after this build succeeds. cloudbuild-pr.yaml must
+# not list these tags (it uses pr-$SHORT_SHA only).
+# Unset Cloud Run knobs — do not guess; measure then set (issue #449):
+#   cpu=1, concurrency=80, min-instances=0, timeout=300s, cpu-boost unset.
+# Memory stays 1Gi until expand-cache metrics justify a change (issue #399).
 timeout: 2400s
 
 steps:
   # build the container image (jwiki is Maven Central; no GitHub Packages token)
+  # $COMMIT_SHA comes from Cloud Build GitHub triggers. :latest is a pointer only.
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'build'
@@ -26,11 +34,9 @@ steps:
       - '.'
 
   # SHA tag must be in the registry before gcloud run deploy (images: pushes after steps).
+  # Do not push :latest here — that would move the prod pointer even if Ready/smoke fails.
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/tibiawikiapi:$COMMIT_SHA']
-
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/tibiawikiapi:latest']
 
   # Deploy + Ready wait + bun smoke:docs against the revision URL.
   # Startup/liveness hit Actuator probe groups (no Fandom). Memory/concurrency
@@ -61,6 +67,8 @@ steps:
         ./scripts/cloud-run-release.sh
     timeout: 900s
 
+# After a successful build only. Never list an untagged image (implicit :latest).
+# cloudbuild-pr.yaml must not share these tags — see that file.
 images:
   - 'gcr.io/$PROJECT_ID/tibiawikiapi:$COMMIT_SHA'
   - 'gcr.io/$PROJECT_ID/tibiawikiapi:latest'

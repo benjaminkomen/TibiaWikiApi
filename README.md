@@ -17,7 +17,8 @@ E.g. navigating to http://localhost:8080/api/corpses should give you a list of c
 
 Process health (no Fandom/wiki calls): `GET /actuator/health`,
 `/actuator/health/liveness`, `/actuator/health/readiness`, and `/actuator/info`.
-Cloud Run probe settings are documented in [`docker/README.md`](docker/README.md).
+Cloud Run probe settings, SHA image tags, rollback, and knobs are documented in
+[`docker/README.md`](docker/README.md).
 
 ## Fandom client (default profile)
 
