@@ -1,5 +1,6 @@
 package com.tibiawiki.adapters.rest
 
+import com.tibiawiki.config.LoggingJsonEnvironmentPostProcessor
 import com.tibiawiki.domain.repositories.ArticleRepository
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
@@ -12,6 +13,7 @@ import org.springframework.boot.resttestclient.TestRestTemplate
 import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate
 import org.springframework.boot.resttestclient.getForEntity
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.core.env.Environment
 import org.springframework.http.HttpStatus
 import org.springframework.test.context.bean.override.mockito.MockitoBean
 import org.springframework.test.context.junit.jupiter.SpringExtension
@@ -27,7 +29,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 )
 @AutoConfigureTestRestTemplate
 class LoggingJsonActuatorIT(
-    @Autowired private val restTemplate: TestRestTemplate
+    @Autowired private val restTemplate: TestRestTemplate,
+    @Autowired private val environment: Environment
 ) {
 
     @MockitoBean
@@ -38,6 +41,10 @@ class LoggingJsonActuatorIT(
         val root = LoggerFactory.getILoggerFactory()
             .getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME) as ch.qos.logback.classic.Logger
         assertThat(root.getAppender("CONSOLE") != null, `is`(true))
+        assertThat(
+            environment.getProperty(LoggingJsonEnvironmentPostProcessor.STRUCTURED_FORMAT_PROPERTY),
+            `is`(LoggingJsonEnvironmentPostProcessor.GCP_CONSOLE_FORMATTER)
+        )
 
         val result = restTemplate.getForEntity<Map<String, Any>>("/actuator/health/readiness")
 

@@ -12,6 +12,16 @@ import org.springframework.core.env.StandardEnvironment
 class LoggingJsonEnvironmentPostProcessorTest {
 
     @Test
+    fun flagParsingTreatsFalseyValuesAsDisabled() {
+        assertThat(LoggingJsonEnvironmentPostProcessor.isEnabled(null), `is`(false))
+        assertThat(LoggingJsonEnvironmentPostProcessor.isEnabled(""), `is`(false))
+        assertThat(LoggingJsonEnvironmentPostProcessor.isEnabled("false"), `is`(false))
+        assertThat(LoggingJsonEnvironmentPostProcessor.isEnabled("0"), `is`(false))
+        assertThat(LoggingJsonEnvironmentPostProcessor.isEnabled("true"), `is`(true))
+        assertThat(LoggingJsonEnvironmentPostProcessor.isEnabled("1"), `is`(true))
+    }
+
+    @Test
     fun unsetFlagLeavesStructuredFormatAlone() {
         val environment = environment()
 

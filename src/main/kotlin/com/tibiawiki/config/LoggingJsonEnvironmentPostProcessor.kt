@@ -20,13 +20,14 @@ class LoggingJsonEnvironmentPostProcessor : EnvironmentPostProcessor, Ordered {
         environment: ConfigurableEnvironment,
         application: SpringApplication
     ) {
-        if (!isEnabled(environment)) {
+        if (!isEnabled(environment.getProperty(ENV_FLAG))) {
             return
         }
         val existing = environment.getProperty(STRUCTURED_FORMAT_PROPERTY)
         if (!existing.isNullOrBlank()) {
             return
         }
+        applySystemProperty()
         environment.propertySources.addFirst(
             MapPropertySource(
                 PROPERTY_SOURCE_NAME,
@@ -38,15 +39,28 @@ class LoggingJsonEnvironmentPostProcessor : EnvironmentPostProcessor, Ordered {
     companion object {
         const val PROPERTY_SOURCE_NAME = "logging-json"
         const val STRUCTURED_FORMAT_PROPERTY = "logging.structured.format.console"
+        const val STRUCTURED_FORMAT_SYSTEM_PROPERTY = "CONSOLE_LOG_STRUCTURED_FORMAT"
         const val GCP_CONSOLE_FORMATTER =
             "com.tibiawiki.config.GcpConsoleStructuredLogFormatter"
         const val ENV_FLAG = "LOGGING_JSON"
 
-        fun isEnabled(environment: ConfigurableEnvironment): Boolean {
-            val raw = environment.getProperty(ENV_FLAG)?.trim().orEmpty()
-            return raw.isNotEmpty() &&
-                !raw.equals("false", ignoreCase = true) &&
-                raw != "0"
+        fun isEnabled(raw: String?): Boolean {
+            val value = raw?.trim().orEmpty()
+            return value.isNotEmpty() &&
+                !value.equals("false", ignoreCase = true) &&
+                value != "0"
+        }
+
+        fun applyFromProcessEnvironment() {
+            if (isEnabled(System.getenv(ENV_FLAG))) {
+                applySystemProperty()
+            }
+        }
+
+        private fun applySystemProperty() {
+            if (System.getProperty(STRUCTURED_FORMAT_SYSTEM_PROPERTY).isNullOrBlank()) {
+                System.setProperty(STRUCTURED_FORMAT_SYSTEM_PROPERTY, GCP_CONSOLE_FORMATTER)
+            }
         }
     }
 }

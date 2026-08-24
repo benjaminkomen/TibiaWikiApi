@@ -11,6 +11,7 @@ import io.github.fastily.jwiki.core.MQuery
 import io.github.fastily.jwiki.core.NS
 import io.github.fastily.jwiki.core.Wiki
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Repository
 
@@ -18,10 +19,14 @@ import org.springframework.stereotype.Repository
  * Live Fandom-backed [ArticleRepository]. Wiki construction, HTTP, and login
  * happen on first use (not in this constructor) so a Fandom outage degrades
  * reads instead of failing process start.
+ *
+ * The [Wiki] convenience constructor is for tests. It must not be the only
+ * Spring candidate: with two constructors and no [@Autowired], Boot 4 falls
+ * back to a missing no-arg constructor and the process exits.
  */
 @Repository
 @Profile("!fixtures")
-class JwikiArticleRepository(
+class JwikiArticleRepository @Autowired constructor(
     private val properties: WikiClientProperties,
     private val wikiFactory: WikiFactory,
     private val cache: WikiResponseCache,
