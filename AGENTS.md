@@ -35,6 +35,26 @@ Cloud Run uses the **default** profile (live `JwikiArticleRepository`, `LOGGING_
 
 The Bun harness in `regression/` is **not** part of the Gradle `test` task.
 
+## Docker ENTRYPOINT / PORT (critical)
+
+Cloud Run injects `PORT`. Bind it in Spring only: `server.port=${PORT:8080}` in `application.properties`. The production image `ENTRYPOINT` must be **exec-form java** with **no** `$` / `$$` / `sh -c`:
+
+```dockerfile
+ENTRYPOINT ["java", "-Dserver.address=0.0.0.0", "-jar", "/project/TibiaWikiApi.jar"]
+```
+
+Do **not** wire `PORT` through a shell ENTRYPOINT. Dockerfile `$$` is not reliably reduced to `$` in this image’s JSON ENTRYPOINT; `sh` then expands `$$` to PID 1 (`1PORT` / `1{PORT:-8080}`) and startup probes fail (issues #473, #474, #475).
+
+`CloudRunPortBindingTest` asserts the properties placeholder and the Dockerfile `ENTRYPOINT` text. That is not enough: Gradle never runs the image. PRs that touch `docker/Dockerfile` (or the boot contract) **must** include the image boot smoke — do not use Cloud Run as the first process that executes ENTRYPOINT.
+
+```bash
+docker build -t tibiawikiapi -f ./docker/Dockerfile .   # same context/args as deploy
+./scripts/docker-boot-smoke.sh tibiawikiapi              # PORT=8080 and 19080 → readiness UP
+# or: BUILD=1 ./scripts/docker-boot-smoke.sh
+```
+
+CI: GitHub Actions `.github/workflows/docker-boot.yml`, plus the same script after `docker build` in `cloudbuild-pr.yaml` and `cloudbuild.yaml` (before push/deploy). The job must fail if ENTRYPOINT regresses to shell PORT wiring.
+
 ## Fixture regression (critical)
 
 CI (`.github/workflows/api-regression.yml`) boots with `--spring.profiles.active=fixtures` and `regression/fixtures/`. That profile uses in-process `FixtureArticleRepository` and never constructs `JwikiArticleRepository` — **no outbound calls** to Fandom or tibiawiki.dev.
@@ -97,5 +117,6 @@ Before considering work done:
 2. If you change beans, constructors, logging, or Boot config, add/keep a default (or prod-like) profile IT with real beans; fixtures/`@MockitoBean` alone is not enough. Prod logging flags (`LOGGING_JSON=true`) must run in CI.
 3. If you change API responses, controllers, wiki parsing, fixtures, or goldens, run fixture regression as above.
 4. If you touch OpenAPI/springdoc/Swagger or controllers that affect the public catalog, run `cd regression && bun run smoke:docs` (and/or `SwaggerUiIT`). OpenAPI must stay 3.0.x; WikiCategory paths must be enumerated (no generic `{category}` template only).
-5. For multi-PR dependency work, use a formal GitHub PR stack ([Stacked PRs](#stacked-prs)).
-6. Deploy success is a Ready revision **then** `smoke:docs` (Cloud Build: revision URL; ops `deploy.sh`: tibiawiki.dev), not image build alone (see [Deploy](#deploy)).
+5. If you touch `docker/Dockerfile`, image ENTRYPOINT/CMD, or `server.port` / `PORT` wiring, run `./scripts/docker-boot-smoke.sh` (see [Docker ENTRYPOINT / PORT](#docker-entrypoint--port-critical)). Do not reintroduce a shell ENTRYPOINT for PORT.
+6. For multi-PR dependency work, use a formal GitHub PR stack ([Stacked PRs](#stacked-prs)).
+7. Deploy success is a Ready revision **then** `smoke:docs` (Cloud Build: revision URL; ops `deploy.sh`: tibiawiki.dev), not image build alone (see [Deploy](#deploy)). The image boot smoke must have passed in CI; Cloud Run is not the first boot.
