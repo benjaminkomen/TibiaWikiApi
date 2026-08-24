@@ -1,7 +1,11 @@
 steps:
-  # build the container image (jwiki is Maven Central; no GitHub Packages token)
+  # PR image only. Tag is pr-$SHORT_SHA so this trigger cannot overwrite prod
+  # SHA or latest pointers (issue #449). Do not retarget this -t at an untagged
+  # name. jwiki is Maven Central; no GitHub Packages token.
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/tibiawikiapi', '-f', './docker/Dockerfile', '.']
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/tibiawikiapi:pr-$SHORT_SHA', '-f', './docker/Dockerfile', '.']
 
+# Push the PR-specific tag only. Cloud Build's images: push runs after steps;
+# listing an untagged image here would clobber the prod latest pointer.
 images:
-  - gcr.io/tibiawikiapi-246008/tibiawikiapi
+  - 'gcr.io/$PROJECT_ID/tibiawikiapi:pr-$SHORT_SHA'

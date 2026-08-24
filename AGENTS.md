@@ -80,9 +80,10 @@ One concern per layer. Keep history linear: each tip must contain the parent tip
 
 Merge-to-prod is `cloudbuild.yaml` (not PR CI): tag `$COMMIT_SHA` and `:latest`, `gcloud run deploy` with env/probe flags (`LOGGING_JSON=true`, `WIKI_WRITE_ENABLED=false`, startup/liveness), wait until the **new revision is Ready**, then `cd regression && bun run smoke:docs` against the **revision URL** (Swagger + actuator only; no wiki/Fandom paths). `gcloud run deploy` already sends 100% to the new revision; do not add `gcloud alpha run services update-traffic --to-latest`. Flags and the Ready-then-smoke gate live in `scripts/cloud-run-release.sh`.
 
-`scripts/deploy.sh` is the **ops** path: builds `:latest`, then the same release script, with `smoke:docs` against `https://tibiawiki.dev` (`BASE_URL` override is documented in the script). `bun` is required for that smoke.
+`scripts/deploy.sh` is the **ops** path: builds `$COMMIT_SHA`, then the same release script, with `smoke:docs` against `https://tibiawiki.dev` (`BASE_URL` override is documented in the script). `:latest` is retagged only after Ready + smoke. `bun` is required for that smoke.
 
 - Image build success is not deploy success. The Cloud Run revision must be Ready (startup probe passed); then docs/health smoke must pass.
+- Prod images are `gcr.io/tibiawikiapi-246008/tibiawikiapi:$COMMIT_SHA`. `:latest` is a pointer updated after success. `cloudbuild-pr.yaml` tags `pr-$SHORT_SHA` only and must not list untagged / `:latest` images. Rollback and Cloud Run knobs: [`docker/README.md`](docker/README.md).
 - If deploy or Ready fails, do not smoke; exit non-zero. The previous revision may still be serving traffic.
 - If smoke fails after Ready, Cloud Build / the script still fail; the new revision may already be serving 100%.
 - Do not declare success from build logs or “looks fine.” User screenshots of Swagger UI and health beat agent claims.
