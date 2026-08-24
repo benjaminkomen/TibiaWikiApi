@@ -7,10 +7,15 @@ import com.tibiawiki.domain.objects.validation.ValidationResult
 import com.tibiawiki.domain.objects.validation.ValidationSeverity
 import com.tibiawiki.domain.wiki.ExpandTooLargeException
 import com.tibiawiki.domain.wiki.WikiUnavailableException
+import ch.qos.logback.classic.Level
+import ch.qos.logback.classic.Logger
+import ch.qos.logback.classic.spi.ILoggingEvent
+import ch.qos.logback.core.read.ListAppender
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.nullValue
 import org.junit.jupiter.api.Test
+import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 
 class ApiExceptionHandlerTest {
@@ -45,11 +50,26 @@ class ApiExceptionHandlerTest {
     }
 
     @Test
-    fun unexpectedExceptionMapsTo500WithoutBody() {
-        val response = target.handleUnexpected(IllegalStateException("boom"))
+    fun unexpectedExceptionMapsTo500WithInternalError() {
+        val logger = LoggerFactory.getLogger(ApiExceptionHandler::class.java) as Logger
+        val appender = ListAppender<ILoggingEvent>()
+        appender.start()
+        logger.addAppender(appender)
+        try {
+            val response = target.handleUnexpected(IllegalStateException("boom"))
 
-        assertThat(response.statusCode, `is`(HttpStatus.INTERNAL_SERVER_ERROR))
-        assertThat(response.body, nullValue())
+            assertThat(response.statusCode, `is`(HttpStatus.INTERNAL_SERVER_ERROR))
+            assertThat(response.body!!["error"], `is`("internal"))
+            assertThat(response.body!!.containsKey("message"), `is`(false))
+
+            val event = appender.list.single()
+            assertThat(event.level, `is`(Level.ERROR))
+            assertThat(event.throwableProxy.className, `is`(IllegalStateException::class.java.name))
+            assertThat(event.throwableProxy.message, `is`("boom"))
+        } finally {
+            logger.detachAppender(appender)
+            appender.stop()
+        }
     }
 
     @Test

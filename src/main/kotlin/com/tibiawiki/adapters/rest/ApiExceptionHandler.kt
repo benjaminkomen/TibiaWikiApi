@@ -4,6 +4,7 @@ import com.tibiawiki.domain.ArticleNotFoundException
 import com.tibiawiki.domain.objects.validation.ValidationException
 import com.tibiawiki.domain.wiki.ExpandTooLargeException
 import com.tibiawiki.domain.wiki.WikiUnavailableException
+import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -58,7 +59,13 @@ class ApiExceptionHandler : ResponseEntityExceptionHandler() {
     }
 
     @ExceptionHandler(Exception::class)
-    fun handleUnexpected(ex: Exception): ResponseEntity<Void> {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()
+    fun handleUnexpected(ex: Exception): ResponseEntity<Map<String, String>> {
+        LOG.error("Unhandled exception", ex)
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .body(mapOf("error" to "internal"))
+    }
+
+    companion object {
+        private val LOG = LoggerFactory.getLogger(ApiExceptionHandler::class.java)
     }
 }
