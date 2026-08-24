@@ -2,13 +2,13 @@ FROM gradle:9.7.1-jdk25 AS builder
 
 # Copy local code to the container image.
 WORKDIR /app
-COPY gradlew settings.gradle build.gradle ./
+COPY gradlew settings.gradle.kts build.gradle.kts ./
 COPY gradle ./gradle
 # bootJar compiles production sources only; keep tests out of the builder.
 COPY src/main ./src/main
 
 # Produce the boot jar only. Unit/IT coverage runs in GitHub Actions.
-# bootJar archiveFileName is TibiaWikiApi.jar (see build.gradle).
+# bootJar archiveFileName is TibiaWikiApi.jar (see build.gradle.kts).
 RUN chmod +x gradlew && ./gradlew bootJar --no-daemon
 
 FROM eclipse-temurin:25.0.4_7-jre
