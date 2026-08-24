@@ -67,8 +67,7 @@ class HuntingPlacesController(
         ]
     )
     fun getHuntingPlacesByName(request: HttpServletRequest): ResponseEntity<WikiJson> {
-        val requestUri = request.requestURI
-        val name = URLDecoder.decode(requestUri.split("/huntingplaces/")[1], StandardCharsets.UTF_8)
+        val name = nameFrom(request.requestURI)
         return WikiResourceResponses.jsonOrNotFound(retrieveByTemplate.articleAsJSON(name))
     }
 
@@ -93,5 +92,13 @@ class HuntingPlacesController(
             "Wiki titles may contain slashes (for example Tiquanda/Bandit Caves). " +
                 "The remainder of the path after /api/huntingplaces/ is the name; " +
                 "this mapping is /** so OpenAPI does not invent a single {name} path parameter."
+
+        private const val NAME_PREFIX = "/api/huntingplaces/"
+
+        internal fun nameFrom(requestUri: String): String {
+            val encoded = requestUri.substringAfter(NAME_PREFIX, missingDelimiterValue = "")
+            require(encoded.isNotEmpty()) { "Missing hunting place name in '$requestUri'" }
+            return URLDecoder.decode(encoded, StandardCharsets.UTF_8)
+        }
     }
 }

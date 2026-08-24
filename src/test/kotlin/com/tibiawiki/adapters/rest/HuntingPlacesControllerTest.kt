@@ -54,4 +54,16 @@ class HuntingPlacesControllerTest {
         assertThat(put.statusCode, `is`(HttpStatus.OK))
         assertThat(put.body, `is`(body as WikiObject))
     }
+
+    @Test
+    fun nameFromKeepsRemainderWhenTokenAppearsTwice() {
+        assertThat(
+            HuntingPlacesController.nameFrom("/api/huntingplaces/Razachai/Inner%20Sanctum"),
+            `is`("Razachai/Inner Sanctum")
+        )
+        assertThat(
+            HuntingPlacesController.nameFrom("/api/huntingplaces/Foo/huntingplaces/Bar"),
+            `is`("Foo/huntingplaces/Bar")
+        )
+    }
 }
