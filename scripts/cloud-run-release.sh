@@ -13,7 +13,7 @@
 # becomes Ready. Do not add `gcloud alpha run services update-traffic
 # --to-latest` — that can send traffic to latestCreated before Ready.
 #
-# Required: gcloud, bun, a reachable IMAGE.
+# Required: gcloud, bun, python3, a reachable IMAGE.
 #
 # Env:
 #   IMAGE                  Image to deploy (required).
@@ -23,6 +23,10 @@
 #   BASE_URL               smoke:docs target. Unset = the new revision URL.
 #   READY_TIMEOUT_SECONDS  Wait for Ready (default 420; probe is 36×10s).
 #   READY_POLL_SECONDS     Poll interval (default 10).
+#
+# Ready wait uses gcloud --format=json + python3 (scripts/lib/cloud-run-ready.sh),
+# not conditions[?type=Ready] projections (empty in Cloud Build; issue #477).
+# Dry-run / regression: ./scripts/lib/cloud-run-ready.sh self-test
 #
 # Deploy/Ready failure skips smoke and exits non-zero (previous revision may
 # still be serving). Smoke failure exits non-zero; the new revision may already
@@ -49,6 +53,10 @@ need_cmd() {
 
 need_cmd gcloud "Authenticate with a principal that can deploy ${SERVICE}."
 need_cmd bun "Install bun from https://bun.sh. Post-deploy smoke runs: cd regression && bun run smoke:docs"
+need_cmd python3 "Ready-wait JSON parse (issue #477) uses python3; it is present in gcr.io/cloud-builders/gcloud."
+
+# shellcheck source=lib/cloud-run-ready.sh
+source "$ROOT/scripts/lib/cloud-run-ready.sh"
 
 if [[ -z "${IMAGE:-}" ]]; then
   echo "ERROR: IMAGE is required (e.g. gcr.io/${PROJECT}/tibiawikiapi:\$COMMIT_SHA)." >&2
@@ -60,32 +68,27 @@ UPDATE_ENV_VARS="LOGGING_JSON=true,WIKI_WRITE_ENABLED=false"
 STARTUP_PROBE="httpGet.path=/actuator/health/readiness,timeoutSeconds=4,periodSeconds=10,failureThreshold=36"
 LIVENESS_PROBE="httpGet.path=/actuator/health/liveness,timeoutSeconds=4,periodSeconds=30,failureThreshold=3"
 
-trim() {
-  printf '%s' "$1" | tr -d '[:space:]'
-}
-
-revision_ready_fields() {
+revision_describe_json() {
   local revision="$1"
   gcloud run revisions describe "$revision" \
     --project "$PROJECT" \
     --region "$REGION" \
-    --format='value[separator=|](status.conditions[?type=Ready].status,status.conditions[?type=Ready].message)'
+    --format=json
 }
 
-latest_ready_revision() {
+service_describe_json() {
   gcloud run services describe "$SERVICE" \
     --project "$PROJECT" \
     --region "$REGION" \
     --platform managed \
-    --format='value(status.latestReadyRevisionName)'
+    --format=json
 }
 
 revision_url() {
   local revision="$1"
-  gcloud run revisions describe "$revision" \
-    --project "$PROJECT" \
-    --region "$REGION" \
-    --format='value(status.url)'
+  local status message url
+  read_revision_describe_fields status message url < <(revision_describe_json "$revision" | parse_revision_describe_json)
+  printf '%s' "$(trim "$url")"
 }
 
 wait_for_revision_ready() {
@@ -94,26 +97,37 @@ wait_for_revision_ready() {
   echo "Waiting up to ${READY_TIMEOUT_SECONDS}s for revision ${revision} to become Ready..."
 
   while true; do
-    local fields status message latest_ready
-    fields="$(revision_ready_fields "$revision")"
-    status="$(trim "${fields%%|*}")"
-    if [[ "$fields" == *"|"* ]]; then
-      message="${fields#*|}"
-    else
-      message=""
-    fi
-    latest_ready="$(trim "$(latest_ready_revision)")"
+    local rev_json svc_json status message url latest_ready decision http_ready
+    rev_json="$(revision_describe_json "$revision")"
+    svc_json="$(service_describe_json)"
+    read_revision_describe_fields status message url < <(printf '%s' "$rev_json" | parse_revision_describe_json)
+    url="$(trim "$url")"
+    latest_ready="$(trim "$(printf '%s' "$svc_json" | parse_service_latest_ready_json)")"
+    http_ready=""
 
-    if [[ "$status" == "True" && "$latest_ready" == "$revision" ]]; then
-      echo "Revision ${revision} is Ready and is status.latestReadyRevisionName."
-      return 0
-    fi
+    decision="$(evaluate_ready_wait "$revision" "$status" "$latest_ready" "$http_ready")"
+    case "$decision" in
+      success:*)
+        echo "Revision ${revision} is Ready (${decision#success:}; Ready=${status:-unparsed}, latestReady=${latest_ready:-none})."
+        return 0
+        ;;
+      fail:ready_false)
+        echo "ERROR: revision ${revision} Ready=False${message:+: $message}" >&2
+        echo "Cloud Run did not promote this revision; the previous revision may still be serving. Skipping smoke." >&2
+        gcloud run revisions describe "$revision" --project "$PROJECT" --region "$REGION" >&2 || true
+        return 1
+        ;;
+    esac
 
-    if [[ "$status" == "False" ]]; then
-      echo "ERROR: revision ${revision} Ready=False${message:+: $message}" >&2
-      echo "Cloud Run did not promote this revision; the previous revision may still be serving. Skipping smoke." >&2
-      gcloud run revisions describe "$revision" --project "$PROJECT" --region "$REGION" >&2 || true
-      return 1
+    # Both JSON fields empty: last-resort HTTP on the revision URL (not tibiawiki.dev).
+    if [[ -z "$status" || "$status" == "Unknown" ]] && [[ -z "$latest_ready" && -n "$url" ]]; then
+      if http_readiness_ok "$url"; then
+        decision="$(evaluate_ready_wait "$revision" "$status" "$latest_ready" "yes")"
+        if [[ "$decision" == success:* ]]; then
+          echo "Revision ${revision} Ready condition unparsed; revision URL readiness returned HTTP 200 (${url})."
+          return 0
+        fi
+      fi
     fi
 
     if (( $(date +%s) >= deadline )); then
