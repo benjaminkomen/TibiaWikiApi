@@ -11,7 +11,7 @@ COPY src/main ./src/main
 # bootJar archiveFileName is TibiaWikiApi.jar (see build.gradle.kts).
 RUN chmod +x gradlew && ./gradlew bootJar --no-daemon
 
-FROM eclipse-temurin:25.0.4_7-jre
+FROM eclipse-temurin:26.0.2_10-jre
 RUN mkdir /project
 COPY --from=builder --chown=65532:65532 /app/build/libs/TibiaWikiApi.jar /project/TibiaWikiApi.jar
 WORKDIR /project
