@@ -3,7 +3,7 @@
 # and force it via resolutionStrategy in build.gradle.kts.
 kotlin = "2.4.10"
 spring-boot = "4.1.1"
-sonarqube = "7.4.0.8496"
+sonarqube = "7.5.0.8588"
 ktlint = "14.2.0"
 
 # Aligned with the Spring Boot 4.1.1 BOM unless noted
