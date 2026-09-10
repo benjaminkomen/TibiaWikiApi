@@ -17,7 +17,7 @@ json = "20260814"
 guava = "33.7.1-jre"
 vavr = "1.0.1"
 hamcrest = "3.0"
-springdoc = "3.1.0"
+springdoc = "3.1.1"
 
 [libraries]
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
