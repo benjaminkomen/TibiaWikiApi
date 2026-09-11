@@ -1,7 +1,7 @@
 [versions]
 # Boot 4.1.1 BOM manages Kotlin 2.3.21; we pin 2.4.10 (Boot 4 requires 2.2+)
 # and force it via resolutionStrategy in build.gradle.kts.
-kotlin = "2.4.10"
+kotlin = "2.4.20"
 spring-boot = "4.1.1"
 sonarqube = "7.5.0.8588"
 ktlint = "14.2.0"
