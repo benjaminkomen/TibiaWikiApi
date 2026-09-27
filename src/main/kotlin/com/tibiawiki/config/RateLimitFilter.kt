@@ -4,6 +4,7 @@ import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.slf4j.LoggerFactory
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.core.Ordered
 import org.springframework.core.annotation.Order
 import org.springframework.http.HttpMethod
@@ -22,9 +23,12 @@ import java.time.Instant
  * Ordered after [SecurityHeadersFilter] and after Spring's forwarded-header
  * processing so [HttpServletRequest.getRemoteAddr] is the Cloud Run client IP
  * when `server.forward-headers-strategy=framework`.
+ *
+ * Actuator, springdoc, and Swagger UI live outside `/api/` so they are not limited.
  */
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE + 20)
+@EnableConfigurationProperties(RateLimitProperties::class)
 class RateLimitFilter(
     private val properties: RateLimitProperties,
     private val ipKeyResolver: ClientIpKeyResolver,
@@ -42,9 +46,6 @@ class RateLimitFilter(
             return true
         }
         val path = request.requestURI ?: return true
-        if (isExcluded(path)) {
-            return true
-        }
         return !path.startsWith(API_PREFIX)
     }
 
@@ -65,15 +66,6 @@ class RateLimitFilter(
         }
 
         filterChain.doFilter(request, response)
-    }
-
-    private fun isExcluded(path: String): Boolean {
-        if (path == "/") {
-            return true
-        }
-        return EXCLUDED_PREFIXES.any { prefix ->
-            path == prefix || path.startsWith(prefix)
-        }
     }
 
     private fun isExpandRequest(request: HttpServletRequest): Boolean {
@@ -132,12 +124,6 @@ class RateLimitFilter(
         const val HEADER_RESET = "X-RateLimit-Reset"
 
         private const val USER_AGENT_MAX_LEN = 80
-        private val EXCLUDED_PREFIXES = listOf(
-            "/actuator",
-            "/api-docs",
-            "/swagger-ui",
-            "/v3/api-docs"
-        )
         private val LOG = LoggerFactory.getLogger(RateLimitFilter::class.java)
     }
 }

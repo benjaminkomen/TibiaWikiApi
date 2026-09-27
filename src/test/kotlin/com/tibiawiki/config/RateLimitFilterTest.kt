@@ -33,33 +33,6 @@ class RateLimitFilterTest {
     }
 
     @Test
-    fun actuatorIsNotFilteredWhenEnabled() {
-        val filter = filter(enabled = true, capacity = 1.0, refill = 0.0)
-        val chain = mock(FilterChain::class.java)
-        val request = MockHttpServletRequest("GET", "/actuator/health")
-        request.remoteAddr = "203.0.113.1"
-        val response = MockHttpServletResponse()
-
-        filter.doFilter(request, response, chain)
-
-        verify(chain).doFilter(request, response)
-        assertThat(response.status, `is`(HttpStatus.OK.value()))
-    }
-
-    @Test
-    fun swaggerAndApiDocsAreNotFiltered() {
-        val filter = filter(enabled = true, capacity = 1.0, refill = 0.0)
-        for (path in listOf("/swagger-ui/index.html", "/api-docs", "/api-docs/swagger-config")) {
-            val chain = mock(FilterChain::class.java)
-            val request = MockHttpServletRequest("GET", path)
-            request.remoteAddr = "203.0.113.1"
-            val response = MockHttpServletResponse()
-            filter.doFilter(request, response, chain)
-            verify(chain).doFilter(request, response)
-        }
-    }
-
-    @Test
     fun postIsNotRateLimited() {
         val filter = filter(enabled = true, capacity = 1.0, refill = 0.0)
         val chain = mock(FilterChain::class.java)
