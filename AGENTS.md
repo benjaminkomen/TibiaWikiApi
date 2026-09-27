@@ -109,6 +109,13 @@ Merge-to-prod is `cloudbuild.yaml` (not PR CI): tag `$COMMIT_SHA` and `:latest`,
 - Do not declare success from build logs or “looks fine.” User screenshots of Swagger UI and health beat agent claims.
 - Live `https://tibiawiki.dev` smoke is **ops** (`deploy.sh` only). PR/CI verification still uses fixtures and must not hit Fandom or tibiawiki.dev.
 
+## Rate limiting
+
+`RATE_LIMIT_ENABLED` defaults false. Do **not** enable on Cloud Run or change
+prod env for rate limits unless the user explicitly asks. Implementation:
+`RateLimitFilter` + `ClientIpKeyResolver` (IPv6 `/64`). Docs: README and
+`docker/README.md`.
+
 ## PR / verify
 
 Before considering work done:

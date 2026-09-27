@@ -129,6 +129,29 @@ gcloud run deploy tibiawikiapi \
 Canary (`--no-traffic` then a traffic split) is optional at this volume.
 Fail-closed Ready + docs/health smoke on Cloud Build is [#446](https://github.com/benjaminkomen/TibiaWikiApi/issues/446), not this change.
 
+## Rate limiting
+
+App middleware (`RateLimitFilter`) is **off** by default. Prod deploy sets
+`RATE_LIMIT_ENABLED=false` explicitly via `scripts/cloud-run-release.sh`.
+
+Enable after the revision is Ready (do not flip in the same first deploy that
+introduces the code unless you intend to):
+
+```bash
+gcloud run services update tibiawikiapi \
+  --region europe-west1 --project tibiawikiapi-246008 \
+  --update-env-vars=RATE_LIMIT_ENABLED=true
+```
+
+Optional tunables: `RATE_LIMIT_CAPACITY` (default 20),
+`RATE_LIMIT_REFILL_PER_SECOND` (default 0.5 ≈ 30/min),
+`RATE_LIMIT_EXPAND_CAPACITY` (default 2),
+`RATE_LIMIT_EXPAND_REFILL_PER_SECOND` (default ~0.0833 ≈ 5/min for
+`?expand=true`).
+
+Fast rollback: `--update-env-vars=RATE_LIMIT_ENABLED=false`. Limits are
+in-memory per instance; with N replicas the effective ceiling is about N×.
+
 ## Cloud Run knobs (measured follow-up)
 
 Do **not** change these without expand-cache / cold-start evidence. Memory is

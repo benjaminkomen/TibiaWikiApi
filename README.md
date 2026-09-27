@@ -93,6 +93,26 @@ CORS allows GET (plus HEAD/OPTIONS) from `https://tibiawiki.dev` and local
 `bootRun` origins. Credentials are not enabled. Override origins with
 `WIKI_CORS_ALLOWED_ORIGINS` (`*` for any GET origin).
 
+## Rate limiting (optional)
+
+Public GET/HEAD `/api/**` can be soft-throttled with an in-process token bucket
+keyed by client IP (IPv4 full address, IPv6 `/64`). Defaults: burst 20, refill
+0.5/s (~30/min). Rejected calls return HTTP **429** with `Retry-After`,
+`X-RateLimit-*` headers, and JSON `{"error":"rate_limited",...}`.
+
+Shipped **disabled**. After a revision is Ready on Cloud Run:
+
+```bash
+gcloud run services update tibiawikiapi \
+  --region europe-west1 --project tibiawikiapi-246008 \
+  --update-env-vars=RATE_LIMIT_ENABLED=true
+```
+
+Tune with `RATE_LIMIT_CAPACITY`, `RATE_LIMIT_REFILL_PER_SECOND`,
+`RATE_LIMIT_EXPAND_CAPACITY`, and `RATE_LIMIT_EXPAND_REFILL_PER_SECOND`.
+Rollback: set `RATE_LIMIT_ENABLED=false`. Actuator, springdoc, and Swagger UI
+are not limited. Counters are per instance (see [`docker/README.md`](docker/README.md)).
+
 ## Query parameters
 For all resources the query parameter `?expand=true` can be appended to get a full list of JSON objects
  at the collection resource level. For example, instead of https://tibiawiki.dev/api/achievements the url
