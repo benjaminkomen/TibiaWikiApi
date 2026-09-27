@@ -67,7 +67,7 @@ if [[ -z "${IMAGE:-}" ]]; then
 fi
 
 # Must stay aligned with cloudbuild.yaml / docker/README.md probe table.
-UPDATE_ENV_VARS="LOGGING_JSON=true,WIKI_WRITE_ENABLED=false"
+UPDATE_ENV_VARS="LOGGING_JSON=true,WIKI_WRITE_ENABLED=false,RATE_LIMIT_ENABLED=false"
 STARTUP_PROBE="httpGet.path=/actuator/health/readiness,timeoutSeconds=4,periodSeconds=10,failureThreshold=36"
 LIVENESS_PROBE="httpGet.path=/actuator/health/liveness,timeoutSeconds=4,periodSeconds=30,failureThreshold=3"
 
