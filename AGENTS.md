@@ -127,7 +127,7 @@ Cloud Build (same root cause on every Dependabot Gradle PR).
 On the bump branch (after rebase onto `master`):
 
 ```bash
-./gradlew --write-verification-metadata sha256 ktlintCheck jacocoTestReport
+./gradlew --write-verification-metadata sha256 --refresh-dependencies ktlintCheck jacocoTestReport bootJar
 git add gradle/verification-metadata.xml
 git commit -m "Refresh Gradle verification metadata for <dep> <version>."
 ```
