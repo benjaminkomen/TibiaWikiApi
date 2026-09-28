@@ -122,9 +122,13 @@ configurations {
         extendsFrom(configurations.testImplementation.get())
     }
     all {
-        resolutionStrategy.eachDependency {
-            if (requested.group == "org.jetbrains.kotlin") {
-                useVersion(libs.versions.kotlin.get())
+        // Do not force project Kotlin onto ktlint* configs — ktlint embeds its own
+        // compiler for parsing; swapping it breaks ktlintCheck after Kotlin bumps.
+        if (!name.startsWith("ktlint")) {
+            resolutionStrategy.eachDependency {
+                if (requested.group == "org.jetbrains.kotlin") {
+                    useVersion(libs.versions.kotlin.get())
+                }
             }
         }
     }
