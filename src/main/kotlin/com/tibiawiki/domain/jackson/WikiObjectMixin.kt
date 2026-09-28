@@ -26,7 +26,7 @@ import com.tibiawiki.domain.objects.Update
 import com.tibiawiki.domain.objects.WikiObject
 import com.tibiawiki.domain.objects.World
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "templateType", visible = true)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "templateType", visible = true)
 @JsonSubTypes(
     JsonSubTypes.Type(value = Achievement::class, name = "Achievement"),
     JsonSubTypes.Type(value = Book::class, name = "Book"),
