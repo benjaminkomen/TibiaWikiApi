@@ -116,6 +116,24 @@ prod env for rate limits unless the user explicitly asks. Implementation:
 `RateLimitFilter` + `ClientIpKeyResolver` (IPv6 `/64`). Docs: README and
 `docker/README.md`.
 
+## Dependabot / dependency bumps
+
+Dependabot only edits `gradle/libs.versions.toml`. This repo enables Gradle
+dependency verification (`gradle/verification-metadata.xml`), so every version
+bump PR must also refresh checksums or CI fails at `:compileKotlin` with
+"Dependency verification failed" across Build, Docker boot, regression, and
+Cloud Build (same root cause on every Dependabot Gradle PR).
+
+On the bump branch (after rebase onto `master`):
+
+```bash
+./gradlew --write-verification-metadata sha256 --refresh-dependencies ktlintCheck jacocoTestReport bootJar
+git add gradle/verification-metadata.xml
+git commit -m "Refresh Gradle verification metadata for <dep> <version>."
+```
+
+Do not merge a Dependabot Gradle PR that only touches the version catalog.
+
 ## PR / verify
 
 Before considering work done:
