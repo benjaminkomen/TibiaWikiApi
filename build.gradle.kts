@@ -83,7 +83,7 @@ sonar {
         }
         // kotlin:S6474: checksums live in gradle/verification-metadata.xml.
         // After a dependency bump, refresh with:
-        // ./gradlew --write-verification-metadata sha256 ktlintCheck jacocoTestReport
+        // ./gradlew --write-verification-metadata sha256 --refresh-dependencies ktlintCheck jacocoTestReport bootJar
     }
 }
 
