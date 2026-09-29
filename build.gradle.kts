@@ -82,7 +82,11 @@ sonar {
             property("sonar.qualitygate.wait", "true")
         }
         // Gradle dependency verification is intentionally not used (it blocked
-        // every Dependabot bump), so ignore kotlin:S6474 across the project.
+        // every Dependabot bump), so suppress kotlin:S6474. The "missing
+        // verification-metadata.xml" variant is a project-level issue that the
+        // file-pattern ignore below cannot match; sonar-kotlin only raises it
+        // when gradleProjectRoot == baseDir, so point it at a subdirectory.
+        property("sonar.kotlin.gradleProjectRoot", layout.projectDirectory.dir("gradle").asFile.absolutePath)
         property("sonar.issue.ignore.multicriteria", "s6474")
         property("sonar.issue.ignore.multicriteria.s6474.ruleKey", "kotlin:S6474")
         property("sonar.issue.ignore.multicriteria.s6474.resourceKey", "**/*")
