@@ -18,3 +18,10 @@ updates:
     interval: daily
     time: "04:00"
   open-pull-requests-limit: 5
+  ignore:
+    # Stay on Java LTS: skip non-LTS Temurin majors (26-28, 30-32).
+    # Patch/minor updates of 25 and the next LTS (29, then 33) still come through.
+    - dependency-name: "eclipse-temurin"
+      versions:
+        - ">= 26, < 29"
+        - ">= 30, < 33"
