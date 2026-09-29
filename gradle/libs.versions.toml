@@ -7,7 +7,7 @@ sonarqube = "7.5.0.8588"
 ktlint = "14.2.0"
 
 # Aligned with the Spring Boot 4.1.1 BOM unless noted
-slf4j = "2.0.19"
+slf4j = "2.0.20"
 junit = "6.1.3"
 jackson = "3.2.3"
 jacoco = "0.8.15"
