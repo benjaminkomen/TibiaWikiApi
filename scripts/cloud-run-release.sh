@@ -26,6 +26,8 @@
 #                          (Cloud Run revisions often omit status.url).
 #   READY_TIMEOUT_SECONDS  Wait for Ready (default 420; probe is 36×10s).
 #   READY_POLL_SECONDS     Poll interval (default 10).
+#   RATE_LIMIT_ENABLED     Per-IP /api rate limit on the deployed revision
+#                          (default true). Set false to deploy with it off.
 #
 # Ready wait uses gcloud --format=json + python3 (scripts/lib/cloud-run-ready.sh),
 # not conditions[?type=Ready] projections (empty in Cloud Build; issue #477).
@@ -42,6 +44,7 @@ REGION="${REGION:-europe-west1}"
 SERVICE="${SERVICE:-tibiawikiapi}"
 READY_TIMEOUT_SECONDS="${READY_TIMEOUT_SECONDS:-420}"
 READY_POLL_SECONDS="${READY_POLL_SECONDS:-10}"
+RATE_LIMIT_ENABLED="${RATE_LIMIT_ENABLED:-true}"
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
@@ -67,7 +70,14 @@ if [[ -z "${IMAGE:-}" ]]; then
 fi
 
 # Must stay aligned with cloudbuild.yaml / docker/README.md probe table.
-UPDATE_ENV_VARS="LOGGING_JSON=true,WIKI_WRITE_ENABLED=false,RATE_LIMIT_ENABLED=false"
+case "$RATE_LIMIT_ENABLED" in
+  true|false) ;;
+  *)
+    echo "ERROR: RATE_LIMIT_ENABLED must be true or false (got '${RATE_LIMIT_ENABLED}')." >&2
+    exit 1
+    ;;
+esac
+UPDATE_ENV_VARS="LOGGING_JSON=true,WIKI_WRITE_ENABLED=false,RATE_LIMIT_ENABLED=${RATE_LIMIT_ENABLED}"
 STARTUP_PROBE="httpGet.path=/actuator/health/readiness,timeoutSeconds=4,periodSeconds=10,failureThreshold=36"
 LIVENESS_PROBE="httpGet.path=/actuator/health/liveness,timeoutSeconds=4,periodSeconds=30,failureThreshold=3"
 

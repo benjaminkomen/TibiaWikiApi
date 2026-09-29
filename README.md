@@ -100,7 +100,9 @@ keyed by client IP (IPv4 full address, IPv6 `/64`). Defaults: burst 20, refill
 0.5/s (~30/min). Rejected calls return HTTP **429** with `Retry-After`,
 `X-RateLimit-*` headers, and JSON `{"error":"rate_limited",...}`.
 
-Shipped **disabled**. After a revision is Ready on Cloud Run:
+Off by default in the app; enabled on Cloud Run by
+`scripts/cloud-run-release.sh` (`RATE_LIMIT_ENABLED=true`, overridable). Manual
+toggle on the live service:
 
 ```bash
 gcloud run services update tibiawikiapi \
