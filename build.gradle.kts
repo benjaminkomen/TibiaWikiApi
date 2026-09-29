@@ -81,9 +81,11 @@ sonar {
         if (System.getenv("GITHUB_ACTIONS") == "true") {
             property("sonar.qualitygate.wait", "true")
         }
-        // kotlin:S6474: checksums live in gradle/verification-metadata.xml.
-        // After a dependency bump, refresh with:
-        // ./gradlew --write-verification-metadata sha256 --refresh-dependencies ktlintCheck jacocoTestReport bootJar
+        // Gradle dependency verification is intentionally not used (it blocked
+        // every Dependabot bump), so ignore kotlin:S6474 across the project.
+        property("sonar.issue.ignore.multicriteria", "s6474")
+        property("sonar.issue.ignore.multicriteria.s6474.ruleKey", "kotlin:S6474")
+        property("sonar.issue.ignore.multicriteria.s6474.resourceKey", "**/*")
     }
 }
 
