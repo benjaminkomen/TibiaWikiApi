@@ -118,6 +118,13 @@ the user explicitly asks. Implementation:
 `RateLimitFilter` + `ClientIpKeyResolver` (IPv6 `/64`). Docs: README and
 `docker/README.md`.
 
+## Dependabot
+
+`.github/dependabot.yml` ignores non-LTS `eclipse-temurin` majors (26–28, 30–32),
+so the runtime image stays on Java LTS (25 now; 29 is the next LTS). Moving to a
+new LTS is a deliberate change: Docker images, `java.toolchain`, Kotlin
+`jvmTarget`, and `setup-java` `java-version` all have to change together.
+
 ## PR / verify
 
 Before considering work done:
