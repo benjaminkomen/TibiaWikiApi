@@ -131,11 +131,12 @@ Fail-closed Ready + docs/health smoke on Cloud Build is [#446](https://github.co
 
 ## Rate limiting
 
-App middleware (`RateLimitFilter`) is **off** by default. Prod deploy sets
-`RATE_LIMIT_ENABLED=false` explicitly via `scripts/cloud-run-release.sh`.
+App middleware (`RateLimitFilter`) is off by default in the app
+(`rate-limit.enabled=${RATE_LIMIT_ENABLED:false}`), but prod deploys set
+`RATE_LIMIT_ENABLED=true` via `scripts/cloud-run-release.sh`. To deploy with it
+off, run the script with `RATE_LIMIT_ENABLED=false`.
 
-Enable after the revision is Ready (do not flip in the same first deploy that
-introduces the code unless you intend to):
+Manual toggle on the live service (the next deploy re-applies the script value):
 
 ```bash
 gcloud run services update tibiawikiapi \

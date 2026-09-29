@@ -111,8 +111,10 @@ Merge-to-prod is `cloudbuild.yaml` (not PR CI): tag `$COMMIT_SHA` and `:latest`,
 
 ## Rate limiting
 
-`RATE_LIMIT_ENABLED` defaults false. Do **not** enable on Cloud Run or change
-prod env for rate limits unless the user explicitly asks. Implementation:
+`RATE_LIMIT_ENABLED` defaults false in the app (local/CI), and
+`scripts/cloud-run-release.sh` deploys with `RATE_LIMIT_ENABLED=true` (approved
+2026-09-29). Do **not** change that default or other prod rate-limit env unless
+the user explicitly asks. Implementation:
 `RateLimitFilter` + `ClientIpKeyResolver` (IPv6 `/64`). Docs: README and
 `docker/README.md`.
 

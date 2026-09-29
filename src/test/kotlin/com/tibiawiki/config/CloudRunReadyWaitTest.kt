@@ -33,6 +33,14 @@ class CloudRunReadyWaitTest {
     }
 
     @Test
+    fun releaseScriptDeploysWithRateLimitEnabledByDefault() {
+        val script = Files.readString(repoFile("scripts", "cloud-run-release.sh"))
+        assertThat(script, containsString("RATE_LIMIT_ENABLED=\"${'$'}{RATE_LIMIT_ENABLED:-true}\""))
+        assertThat(script, containsString("RATE_LIMIT_ENABLED=${'$'}{RATE_LIMIT_ENABLED}\""))
+        assertThat(script, not(containsString("RATE_LIMIT_ENABLED=false\"")))
+    }
+
+    @Test
     fun readyParseHelperSelfTestPasses() {
         val helper = repoFile("scripts", "lib", "cloud-run-ready.sh")
         val process = ProcessBuilder("bash", helper.toString(), "self-test")
