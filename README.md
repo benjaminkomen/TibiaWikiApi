@@ -119,6 +119,10 @@ The client IP is the rightmost `X-Forwarded-For` entry, which Cloud Run's front
 end appends. Entries a client sends itself (and a client `Forwarded` header) are
 ignored, so they cannot select a fresh bucket. Behind more trusted proxies, set
 `RATE_LIMIT_FORWARDED_FOR_TRUSTED_HOPS` (default 1; 0 uses the socket address).
+Requests with no client address (Cloud Run reports `0.0.0.0` for Google-internal
+traffic) share one bucket scaled by `RATE_LIMIT_UNATTRIBUTED_MULTIPLIER` (default 5).
+Deploys cap Cloud Run at `MAX_INSTANCES` (default 3), which bounds the per-instance
+multiplier.
 
 ## Query parameters
 For all resources the query parameter `?expand=true` can be appended to get a full list of JSON objects

@@ -28,6 +28,9 @@
 #   READY_POLL_SECONDS     Poll interval (default 10).
 #   RATE_LIMIT_ENABLED     Per-IP /api rate limit on the deployed revision
 #                          (default true). Set false to deploy with it off.
+#   MAX_INSTANCES          Cloud Run max instances (default 3). Rate-limit
+#                          buckets are per instance, so this caps the effective
+#                          per-client ceiling at about MAX_INSTANCES x the limit.
 #
 # Ready wait uses gcloud --format=json + python3 (scripts/lib/cloud-run-ready.sh),
 # not conditions[?type=Ready] projections (empty in Cloud Build; issue #477).
@@ -45,6 +48,7 @@ SERVICE="${SERVICE:-tibiawikiapi}"
 READY_TIMEOUT_SECONDS="${READY_TIMEOUT_SECONDS:-420}"
 READY_POLL_SECONDS="${READY_POLL_SECONDS:-10}"
 RATE_LIMIT_ENABLED="${RATE_LIMIT_ENABLED:-true}"
+MAX_INSTANCES="${MAX_INSTANCES:-3}"
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
@@ -77,6 +81,10 @@ case "$RATE_LIMIT_ENABLED" in
     exit 1
     ;;
 esac
+if ! [[ "$MAX_INSTANCES" =~ ^[1-9][0-9]*$ ]]; then
+  echo "ERROR: MAX_INSTANCES must be a positive integer (got '${MAX_INSTANCES}')." >&2
+  exit 1
+fi
 UPDATE_ENV_VARS="LOGGING_JSON=true,WIKI_WRITE_ENABLED=false,RATE_LIMIT_ENABLED=${RATE_LIMIT_ENABLED}"
 STARTUP_PROBE="httpGet.path=/actuator/health/readiness,timeoutSeconds=4,periodSeconds=10,failureThreshold=36"
 LIVENESS_PROBE="httpGet.path=/actuator/health/liveness,timeoutSeconds=4,periodSeconds=30,failureThreshold=3"
@@ -176,6 +184,7 @@ if ! gcloud run deploy "$SERVICE" \
   --platform managed \
   --region "$REGION" \
   --memory 1Gi \
+  --max-instances "$MAX_INSTANCES" \
   --project "$PROJECT" \
   --update-env-vars "$UPDATE_ENV_VARS" \
   --startup-probe="$STARTUP_PROBE" \

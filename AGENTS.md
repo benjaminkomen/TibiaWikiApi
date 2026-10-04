@@ -118,7 +118,9 @@ the user explicitly asks. Implementation:
 `RateLimitFilter` + `ClientIpKeyResolver` (IPv6 `/64`). The key is the
 rightmost `X-Forwarded-For` entry from the unwrapped request, not
 `request.remoteAddr` (Spring's `ForwardedHeaderFilter` uses the leftmost,
-client-supplied entry; #502). Docs: README and
+client-supplied entry; #502). A `0.0.0.0` trusted hop maps to one shared,
+scaled `unattributed` bucket. `MAX_INSTANCES` (default 3) in the release
+script caps the per-instance multiplier. Docs: README and
 `docker/README.md`.
 
 ## Dependabot

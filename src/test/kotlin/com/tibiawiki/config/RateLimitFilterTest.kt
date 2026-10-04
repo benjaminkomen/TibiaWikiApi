@@ -208,6 +208,33 @@ class RateLimitFilterTest {
         assertThat(statuses, `is`(listOf(200, HttpStatus.TOO_MANY_REQUESTS.value())))
     }
 
+    @Test
+    fun unattributedTrustedHopSharesOneBucketWhateverTheClientSends() {
+        val properties = RateLimitProperties().apply {
+            enabled = true
+            capacity = 1.0
+            refillPerSecond = 0.0
+            unattributedMultiplier = 2.0
+        }
+        val filter = RateLimitFilter(properties, ClientIpKeyResolver(), RateLimitService(properties))
+        val chain = mock(FilterChain::class.java)
+
+        fun statusFor(forwardedFor: String): Int {
+            val request = MockHttpServletRequest("GET", "/api/creatures")
+            request.remoteAddr = "169.254.1.1"
+            request.addHeader("X-Forwarded-For", forwardedFor)
+            val response = MockHttpServletResponse()
+            ForwardedHeaderFilter().doFilter(request, response) { req, res -> filter.doFilter(req, res, chain) }
+            return response.status
+        }
+
+        val unattributed = (1..3).map { i -> statusFor("192.0.2.$i, 0.0.0.0") }
+        assertThat(unattributed, `is`(listOf(200, 200, HttpStatus.TOO_MANY_REQUESTS.value())))
+
+        val normalClient = listOf(statusFor("192.0.2.50, 203.0.113.60"), statusFor("192.0.2.51, 203.0.113.60"))
+        assertThat(normalClient, `is`(listOf(200, HttpStatus.TOO_MANY_REQUESTS.value())))
+    }
+
     private fun filter(enabled: Boolean, capacity: Double, refill: Double): RateLimitFilter {
         val properties = RateLimitProperties().apply {
             this.enabled = enabled
