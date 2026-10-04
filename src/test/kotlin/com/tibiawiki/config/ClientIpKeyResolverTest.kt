@@ -98,4 +98,19 @@ class ClientIpKeyResolverTest {
         assertThat(resolver.clientAddress("203.0.113.5", listOf("198.51.100.20"), 0), `is`("203.0.113.5"))
         assertThat(resolver.clientAddress(null, emptyList(), 1), nullValue())
     }
+
+    @Test
+    fun unspecifiedAddressesBecomeUnattributed() {
+        listOf("0.0.0.0", "::", "0:0:0:0:0:0:0:0", "::ffff:0.0.0.0", "[::]").forEach { address ->
+            assertThat(address, resolver.resolveKey(address), `is`(ClientIpKeyResolver.UNATTRIBUTED_KEY))
+        }
+    }
+
+    @Test
+    fun unattributedTrustedHopIgnoresClientSuppliedEntries() {
+        val first = resolver.clientAddress("169.254.1.1", listOf("192.0.2.1, 0.0.0.0"), 1)
+        val second = resolver.clientAddress("169.254.1.1", listOf("192.0.2.2, 0.0.0.0"), 1)
+        assertThat(resolver.resolveKey(first), `is`(ClientIpKeyResolver.UNATTRIBUTED_KEY))
+        assertThat(resolver.resolveKey(second), `is`(ClientIpKeyResolver.UNATTRIBUTED_KEY))
+    }
 }

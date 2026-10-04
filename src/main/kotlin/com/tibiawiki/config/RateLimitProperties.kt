@@ -24,6 +24,13 @@ class RateLimitProperties {
      */
     var forwardedForTrustedHops: Int = DEFAULT_FORWARDED_FOR_TRUSTED_HOPS
 
+    /**
+     * Scale factor for the shared [ClientIpKeyResolver.UNATTRIBUTED_KEY] buckets
+     * (requests with no per-client address). Applies to capacity and refill of
+     * both the primary and the expand bucket. Normal per-client limits are unchanged.
+     */
+    var unattributedMultiplier: Double = DEFAULT_UNATTRIBUTED_MULTIPLIER
+
     fun sustainedLimitPerMinute(): Long {
         return round(refillPerSecond * SECONDS_PER_MINUTE).toLong().coerceAtLeast(1L)
     }
@@ -40,6 +47,7 @@ class RateLimitProperties {
         const val DEFAULT_MAX_KEYS = 10_000L
         const val DEFAULT_KEY_TTL_MINUTES = 15L
         const val DEFAULT_FORWARDED_FOR_TRUSTED_HOPS = 1
+        const val DEFAULT_UNATTRIBUTED_MULTIPLIER = 5.0
         private const val SECONDS_PER_MINUTE = 60.0
     }
 }

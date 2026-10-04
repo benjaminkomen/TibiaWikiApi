@@ -45,9 +45,11 @@ class ClientIpKeyResolver {
         val trimmed = remoteAddr?.trim()?.takeIf { it.isNotEmpty() } ?: return UNKNOWN_KEY
         val literal = trimmed.removePrefix("[").removeSuffix("]").substringBefore('%')
         return try {
-            when (val address = InetAddresses.forString(literal)) {
-                is Inet4Address -> address.hostAddress
-                is Inet6Address -> keyForIpv6(address)
+            val address = InetAddresses.forString(literal)
+            when {
+                address.isAnyLocalAddress -> UNATTRIBUTED_KEY
+                address is Inet4Address -> address.hostAddress
+                address is Inet6Address -> keyForIpv6(address)
                 else -> UNKNOWN_KEY
             }
         } catch (_: Exception) {
@@ -89,6 +91,14 @@ class ClientIpKeyResolver {
 
     companion object {
         const val UNKNOWN_KEY = "unknown"
+
+        /**
+         * Key for requests whose trusted hop is the unspecified address (`0.0.0.0`
+         * or `::`). Cloud Run reports this when a request reaches it over Google's
+         * internal network, so there is no per-client address to key on. Entries
+         * to its left are client-supplied and are deliberately not used.
+         */
+        const val UNATTRIBUTED_KEY = "unattributed"
         private const val IPV6_LENGTH = 16
         private const val IPV6_PREFIX_BYTES = 8
     }

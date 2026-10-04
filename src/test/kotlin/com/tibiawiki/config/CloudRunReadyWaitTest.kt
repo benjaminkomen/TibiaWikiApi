@@ -41,6 +41,14 @@ class CloudRunReadyWaitTest {
     }
 
     @Test
+    fun releaseScriptCapsMaxInstancesByDefault() {
+        val script = Files.readString(repoFile("scripts", "cloud-run-release.sh"))
+        assertThat(script, containsString("MAX_INSTANCES=\"${'$'}{MAX_INSTANCES:-3}\""))
+        assertThat(script, containsString("--max-instances \"${'$'}MAX_INSTANCES\""))
+        assertThat(script, not(containsString("--max-instances 1000")))
+    }
+
+    @Test
     fun readyParseHelperSelfTestPasses() {
         val helper = repoFile("scripts", "lib", "cloud-run-ready.sh")
         val process = ProcessBuilder("bash", helper.toString(), "self-test")

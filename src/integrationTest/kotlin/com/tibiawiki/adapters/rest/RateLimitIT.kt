@@ -38,7 +38,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
         "rate-limit.capacity=2",
         "rate-limit.refill-per-second=0",
         "rate-limit.expand-capacity=2",
-        "rate-limit.expand-refill-per-second=0"
+        "rate-limit.expand-refill-per-second=0",
+        "rate-limit.unattributed-multiplier=2"
     ]
 )
 @ActiveProfiles("fixtures")
@@ -114,6 +115,18 @@ class RateLimitIT(
         ).map { address -> getWithHeaders("X-Forwarded-For" to address).statusCode }
 
         assertThat(statuses, `is`(listOf(HttpStatus.OK, HttpStatus.OK, HttpStatus.TOO_MANY_REQUESTS)))
+    }
+
+    @Test
+    fun unattributedTrustedHopUsesOneLargerSharedBucket() {
+        val statuses = (1..5).map { i ->
+            getWithHeaders("X-Forwarded-For" to "192.0.2.${40 + i}, 0.0.0.0").statusCode
+        }
+
+        assertThat(
+            statuses,
+            `is`(listOf(HttpStatus.OK, HttpStatus.OK, HttpStatus.OK, HttpStatus.OK, HttpStatus.TOO_MANY_REQUESTS))
+        )
     }
 
     private fun getWithHeaders(vararg headers: Pair<String, String>): ResponseEntity<String> {
