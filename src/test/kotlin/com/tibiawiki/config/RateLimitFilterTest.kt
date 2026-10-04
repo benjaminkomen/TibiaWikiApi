@@ -153,9 +153,9 @@ class RateLimitFilterTest {
         val chain = mock(FilterChain::class.java)
 
         val statuses = listOf(
-            "2804:7f0:84a2:57a8:17b:399d:f0d8:4db9",
-            "2804:07f0:84a2:57a8:a07e:5ce9:46db:233c",
-            "2804:7f0:84a2:57a8::1"
+            "2001:db8:abcd:12:1111:2222:3333:4444",
+            "2001:0db8:abcd:0012:aaaa:bbbb:cccc:dddd",
+            "2001:db8:abcd:12::1"
         ).map { address ->
             val request = MockHttpServletRequest("GET", "/api/creatures")
             request.remoteAddr = address
@@ -176,7 +176,7 @@ class RateLimitFilterTest {
             val request = MockHttpServletRequest("GET", "/api/creatures")
             request.remoteAddr = "169.254.1.1"
             request.addHeader("Forwarded", "for=192.0.2.${100 + i}")
-            request.addHeader("X-Forwarded-For", "192.0.2.$i, 2804:7f0:84a2:57a8::$i")
+            request.addHeader("X-Forwarded-For", "192.0.2.$i, 2001:db8:abcd:12::$i")
             val response = MockHttpServletResponse()
             ForwardedHeaderFilter().doFilter(request, response) { req, res -> filter.doFilter(req, res, chain) }
             response.status

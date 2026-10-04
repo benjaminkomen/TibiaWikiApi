@@ -51,14 +51,14 @@ class ClientIpKeyResolverTest {
     @Test
     fun compressedAndExpandedFormsInOneSlash64ShareKey() {
         val keys = listOf(
-            "2804:7f0:84a2:57a8:17b:399d:f0d8:4db9",
-            "2804:07f0:84a2:57a8:a07e:5ce9:46db:233c",
-            "2804:7f0:84a2:57a8::1",
-            "2804:07F0:84A2:57A8:0000:0000:0000:0001",
-            "[2804:7f0:84a2:57a8::2]"
+            "2001:db8:abcd:12:1111:2222:3333:4444",
+            "2001:0db8:abcd:0012:aaaa:bbbb:cccc:dddd",
+            "2001:db8:abcd:12::1",
+            "2001:0DB8:ABCD:0012:0000:0000:0000:0001",
+            "[2001:db8:abcd:12::2]"
         ).map { resolver.resolveKey(it) }
 
-        assertThat(keys.toSet(), `is`(setOf("2804:7f0:84a2:57a8:0:0:0:0/64")))
+        assertThat(keys.toSet(), `is`(setOf("2001:db8:abcd:12:0:0:0:0/64")))
     }
 
     @Test

@@ -108,9 +108,9 @@ class RateLimitIT(
     @Test
     fun ipv6AddressesInOneSlash64ShareBucketThroughForwardedFor() {
         val statuses = listOf(
-            "2804:7f0:84a2:57a8:17b:399d:f0d8:4db9",
-            "2804:07f0:84a2:57a8:a07e:5ce9:46db:233c",
-            "2804:7f0:84a2:57a8::1"
+            "2001:db8:abcd:12:1111:2222:3333:4444",
+            "2001:0db8:abcd:0012:aaaa:bbbb:cccc:dddd",
+            "2001:db8:abcd:12::1"
         ).map { address -> getWithHeaders("X-Forwarded-For" to address).statusCode }
 
         assertThat(statuses, `is`(listOf(HttpStatus.OK, HttpStatus.OK, HttpStatus.TOO_MANY_REQUESTS)))

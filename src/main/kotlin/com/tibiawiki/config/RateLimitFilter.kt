@@ -25,9 +25,8 @@ import java.time.Instant
  * The client IP is the rightmost trusted `X-Forwarded-For` entry (see
  * [ClientIpKeyResolver.clientAddress]), read from the original container request.
  * Spring's `ForwardedHeaderFilter` (`server.forward-headers-strategy=framework`)
- * takes the leftmost, client-supplied entry for [HttpServletRequest.getRemoteAddr]
- * and also trusts a client `Forwarded` header, so a client could get a fresh
- * bucket on every request (#502). This filter does not use that value.
+ * derives [HttpServletRequest.getRemoteAddr] from client-supplied forwarding
+ * headers, so this filter does not use that value (#502).
  *
  * Actuator, springdoc, and Swagger UI live outside `/api/` so they are not limited.
  */
