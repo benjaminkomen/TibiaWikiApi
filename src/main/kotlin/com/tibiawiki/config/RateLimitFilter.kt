@@ -1,6 +1,8 @@
 package com.tibiawiki.config
 
 import jakarta.servlet.FilterChain
+import jakarta.servlet.ServletRequest
+import jakarta.servlet.ServletRequestWrapper
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.slf4j.LoggerFactory
@@ -20,9 +22,11 @@ import java.time.Instant
  * body directly (hot path) so it stays aligned with [ApiExceptionHandler]-style
  * `{ "error": ... }` JSON without going through advice.
  *
- * Ordered after [SecurityHeadersFilter] and after Spring's forwarded-header
- * processing so [HttpServletRequest.getRemoteAddr] is the Cloud Run client IP
- * when `server.forward-headers-strategy=framework`.
+ * The client IP is the rightmost trusted `X-Forwarded-For` entry (see
+ * [ClientIpKeyResolver.clientAddress]), read from the original container request.
+ * Spring's `ForwardedHeaderFilter` (`server.forward-headers-strategy=framework`)
+ * derives [HttpServletRequest.getRemoteAddr] from client-supplied forwarding
+ * headers, so this filter does not use that value (#502).
  *
  * Actuator, springdoc, and Swagger UI live outside `/api/` so they are not limited.
  */
@@ -54,7 +58,7 @@ class RateLimitFilter(
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        val clientKey = ipKeyResolver.resolveKey(request.remoteAddr)
+        val clientKey = resolveClientKey(request)
         val expand = isExpandRequest(request)
         val verdict = rateLimitService.tryConsume(clientKey, expand)
         setRateLimitHeaders(response, verdict)
@@ -66,6 +70,26 @@ class RateLimitFilter(
         }
 
         filterChain.doFilter(request, response)
+    }
+
+    private fun resolveClientKey(request: HttpServletRequest): String {
+        val original = originalRequest(request)
+        val forwardedFor = original.getHeaders(HEADER_X_FORWARDED_FOR)?.toList().orEmpty()
+        val clientAddress = ipKeyResolver.clientAddress(
+            original.remoteAddr,
+            forwardedFor,
+            properties.forwardedForTrustedHops
+        )
+        return ipKeyResolver.resolveKey(clientAddress)
+    }
+
+    /** Unwraps to the container request, which still has the raw forwarded headers and socket address. */
+    private fun originalRequest(request: HttpServletRequest): HttpServletRequest {
+        var current: ServletRequest = request
+        while (current is ServletRequestWrapper) {
+            current = current.request
+        }
+        return current as? HttpServletRequest ?: request
     }
 
     private fun isExpandRequest(request: HttpServletRequest): Boolean {
@@ -122,6 +146,7 @@ class RateLimitFilter(
         const val HEADER_LIMIT = "X-RateLimit-Limit"
         const val HEADER_REMAINING = "X-RateLimit-Remaining"
         const val HEADER_RESET = "X-RateLimit-Reset"
+        const val HEADER_X_FORWARDED_FOR = "X-Forwarded-For"
 
         private const val USER_AGENT_MAX_LEN = 80
         private val LOG = LoggerFactory.getLogger(RateLimitFilter::class.java)

@@ -115,7 +115,10 @@ Merge-to-prod is `cloudbuild.yaml` (not PR CI): tag `$COMMIT_SHA` and `:latest`,
 `scripts/cloud-run-release.sh` deploys with `RATE_LIMIT_ENABLED=true` (approved
 2026-09-29). Do **not** change that default or other prod rate-limit env unless
 the user explicitly asks. Implementation:
-`RateLimitFilter` + `ClientIpKeyResolver` (IPv6 `/64`). Docs: README and
+`RateLimitFilter` + `ClientIpKeyResolver` (IPv6 `/64`). The key is the
+rightmost `X-Forwarded-For` entry from the unwrapped request, not
+`request.remoteAddr` (Spring's `ForwardedHeaderFilter` uses the leftmost,
+client-supplied entry; #502). Docs: README and
 `docker/README.md`.
 
 ## Dependabot

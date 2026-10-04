@@ -153,6 +153,14 @@ Optional tunables: `RATE_LIMIT_CAPACITY` (default 20),
 Fast rollback: `--update-env-vars=RATE_LIMIT_ENABLED=false`. Limits are
 in-memory per instance; with N replicas the effective ceiling is about N×.
 
+Client key: the rightmost `X-Forwarded-For` entry (Cloud Run's front end
+appends the real client IP; IPv6 collapses to `/64`). Client-supplied entries to
+its left are ignored (#502). `RATE_LIMIT_FORWARDED_FOR_TRUSTED_HOPS` (default 1)
+is the number of trusted entries on the right. If you put an external HTTPS
+load balancer in front of Cloud Run, it appends its own IP after the client IP:
+set it to 2. A sign of a wrong value: `event=rate_limited` logs where most
+`clientKey` values are one Google IP.
+
 ## Cloud Run knobs (measured follow-up)
 
 Do **not** change these without expand-cache / cold-start evidence. Memory is

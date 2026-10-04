@@ -1,5 +1,6 @@
 package com.tibiawiki.config
 
+import com.google.common.net.InetAddresses
 import org.springframework.stereotype.Component
 import java.net.Inet4Address
 import java.net.Inet6Address
@@ -10,15 +11,41 @@ import java.util.Locale
  * Builds a rate-limit key from a client address. IPv4 uses the full address;
  * IPv6 collapses to the `/64` prefix so privacy-address rotation within one
  * household/ISP assignment shares one bucket.
+ *
+ * Only IP literals are accepted. Hostnames become [UNKNOWN_KEY] and are never
+ * resolved through DNS.
  */
 @Component
 class ClientIpKeyResolver {
 
+    /**
+     * Picks the client address from raw `X-Forwarded-For` values. Proxies append
+     * to the right, so only the rightmost [trustedHops] entries come from trusted
+     * proxies; entries left of them are client-supplied and can be spoofed (#502).
+     * Cloud Run's front end appends one entry, so the default is `1`.
+     *
+     * Falls back to [socketRemoteAddr] when there is no header or [trustedHops] is
+     * `0`, and to the leftmost entry when the header has fewer entries than hops.
+     */
+    fun clientAddress(socketRemoteAddr: String?, forwardedFor: List<String>, trustedHops: Int): String? {
+        if (trustedHops <= 0) {
+            return socketRemoteAddr
+        }
+        val entries = forwardedFor
+            .flatMap { it.split(',') }
+            .map { it.trim() }
+            .filter { it.isNotEmpty() }
+        if (entries.isEmpty()) {
+            return socketRemoteAddr
+        }
+        return entries[(entries.size - trustedHops).coerceAtLeast(0)]
+    }
+
     fun resolveKey(remoteAddr: String?): String {
         val trimmed = remoteAddr?.trim()?.takeIf { it.isNotEmpty() } ?: return UNKNOWN_KEY
-        val withoutZone = trimmed.substringBefore('%')
+        val literal = trimmed.removePrefix("[").removeSuffix("]").substringBefore('%')
         return try {
-            when (val address = InetAddress.getByName(withoutZone)) {
+            when (val address = InetAddresses.forString(literal)) {
                 is Inet4Address -> address.hostAddress
                 is Inet6Address -> keyForIpv6(address)
                 else -> UNKNOWN_KEY
