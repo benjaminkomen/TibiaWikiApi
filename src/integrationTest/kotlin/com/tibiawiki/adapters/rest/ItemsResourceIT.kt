@@ -132,6 +132,18 @@ class ItemsResourceIT {
     }
 
     @Test
+    fun givenGetItemsByName_whenDroppedByIsWikiLink_thenResponseIsOkWithEmptyDroppedBy() {
+        doReturn(INFOBOX_ITEM_DROPPEDBY_LINK_TEXT).`when`(articleRepository).getArticle("Sliver")
+
+        val result = restTemplate.getForEntity("/api/items/Sliver", String::class.java)
+        assertThat(result.statusCode, `is`(HttpStatus.OK))
+
+        val resultAsJSON = JSONObject(result.body)
+        assertThat(resultAsJSON.get("name"), `is`("Sliver"))
+        assertThat(resultAsJSON.get("droppedby").toString(), `is`("[]"))
+    }
+
+    @Test
     fun givenGetItemsByName_whenWrongRequest_thenResponseIsNotFound() {
         doReturn(null).`when`(articleRepository).getArticle("Foobar")
 
@@ -193,6 +205,17 @@ class ItemsResourceIT {
             | buyfrom       = Baltim, Brengus, Cedrik,
             | sellto        = Baltim, Brengus, Cedrik, Esrik,
             | notes         = If you have one of these
+            }}
+            """.trimIndent()
+        private val INFOBOX_ITEM_DROPPEDBY_LINK_TEXT =
+            """
+            {{Infobox Object|List={{{1|}}}|GetValue={{{GetValue|}}}
+            | name          = Sliver
+            | article       = a
+            | actualname    = sliver
+            | plural        = slivers
+            | objectclass   = Creature Products
+            | droppedby     = [[Fiendish and Influenced Creatures#Fiendish_Creatures|Fiendish creatures]]
             }}
             """.trimIndent()
     }

@@ -152,6 +152,27 @@ class JsonFactoryTest {
     }
 
     @Test
+    fun testEnhanceJsonObject_DroppedBy_WikiLinkInsteadOfTemplate() {
+        val inputJsonObject = JSONObject(
+            mapOf(
+                "name" to "Sliver",
+                "templateType" to "Object",
+                "droppedby" to "[[Fiendish and Influenced Creatures#Fiendish_Creatures|Fiendish creatures]]"
+            )
+        )
+        val result = target.enhanceJsonObject(inputJsonObject)
+        assertThat((result.get("droppedby") as JSONArray).length(), `is`(0))
+    }
+
+    @Test
+    fun testEnhanceJsonObject_Succes_DroppedBy() {
+        val inputJsonObject = JSONObject(mapOf("name" to "Carlin Sword", "templateType" to "Object", "droppedby" to "{{Dropped By|Grorlam|Stone Golem}}"))
+        val result = target.enhanceJsonObject(inputJsonObject)
+        assertThat((result.get("droppedby") as JSONArray).get(0), `is`("Grorlam"))
+        assertThat((result.get("droppedby") as JSONArray).get(1), `is`("Stone Golem"))
+    }
+
+    @Test
     fun testEnhanceJsonObject_VocIncludingMonk() {
         val inputJsonObject = JSONObject(
             mapOf(
