@@ -1,4 +1,4 @@
-FROM gradle:9.7.1-jdk25 AS builder
+FROM gradle:9.8.0-jdk25 AS builder
 
 # Copy local code to the container image.
 WORKDIR /app
