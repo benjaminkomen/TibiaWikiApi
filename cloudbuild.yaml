@@ -18,6 +18,7 @@
 # Unset Cloud Run knobs — do not guess; measure then set (issue #449):
 #   cpu=1, concurrency=80, min-instances=0, timeout=300s, cpu-boost unset.
 # Memory stays 1Gi until expand-cache metrics justify a change (issue #399).
+# max-instances is set by scripts/cloud-run-release.sh (MAX_INSTANCES, default 3; #502).
 timeout: 2400s
 
 steps:

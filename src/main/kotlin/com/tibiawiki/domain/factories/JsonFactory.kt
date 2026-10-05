@@ -318,8 +318,9 @@ class JsonFactory {
         ) {
             return JSONArray()
         }
-        check(droppedbyValue.contains("{{Dropped By")) {
-            "droppedbyValue $droppedbyValue' from article '$articleName' does not contain Template:Dropped By"
+        if (!droppedbyValue.contains("{{Dropped By")) {
+            LOG.warn("droppedbyValue '{}' from article '{}' does not contain Template:Dropped By", droppedbyValue, articleName)
+            return JSONArray()
         }
         val creatures = TemplateUtils.removeStartAndEndOfTemplate(droppedbyValue)
         return if (!creatures.isNullOrEmpty()) {

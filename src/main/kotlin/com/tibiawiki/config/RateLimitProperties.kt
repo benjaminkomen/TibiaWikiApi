@@ -17,6 +17,20 @@ class RateLimitProperties {
     var maxKeys: Long = DEFAULT_MAX_KEYS
     var keyTtlMinutes: Long = DEFAULT_KEY_TTL_MINUTES
 
+    /**
+     * Number of rightmost `X-Forwarded-For` entries appended by trusted proxies.
+     * The client IP is the leftmost of these. `1` fits Cloud Run (its front end
+     * appends the client IP); `0` ignores the header and uses the socket address.
+     */
+    var forwardedForTrustedHops: Int = DEFAULT_FORWARDED_FOR_TRUSTED_HOPS
+
+    /**
+     * Scale factor for the shared [ClientIpKeyResolver.UNATTRIBUTED_KEY] buckets
+     * (requests with no per-client address). Applies to capacity and refill of
+     * both the primary and the expand bucket. Normal per-client limits are unchanged.
+     */
+    var unattributedMultiplier: Double = DEFAULT_UNATTRIBUTED_MULTIPLIER
+
     fun sustainedLimitPerMinute(): Long {
         return round(refillPerSecond * SECONDS_PER_MINUTE).toLong().coerceAtLeast(1L)
     }
@@ -32,6 +46,8 @@ class RateLimitProperties {
         const val DEFAULT_EXPAND_REFILL_PER_SECOND = 0.0833
         const val DEFAULT_MAX_KEYS = 10_000L
         const val DEFAULT_KEY_TTL_MINUTES = 15L
+        const val DEFAULT_FORWARDED_FOR_TRUSTED_HOPS = 1
+        const val DEFAULT_UNATTRIBUTED_MULTIPLIER = 5.0
         private const val SECONDS_PER_MINUTE = 60.0
     }
 }

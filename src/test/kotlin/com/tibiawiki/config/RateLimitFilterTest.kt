@@ -15,6 +15,7 @@ import org.mockito.Mockito.verify
 import org.springframework.http.HttpStatus
 import org.springframework.mock.web.MockHttpServletRequest
 import org.springframework.mock.web.MockHttpServletResponse
+import org.springframework.web.filter.ForwardedHeaderFilter
 
 class RateLimitFilterTest {
 
@@ -144,6 +145,94 @@ class RateLimitFilterTest {
 
         assertThat(secondResponse.status, `is`(HttpStatus.TOO_MANY_REQUESTS.value()))
         assertThat(secondResponse.getHeader(RateLimitFilter.HEADER_LIMIT), `is`("5"))
+    }
+
+    @Test
+    fun ipv6CompressedAndExpandedFormsShareTheSameBucket() {
+        val filter = filter(enabled = true, capacity = 2.0, refill = 0.0)
+        val chain = mock(FilterChain::class.java)
+
+        val statuses = listOf(
+            "2001:db8:abcd:12:1111:2222:3333:4444",
+            "2001:0db8:abcd:0012:aaaa:bbbb:cccc:dddd",
+            "2001:db8:abcd:12::1"
+        ).map { address ->
+            val request = MockHttpServletRequest("GET", "/api/creatures")
+            request.remoteAddr = address
+            val response = MockHttpServletResponse()
+            filter.doFilter(request, response, chain)
+            response.status
+        }
+
+        assertThat(statuses, `is`(listOf(200, 200, HttpStatus.TOO_MANY_REQUESTS.value())))
+    }
+
+    @Test
+    fun spoofedForwardedHeadersBehindSpringForwardedHeaderFilterShareTheClientBucket() {
+        val filter = filter(enabled = true, capacity = 2.0, refill = 0.0)
+        val chain = mock(FilterChain::class.java)
+
+        val statuses = (1..3).map { i ->
+            val request = MockHttpServletRequest("GET", "/api/creatures")
+            request.remoteAddr = "169.254.1.1"
+            request.addHeader("Forwarded", "for=192.0.2.${100 + i}")
+            request.addHeader("X-Forwarded-For", "192.0.2.$i, 2001:db8:abcd:12::$i")
+            val response = MockHttpServletResponse()
+            ForwardedHeaderFilter().doFilter(request, response) { req, res -> filter.doFilter(req, res, chain) }
+            response.status
+        }
+
+        assertThat(statuses, `is`(listOf(200, 200, HttpStatus.TOO_MANY_REQUESTS.value())))
+    }
+
+    @Test
+    fun zeroTrustedHopsKeysOnSocketAddress() {
+        val properties = RateLimitProperties().apply {
+            enabled = true
+            capacity = 1.0
+            refillPerSecond = 0.0
+            forwardedForTrustedHops = 0
+        }
+        val filter = RateLimitFilter(properties, ClientIpKeyResolver(), RateLimitService(properties))
+        val chain = mock(FilterChain::class.java)
+
+        val statuses = listOf("198.51.100.1", "198.51.100.2").map { forwardedFor ->
+            val request = MockHttpServletRequest("GET", "/api/creatures")
+            request.remoteAddr = "203.0.113.40"
+            request.addHeader("X-Forwarded-For", forwardedFor)
+            val response = MockHttpServletResponse()
+            filter.doFilter(request, response, chain)
+            response.status
+        }
+
+        assertThat(statuses, `is`(listOf(200, HttpStatus.TOO_MANY_REQUESTS.value())))
+    }
+
+    @Test
+    fun unattributedTrustedHopSharesOneBucketWhateverTheClientSends() {
+        val properties = RateLimitProperties().apply {
+            enabled = true
+            capacity = 1.0
+            refillPerSecond = 0.0
+            unattributedMultiplier = 2.0
+        }
+        val filter = RateLimitFilter(properties, ClientIpKeyResolver(), RateLimitService(properties))
+        val chain = mock(FilterChain::class.java)
+
+        fun statusFor(forwardedFor: String): Int {
+            val request = MockHttpServletRequest("GET", "/api/creatures")
+            request.remoteAddr = "169.254.1.1"
+            request.addHeader("X-Forwarded-For", forwardedFor)
+            val response = MockHttpServletResponse()
+            ForwardedHeaderFilter().doFilter(request, response) { req, res -> filter.doFilter(req, res, chain) }
+            return response.status
+        }
+
+        val unattributed = (1..3).map { i -> statusFor("192.0.2.$i, 0.0.0.0") }
+        assertThat(unattributed, `is`(listOf(200, 200, HttpStatus.TOO_MANY_REQUESTS.value())))
+
+        val normalClient = listOf(statusFor("192.0.2.50, 203.0.113.60"), statusFor("192.0.2.51, 203.0.113.60"))
+        assertThat(normalClient, `is`(listOf(200, HttpStatus.TOO_MANY_REQUESTS.value())))
     }
 
     private fun filter(enabled: Boolean, capacity: Double, refill: Double): RateLimitFilter {
