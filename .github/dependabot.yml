@@ -21,7 +21,15 @@ updates:
   ignore:
     # Stay on Java LTS: skip non-LTS Temurin majors (26-28, 30-32).
     # Patch/minor updates of 25 and the next LTS (29, then 33) still come through.
+    # One single-operator requirement per major: GitHub drops comma-joined
+    # ranges such as ">= 26, < 29" (not valid Bundler syntax), so they never
+    # reach Dependabot. "~> 27.0" means ">= 27.0, < 28" and matches every tag
+    # format (27_35-jre, 27.0.1_9-jre, 27-jre).
     - dependency-name: "eclipse-temurin"
       versions:
-        - ">= 26, < 29"
-        - ">= 30, < 33"
+        - "~> 26.0"
+        - "~> 27.0"
+        - "~> 28.0"
+        - "~> 30.0"
+        - "~> 31.0"
+        - "~> 32.0"
