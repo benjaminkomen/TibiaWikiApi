@@ -126,7 +126,10 @@ script caps the per-instance multiplier. Docs: README and
 ## Dependabot
 
 `.github/dependabot.yml` ignores non-LTS `eclipse-temurin` majors (26–28, 30–32),
-so the runtime image stays on Java LTS (25 now; 29 is the next LTS). Moving to a
+so the runtime image stays on Java LTS (25 now; 29 is the next LTS). Write each
+ignore as one single-operator requirement per major (`"~> 27.0"`). Comma-joined
+ranges like `">= 26, < 29"` are not valid Bundler syntax and are silently
+dropped before they reach Dependabot. `DependabotConfigTest` guards this. Moving to a
 new LTS is a deliberate change: Docker images, `java.toolchain`, Kotlin
 `jvmTarget`, and `setup-java` `java-version` all have to change together.
 
