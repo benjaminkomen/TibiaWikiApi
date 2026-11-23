@@ -12,7 +12,8 @@ import org.springframework.web.cors.DefaultCorsProcessor
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import org.springframework.web.filter.CorsFilter
 
-@Configuration
+// Kotlin constructor defaults cannot be CGLIB-enhanced (Spring Framework 7.1).
+@Configuration(proxyBeanMethods = false)
 class CORSResponseFilter(
     @param:Value("\${wiki.cors.allowed-origins:https://tibiawiki.dev,http://localhost:8080,http://127.0.0.1:8080}")
     private val allowedOrigins: String = "https://tibiawiki.dev,http://localhost:8080,http://127.0.0.1:8080"
